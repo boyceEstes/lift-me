@@ -68,6 +68,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B3151A69283A36E1006AE970 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B3711D79283953C00031F123 /* Exercise.swift */,
+				B3711D7A283953C00031F123 /* ExerciseRecord.swift */,
+				B3711D78283953C00031F123 /* SetRecord.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B3151A6A283A36F9006AE970 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				B3151A6B283A370E006AE970 /* Lcoal Models */,
+				B3711D68283951050031F123 /* ExerciseRepository.swift */,
+				B3711D6E283953A90031F123 /* ExerciseStore.swift */,
+				B3711D6F283953A90031F123 /* LocalExerciseRepository.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		B3151A6B283A370E006AE970 /* Lcoal Models */ = {
+			isa = PBXGroup;
+			children = (
+				B3711D72283953B10031F123 /* LocalExercise.swift */,
+				B3711D73283953B10031F123 /* LocalExerciseRecord.swift */,
+				B3711D74283953B10031F123 /* LocalSetRecord.swift */,
+			);
+			path = "Lcoal Models";
+			sourceTree = "<group>";
+		};
 		B3711D4228394CF40031F123 = {
 			isa = PBXGroup;
 			children = (
@@ -89,15 +120,8 @@
 		B3711D4E28394CF40031F123 /* ExerciseRepository */ = {
 			isa = PBXGroup;
 			children = (
-				B3711D68283951050031F123 /* ExerciseRepository.swift */,
-				B3711D6E283953A90031F123 /* ExerciseStore.swift */,
-				B3711D6F283953A90031F123 /* LocalExerciseRepository.swift */,
-				B3711D72283953B10031F123 /* LocalExercise.swift */,
-				B3711D73283953B10031F123 /* LocalExerciseRecord.swift */,
-				B3711D74283953B10031F123 /* LocalSetRecord.swift */,
-				B3711D79283953C00031F123 /* Exercise.swift */,
-				B3711D7A283953C00031F123 /* ExerciseRecord.swift */,
-				B3711D78283953C00031F123 /* SetRecord.swift */,
+				B3151A6A283A36F9006AE970 /* Cache */,
+				B3151A69283A36E1006AE970 /* Models */,
 				B3711D4F28394CF40031F123 /* ExerciseRepository.h */,
 				B3711D5028394CF40031F123 /* ExerciseRepository.docc */,
 			);
