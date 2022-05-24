@@ -1,0 +1,18 @@
+name: Exercise Repository CI 
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build and Test default scheme using latest macos version
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build and Run Default Scheme
+      run: xcodebuild clean build test -project ExerciseRepository.xcodeproj -scheme "ExerciseRepository"
