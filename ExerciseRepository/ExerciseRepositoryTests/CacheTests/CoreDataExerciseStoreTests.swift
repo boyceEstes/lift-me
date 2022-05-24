@@ -78,6 +78,25 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataExerciseStore_retrieveAllExercisesOnEmptyCacheTwice_deliversHasNoSideEffects() {
+        
+        let sut = makeSut()
+        
+        sut.retrieveAll { firstResult in
+            sut.retrieveAll { secondResult in
+                switch (firstResult, secondResult) {
+                case (let .success(firstExercises), let .success(secondExercises)):
+                    XCTAssertEqual(firstExercises, secondExercises)
+                    XCTAssertEqual(secondExercises, [])
+                    
+                default:
+                    XCTFail("Expected two retrieves to return empty, found first result \(firstResult) and second result \(secondResult) instead")
+                }
+            }
+        }
+    }
+    
+    
     private func makeSut() -> ExerciseStore {
         
         let sut = CoreDataExerciseStore()
