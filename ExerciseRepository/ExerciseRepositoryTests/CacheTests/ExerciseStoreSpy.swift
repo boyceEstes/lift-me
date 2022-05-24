@@ -5,7 +5,7 @@
 //  Created by Boyce Estes on 4/15/22.
 //
 
-import LiftMeExercises
+import ExerciseRepository
 
 
 class ExerciseStoreSpy: ExerciseStore {
@@ -242,5 +242,4 @@ class ExerciseStoreSpy: ExerciseStore {
         
         deleteSetRecordCompletions[index](nil)
     }
-
 }

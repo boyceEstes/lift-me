@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import LiftMeExercises
+import ExerciseRepository
 import XCTest
 
 

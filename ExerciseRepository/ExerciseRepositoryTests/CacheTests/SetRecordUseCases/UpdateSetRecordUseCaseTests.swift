@@ -1,57 +1,55 @@
 //
-//  DeleteSetRecordUseCaseTests.swift
+//  UpdateSetRecordUseCaseTests.swift
 //  
 //
-//  Created by Boyce Estes on 5/4/22.
+//  Created by Boyce Estes on 5/7/22.
 //
 
 import XCTest
-import LiftMeExercises
+import ExerciseRepository
 
-
-class DeleteSetRecordUseCaseTests: XCTestCase {
+class UpdateSetUURecordUseCaseTests: XCTestCase {
     
     func test_localExerciseRepository_onCreation_noSideEffects() {
         
         let (_, store) = makeSut()
-        
         XCTAssertEqual(store.receivedMessages, [])
     }
     
     
-    func test_localExerciseRepository_removeSetRecord_requestsToDeleteExercise() {
+    func test_localExerciseRepository_updateExercise_requestsUpdateExercise() {
         
         let (sut, store) = makeSut()
-        
         let setRecord = makeUniqueSetRecordTuple()
-        sut.remove(setRecord: setRecord.model) { _ in }
         
-        XCTAssertEqual(store.receivedMessages, [.delete(setRecord: setRecord.local)])
+        sut.update(setRecord: setRecord.model) { _ in }
+        
+        XCTAssertEqual(store.receivedMessages, [.update(setRecord: setRecord.local)])
     }
     
     
-    func test_localExerciseRepository_removeSetRecordWithError_deliversError() {
+    func test_localExerciseRepository_updateExerciseWithError_deliversError() {
         
         let (sut, store) = makeSut()
         let error = anyNSError()
 
         expect(sut: sut, toCompleteWith: error) {
-            store.completeDeleteSetRecord(with: error)
+            store.completeUpdateSetRecord(with: error)
         }
     }
     
     
-    func test_localExerciseRepository_removeSetRecordWithoutError_deliversNoError() {
+    func test_localExerciseRepository_updateExercise_deliversNoError() {
         
         let (sut, store) = makeSut()
 
         expect(sut: sut, toCompleteWith: nil) {
-            store.completeDeleteSetRecord()
+            store.completeUpdateSetRecord()
         }
     }
     
     
-    func test_localExerciseRepository_removeSetRecordWithErrorAfterSutWasDeallocated_doesNotDeliverError() {
+    func test_localExerciseRepository_updateSetRecordWithErrorAfterSutWasDeallocated_doesNotDeliverError() {
        
         let store = ExerciseStoreSpy()
         var sut: LocalExerciseRepository? = LocalExerciseRepository(exerciseStore: store)
@@ -60,18 +58,18 @@ class DeleteSetRecordUseCaseTests: XCTestCase {
         
         var receivedErrors = [Error?]()
         
-        sut?.remove(setRecord: setRecord.model) { error in
+        sut?.update(setRecord: setRecord.model) { error in
             receivedErrors.append(error)
         }
         sut = nil
         
-        store.completeDeleteSetRecord(with: error)
-        XCTAssertTrue(receivedErrors.isEmpty, "Expected no results, got \(receivedErrors) instead")
+        store.completeUpdateSetRecord(with: error)
+        XCTAssertTrue(receivedErrors.isEmpty)
     }
     
     
     // MARK: - Helpers
-    private func makeSut(file: StaticString = #file, line: UInt = #line) -> (sut: LocalExerciseRepository, store: ExerciseStoreSpy) {
+    private func makeSut(file: StaticString = #filePath, line: UInt = #line) -> (sut: LocalExerciseRepository, store: ExerciseStoreSpy) {
         
         let store = ExerciseStoreSpy()
         let sut = LocalExerciseRepository(exerciseStore: store)
@@ -84,10 +82,10 @@ class DeleteSetRecordUseCaseTests: XCTestCase {
     private func expect(sut: LocalExerciseRepository, toCompleteWith expectedError: NSError?, after action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         
         let setRecord = makeUniqueSetRecordTuple()
-        let exp = expectation(description: "Wait for remove set record completion")
-        var receivedError: Error?
+        let exp = expectation(description: "Wait for update to complete")
         
-        sut.remove(setRecord: setRecord.model) { error in
+        var receivedError: Error?
+        sut.update(setRecord: setRecord.model) { error in
             receivedError = error
             exp.fulfill()
         }
