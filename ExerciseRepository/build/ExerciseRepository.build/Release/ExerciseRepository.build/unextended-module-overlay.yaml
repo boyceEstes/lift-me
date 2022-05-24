@@ -1,0 +1,14 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/build/Release/ExerciseRepository.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/build/ExerciseRepository.build/Release/ExerciseRepository.build/unextended-module.modulemap",
+    }]
+  }]
+}

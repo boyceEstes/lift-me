@@ -1,0 +1,10 @@
+framework module ExerciseRepository {
+  umbrella header "ExerciseRepository.h"
+
+  export *
+  module * { export * }
+}
+
+module ExerciseRepository.__Swift {
+    exclude header "ExerciseRepository-Swift.h"
+}

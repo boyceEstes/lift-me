@@ -1,0 +1,42 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "54056ec3d25997327817fff9db8ac1a6f054ef7c91f69f76d6844abafcbea5d6"
+    }
+  ],
+  "containerPath" : "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository.xcodeproj",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "overrides" : {
+      "commandLine" : {
+        "table" : {
+
+        }
+      },
+      "synthesized" : {
+        "table" : {
+          "ACTION" : "build",
+          "COLOR_DIAGNOSTICS" : "YES",
+          "diagnostic_message_length" : "114",
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "shouldCollectMetrics" : false,
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : false,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

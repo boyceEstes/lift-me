@@ -1,0 +1,19 @@
+version: "Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)"
+options: "0f54eef78903d555cb5605ffd52c3ab2d34134ae6a85f01f5bf3a2476fd163f0"
+build_start_time: [1653374043, 196351051]
+build_end_time: [1653374046, 931537151]
+inputs:
+  ? "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository/Cache/ExerciseRepository.swift"
+  : [1652197065, 331462144]
+  "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository/Cache/ExerciseStore.swift": [1653152020, 330311775]
+  ? "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository/Cache/Lcoal Models/LocalExercise.swift"
+  : [1652194149, 929559946]
+  ? "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository/Cache/Lcoal Models/LocalExerciseRecord.swift"
+  : [1652194162, 903675556]
+  ? "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository/Cache/Lcoal Models/LocalSetRecord.swift"
+  : [1652194169, 903046131]
+  ? "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository/Cache/LocalExerciseRepository.swift"
+  : [1652196646, 14976501]
+  "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository/Models/Exercise.swift": [1650494776, 224948883]
+  "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository/Models/ExerciseRecord.swift": [1651072543, 674162626]
+  "/Users/boyceestes/Development/ios/personal/exercise-repository/ExerciseRepository/ExerciseRepository/Models/SetRecord.swift": [1651851919, 300562381]
