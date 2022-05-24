@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import LiftMeExercises
+import ExerciseRepository
 
 
 class DeleteExerciseUseCaseTests: XCTestCase {
