@@ -9,7 +9,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
         
         let sut = makeSut()
         
-        expect(sut: sut, toCompleteWith: .success([]))
+        expect(sut: sut, toRetrieve: .success([]))
     }
     
     
@@ -17,8 +17,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
         
         let sut = makeSut()
         
-        expect(sut: sut, toCompleteWith: .success([]))
-        expect(sut: sut, toCompleteWith: .success([]))
+        expect(sut: sut, toRetrieveTwice: .success([]))
     }
     
     
@@ -36,7 +35,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
         wait(for: [exp], timeout: 1)
         
         // retrieve from cache
-        expect(sut: sut, toCompleteWith: .success([exercise]))
+        expect(sut: sut, toRetrieve: .success([exercise]))
     }
     
     
@@ -52,7 +51,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
-    private func expect(sut: ExerciseStore, toCompleteWith expectedResult: ExerciseStore.RetrieveExercisesResult, file: StaticString = #file, line: UInt = #line) {
+    private func expect(sut: ExerciseStore, toRetrieve expectedResult: ExerciseStore.RetrieveExercisesResult, file: StaticString = #file, line: UInt = #line) {
         
         let exp = expectation(description: "Wait for retrieve completion")
         
@@ -70,5 +69,12 @@ class CoreDataExerciseStoreTests: XCTestCase {
         }
         
         wait(for: [exp], timeout: 1)
+    }
+    
+    
+    private func expect(sut: ExerciseStore, toRetrieveTwice expectedResult: ExerciseStore.RetrieveExercisesResult, file: StaticString = #file, line: UInt = #line) {
+        
+        expect(sut: sut, toRetrieve: expectedResult)
+        expect(sut: sut, toRetrieve: expectedResult)
     }
 }
