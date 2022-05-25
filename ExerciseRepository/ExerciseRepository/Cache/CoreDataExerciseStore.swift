@@ -52,14 +52,7 @@ public class CoreDataExerciseStore: ExerciseStore {
                 let request = NSFetchRequest<ManagedExercise>(entityName: ManagedExercise.entity().name!)
                 request.returnsObjectsAsFaults = false
                 
-                let exercises = try context.fetch(request)
-                    .map { LocalExercise(
-                        id: $0.id,
-                        name: $0.name,
-                        dateCreated: $0.dateCreated,
-                        desc: $0.desc,
-                        exerciseRecords: [])
-                    }
+                let exercises = try context.fetch(request).toLocal()
                 
                 completion(.success(exercises))
             } catch {
@@ -148,4 +141,15 @@ class ManagedExercise: NSManagedObject {
     @NSManaged var desc: String?
     @NSManaged var name: String
     @NSManaged var dateCreated: Date
+    
+    var local: LocalExercise {
+        LocalExercise(id: self.id, name: self.name, dateCreated: self.dateCreated, desc: self.desc, exerciseRecords: [])
+    }
+}
+
+
+extension Array where Element == ManagedExercise {
+    func toLocal() -> [LocalExercise] {
+        self.map { $0.local }
+    }
 }
