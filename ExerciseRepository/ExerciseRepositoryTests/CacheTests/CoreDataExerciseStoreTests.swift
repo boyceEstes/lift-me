@@ -9,15 +9,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
         
         let sut = makeSut()
         
-        sut.retrieveAll { result in
-            switch result {
-            case let .success(exercises):
-                XCTAssertEqual(exercises, [], "Expected empty cache, got \(exercises) instead")
-
-            default:
-                XCTFail("Expected successful empty exercise cache retrieval, got \(result) instead")
-            }
-        }
+        expect(sut: sut, toCompleteWith: .success([]))
     }
     
     
@@ -25,24 +17,8 @@ class CoreDataExerciseStoreTests: XCTestCase {
         
         let sut = makeSut()
         
-        let exp = expectation(description: "Wait for retrievals to complete")
-        sut.retrieveAll { firstResult in
-            
-            sut.retrieveAll { secondResult in
-                
-                switch (firstResult, secondResult) {
-                case (let .success(firstExercises), let .success(secondExercises)):
-                    XCTAssertEqual(firstExercises, secondExercises)
-                    XCTAssertEqual(secondExercises, [])
-                    
-                default:
-                    XCTFail("Expected two retrieves to return empty, found first result \(firstResult) and second result \(secondResult) instead")
-                }
-                
-                exp.fulfill()
-            }
-        }
-        wait(for: [exp], timeout: 1)
+        expect(sut: sut, toCompleteWith: .success([]))
+        expect(sut: sut, toCompleteWith: .success([]))
     }
     
     
@@ -60,22 +36,11 @@ class CoreDataExerciseStoreTests: XCTestCase {
         wait(for: [exp], timeout: 1)
         
         // retrieve from cache
-        let exp2 = expectation(description: "Wait for retrieve completion")
-        sut.retrieveAll { result in
-            switch result {
-            case let .success(receivedExercises):
-                XCTAssertEqual(receivedExercises, [exercise])
-                
-            default:
-                XCTFail("Expected \(exercise), got \(result) instead")
-            }
-            
-            exp2.fulfill()
-        }
-        
-        wait(for: [exp2], timeout: 1)
+        expect(sut: sut, toCompleteWith: .success([exercise]))
     }
     
+    
+    // MARK: - Helpers
     
     private func makeSut() -> ExerciseStore {
         
@@ -84,5 +49,26 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let sut = try! CoreDataExerciseStore(storeURL: storeURL, bundle: bundle)
         trackForMemoryLeaks(sut)
         return sut
+    }
+    
+    
+    private func expect(sut: ExerciseStore, toCompleteWith expectedResult: ExerciseStore.RetrieveExercisesResult, file: StaticString = #file, line: UInt = #line) {
+        
+        let exp = expectation(description: "Wait for retrieve completion")
+        
+        sut.retrieveAll { receivedResult in
+            
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedExercises), .success(expectedExercises)):
+                XCTAssertEqual(receivedExercises, expectedExercises, file: file, line: line)
+                
+            default:
+                XCTFail("Expected to retrieve \(expectedResult), got \(receivedResult) instead", file: file, line: line)
+            }
+            
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
     }
 }
