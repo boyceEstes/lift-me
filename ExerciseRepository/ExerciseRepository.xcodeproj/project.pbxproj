@@ -18,6 +18,8 @@
 		B30C9A72283CB090009FB932 /* DeleteExerciseRecordUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A6E283CB090009FB932 /* DeleteExerciseRecordUseCaseTests.swift */; };
 		B30C9A73283CB090009FB932 /* SaveExerciseRecordUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A6F283CB090009FB932 /* SaveExerciseRecordUseCaseTests.swift */; };
 		B30C9A74283CB090009FB932 /* LoadAllExerciseRecordsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A70283CB090009FB932 /* LoadAllExerciseRecordsUseCaseTests.swift */; };
+		B30C9A79283D3703009FB932 /* ExerciseStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A77283D3703009FB932 /* ExerciseStore.xcdatamodeld */; };
+		B30C9A7B283DB714009FB932 /* CoreDataExerciseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A7A283DB714009FB932 /* CoreDataExerciseStore.swift */; };
 		B35CB6AF283CAEE0004551AD /* CoreDataExerciseStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CB6AE283CAEE0004551AD /* CoreDataExerciseStoreTests.swift */; };
 		B3711D5128394CF40031F123 /* ExerciseRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3711D5028394CF40031F123 /* ExerciseRepository.docc */; };
 		B3711D5728394CF40031F123 /* ExerciseRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */; };
@@ -57,6 +59,8 @@
 		B30C9A6E283CB090009FB932 /* DeleteExerciseRecordUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteExerciseRecordUseCaseTests.swift; sourceTree = "<group>"; };
 		B30C9A6F283CB090009FB932 /* SaveExerciseRecordUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveExerciseRecordUseCaseTests.swift; sourceTree = "<group>"; };
 		B30C9A70283CB090009FB932 /* LoadAllExerciseRecordsUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadAllExerciseRecordsUseCaseTests.swift; sourceTree = "<group>"; };
+		B30C9A78283D3703009FB932 /* ExerciseStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExerciseStore.xcdatamodel; sourceTree = "<group>"; };
+		B30C9A7A283DB714009FB932 /* CoreDataExerciseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExerciseStore.swift; sourceTree = "<group>"; };
 		B3151A75283CAB48006AE970 /* LiftMeExercisesTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeExercisesTestHelpers.swift; sourceTree = "<group>"; };
 		B3151A79283CAB49006AE970 /* ExerciseStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStoreSpy.swift; sourceTree = "<group>"; };
 		B35CB6AE283CAEE0004551AD /* CoreDataExerciseStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExerciseStoreTests.swift; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				B3711D68283951050031F123 /* ExerciseRepository.swift */,
 				B3711D6E283953A90031F123 /* ExerciseStore.swift */,
 				B3711D6F283953A90031F123 /* LocalExerciseRepository.swift */,
+				B30C9A77283D3703009FB932 /* ExerciseStore.xcdatamodeld */,
+				B30C9A7A283DB714009FB932 /* CoreDataExerciseStore.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -318,10 +324,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3711D7C283953C00031F123 /* SetRecord.swift in Sources */,
+				B30C9A79283D3703009FB932 /* ExerciseStore.xcdatamodeld in Sources */,
 				B3711D5128394CF40031F123 /* ExerciseRepository.docc in Sources */,
 				B3711D69283951050031F123 /* ExerciseRepository.swift in Sources */,
 				B3711D77283953B10031F123 /* LocalExerciseRecord.swift in Sources */,
 				B3711D70283953A90031F123 /* ExerciseStore.swift in Sources */,
+				B30C9A7B283DB714009FB932 /* CoreDataExerciseStore.swift in Sources */,
 				B3711D7D283953C00031F123 /* Exercise.swift in Sources */,
 				B3711D76283953B10031F123 /* LocalExercise.swift in Sources */,
 				B3711D75283953B10031F123 /* LocalSetRecord.swift in Sources */,
@@ -617,6 +625,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B30C9A77283D3703009FB932 /* ExerciseStore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B30C9A78283D3703009FB932 /* ExerciseStore.xcdatamodel */,
+			);
+			currentVersion = B30C9A78283D3703009FB932 /* ExerciseStore.xcdatamodel */;
+			path = ExerciseStore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B3711D4328394CF40031F123 /* Project object */;
 }

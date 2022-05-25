@@ -2,64 +2,6 @@
 import XCTest
 import ExerciseRepository
 
-class CoreDataExerciseStore: ExerciseStore {
-        
-    init() {}
-    
-    
-    // Exercise Use Cases
-    func insert(exercise: LocalExercise, completion: @escaping InsertExerciseCompletion) {
-        
-    }
-    
-    
-    func retrieveAll(completion: @escaping RetrieveAllExercisesCompletion) {
-        
-    }
-    
-    
-    func update(exercise: LocalExercise, completion: @escaping UpdateExerciseCompletion) {
-        
-    }
-    
-    
-    func delete(exercise: LocalExercise, completion: @escaping DeleteExerciseCompletion) {
-        
-    }
-    
-    
-    // Exercise Record Use Case
-    func insert(exerciseRecord: LocalExerciseRecord, completion: @escaping InsertExerciseRecordCompletion) {
-        
-    }
-    
-    
-    func retrieveAllExerciseRecords(completion: @escaping RetrieveAllExerciseRecordsCompletion) {
-        
-    }
-    
-    
-    func delete(exerciseRecord: LocalExerciseRecord, completion: @escaping DeleteExerciseRecordCompletion) {
-        
-    }
-    
-    
-    // Set Record Use Case
-    func insert(setRecord: LocalSetRecord, completion: @escaping InsertSetRecordCompletion) {
-        
-    }
-
-    
-    func update(setRecord: LocalSetRecord, completion: @escaping UpdateSetRecordCompletion) {
-        
-    }
-    
-    
-    func delete(setRecord: LocalSetRecord, completion: @escaping DeleteSetRecordCompletion) {
-        
-    }
-}
-
 
 class CoreDataExerciseStoreTests: XCTestCase {
 
@@ -71,6 +13,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
             switch result {
             case let .success(exercises):
                 XCTAssertEqual(exercises, [], "Expected empty cache, got \(exercises) instead")
+
             default:
                 XCTFail("Expected successful empty exercise cache retrieval, got \(result) instead")
             }
@@ -82,8 +25,11 @@ class CoreDataExerciseStoreTests: XCTestCase {
         
         let sut = makeSut()
         
+        let exp = expectation(description: "Wait for retrievals to complete")
         sut.retrieveAll { firstResult in
+            
             sut.retrieveAll { secondResult in
+                
                 switch (firstResult, secondResult) {
                 case (let .success(firstExercises), let .success(secondExercises)):
                     XCTAssertEqual(firstExercises, secondExercises)
@@ -92,14 +38,50 @@ class CoreDataExerciseStoreTests: XCTestCase {
                 default:
                     XCTFail("Expected two retrieves to return empty, found first result \(firstResult) and second result \(secondResult) instead")
                 }
+                
+                exp.fulfill()
             }
         }
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_coreDataExerciseStore_retrieveAllExercisesOnNonEmptyCache_deliversExercises() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        
+        // insert into cache
+        let exp = expectation(description: "Wait for insertion completion")
+        sut.insert(exercise: exercise) { error in
+            XCTAssertNil(error)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1)
+        
+        // retrieve from cache
+        let exp2 = expectation(description: "Wait for retrieve completion")
+        sut.retrieveAll { result in
+            switch result {
+            case let .success(receivedExercises):
+                XCTAssertEqual(receivedExercises, [exercise])
+                
+            default:
+                XCTFail("Expected \(exercise), got \(result) instead")
+            }
+            
+            exp2.fulfill()
+        }
+        
+        wait(for: [exp2], timeout: 1)
     }
     
     
     private func makeSut() -> ExerciseStore {
         
-        let sut = CoreDataExerciseStore()
+        let bundle = Bundle(for: CoreDataExerciseStore.self)
+        let storeURL = URL(fileURLWithPath: "/dev/null")
+        let sut = try! CoreDataExerciseStore(storeURL: storeURL, bundle: bundle)
         trackForMemoryLeaks(sut)
         return sut
     }
