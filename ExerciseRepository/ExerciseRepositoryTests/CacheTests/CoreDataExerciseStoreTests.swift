@@ -73,15 +73,10 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
         let updatedExercise = makeUniqueExerciseTuple().local
-        
-        let exp = expectation(description: "Wait for update completion to finish")
-        
-        sut.update(exercise: exercise, with: updatedExercise) { error in
-            XCTAssertEqual(error as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1)
+       
+        let updateError = update(exercise, with: updatedExercise, in: sut)
+
+        XCTAssertEqual(updateError as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
     }
     
     
@@ -91,14 +86,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let exercise = makeUniqueExerciseTuple().local
         let updatedExercise = makeUniqueExerciseTuple().local
         
-        let exp = expectation(description: "Wait for update completion to finish")
-        
-        sut.update(exercise: exercise, with: updatedExercise) { error in
-            XCTAssertEqual(error as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1)
+        update(exercise, with: updatedExercise, in: sut)
         
         expect(sut: sut, toRetrieve: .success([]))
     }
@@ -109,14 +97,8 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
         
-        let exp = expectation(description: "Wait for update completion to finish")
-        
-        sut.update(exercise: exercise, with: exercise) { error in
-            XCTAssertEqual(error as NSError?, CoreDataExerciseStore.Error.cannotUpdateDuplicate(exercise) as NSError?)
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1)
+        let updateError = update(exercise, with: exercise, in: sut)
+        XCTAssertEqual(updateError as NSError?, CoreDataExerciseStore.Error.cannotUpdateDuplicate(exercise) as NSError?)
     }
     
     
@@ -216,6 +198,25 @@ class CoreDataExerciseStoreTests: XCTestCase {
         }
         
         wait(for: [exp], timeout: 1)
+        return receivedError
+    }
+    
+    
+    @discardableResult
+    private func update(_ exercise: LocalExercise, with updatedExercise: LocalExercise, in sut: ExerciseStore, file: StaticString = #file, line: UInt = #line) -> Error? {
+        
+        let exp = expectation(description: "Wait for update completion to finish")
+        
+        var receivedError: Error?
+        
+        sut.update(exercise: exercise, with: updatedExercise) { error in
+
+            receivedError = error
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
         return receivedError
     }
     
