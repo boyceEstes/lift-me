@@ -37,6 +37,7 @@ public class CoreDataExerciseStore: ExerciseStore {
             do {
                 try context.save()
                 completion(nil)
+                
             } catch {
                 completion(error)
             }
@@ -68,9 +69,22 @@ public class CoreDataExerciseStore: ExerciseStore {
         
         let context = context
         context.perform {
-            guard let _ = try? ManagedExercise.find(exercise: exercise, in: context) else {
-                completion(Error.recordNotFound(exercise))
-                return
+            do {
+                guard let exercise = try ManagedExercise.find(exercise: exercise, in: context) else {
+                    completion(Error.recordNotFound(exercise))
+                    return
+                }
+                
+                exercise.id = exercise.id
+                exercise.name = exercise.name
+                exercise.dateCreated = exercise.dateCreated
+                exercise.desc = exercise.desc
+                
+                try context.save()
+                completion(nil)
+                
+            } catch {
+                completion(error)
             }
         }
     }

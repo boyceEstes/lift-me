@@ -102,6 +102,19 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataExerciseStore_updateExerciseFromNonEmptyCache_deliversNoError() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        let updatedExercise = makeUniqueExerciseTuple().local
+        
+        insert(exercise, into: sut)
+        
+        let updateError = update(exercise, with: updatedExercise, in: sut)
+        XCTAssertNil(updateError)
+    }
+    
+    
     func test_coreDataExerciseStore_deleteExerciseFromEmptyCache_deliversNoRecordFoundError() {
         
         let sut = makeSut()
