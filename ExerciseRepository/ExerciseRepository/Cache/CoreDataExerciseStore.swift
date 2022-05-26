@@ -13,6 +13,7 @@ public class CoreDataExerciseStore: ExerciseStore {
     
     public enum Error: Swift.Error {
         case recordNotFound(LocalExercise)
+        case cannotUpdateDuplicate(LocalExercise)
     }
     
     let container: NSPersistentContainer
@@ -60,6 +61,11 @@ public class CoreDataExerciseStore: ExerciseStore {
     
     public func update(exercise: LocalExercise, with updatedExercise: LocalExercise, completion: @escaping UpdateExerciseCompletion) {
     
+        guard exercise != updatedExercise else {
+            completion(Error.cannotUpdateDuplicate(exercise))
+            return
+        }
+        
         let context = context
         context.perform {
             guard let _ = try? ManagedExercise.find(exercise: exercise, in: context) else {
