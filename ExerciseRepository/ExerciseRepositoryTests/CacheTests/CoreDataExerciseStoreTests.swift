@@ -39,6 +39,24 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataExerciseStore_retrieveAllExercisesOnNonEmptyCacheTwice_hasNoSideEffects() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        
+        // insert into cache
+        let exp = expectation(description: "Wait for insertion completion")
+        sut.insert(exercise: exercise) { error in
+            XCTAssertNil(error)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1)
+        
+        // retrieve from cache
+        expect(sut: sut, toRetrieveTwice: .success([exercise]))
+    }
+    
+    
     // MARK: - Helpers
     
     private func makeSut() -> ExerciseStore {
