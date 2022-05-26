@@ -67,18 +67,15 @@ public class CoreDataExerciseStore: ExerciseStore {
         let context = context
         context.perform {
             do {
-                let request = NSFetchRequest<ManagedExercise>(entityName: ManagedExercise.entity().name!)
-                request.predicate = NSPredicate(format: "%K == %@", "id", exercise.id as CVarArg)
-                
-                if let exercise = try context.fetch(request).first {
-                    context.delete(exercise)
-                    
-                    try context.save()
-                    completion(nil)
-                    
-                } else {
+                guard let exercise = try ManagedExercise.find(exercise: exercise, in: context) else {
                     completion(Error.recordNotFound(exercise))
+                    return
                 }
+                    
+                context.delete(exercise)
+                
+                try context.save()
+                completion(nil)
                 
             } catch {
                 completion(error)
@@ -178,6 +175,16 @@ class ManagedExercise: NSManagedObject {
         request.returnsObjectsAsFaults = false
         
         return try context.fetch(request)
+    }
+    
+    
+    static func find(exercise: LocalExercise, in context: NSManagedObjectContext) throws -> ManagedExercise? {
+        
+        let request = NSFetchRequest<ManagedExercise>(entityName: ManagedExercise.entity().name!)
+        request.predicate = NSPredicate(format: "%K == %@", "id", exercise.id as CVarArg)
+        request.returnsObjectsAsFaults = false
+        
+        return try context.fetch(request).first
     }
     
     
