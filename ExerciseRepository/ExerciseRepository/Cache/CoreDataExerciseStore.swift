@@ -27,11 +27,7 @@ public class CoreDataExerciseStore: ExerciseStore {
         let context = context
         context.perform {
             
-            let managedExercise = ManagedExercise(context: context)
-            managedExercise.id = exercise.id
-            managedExercise.name = exercise.name
-            managedExercise.dateCreated = exercise.dateCreated
-            managedExercise.desc = exercise.desc
+            ManagedExercise.newExercise(from: exercise, in: context)
             
             do {
                 try context.save()
@@ -141,6 +137,19 @@ class ManagedExercise: NSManagedObject {
     @NSManaged var desc: String?
     @NSManaged var name: String
     @NSManaged var dateCreated: Date
+    
+    
+    @discardableResult
+    static func newExercise(from exercise: LocalExercise, in context: NSManagedObjectContext) -> ManagedExercise {
+        
+        let managedExercise = ManagedExercise(context: context)
+        managedExercise.id = exercise.id
+        managedExercise.name = exercise.name
+        managedExercise.dateCreated = exercise.dateCreated
+        managedExercise.desc = exercise.desc
+        return managedExercise
+    }
+    
     
     var local: LocalExercise {
         LocalExercise(id: self.id, name: self.name, dateCreated: self.dateCreated, desc: self.desc, exerciseRecords: [])
