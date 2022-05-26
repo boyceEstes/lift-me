@@ -68,17 +68,21 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
-//    func test_coreDataExerciseStore_updateExerciseFromEmptyCache_deliversRecordNotFoundError() {
-//        
-//        let sut = makeSut()
-//        let exercise = makeUniqueExerciseTuple().local
-//        
-//        let exp = expectation(description: "Wait for update completion to finish")
-//        
-//        sut.update(exercise: exercise, completion: <#T##(Error?) -> Void#>)
-//        
-//        wait(for: [exp], timeout: 1)
-//    }
+    func test_coreDataExerciseStore_updateExerciseFromEmptyCache_deliversRecordNotFoundError() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        let updatedExercise = makeUniqueExerciseTuple().local
+        
+        let exp = expectation(description: "Wait for update completion to finish")
+        
+        sut.update(exercise: exercise, with: updatedExercise) { error in
+            XCTAssertEqual(error as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+    }
     
     
     func test_coreDataExerciseStore_deleteExerciseFromEmptyCache_deliversNoRecordFoundError() {

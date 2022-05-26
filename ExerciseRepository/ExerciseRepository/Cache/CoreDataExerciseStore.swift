@@ -59,6 +59,14 @@ public class CoreDataExerciseStore: ExerciseStore {
     
     
     public func update(exercise: LocalExercise, with updatedExercise: LocalExercise, completion: @escaping UpdateExerciseCompletion) {
+    
+        let context = context
+        context.perform {
+            guard let _ = try? ManagedExercise.find(exercise: exercise, in: context) else {
+                completion(Error.recordNotFound(exercise))
+                return
+            }
+        }
     }
     
     
