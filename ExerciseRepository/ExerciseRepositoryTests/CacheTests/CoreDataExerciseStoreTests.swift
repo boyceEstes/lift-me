@@ -73,14 +73,10 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
         
-        let exp = expectation(description: "Wait for deletion completion")
-                
-        sut.delete(exercise: exercise) { error in
-            XCTAssertEqual(error as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1)
+
+        let deletionError = delete(exercise, from: sut)
+        XCTAssertEqual(deletionError as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
+
     }
     
     
@@ -91,14 +87,8 @@ class CoreDataExerciseStoreTests: XCTestCase {
         
         insert(exercise, into: sut)
         
-        let exp = expectation(description: "Wait for deletion completion")
-        
-        sut.delete(exercise: exercise) { error in
-            XCTAssertNil(error)
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1)
+        let deletionError = delete(exercise, from: sut)
+        XCTAssertNil(deletionError)
         
         expect(sut: sut, toRetrieve: .success([]))
     }
@@ -112,14 +102,8 @@ class CoreDataExerciseStoreTests: XCTestCase {
         
         insert(exercise, into: sut)
         
-        let exp = expectation(description: "Wait for deletion completion")
-        
-        sut.delete(exercise: searchExercise) { error in
-            XCTAssertEqual(error as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1)
+        let deletionError = delete(searchExercise, from: sut)
+        XCTAssertEqual(deletionError as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
         
         expect(sut: sut, toRetrieve: .success([exercise]))
     }
@@ -150,6 +134,23 @@ class CoreDataExerciseStoreTests: XCTestCase {
         }
         
         wait(for: [exp], timeout: 1)
+        return receivedError
+    }
+    
+    
+    private func delete(_ exercise: LocalExercise, from sut: ExerciseStore, file: StaticString = #file, line: UInt = #line) -> Error? {
+        
+        let exp = expectation(description: "Wait for deletion completion")
+        
+        var receivedError: Error?
+        
+        sut.delete(exercise: exercise) { error in
+            receivedError = error
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
         return receivedError
     }
     
