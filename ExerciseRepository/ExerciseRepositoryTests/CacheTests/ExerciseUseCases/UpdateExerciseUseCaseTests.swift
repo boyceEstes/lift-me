@@ -22,9 +22,9 @@ class UpdateExerciseUseCaseTests: XCTestCase {
         let (sut, store) = makeSut()
         let exercise = makeUniqueExerciseTuple()
         
-        sut.update(exercise: exercise.model) { _ in }
+        sut.update(exercise: exercise.model, with: exercise.model) { _ in }
         
-        XCTAssertEqual(store.receivedMessages, [.update(exercise: exercise.local)])
+        XCTAssertEqual(store.receivedMessages, [.update(exercise: exercise.local, updatedExercise: exercise.local)])
     }
     
     
@@ -58,7 +58,7 @@ class UpdateExerciseUseCaseTests: XCTestCase {
         
         var receivedErrors = [Error?]()
         
-        sut?.update(exercise: exercise.model) { error in
+        sut?.update(exercise: exercise.model, with: exercise.model) { error in
             receivedErrors.append(error)
         }
         sut = nil
@@ -86,7 +86,7 @@ class UpdateExerciseUseCaseTests: XCTestCase {
         let exp = expectation(description: "Wait for update to complete")
         
         var receivedError: Error?
-        sut.update(exercise: exercise.model) { error in
+        sut.update(exercise: exercise.model, with: exercise.model) { error in
             receivedError = error
             exp.fulfill()
         }

@@ -16,7 +16,7 @@ class ExerciseStoreSpy: ExerciseStore {
         case insert(setRecord: LocalSetRecord)
         case retrieveAll
         case retrieveAllExerciseRecords
-        case update(exercise: LocalExercise)
+        case update(exercise: LocalExercise, updatedExercise: LocalExercise)
         case update(setRecord: LocalSetRecord)
         case delete(exercise: LocalExercise)
         case delete(exerciseRecord: LocalExerciseRecord)
@@ -61,9 +61,9 @@ class ExerciseStoreSpy: ExerciseStore {
     }
     
     
-    func update(exercise: LocalExercise, completion: @escaping UpdateExerciseCompletion) {
+    func update(exercise: LocalExercise, with updatedExercise: LocalExercise, completion: @escaping UpdateExerciseCompletion) {
         
-        receivedMessages.append(.update(exercise: exercise))
+        receivedMessages.append(.update(exercise: exercise, updatedExercise: updatedExercise))
         updateExerciseCompletions.append(completion)
     }
     

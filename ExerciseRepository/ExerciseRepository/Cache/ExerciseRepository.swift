@@ -29,7 +29,7 @@ public protocol ExerciseRepository {
     
     // Exercises
     func save(exercise: Exercise, completion: @escaping SaveExerciseResult)
-    func update(exercise: Exercise, completion: @escaping UpdateExerciseResult)
+    func update(exercise: Exercise, with updatedExercise: Exercise, completion: @escaping UpdateExerciseResult)
     func loadAllExercises(completion: @escaping LoadAllExercisesResult)
     func remove(exercise: Exercise, completion: @escaping RemoveExerciseResult)
     

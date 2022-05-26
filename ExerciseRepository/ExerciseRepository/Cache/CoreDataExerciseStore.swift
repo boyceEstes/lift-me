@@ -58,7 +58,7 @@ public class CoreDataExerciseStore: ExerciseStore {
     }
     
     
-    public func update(exercise: LocalExercise, completion: @escaping UpdateExerciseCompletion) {
+    public func update(exercise: LocalExercise, with updatedExercise: LocalExercise, completion: @escaping UpdateExerciseCompletion) {
     }
     
     

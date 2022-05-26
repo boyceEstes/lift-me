@@ -27,9 +27,9 @@ public class LocalExerciseRepository: ExerciseRepository {
     }
     
     
-    public func update(exercise: Exercise, completion: @escaping UpdateExerciseResult) {
+    public func update(exercise: Exercise, with updatedExercise: Exercise, completion: @escaping UpdateExerciseResult) {
         
-        exerciseStore.update(exercise: exercise.toLocal()) { [weak self] error in
+        exerciseStore.update(exercise: exercise.toLocal(), with: updatedExercise.toLocal()) { [weak self] error in
             
             guard self != nil else { return }
             completion(error)

@@ -68,6 +68,19 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+//    func test_coreDataExerciseStore_updateExerciseFromEmptyCache_deliversRecordNotFoundError() {
+//        
+//        let sut = makeSut()
+//        let exercise = makeUniqueExerciseTuple().local
+//        
+//        let exp = expectation(description: "Wait for update completion to finish")
+//        
+//        sut.update(exercise: exercise, completion: <#T##(Error?) -> Void#>)
+//        
+//        wait(for: [exp], timeout: 1)
+//    }
+    
+    
     func test_coreDataExerciseStore_deleteExerciseFromEmptyCache_deliversNoRecordFoundError() {
         
         let sut = makeSut()
@@ -93,7 +106,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
-    func test_coreDataExerciseStore_deleteExerciseFromNonEmptyCacheWithNoMatchingExercises_delviersNoRecordFoundError() {
+    func test_coreDataExerciseStore_deleteExerciseFromNonEmptyCacheWithNoMatchingExercises_deliversNoRecordFoundError() {
         
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local

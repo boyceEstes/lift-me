@@ -19,7 +19,7 @@ public protocol ExerciseStore {
     
     func insert(exercise: LocalExercise, completion: @escaping InsertExerciseCompletion)
     func retrieveAll(completion: @escaping RetrieveAllExercisesCompletion)
-    func update(exercise: LocalExercise, completion: @escaping UpdateExerciseCompletion)
+    func update(exercise: LocalExercise, with updatedExercise: LocalExercise, completion: @escaping UpdateExerciseCompletion)
     func delete(exercise: LocalExercise, completion: @escaping DeleteExerciseCompletion)
     
 
