@@ -43,6 +43,17 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataExerciseStore_insertExerciseIntoEmptyCache_succeedsWithoutError() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        
+        let insertError = insert(exercise, into: sut)
+        
+        XCTAssertNil(insertError)
+    }
+    
+    
     // MARK: - Helpers
     
     private func makeSut() -> ExerciseStore {
@@ -56,7 +67,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
     
     
     @discardableResult
-    private func insert(_ exercise: LocalExercise, into sut: ExerciseStore) -> Error? {
+    private func insert(_ exercise: LocalExercise, into sut: ExerciseStore, file: StaticString = #file, line: UInt = #line) -> Error? {
         
         let exp = expectation(description: "Wait for insertion completion")
         
