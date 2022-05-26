@@ -171,7 +171,7 @@ class ManagedExercise: NSManagedObject {
     
     static func findExercises(in context: NSManagedObjectContext) throws -> [ManagedExercise] {
         
-        let request = NSFetchRequest<ManagedExercise>(entityName: ManagedExercise.entity().name!)
+        let request = ManagedExercise.fetchRequest
         request.returnsObjectsAsFaults = false
         
         return try context.fetch(request)
@@ -180,7 +180,7 @@ class ManagedExercise: NSManagedObject {
     
     static func find(exercise: LocalExercise, in context: NSManagedObjectContext) throws -> ManagedExercise? {
         
-        let request = NSFetchRequest<ManagedExercise>(entityName: ManagedExercise.entity().name!)
+        let request = ManagedExercise.fetchRequest
         request.predicate = NSPredicate(format: "%K == %@", "id", exercise.id as CVarArg)
         request.returnsObjectsAsFaults = false
         
@@ -190,6 +190,11 @@ class ManagedExercise: NSManagedObject {
     
     var local: LocalExercise {
         LocalExercise(id: self.id, name: self.name, dateCreated: self.dateCreated, desc: self.desc, exerciseRecords: [])
+    }
+    
+    
+    static var fetchRequest: NSFetchRequest<ManagedExercise> {
+        NSFetchRequest<ManagedExercise>(entityName: ManagedExercise.entity().name!)
     }
 }
 
