@@ -43,12 +43,26 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
-    func test_coreDataExerciseStore_insertExerciseIntoEmptyCache_succeedsWithoutError() {
+    func test_coreDataExerciseStore_insertExerciseIntoEmptyCache_deliversNoError() {
         
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
         
         let insertError = insert(exercise, into: sut)
+        
+        XCTAssertNil(insertError)
+    }
+    
+    
+    func test_coreDataExerciseStore_insertExerciseIntoNonEmptyCache_deliversNoError() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        let exercise2 = makeUniqueExerciseTuple().local
+        
+        insert(exercise, into: sut)
+        
+        let insertError = insert(exercise2, into: sut)
         
         XCTAssertNil(insertError)
     }
