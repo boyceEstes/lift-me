@@ -84,6 +84,26 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataExerciseStore_deleteExerciseFromNonEmptyCache_deliversNoError() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        
+        insert(exercise, into: sut)
+        
+        let exp = expectation(description: "Wait for deletion completion")
+        
+        sut.delete(exercise: exercise) { error in
+            XCTAssertNil(error)
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
+        expect(sut: sut, toRetrieve: .success([]))
+    }
+    
+    
     // MARK: - Helpers
     
     private func makeSut() -> ExerciseStore {
