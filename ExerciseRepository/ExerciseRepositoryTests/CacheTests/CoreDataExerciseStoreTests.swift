@@ -113,7 +113,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
-    func test_coreDataExerciseStore_deleteExerciseFromNonEmptyCache_deliversNoError() {
+    func test_coreDataExerciseStore_deleteExerciseFromNonEmptyCacheWithMatch_deliversNoError() {
         
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
@@ -127,7 +127,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
-    func test_coreDataExerciseStore_deleteExerciseFromNonEmptyCacheWithNoMatchingExercises_deliversNoRecordFoundError() {
+    func test_coreDataExerciseStore_deleteExerciseFromNonEmptyCacheWithNoMatch_deliversNoRecordFoundError() {
         
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
