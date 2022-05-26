@@ -26,15 +26,8 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
         
-        // insert into cache
-        let exp = expectation(description: "Wait for insertion completion")
-        sut.insert(exercise: exercise) { error in
-            XCTAssertNil(error)
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1)
+        insert(exercise, into: sut)
         
-        // retrieve from cache
         expect(sut: sut, toRetrieve: .success([exercise]))
     }
     
@@ -44,15 +37,8 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
         
-        // insert into cache
-        let exp = expectation(description: "Wait for insertion completion")
-        sut.insert(exercise: exercise) { error in
-            XCTAssertNil(error)
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1)
+        insert(exercise, into: sut)
         
-        // retrieve from cache
         expect(sut: sut, toRetrieveTwice: .success([exercise]))
     }
     
@@ -66,6 +52,23 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let sut = try! CoreDataExerciseStore(storeURL: storeURL, bundle: bundle)
         trackForMemoryLeaks(sut)
         return sut
+    }
+    
+    
+    @discardableResult
+    private func insert(_ exercise: LocalExercise, into sut: ExerciseStore) -> Error? {
+        
+        let exp = expectation(description: "Wait for insertion completion")
+        
+        var receivedError: Error?
+        
+        sut.insert(exercise: exercise) { error in
+            receivedError = error
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        return receivedError
     }
     
     
