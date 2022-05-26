@@ -45,11 +45,7 @@ public class CoreDataExerciseStore: ExerciseStore {
         context.perform {
             
             do {
-                let request = NSFetchRequest<ManagedExercise>(entityName: ManagedExercise.entity().name!)
-                request.returnsObjectsAsFaults = false
-                
-                let exercises = try context.fetch(request).toLocal()
-                
+                let exercises = try ManagedExercise.findExercises(in: context).toLocal()
                 completion(.success(exercises))
             } catch {
                 completion(.failure(error))
@@ -148,6 +144,15 @@ class ManagedExercise: NSManagedObject {
         managedExercise.dateCreated = exercise.dateCreated
         managedExercise.desc = exercise.desc
         return managedExercise
+    }
+    
+    
+    static func findExercises(in context: NSManagedObjectContext) throws -> [ManagedExercise] {
+        
+        let request = NSFetchRequest<ManagedExercise>(entityName: ManagedExercise.entity().name!)
+        request.returnsObjectsAsFaults = false
+        
+        return try context.fetch(request)
     }
     
     
