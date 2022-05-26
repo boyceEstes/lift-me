@@ -59,6 +59,24 @@ public class CoreDataExerciseStore: ExerciseStore {
     
     
     public func delete(exercise: LocalExercise, completion: @escaping DeleteExerciseCompletion) {
+        
+        let context = context
+        context.perform {
+            do {
+                let request = NSFetchRequest<ManagedExercise>(entityName: ManagedExercise.entity().name!)
+                request.predicate = NSPredicate(format: "%K == %@", "id", exercise.id as CVarArg)
+                
+                if let exercise = try context.fetch(request).first {
+                    context.delete(exercise)
+                }
+                
+                try context.save()
+                completion(nil)
+                
+            } catch {
+                completion(error)
+            }
+        }
     }
     
     
