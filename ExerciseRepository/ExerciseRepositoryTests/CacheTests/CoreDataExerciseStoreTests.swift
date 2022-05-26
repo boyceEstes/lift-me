@@ -128,6 +128,20 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataExerciseStore_updateExerciseFromNonEmptyCacheWithNoMatch_hasNoSideEffects() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        let exerciseNotFound = makeUniqueExerciseTuple().local
+        
+        insert(exercise, into: sut)
+        
+        update(exerciseNotFound, with: exercise, in: sut)
+        
+        expect(sut: sut, toRetrieve: .success([exercise]))
+    }
+    
+    
     func test_coreDataExerciseStore_deleteExerciseFromEmptyCache_deliversNoRecordFoundError() {
         
         let sut = makeSut()
