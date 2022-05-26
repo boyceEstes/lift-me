@@ -68,7 +68,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
-    func test_coreDataExerciseStore_deleteExerciseFromEmptyCache_deliversNoError() {
+    func test_coreDataExerciseStore_deleteExerciseFromEmptyCache_deliversNoRecordFoundError() {
         
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
@@ -101,6 +101,27 @@ class CoreDataExerciseStoreTests: XCTestCase {
         wait(for: [exp], timeout: 1)
         
         expect(sut: sut, toRetrieve: .success([]))
+    }
+    
+    
+    func test_coreDataExerciseStore_deleteExerciseFromNonEmptyCacheWithNoMatchingExercises_delviersNoRecordFoundError() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        let searchExercise = makeUniqueExerciseTuple().local
+        
+        insert(exercise, into: sut)
+        
+        let exp = expectation(description: "Wait for deletion completion")
+        
+        sut.delete(exercise: searchExercise) { error in
+            XCTAssertEqual(error as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
+        expect(sut: sut, toRetrieve: .success([exercise]))
     }
     
     
