@@ -11,6 +11,10 @@ import CoreData
 
 public class CoreDataExerciseStore: ExerciseStore {
     
+    public enum Error: Swift.Error {
+        case recordNotFound(LocalExercise)
+    }
+    
     let container: NSPersistentContainer
     let context: NSManagedObjectContext
         
@@ -68,10 +72,13 @@ public class CoreDataExerciseStore: ExerciseStore {
                 
                 if let exercise = try context.fetch(request).first {
                     context.delete(exercise)
+                    
+                    try context.save()
+                    completion(nil)
+                    
+                } else {
+                    completion(Error.recordNotFound(exercise))
                 }
-                
-                try context.save()
-                completion(nil)
                 
             } catch {
                 completion(error)

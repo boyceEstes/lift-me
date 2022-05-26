@@ -76,7 +76,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let exp = expectation(description: "Wait for deletion completion")
                 
         sut.delete(exercise: exercise) { error in
-            XCTAssertNil(error)
+            XCTAssertEqual(error as NSError?, CoreDataExerciseStore.Error.recordNotFound(exercise) as NSError?)
             exp.fulfill()
         }
         
