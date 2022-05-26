@@ -102,7 +102,7 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
-    func test_coreDataExerciseStore_updateExerciseFromNonEmptyCache_deliversNoError() {
+    func test_coreDataExerciseStore_updateExerciseFromNonEmptyCacheWithMatch_deliversNoError() {
         
         let sut = makeSut()
         let exercise = makeUniqueExerciseTuple().local
@@ -112,6 +112,19 @@ class CoreDataExerciseStoreTests: XCTestCase {
         
         let updateError = update(exercise, with: updatedExercise, in: sut)
         XCTAssertNil(updateError)
+    }
+    
+    
+    func test_coreDataExerciseStore_updateExerciseFromNonEmptyCacheWithNoMatch_deliversNoRecordFoundError() {
+        
+        let sut = makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        let exerciseNotFound = makeUniqueExerciseTuple().local
+        
+        insert(exercise, into: sut)
+        
+        let updateError = update(exerciseNotFound, with: exercise, in: sut)
+        XCTAssertEqual(updateError as NSError?, CoreDataExerciseStore.Error.recordNotFound(exerciseNotFound) as NSError?)
     }
     
     
