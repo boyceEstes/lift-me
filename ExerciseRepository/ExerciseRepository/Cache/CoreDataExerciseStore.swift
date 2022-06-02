@@ -61,7 +61,7 @@ public class CoreDataExerciseStore: ExerciseStore {
     
     
     public func update(exercise: LocalExercise, with updatedExercise: LocalExercise, completion: @escaping UpdateExerciseCompletion) {
-    
+
         guard exercise != updatedExercise else {
             completion(Error.cannotUpdateDuplicate(exercise))
             return
@@ -88,7 +88,7 @@ public class CoreDataExerciseStore: ExerciseStore {
             }
         }
     }
-    
+
     
     public func delete(exercise: LocalExercise, completion: @escaping DeleteExerciseCompletion) {
         
