@@ -5,9 +5,15 @@ import CoreData
 
 
 extension NSManagedObjectContext {
+    
     static func alwaysFailingFetchStub() -> Stub {
         Stub(source: #selector(NSManagedObjectContext.execute(_:)),
              destination: #selector(Stub.execute(_:)))
+    }
+    
+    static func alwaysFailingSaveStub() -> Stub {
+        Stub(source: #selector(NSManagedObjectContext.save),
+             destination: #selector(Stub.save))
     }
     
     
@@ -24,6 +30,12 @@ extension NSManagedObjectContext {
         
         @objc
         func execute(_: Any) throws -> Any {
+            throw anyNSError()
+        }
+        
+        
+        @objc
+        func save() throws -> Any {
             throw anyNSError()
         }
         
@@ -130,6 +142,19 @@ class CoreDataExerciseStoreTests: XCTestCase {
         let insertError = insert(exercise2, into: sut)
         
         XCTAssertNil(insertError)
+    }
+    
+    
+    func test_coreDataExerciseStore_insertExerciseFailure_deliversFailure() throws {
+        
+        let stub = NSManagedObjectContext.alwaysFailingSaveStub()
+        stub.startIntercepting()
+        
+        let sut = try makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        let insertionError = insert(exercise, into: sut)
+        
+        XCTAssertEqual(insertionError as NSError?, anyNSError())
     }
     
     
