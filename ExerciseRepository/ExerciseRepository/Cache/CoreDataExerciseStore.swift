@@ -39,6 +39,7 @@ public class CoreDataExerciseStore: ExerciseStore {
                 completion(nil)
                 
             } catch {
+                context.rollback()
                 completion(error)
             }
         }
