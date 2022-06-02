@@ -218,6 +218,19 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataExerciseStore_updateExerciseFromNonEmptyCacheWithMatch_replacesPreviousExercise() throws {
+        
+        let sut = try makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        let updatedExercise = makeUniqueExerciseTuple().local
+        
+        insert(exercise, into: sut)
+        update(exercise, with: updatedExercise, in: sut)
+        
+        expect(sut: sut, toRetrieve: .success([updatedExercise]))
+    }
+    
+    
     func test_coreDataExerciseStore_updateExerciseFromNonEmptyCacheWithNoMatch_deliversNoRecordFoundError() throws {
         
         let sut = try makeSut()

@@ -75,11 +75,11 @@ public class CoreDataExerciseStore: ExerciseStore {
                     completion(Error.recordNotFound(exercise))
                     return
                 }
-                
-                exercise.id = exercise.id
-                exercise.name = exercise.name
-                exercise.dateCreated = exercise.dateCreated
-                exercise.desc = exercise.desc
+
+                exercise.id = updatedExercise.id
+                exercise.name = updatedExercise.name
+                exercise.dateCreated = updatedExercise.dateCreated
+                exercise.desc = updatedExercise.desc
                 
                 try context.save()
                 completion(nil)
