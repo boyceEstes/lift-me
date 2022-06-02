@@ -1,7 +1,49 @@
 
 import XCTest
 import ExerciseRepository
+import CoreData
 
+
+extension NSManagedObjectContext {
+    static func alwaysFailingFetchStub() -> Stub {
+        Stub(source: #selector(NSManagedObjectContext.execute(_:)),
+             destination: #selector(Stub.execute(_:)))
+    }
+    
+    
+    class Stub: NSObject {
+        
+        private let source: Selector
+        private let destination: Selector
+        
+        init(source: Selector, destination: Selector) {
+            self.source = source
+            self.destination = destination
+        }
+        
+        
+        @objc
+        func execute(_: Any) throws -> Any {
+            throw anyNSError()
+        }
+        
+        
+        func startIntercepting() {
+            method_exchangeImplementations(
+                class_getInstanceMethod(NSManagedObjectContext.self, source)!,
+                class_getInstanceMethod(Stub.self, destination)!
+            )
+        }
+        
+        
+        deinit {
+            method_exchangeImplementations(
+                class_getInstanceMethod(Stub.self, destination)!,
+                class_getInstanceMethod(NSManagedObjectContext.self, source)!
+            )
+        }
+    }
+}
 
 class CoreDataExerciseStoreTests: XCTestCase {
 
@@ -40,6 +82,18 @@ class CoreDataExerciseStoreTests: XCTestCase {
         insert(exercise, into: sut)
         
         expect(sut: sut, toRetrieveTwice: .success([exercise]))
+    }
+    
+    
+    
+    func test_coreDataExerciseStore_retrieveAllExercisesFailure_deliversFailure() throws {
+        
+        let stub = NSManagedObjectContext.alwaysFailingFetchStub()
+        stub.startIntercepting()
+        
+        let sut = try makeSut()
+        
+        expect(sut: sut, toRetrieve: .failure(anyNSError()))
     }
     
 
@@ -298,6 +352,9 @@ class CoreDataExerciseStoreTests: XCTestCase {
             switch (receivedResult, expectedResult) {
             case let (.success(receivedExercises), .success(expectedExercises)):
                 XCTAssertEqual(receivedExercises, expectedExercises, file: file, line: line)
+                
+            case let (.failure(receivedError), .failure(expectedError)):
+                XCTAssertEqual(receivedError as NSError, expectedError as NSError, file: file, line: line)
                 
             default:
                 XCTFail("Expected to retrieve \(expectedResult), got \(receivedResult) instead", file: file, line: line)
