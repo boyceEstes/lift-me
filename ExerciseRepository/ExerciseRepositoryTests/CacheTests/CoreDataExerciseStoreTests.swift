@@ -245,6 +245,23 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataExerciseStore_updateExerciseFailure_deliversError() throws {
+        
+        let stub = NSManagedObjectContext.alwaysFailingSaveStub()
+        let sut = try makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        
+        insert(exercise, into: sut)
+        
+        stub.startIntercepting()
+        
+        let updatedExercise = makeUniqueExerciseTuple().local
+        let updateError = update(exercise, with: updatedExercise, in: sut)
+        
+        XCTAssertEqual(updateError as NSError?, anyNSError())
+    }
+    
+    
     func test_coreDataExerciseStore_deleteExerciseFromEmptyCache_deliversNoRecordFoundError() throws {
         
         let sut = try makeSut()
