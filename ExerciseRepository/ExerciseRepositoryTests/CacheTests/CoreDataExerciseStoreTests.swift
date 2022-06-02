@@ -96,6 +96,17 @@ class CoreDataExerciseStoreTests: XCTestCase {
         expect(sut: sut, toRetrieve: .failure(anyNSError()))
     }
     
+    
+    func test_coreDataExerciseStore_retrieveAllExercisesFailure_hasNoSideEffects() throws {
+        
+        let stub = NSManagedObjectContext.alwaysFailingFetchStub()
+        stub.startIntercepting()
+        
+        let sut = try makeSut()
+        
+        expect(sut: sut, toRetrieveTwice: .failure(anyNSError()))
+    }
+    
 
     func test_coreDataExerciseStore_insertExerciseIntoEmptyCache_deliversNoError() throws {
         
