@@ -342,6 +342,22 @@ class CoreDataExerciseStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataExerciseStore_deleteExerciseFailure_hasNoSideEffects() throws {
+        
+        let stub = NSManagedObjectContext.alwaysFailingSaveStub()
+        let sut = try makeSut()
+        let exercise = makeUniqueExerciseTuple().local
+        
+        insert(exercise, into: sut)
+        
+        stub.startIntercepting()
+        
+        delete(exercise, from: sut)
+        
+        expect(sut: sut, toRetrieve: .success([exercise]))
+    }
+    
+    
     func test_coreDataExerciseStore_serialOperations_runInOrder() throws {
         
         let sut = try makeSut()
