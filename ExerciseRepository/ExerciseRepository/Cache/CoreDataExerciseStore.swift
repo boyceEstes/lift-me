@@ -35,11 +35,10 @@ public class CoreDataExerciseStore: ExerciseStore {
             ManagedExercise.newExercise(from: exercise, in: context)
             
             do {
-                try context.save()
+                try context.saveOrRollback()
                 completion(nil)
                 
             } catch {
-                context.rollback()
                 completion(error)
             }
         }
@@ -81,11 +80,10 @@ public class CoreDataExerciseStore: ExerciseStore {
                 exercise.dateCreated = updatedExercise.dateCreated
                 exercise.desc = updatedExercise.desc
                 
-                try context.save()
+                try context.saveOrRollback()
                 completion(nil)
                 
             } catch {
-                context.rollback()
                 completion(error)
             }
         }
@@ -104,11 +102,10 @@ public class CoreDataExerciseStore: ExerciseStore {
                     
                 context.delete(exercise)
                 
-                try context.save()
+                try context.saveOrRollback()
                 completion(nil)
                 
             } catch {
-                context.rollback()
                 completion(error)
             }
         }
@@ -233,5 +230,17 @@ class ManagedExercise: NSManagedObject {
 extension Array where Element == ManagedExercise {
     func toLocal() -> [LocalExercise] {
         self.map { $0.local }
+    }
+}
+
+
+extension NSManagedObjectContext {
+    func saveOrRollback() throws {
+        do {
+            try save()
+        } catch {
+            rollback()
+            throw error
+        }
     }
 }
