@@ -38,6 +38,8 @@
 		B3C98C5F286363750093ADD2 /* NSManagedObjectContext+FailingStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C5E286363750093ADD2 /* NSManagedObjectContext+FailingStub.swift */; };
 		B3C98C67286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C66286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.swift */; };
 		B3C98C68286366A90093ADD2 /* ExerciseRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */; };
+		B3C98C6F28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */; };
+		B3C98C7028636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,7 @@
 		B3C98C5E286363750093ADD2 /* NSManagedObjectContext+FailingStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+FailingStub.swift"; sourceTree = "<group>"; };
 		B3C98C64286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExerciseRepositoryIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C98C66286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRepositoryIntegrationTests.swift; sourceTree = "<group>"; };
+		B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+trackForMemoryLeaks.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,6 +244,7 @@
 				B3151A79283CAB49006AE970 /* ExerciseStoreSpy.swift */,
 				B3151A75283CAB48006AE970 /* LiftMeExercisesTestHelpers.swift */,
 				B3C98C5E286363750093ADD2 /* NSManagedObjectContext+FailingStub.swift */,
+				B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -417,6 +421,7 @@
 				B30C9A6A283CB079009FB932 /* UpdateExerciseUseCaseTests.swift in Sources */,
 				B35CB6AF283CAEE0004551AD /* CoreDataExerciseStoreTests.swift in Sources */,
 				B30C9A62283CB048009FB932 /* SaveSetRecordUseCaseTests.swift in Sources */,
+				B3C98C6F28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift in Sources */,
 				B30C9A73283CB090009FB932 /* SaveExerciseRecordUseCaseTests.swift in Sources */,
 				B30C9A74283CB090009FB932 /* LoadAllExerciseRecordsUseCaseTests.swift in Sources */,
 				B3AA1665283CABCE00F81DD5 /* LiftMeExercisesTestHelpers.swift in Sources */,
@@ -433,6 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3C98C7028636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift in Sources */,
 				B3C98C67286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
