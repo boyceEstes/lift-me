@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C032874875600B017BB /* ExerciseDetailView.swift */; };
+		B3454C06287487C300B017BB /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C05287487C300B017BB /* Exercise.swift */; };
 		B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */; };
 		B3E77013286DF4EA006122EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77012286DF4EA006122EF /* ContentView.swift */; };
 		B3E77015286DF4EB006122EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3E77014286DF4EB006122EF /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B3454C032874875600B017BB /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
+		B3454C05287487C300B017BB /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		B3E7700D286DF4EA006122EF /* LiftMePrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMePrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMePrototypeApp.swift; sourceTree = "<group>"; };
 		B3E77012286DF4EA006122EF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,6 +59,8 @@
 				B3E77012286DF4EA006122EF /* ContentView.swift */,
 				B3E77014286DF4EB006122EF /* Assets.xcassets */,
 				B3E77016286DF4EB006122EF /* Preview Content */,
+				B3454C032874875600B017BB /* ExerciseDetailView.swift */,
+				B3454C05287487C300B017BB /* Exercise.swift */,
 			);
 			path = LiftMePrototype;
 			sourceTree = "<group>";
@@ -138,6 +144,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E77013286DF4EA006122EF /* ContentView.swift in Sources */,
+				B3454C06287487C300B017BB /* Exercise.swift in Sources */,
+				B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */,
 				B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
