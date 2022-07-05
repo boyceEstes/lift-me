@@ -179,7 +179,7 @@
 		B3151A6A283A36F9006AE970 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
-				B3151A6B283A370E006AE970 /* Lcoal Models */,
+				B3151A6B283A370E006AE970 /* Local Models */,
 				B3711D68283951050031F123 /* ExerciseRepository.swift */,
 				B3711D6E283953A90031F123 /* ExerciseStore.swift */,
 				B3711D6F283953A90031F123 /* LocalExerciseRepository.swift */,
@@ -189,14 +189,14 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
-		B3151A6B283A370E006AE970 /* Lcoal Models */ = {
+		B3151A6B283A370E006AE970 /* Local Models */ = {
 			isa = PBXGroup;
 			children = (
 				B3711D72283953B10031F123 /* LocalExercise.swift */,
 				B3711D73283953B10031F123 /* LocalExerciseRecord.swift */,
 				B3711D74283953B10031F123 /* LocalSetRecord.swift */,
 			);
-			path = "Lcoal Models";
+			path = "Local Models";
 			sourceTree = "<group>";
 		};
 		B3711D4228394CF40031F123 = {
