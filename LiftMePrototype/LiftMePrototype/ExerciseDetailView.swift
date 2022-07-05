@@ -12,7 +12,17 @@ struct ExerciseDetailView: View {
     let exercise: Exercise
     
     var body: some View {
-        Text(exercise.name)
+        NavigationView {
+            VStack {
+                Text(exercise.description)
+                
+                Text("Records")
+                List(exercise.records) { exerciseRecord in
+                    Text("HELLO")
+                }
+            }
+            .navigationTitle(exercise.name)
+        }
     }
 }
 
