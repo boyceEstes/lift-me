@@ -10,18 +10,61 @@ import SwiftUI
 struct ExerciseDetailView: View {
     
     let exercise: Exercise
-    
+
     var body: some View {
-        NavigationView {
-            VStack {
+
+        ZStack {
+            Color(UIColor.secondarySystemBackground)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack(alignment: .leading) {
                 Text(exercise.description)
+                    .padding(.horizontal)
                 
-                Text("Records")
-                List(exercise.records) { exerciseRecord in
-                    Text("HELLO")
+                Section {
+                    List(exercise.records) { exerciseRecord in
+                        Section {
+                            ForEach(Array(exerciseRecord.sets.enumerated()), id: \.offset) { index, setRecord in
+                                SetRecordRow(index: index, setRecord: setRecord)
+                            }
+                        } header: {
+                            HStack {
+                                Text(exerciseRecord.dateCompletedString)
+                                Spacer()
+                                Text("\(exerciseRecord.numberOfSets) sets")
+                            }
+                        }
+                    }
+                } header: {
+                    HStack {
+                        Text("Logs")
+                            .font(Font.title2)
+                            .padding([.horizontal, .top])
+                    }
                 }
             }
             .navigationTitle(exercise.name)
+        .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+}
+
+
+struct SetRecordRow: View {
+    
+    let index: Int
+    let setRecord: SetRecord
+    
+    var body: some View {
+        HStack {
+            Text("Set \(index+1)")
+                .foregroundStyle(.secondary)
+            Spacer()
+            HStack {
+                Text("\(setRecord.weight)lbs")
+                Text("x")
+                Text("\(setRecord.repCount ?? 0)")
+            }
         }
     }
 }

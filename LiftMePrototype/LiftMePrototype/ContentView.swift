@@ -12,9 +12,9 @@ struct ContentView: View {
     
     let exercises = Exercise.mocks
     @State private var searchText = ""
-    
+
     var body: some View {
-        
+            
         NavigationView {
             List(exercises) { exercise in
                 NavigationLink {

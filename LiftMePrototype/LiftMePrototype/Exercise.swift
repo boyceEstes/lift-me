@@ -7,6 +7,14 @@
 
 import Foundation
 
+extension DateFormatter {
+    
+    static var mediumDate: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }
+}
 
 struct Exercise: Identifiable {
 
@@ -27,9 +35,7 @@ struct Exercise: Identifiable {
     
     var lastDoneDateString: String {
         if let lastDoneDate = lastDoneDate {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            let stringDate = formatter.string(from: lastDoneDate)
+            let stringDate = DateFormatter.mediumDate.string(from: lastDoneDate)
             return "Last completed: \(stringDate)"
         } else {
             return "No records found"
@@ -53,6 +59,15 @@ struct ExerciseRecord: Identifiable {
     let id = UUID()
     let dateTime: Date
     let sets: [SetRecord]
+    
+    var numberOfSets: Int {
+        sets.count
+    }
+    
+    
+    var dateCompletedString: String {
+        return "\(DateFormatter.mediumDate.string(from: dateTime))"
+    }
     
     
     static var mock: ExerciseRecord {
@@ -78,6 +93,9 @@ struct SetRecord: Identifiable {
     let weight: Int
     let difficulty: Int // 5 is max
     
+    var setData: String {
+        return "\(weight)lbs x \(repCount ?? 0)"
+    }
     
     static var mock: SetRecord {
         
