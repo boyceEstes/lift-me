@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B307E47A28752A2600AFD1F0 /* AddExerciseRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */; };
+		B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307E497287E78C600AFD1F0 /* AddExerciseView.swift */; };
 		B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C032874875600B017BB /* ExerciseDetailView.swift */; };
 		B3454C06287487C300B017BB /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C05287487C300B017BB /* Exercise.swift */; };
 		B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseRecordView.swift; sourceTree = "<group>"; };
+		B307E497287E78C600AFD1F0 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		B3454C032874875600B017BB /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
 		B3454C05287487C300B017BB /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		B3E7700D286DF4EA006122EF /* LiftMePrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMePrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +65,8 @@
 				B3E77016286DF4EB006122EF /* Preview Content */,
 				B3454C032874875600B017BB /* ExerciseDetailView.swift */,
 				B3454C05287487C300B017BB /* Exercise.swift */,
+				B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */,
+				B307E497287E78C600AFD1F0 /* AddExerciseView.swift */,
 			);
 			path = LiftMePrototype;
 			sourceTree = "<group>";
@@ -146,6 +152,8 @@
 				B3E77013286DF4EA006122EF /* ContentView.swift in Sources */,
 				B3454C06287487C300B017BB /* Exercise.swift in Sources */,
 				B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */,
+				B307E47A28752A2600AFD1F0 /* AddExerciseRecordView.swift in Sources */,
+				B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */,
 				B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

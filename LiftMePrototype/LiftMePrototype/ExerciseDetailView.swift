@@ -10,9 +10,9 @@ import SwiftUI
 struct ExerciseDetailView: View {
     
     let exercise: Exercise
-
+    
     var body: some View {
-
+        
         ZStack {
             Color(UIColor.secondarySystemBackground)
                 .edgesIgnoringSafeArea(.all)
@@ -20,6 +20,7 @@ struct ExerciseDetailView: View {
             VStack(alignment: .leading) {
                 Text(exercise.description)
                     .padding(.horizontal)
+                
                 
                 Section {
                     List(exercise.records) { exerciseRecord in
@@ -35,16 +36,27 @@ struct ExerciseDetailView: View {
                             }
                         }
                     }
+                    
                 } header: {
-                    HStack {
+                    HStack(alignment: .center) {
                         Text("Logs")
                             .font(Font.title2)
                             .padding([.horizontal, .top])
-                    }
+                        
+                        Spacer()
+                        
+                        NavigationLink {
+                            AddExerciseRecordView(exercise: exercise)
+                        } label: {
+                            Image(systemName: "plus")
+                                .padding(.horizontal)
+                        }
+                    }.padding(.horizontal)
                 }
+                
             }
             .navigationTitle(exercise.name)
-        .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
