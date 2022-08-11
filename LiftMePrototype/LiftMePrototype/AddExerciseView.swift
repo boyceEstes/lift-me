@@ -25,12 +25,12 @@ struct AddExerciseView: View {
     @State private var selectedMuscleGroup: MuscleGroup = .chest
     let muscleGroups: [MuscleGroup] = [
         .chest,
-            .back,
-            .legs,
-            .shoulders,
-            .biceps,
+        .back,
+        .legs,
+        .shoulders,
+        .biceps,
         .triceps,
-            .abs
+        .abs
     ]
     
     var body: some View {
@@ -53,18 +53,18 @@ struct AddExerciseView: View {
                 .labelsHidden()
             }
         }
-            .navigationTitle("Add Exercise")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
+        .navigationTitle("Add Exercise")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    presentationMode.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "plus")
                 }
             }
         }
+    }
 }
 
 struct AddExerciseView_Previews: PreviewProvider {
