@@ -29,14 +29,7 @@ class ExerciseRepositoryIntegrationTests: XCTestCase {
         
         let sut = makeSut()
         
-        sut.loadAllExercises { result in
-            switch result {
-            case .success(let exercises):
-                XCTAssertTrue(exercises.isEmpty)
-            default:
-                XCTFail("Expected to successfully retrieve empty cache, got \(result) instead")
-            }
-        }
+        expect(sut, toCompleteWith: [])
     }
     
 
@@ -53,6 +46,42 @@ class ExerciseRepositoryIntegrationTests: XCTestCase {
         save(exercise2, with: sutToPerformSave2)
         
         expect(sutToPerformLoad, toCompleteWith: [exercise1, exercise2])
+    }
+    
+
+    func test_localExerciseRepository_updateOnSeparateInstance_deliversUpdatedExercise() {
+
+        let sutToPerformSave = makeSut()
+        let sutToPerformUpdate = makeSut()
+        let sutToPerformLoad = makeSut()
+
+        let exercise = makeUniqueExerciseTuple().model
+        let updatedExercise = makeUniqueExerciseTuple().model
+
+        save(exercise, with: sutToPerformSave)
+        
+        update(exercise, to: updatedExercise, with: sutToPerformUpdate)
+
+        expect(sutToPerformLoad, toCompleteWith: [updatedExercise])
+    }
+    
+    
+    func test_localExerciseRepository_deleteOnSeparateInstance_deliversNonDeletedExercise() {
+
+        let sutToPerformSave = makeSut()
+        let sutToPerformSave2 = makeSut()
+        let sutToPerformRemove = makeSut()
+        let sutToPerformLoad = makeSut()
+
+        let exerciseToDelete = makeUniqueExerciseTuple().model
+        let exercise = makeUniqueExerciseTuple().model
+
+        save(exerciseToDelete, with: sutToPerformSave)
+        save(exercise, with: sutToPerformSave2)
+
+        remove(exerciseToDelete, with: sutToPerformRemove)
+
+        expect(sutToPerformLoad, toCompleteWith: [exercise])
     }
 
 
@@ -100,6 +129,29 @@ class ExerciseRepositoryIntegrationTests: XCTestCase {
             saveExp.fulfill()
         }
         wait(for: [saveExp], timeout: 1)
+    }
+    
+    
+    private func update(_ exercise: Exercise, to updatedExercise: Exercise, with sut: LocalExerciseRepository, file: StaticString = #file, line: UInt = #line) {
+        
+        let exp = expectation(description: "Wait for update to complete")
+        sut.update(exercise: exercise, with: updatedExercise) { receivedError in
+            XCTAssertNil(receivedError, "Expected to successfully update exercise, received \(receivedError!) instead", file: file, line: line)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    private func remove(_ exercise: Exercise, with sut: LocalExerciseRepository, file: StaticString = #file, line: UInt = #line) {
+        
+        let exp = expectation(description: "Wait for delete to complete")
+        sut.remove(exercise: exercise) { receivedError in
+            
+            XCTAssertNil(receivedError, "Expected to successfully delete exercise, received \(receivedError!) instead")
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1)
     }
 
 
