@@ -10,7 +10,21 @@ import ExerciseRepository
 
 class ExerciseRepositoryIntegrationTests: XCTestCase {
     
+    override func setUp() {
+        super.setUp()
+        
+        setupEmptyStoreState()
+    }
 
+
+    override func tearDown() {
+        
+        super.tearDown()
+        
+        undoStoreSideEffects()
+    }
+    
+    
     func test_localExerciseRepository_creation_hasEmptyCache() {
         
         let sut = makeSut()
@@ -42,59 +56,75 @@ class ExerciseRepositoryIntegrationTests: XCTestCase {
     }
 
 
-// MARK: - Helpers
-private func makeSut() -> LocalExerciseRepository {
-    
-    let storeBundle = Bundle(for: CoreDataExerciseStore.self)
-    let storeURL = specificTestStoreURL()
-    let exerciseStore = try! CoreDataExerciseStore(storeURL: storeURL, bundle: storeBundle)
-    let sut = LocalExerciseRepository(exerciseStore: exerciseStore)
-    trackForMemoryLeaks(exerciseStore)
-    trackForMemoryLeaks(sut)
-    return sut
-}
-
-
-private func expect(_ sut: LocalExerciseRepository, toCompleteWith expectedExercises: [Exercise], file: StaticString = #file, line: UInt = #line) {
-    
-    let exp = expectation(description: "Wait for exercises to load")
-    
-    sut.loadAllExercises { result in
+    // MARK: - Helpers
+    private func makeSut() -> LocalExerciseRepository {
         
-        switch result {
-        case let .success(receivedExercises):
-            XCTAssertEqual(receivedExercises, expectedExercises, file: file, line: line)
+        let storeBundle = Bundle(for: CoreDataExerciseStore.self)
+        let storeURL = specificTestStoreURL()
+        let exerciseStore = try! CoreDataExerciseStore(storeURL: storeURL, bundle: storeBundle)
+        let sut = LocalExerciseRepository(exerciseStore: exerciseStore)
+        trackForMemoryLeaks(exerciseStore)
+        trackForMemoryLeaks(sut)
+        return sut
+    }
+
+
+    private func expect(_ sut: LocalExerciseRepository, toCompleteWith expectedExercises: [Exercise], file: StaticString = #file, line: UInt = #line) {
+        
+        let exp = expectation(description: "Wait for exercises to load")
+        
+        sut.loadAllExercises { result in
             
-        case let .failure(error):
-            XCTFail("Expected successful exercises as result, got \(error) instead", file: file, line: line)
+            switch result {
+            case let .success(receivedExercises):
+                XCTAssertEqual(receivedExercises, expectedExercises, file: file, line: line)
+                
+            case let .failure(error):
+                XCTFail("Expected successful exercises as result, got \(error) instead", file: file, line: line)
+            }
+            
+            exp.fulfill()
         }
-        
-        exp.fulfill()
+        wait(for: [exp], timeout: 1)
     }
-    wait(for: [exp], timeout: 1)
-}
 
 
-private func save(_ exercise: Exercise, with sut: LocalExerciseRepository, file: StaticString = #file, line: UInt = #line) {
+    private func save(_ exercise: Exercise, with sut: LocalExerciseRepository, file: StaticString = #file, line: UInt = #line) {
+        
+        let saveExp = expectation(description: "Wait for save exercise completion")
+        sut.save(exercise: exercise) { error in
+            
+            if error != nil {
+                XCTFail("Expected no error, but got \(error!) instead", file: file, line: line)
+            }
+            saveExp.fulfill()
+        }
+        wait(for: [saveExp], timeout: 1)
+    }
+
+
+    private func specificTestStoreURL() -> URL {
+        return cachesDirectory().appendingPathComponent("\(type(of: self)).store")
+    }
+
+
+    private func cachesDirectory() -> URL {
+        return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+    }
     
-    let saveExp = expectation(description: "Wait for save exercise completion")
-    sut.save(exercise: exercise) { error in
+    
+    private func setupEmptyStoreState() {
+        deleteStoreArtifacts()
         
-        if error != nil {
-            XCTFail("Expected no error, but got \(error!) instead", file: file, line: line)
-        }
-        saveExp.fulfill()
     }
-    wait(for: [saveExp], timeout: 1)
-}
-
-
-private func specificTestStoreURL() -> URL {
-    return cachesDirectory().appendingPathComponent("\(type(of: self)).store")
-}
-
-
-private func cachesDirectory() -> URL {
-    return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
-}
+    
+    
+    private func undoStoreSideEffects() {
+        deleteStoreArtifacts()
+    }
+    
+    
+    private func deleteStoreArtifacts() {
+        try? FileManager.default.removeItem(at: specificTestStoreURL())
+    }
 }
