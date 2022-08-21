@@ -21,6 +21,10 @@
 		B30C9A79283D3703009FB932 /* ExerciseStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A77283D3703009FB932 /* ExerciseStore.xcdatamodeld */; };
 		B30C9A7B283DB714009FB932 /* CoreDataExerciseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A7A283DB714009FB932 /* CoreDataExerciseStore.swift */; };
 		B316A67028AF3D3500327BEB /* LiftMeExercisesTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3151A75283CAB48006AE970 /* LiftMeExercisesTestHelpers.swift */; };
+		B316A69628B1F6C700327BEB /* LiftMeiOS.docc in Sources */ = {isa = PBXBuildFile; fileRef = B316A69528B1F6C700327BEB /* LiftMeiOS.docc */; };
+		B316A69C28B1F6C700327BEB /* LiftMeiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B316A69228B1F6C700327BEB /* LiftMeiOS.framework */; };
+		B316A6A128B1F6C700327BEB /* LiftMeiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B316A6A028B1F6C700327BEB /* LiftMeiOSTests.swift */; };
+		B316A6A228B1F6C700327BEB /* LiftMeiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B316A69428B1F6C700327BEB /* LiftMeiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B35CB6AF283CAEE0004551AD /* CoreDataExerciseStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CB6AE283CAEE0004551AD /* CoreDataExerciseStoreTests.swift */; };
 		B3711D5128394CF40031F123 /* ExerciseRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3711D5028394CF40031F123 /* ExerciseRepository.docc */; };
 		B3711D5728394CF40031F123 /* ExerciseRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */; };
@@ -44,6 +48,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B316A69D28B1F6C700327BEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3711D4328394CF40031F123 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B316A69128B1F6C700327BEB;
+			remoteInfo = LiftMeiOS;
+		};
 		B3711D5828394CF40031F123 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B3711D4328394CF40031F123 /* Project object */;
@@ -76,6 +87,11 @@
 		B30C9A7A283DB714009FB932 /* CoreDataExerciseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExerciseStore.swift; sourceTree = "<group>"; };
 		B3151A75283CAB48006AE970 /* LiftMeExercisesTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeExercisesTestHelpers.swift; sourceTree = "<group>"; };
 		B3151A79283CAB49006AE970 /* ExerciseStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseStoreSpy.swift; sourceTree = "<group>"; };
+		B316A69228B1F6C700327BEB /* LiftMeiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LiftMeiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B316A69428B1F6C700327BEB /* LiftMeiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiftMeiOS.h; sourceTree = "<group>"; };
+		B316A69528B1F6C700327BEB /* LiftMeiOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LiftMeiOS.docc; sourceTree = "<group>"; };
+		B316A69B28B1F6C700327BEB /* LiftMeiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B316A6A028B1F6C700327BEB /* LiftMeiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeiOSTests.swift; sourceTree = "<group>"; };
 		B35CB6AE283CAEE0004551AD /* CoreDataExerciseStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExerciseStoreTests.swift; sourceTree = "<group>"; };
 		B3711D4C28394CF40031F123 /* ExerciseRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExerciseRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3711D4F28394CF40031F123 /* ExerciseRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExerciseRepository.h; sourceTree = "<group>"; };
@@ -97,6 +113,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B316A68F28B1F6C700327BEB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B316A69828B1F6C700327BEB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B316A69C28B1F6C700327BEB /* LiftMeiOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3711D4928394CF40031F123 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -200,12 +231,31 @@
 			path = "Local Models";
 			sourceTree = "<group>";
 		};
+		B316A69328B1F6C700327BEB /* LiftMeiOS */ = {
+			isa = PBXGroup;
+			children = (
+				B316A69428B1F6C700327BEB /* LiftMeiOS.h */,
+				B316A69528B1F6C700327BEB /* LiftMeiOS.docc */,
+			);
+			path = LiftMeiOS;
+			sourceTree = "<group>";
+		};
+		B316A69F28B1F6C700327BEB /* LiftMeiOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				B316A6A028B1F6C700327BEB /* LiftMeiOSTests.swift */,
+			);
+			path = LiftMeiOSTests;
+			sourceTree = "<group>";
+		};
 		B3711D4228394CF40031F123 = {
 			isa = PBXGroup;
 			children = (
 				B3711D4E28394CF40031F123 /* ExerciseRepository */,
 				B3711D5A28394CF40031F123 /* ExerciseRepositoryTests */,
 				B3C98C65286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests */,
+				B316A69328B1F6C700327BEB /* LiftMeiOS */,
+				B316A69F28B1F6C700327BEB /* LiftMeiOSTests */,
 				B3711D4D28394CF40031F123 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -216,6 +266,8 @@
 				B3711D4C28394CF40031F123 /* ExerciseRepository.framework */,
 				B3711D5628394CF40031F123 /* ExerciseRepositoryTests.xctest */,
 				B3C98C64286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.xctest */,
+				B316A69228B1F6C700327BEB /* LiftMeiOS.framework */,
+				B316A69B28B1F6C700327BEB /* LiftMeiOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -261,6 +313,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		B316A68D28B1F6C700327BEB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B316A6A228B1F6C700327BEB /* LiftMeiOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3711D4728394CF40031F123 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -272,6 +332,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		B316A69128B1F6C700327BEB /* LiftMeiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B316A6A328B1F6C700327BEB /* Build configuration list for PBXNativeTarget "LiftMeiOS" */;
+			buildPhases = (
+				B316A68D28B1F6C700327BEB /* Headers */,
+				B316A68E28B1F6C700327BEB /* Sources */,
+				B316A68F28B1F6C700327BEB /* Frameworks */,
+				B316A69028B1F6C700327BEB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LiftMeiOS;
+			productName = LiftMeiOS;
+			productReference = B316A69228B1F6C700327BEB /* LiftMeiOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B316A69A28B1F6C700327BEB /* LiftMeiOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B316A6A628B1F6C700327BEB /* Build configuration list for PBXNativeTarget "LiftMeiOSTests" */;
+			buildPhases = (
+				B316A69728B1F6C700327BEB /* Sources */,
+				B316A69828B1F6C700327BEB /* Frameworks */,
+				B316A69928B1F6C700327BEB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B316A69E28B1F6C700327BEB /* PBXTargetDependency */,
+			);
+			name = LiftMeiOSTests;
+			productName = LiftMeiOSTests;
+			productReference = B316A69B28B1F6C700327BEB /* LiftMeiOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B3711D4B28394CF40031F123 /* ExerciseRepository */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3711D6028394CF40031F123 /* Build configuration list for PBXNativeTarget "ExerciseRepository" */;
@@ -336,6 +432,12 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					B316A69128B1F6C700327BEB = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					B316A69A28B1F6C700327BEB = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					B3711D4B28394CF40031F123 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -364,11 +466,27 @@
 				B3711D4B28394CF40031F123 /* ExerciseRepository */,
 				B3711D5528394CF40031F123 /* ExerciseRepositoryTests */,
 				B3C98C63286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests */,
+				B316A69128B1F6C700327BEB /* LiftMeiOS */,
+				B316A69A28B1F6C700327BEB /* LiftMeiOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B316A69028B1F6C700327BEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B316A69928B1F6C700327BEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3711D4A28394CF40031F123 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -393,6 +511,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B316A68E28B1F6C700327BEB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B316A69628B1F6C700327BEB /* LiftMeiOS.docc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B316A69728B1F6C700327BEB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B316A6A128B1F6C700327BEB /* LiftMeiOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3711D4828394CF40031F123 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -448,6 +582,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B316A69E28B1F6C700327BEB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B316A69128B1F6C700327BEB /* LiftMeiOS */;
+			targetProxy = B316A69D28B1F6C700327BEB /* PBXContainerItemProxy */;
+		};
 		B3711D5928394CF40031F123 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B3711D4B28394CF40031F123 /* ExerciseRepository */;
@@ -461,6 +600,104 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		B316A6A428B1F6C700327BEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RXL7292WR8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B316A6A528B1F6C700327BEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RXL7292WR8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B316A6A728B1F6C700327BEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RXL7292WR8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B316A6A828B1F6C700327BEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RXL7292WR8;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		B3711D5E28394CF40031F123 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -606,6 +843,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.ExerciseRepository;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -635,6 +873,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.ExerciseRepository;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -657,6 +896,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.ExerciseRepositoryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -680,6 +920,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.ExerciseRepositoryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 			};
@@ -695,6 +936,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.ExerciseRepositoryIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 			};
@@ -710,6 +952,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.ExerciseRepositoryIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 			};
@@ -718,6 +961,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B316A6A328B1F6C700327BEB /* Build configuration list for PBXNativeTarget "LiftMeiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B316A6A428B1F6C700327BEB /* Debug */,
+				B316A6A528B1F6C700327BEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B316A6A628B1F6C700327BEB /* Build configuration list for PBXNativeTarget "LiftMeiOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B316A6A728B1F6C700327BEB /* Debug */,
+				B316A6A828B1F6C700327BEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B3711D4628394CF40031F123 /* Build configuration list for PBXProject "ExerciseRepository" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

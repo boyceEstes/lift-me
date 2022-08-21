@@ -4,19 +4,50 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CI_iOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>CI_macOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>ExerciseRepository.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
 		<key>ExerciseRepositoryCacheIntegrationTests.xcscheme_^#shared#^_</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>LiftMeiOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>B316A69128B1F6C700327BEB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B316A69A28B1F6C700327BEB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>B3711D4B28394CF40031F123</key>
 		<dict>
 			<key>primary</key>
