@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Build and Run Default Scheme
+    - name: Clean, Build, and Run CI_macOS Scheme
       run: xcodebuild clean build test -project ExerciseRepository/ExerciseRepository.xcodeproj -scheme "ExerciseRepository" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -sdk macosx -destination "platform=macOS" ONLY_ACTIVE_ARCH=YES
+      
+    - name: Build, Build, and Run CI_iOS Scheme
+      run: xcodebuild clean build test -project ExerciseRepository/ExerciseRepository.xcodeproj -scheme "CI_iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 13 Pro Max" ONLY_ACTIVE_ARCH=YES | xcpretty
 

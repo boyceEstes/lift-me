@@ -20,20 +20,6 @@
                ReferencedContainer = "container:ExerciseRepository.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B316A69128B1F6C700327BEB"
-               BuildableName = "LiftMeiOS.framework"
-               BlueprintName = "LiftMeiOS"
-               ReferencedContainer = "container:ExerciseRepository.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
