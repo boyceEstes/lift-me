@@ -29,14 +29,7 @@ class ExerciseRepositoryIntegrationTests: XCTestCase {
         
         let sut = makeSut()
         
-        sut.loadAllExercises { result in
-            switch result {
-            case .success(let exercises):
-                XCTAssertTrue(exercises.isEmpty)
-            default:
-                XCTFail("Expected to successfully retrieve empty cache, got \(result) instead")
-            }
-        }
+        expect(sut, toCompleteWith: [])
     }
     
 
