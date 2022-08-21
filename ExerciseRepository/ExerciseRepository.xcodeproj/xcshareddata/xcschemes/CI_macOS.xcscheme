@@ -61,17 +61,6 @@
                ReferencedContainer = "container:ExerciseRepository.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            testExecutionOrdering = "random">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B316A67E28B1EF2400327BEB"
-               BuildableName = "LiftMeiOSTests.xctest"
-               BlueprintName = "LiftMeiOSTests"
-               ReferencedContainer = "container:ExerciseRepository.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

@@ -14,7 +14,21 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B316A67528B1EF2300327BEB"
+               BlueprintIdentifier = "B3711D4B28394CF40031F123"
+               BuildableName = "ExerciseRepository.framework"
+               BlueprintName = "ExerciseRepository"
+               ReferencedContainer = "container:ExerciseRepository.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B316A69128B1F6C700327BEB"
                BuildableName = "LiftMeiOS.framework"
                BlueprintName = "LiftMeiOS"
                ReferencedContainer = "container:ExerciseRepository.xcodeproj">
@@ -35,6 +49,13 @@
             BlueprintIdentifier = "B3711D4B28394CF40031F123"
             BuildableName = "ExerciseRepository.framework"
             BlueprintName = "ExerciseRepository"
+            ReferencedContainer = "container:ExerciseRepository.xcodeproj">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B316A69128B1F6C700327BEB"
+            BuildableName = "LiftMeiOS.framework"
+            BlueprintName = "LiftMeiOS"
             ReferencedContainer = "container:ExerciseRepository.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
@@ -61,6 +82,17 @@
                ReferencedContainer = "container:ExerciseRepository.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B316A69A28B1F6C700327BEB"
+               BuildableName = "LiftMeiOSTests.xctest"
+               BlueprintName = "LiftMeiOSTests"
+               ReferencedContainer = "container:ExerciseRepository.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -83,9 +115,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B316A67528B1EF2300327BEB"
-            BuildableName = "LiftMeiOS.framework"
-            BlueprintName = "LiftMeiOS"
+            BlueprintIdentifier = "B3711D4B28394CF40031F123"
+            BuildableName = "ExerciseRepository.framework"
+            BlueprintName = "ExerciseRepository"
             ReferencedContainer = "container:ExerciseRepository.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
