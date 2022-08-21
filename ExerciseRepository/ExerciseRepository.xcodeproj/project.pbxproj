@@ -20,6 +20,7 @@
 		B30C9A74283CB090009FB932 /* LoadAllExerciseRecordsUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A70283CB090009FB932 /* LoadAllExerciseRecordsUseCaseTests.swift */; };
 		B30C9A79283D3703009FB932 /* ExerciseStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A77283D3703009FB932 /* ExerciseStore.xcdatamodeld */; };
 		B30C9A7B283DB714009FB932 /* CoreDataExerciseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A7A283DB714009FB932 /* CoreDataExerciseStore.swift */; };
+		B316A67028AF3D3500327BEB /* LiftMeExercisesTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3151A75283CAB48006AE970 /* LiftMeExercisesTestHelpers.swift */; };
 		B35CB6AF283CAEE0004551AD /* CoreDataExerciseStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CB6AE283CAEE0004551AD /* CoreDataExerciseStoreTests.swift */; };
 		B3711D5128394CF40031F123 /* ExerciseRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3711D5028394CF40031F123 /* ExerciseRepository.docc */; };
 		B3711D5728394CF40031F123 /* ExerciseRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */; };
@@ -36,7 +37,7 @@
 		B3AA1665283CABCE00F81DD5 /* LiftMeExercisesTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3151A75283CAB48006AE970 /* LiftMeExercisesTestHelpers.swift */; };
 		B3AA1668283CABCE00F81DD5 /* ExerciseStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3151A79283CAB49006AE970 /* ExerciseStoreSpy.swift */; };
 		B3C98C5F286363750093ADD2 /* NSManagedObjectContext+FailingStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C5E286363750093ADD2 /* NSManagedObjectContext+FailingStub.swift */; };
-		B3C98C67286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C66286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.swift */; };
+		B3C98C67286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C66286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.swift */; };
 		B3C98C68286366A90093ADD2 /* ExerciseRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */; };
 		B3C98C6F28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */; };
 		B3C98C7028636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */; };
@@ -90,8 +91,8 @@
 		B3711D79283953C00031F123 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		B3711D7A283953C00031F123 /* ExerciseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecord.swift; sourceTree = "<group>"; };
 		B3C98C5E286363750093ADD2 /* NSManagedObjectContext+FailingStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+FailingStub.swift"; sourceTree = "<group>"; };
-		B3C98C64286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExerciseRepositoryIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3C98C66286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRepositoryIntegrationTests.swift; sourceTree = "<group>"; };
+		B3C98C64286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExerciseRepositoryCacheIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3C98C66286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRepositoryCacheIntegrationTests.swift; sourceTree = "<group>"; };
 		B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+trackForMemoryLeaks.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -204,7 +205,7 @@
 			children = (
 				B3711D4E28394CF40031F123 /* ExerciseRepository */,
 				B3711D5A28394CF40031F123 /* ExerciseRepositoryTests */,
-				B3C98C65286366A90093ADD2 /* ExerciseRepositoryIntegrationTests */,
+				B3C98C65286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests */,
 				B3711D4D28394CF40031F123 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -214,7 +215,7 @@
 			children = (
 				B3711D4C28394CF40031F123 /* ExerciseRepository.framework */,
 				B3711D5628394CF40031F123 /* ExerciseRepositoryTests.xctest */,
-				B3C98C64286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.xctest */,
+				B3C98C64286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,12 +250,12 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		B3C98C65286366A90093ADD2 /* ExerciseRepositoryIntegrationTests */ = {
+		B3C98C65286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
-				B3C98C66286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.swift */,
+				B3C98C66286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.swift */,
 			);
-			path = ExerciseRepositoryIntegrationTests;
+			path = ExerciseRepositoryCacheIntegrationTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,9 +308,9 @@
 			productReference = B3711D5628394CF40031F123 /* ExerciseRepositoryTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B3C98C63286366A90093ADD2 /* ExerciseRepositoryIntegrationTests */ = {
+		B3C98C63286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B3C98C6B286366A90093ADD2 /* Build configuration list for PBXNativeTarget "ExerciseRepositoryIntegrationTests" */;
+			buildConfigurationList = B3C98C6B286366A90093ADD2 /* Build configuration list for PBXNativeTarget "ExerciseRepositoryCacheIntegrationTests" */;
 			buildPhases = (
 				B3C98C60286366A90093ADD2 /* Sources */,
 				B3C98C61286366A90093ADD2 /* Frameworks */,
@@ -320,9 +321,9 @@
 			dependencies = (
 				B3C98C6A286366A90093ADD2 /* PBXTargetDependency */,
 			);
-			name = ExerciseRepositoryIntegrationTests;
+			name = ExerciseRepositoryCacheIntegrationTests;
 			productName = ExerciseRepositoryIntegrationTests;
-			productReference = B3C98C64286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.xctest */;
+			productReference = B3C98C64286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -362,7 +363,7 @@
 			targets = (
 				B3711D4B28394CF40031F123 /* ExerciseRepository */,
 				B3711D5528394CF40031F123 /* ExerciseRepositoryTests */,
-				B3C98C63286366A90093ADD2 /* ExerciseRepositoryIntegrationTests */,
+				B3C98C63286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests */,
 			);
 		};
 /* End PBXProject section */
@@ -439,7 +440,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3C98C7028636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift in Sources */,
-				B3C98C67286366A90093ADD2 /* ExerciseRepositoryIntegrationTests.swift in Sources */,
+				B3C98C67286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.swift in Sources */,
+				B316A67028AF3D3500327BEB /* LiftMeExercisesTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,7 +745,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B3C98C6B286366A90093ADD2 /* Build configuration list for PBXNativeTarget "ExerciseRepositoryIntegrationTests" */ = {
+		B3C98C6B286366A90093ADD2 /* Build configuration list for PBXNativeTarget "ExerciseRepositoryCacheIntegrationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3C98C6C286366A90093ADD2 /* Debug */,
