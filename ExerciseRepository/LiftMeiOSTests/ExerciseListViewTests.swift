@@ -30,20 +30,13 @@ extension ExerciseListView: Inspectable { }
 
 class ExerciseListViewTests: XCTestCase {
     
-    func test_exerciseListView_exerciseRepositoryOnInit_makesNoRequests() {
-        
-        let exerciseRepository = ExerciseRepositorySpy()
-        _ = ExerciseListView(exerciseRepository: exerciseRepository)
-        
-        // Tests the number of requests
-        XCTAssertEqual(exerciseRepository.requestCount, 0)
-    }
     
-    
-    func test_exerciseListView_exerciseRepositoryOnAppear_makesOneRequest() {
+    func test_exerciseListView_loadExerciseRepository_makesRequestsFromRepository() {
         
         let exerciseRepository = ExerciseRepositorySpy()
         var sut = ExerciseListView(exerciseRepository: exerciseRepository)
+        
+        XCTAssertEqual(exerciseRepository.requestCount, 0)
         
         let exp = expectation(description: "Wait for ExerciseListView to appear")
         
