@@ -39,6 +39,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .onAppear {
+                print("Exercise list appeared")
+            }
         }
     }
     
