@@ -12,6 +12,7 @@
 		B30C4E9C28B57CAC00CB5000 /* ExerciseRepository.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B30C4EA428B587CB00CB5000 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B30C4EA328B587CB00CB5000 /* ViewInspector */; };
 		B30C4EA628B5D14000CB5000 /* LiftMeExercisesTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3151A75283CAB48006AE970 /* LiftMeExercisesTestHelpers.swift */; };
+		B30C4EA728BA8C4300CB5000 /* XCTestCase+trackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */; };
 		B30C9A60283CB048009FB932 /* UpdateSetRecordUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A5E283CB048009FB932 /* UpdateSetRecordUseCaseTests.swift */; };
 		B30C9A61283CB048009FB932 /* DeleteSetRecordUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A5D283CB048009FB932 /* DeleteSetRecordUseCaseTests.swift */; };
 		B30C9A62283CB048009FB932 /* SaveSetRecordUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A5F283CB048009FB932 /* SaveSetRecordUseCaseTests.swift */; };
@@ -569,6 +570,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B30C4EA728BA8C4300CB5000 /* XCTestCase+trackForMemoryLeaks.swift in Sources */,
 				B30C4EA628B5D14000CB5000 /* LiftMeExercisesTestHelpers.swift in Sources */,
 				B30C4E8F28B576E700CB5000 /* ExerciseListViewTests.swift in Sources */,
 			);
