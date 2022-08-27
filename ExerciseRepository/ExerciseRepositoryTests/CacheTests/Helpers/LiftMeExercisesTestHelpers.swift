@@ -11,7 +11,7 @@ import XCTest
 
 
 func makeUniqueExercise() -> Exercise {
-    return Exercise(id: UUID(), name: "any", dateCreated: Date(), desc: "any", exerciseRecords: [])
+    return Exercise(id: UUID(), name: UUID().uuidString, dateCreated: Date(), desc: "any", exerciseRecords: [])
 }
 
 
