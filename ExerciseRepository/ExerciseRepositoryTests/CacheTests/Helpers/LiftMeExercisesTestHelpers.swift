@@ -11,14 +11,14 @@ import XCTest
 
 
 func makeUniqueExercise() -> Exercise {
-    return Exercise(id: UUID(), name: UUID().uuidString, dateCreated: Date(), desc: "any", exerciseRecords: [])
+    return Exercise(id: UUID(), name: UUID().uuidString, dateCreated: Date(), desc: "any", dateLastCompleted: nil, exerciseRecords: [])
 }
 
 
 func makeUniqueExerciseTuple() -> (model: Exercise, local: LocalExercise) {
     
     let model = makeUniqueExercise()
-    let local = LocalExercise(id: model.id, name: model.name, dateCreated: model.dateCreated, desc: model.desc, exerciseRecords: model.exerciseRecords.toLocal())
+    let local = LocalExercise(id: model.id, name: model.name, dateCreated: model.dateCreated, desc: model.desc, dateLastCompleted: nil, exerciseRecords: model.exerciseRecords.toLocal())
     return (model, local)
 }
 

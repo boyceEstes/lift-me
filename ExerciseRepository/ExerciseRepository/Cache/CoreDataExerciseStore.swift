@@ -183,6 +183,7 @@ class ManagedExercise: NSManagedObject {
     @NSManaged var desc: String?
     @NSManaged var name: String
     @NSManaged var dateCreated: Date
+    @NSManaged var dateLastCompleted: Date?
     
     
     @discardableResult
@@ -193,6 +194,7 @@ class ManagedExercise: NSManagedObject {
         managedExercise.name = exercise.name
         managedExercise.dateCreated = exercise.dateCreated
         managedExercise.desc = exercise.desc
+        managedExercise.dateLastCompleted = exercise.dateLastCompleted
         return managedExercise
     }
     
@@ -217,7 +219,7 @@ class ManagedExercise: NSManagedObject {
     
     
     var local: LocalExercise {
-        LocalExercise(id: self.id, name: self.name, dateCreated: self.dateCreated, desc: self.desc, exerciseRecords: [])
+        LocalExercise(id: self.id, name: self.name, dateCreated: self.dateCreated, desc: self.desc, dateLastCompleted: self.dateLastCompleted, exerciseRecords: [])
     }
     
     

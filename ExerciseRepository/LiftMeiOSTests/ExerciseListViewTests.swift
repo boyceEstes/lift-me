@@ -83,9 +83,7 @@ class ExerciseListViewTests: XCTestCase {
         let exerciseRepository = ExerciseRepositorySpy()
         let viewModel = ExerciseListViewModel(exerciseRepository: exerciseRepository)
         let sut = ExerciseListView(viewModel: viewModel)
-//        trackForMemoryLeaks(viewModel, file: file, line: line)
-//        trackForMemoryLeaks(exerciseRepository, file: file, line: line)
-//
+        
         return (sut, exerciseRepository)
     }
     
@@ -102,6 +100,7 @@ class ExerciseListViewTests: XCTestCase {
         ViewHosting.host(view: sut)
         wait(for: [exp], timeout: 1)
     }
+
 
     private func assertThat(_ sut: ExerciseListView, isRendering exercises: [Exercise], file: StaticString = #file, line: UInt = #line) throws {
         
