@@ -10,6 +10,16 @@ import SwiftUI
 import ViewInspector
 import ExerciseRepository
 
+extension DateFormatter {
+    
+    static var mediumDate: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter
+    }
+}
+
+
 class ExerciseListViewModel: ObservableObject {
     
     let exerciseRepository: ExerciseRepository
@@ -27,6 +37,14 @@ class ExerciseListViewModel: ObservableObject {
             }
         }
     }
+    
+    func dateLastCompletedMessage(for exercise: Exercise) -> String {
+        if let dateLastCompleted = exercise.dateLastCompleted {
+            return "Last completed: \(DateFormatter.mediumDate.string(from: dateLastCompleted))"
+        } else {
+            return "No records found"
+        }
+    }
 }
 
 struct ExerciseListView: View {
@@ -37,8 +55,11 @@ struct ExerciseListView: View {
     
     var body: some View {
         List {
-            ForEach(viewModel.exercises) {
-                Text($0.name)
+            ForEach(viewModel.exercises, id: \.self) { exercise in
+                VStack {
+                    Text(exercise.name)
+                    Text(viewModel.dateLastCompletedMessage(for: exercise))
+                }
             }
         }
         .onAppear {
@@ -104,13 +125,17 @@ class ExerciseListViewTests: XCTestCase {
 
     private func assertThat(_ sut: ExerciseListView, isRendering exercises: [Exercise], file: StaticString = #file, line: UInt = #line) throws {
         
-        XCTAssertEqual(sut.viewModel.exercises.count, exercises.count)
+        let viewModel = sut.viewModel
+        
+        XCTAssertEqual(viewModel.exercises.count, exercises.count)
         
         // check that there are correct rows in a list
         try exercises.enumerated().forEach { (index, exercise) in
             
             let renderedRowTitle = try sut.inspect().find(text: exercise.name).string()
+            let renderedRowLastCompletedSubtitle = try sut.inspect().find(text: viewModel.dateLastCompletedMessage(for: exercise)).string()
             XCTAssertEqual(renderedRowTitle, exercise.name)
+            XCTAssertEqual(renderedRowLastCompletedSubtitle, viewModel.dateLastCompletedMessage(for: exercise))
         }
     }
     
