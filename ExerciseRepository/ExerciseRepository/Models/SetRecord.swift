@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SetRecord: Equatable {
+public struct SetRecord: Equatable, Hashable {
     
     let exerciseRecord: ExerciseRecord
     let duration: Int?
