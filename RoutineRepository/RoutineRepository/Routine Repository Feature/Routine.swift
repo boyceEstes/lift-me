@@ -9,10 +9,10 @@ import Foundation
 
 public struct Routine {
     
-    let id: UUID
-    let creationDate: Date
+    public let id: UUID
+    public let creationDate: Date
     
     // relationships
-    let exercises: [Exercise]
-    let routineRecords: [RoutineRecord]
+    public let exercises: [Exercise]
+    public let routineRecords: [RoutineRecord]
 }

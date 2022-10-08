@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct ExerciseRecord {
+public struct ExerciseRecord {
     
-    let id: UUID
+    public let id: UUID
     
     // relationships
-    let setRecords: [SetRecord]
+    public let setRecords: [SetRecord]
 }

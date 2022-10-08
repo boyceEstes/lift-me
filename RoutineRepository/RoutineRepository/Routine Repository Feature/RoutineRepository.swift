@@ -12,3 +12,4 @@ public protocol RoutineRepository {
     func save(routine: Routine)
     func loadAllRoutines() -> [Routine]
 }
+

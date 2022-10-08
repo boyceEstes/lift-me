@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct RoutineRecord {
+public struct RoutineRecord {
     
-    let id: UUID
-    let creationDate: Date
-    let completionDate: Date?
+    public let id: UUID
+    public let creationDate: Date
+    public let completionDate: Date?
     
     // relationships
-    let exerciseRecords: [ExerciseRecord]
+    public let exerciseRecords: [ExerciseRecord]
 }
