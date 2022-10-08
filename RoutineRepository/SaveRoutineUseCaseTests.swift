@@ -230,7 +230,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
     }
     
     
-    func test_routineRepository_saveDuplicateRoutineName_deliversDuplicateRoutineNameError() {
+    func test_routineRepository_saveRoutineWhenRoutineNameIsAlreadyCached_deliversDuplicateRoutineNameError() {
         
         let (sut, routineStore) = makeSUT()
         
