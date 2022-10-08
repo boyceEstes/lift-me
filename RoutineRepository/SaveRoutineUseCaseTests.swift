@@ -33,6 +33,7 @@ struct LocalRoutineRecord: Equatable {
 struct LocalExercise: Equatable {
     
     let id: UUID
+    let name: String
     let creationDate: Date
     
     // relationships
@@ -84,6 +85,7 @@ private extension Array where Element == Exercise {
         return map {
             LocalExercise(
                 id: $0.id,
+                name: $0.name,
                 creationDate: $0.creationDate,
                 exerciseRecords: $0.exerciseRecords.toLocal(),
                 tags: $0.tags.toLocal())
