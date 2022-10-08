@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol RoutineRepository {
+public protocol RoutineRepository {
     
     func save(routine: Routine)
     func loadAllRoutines() -> [Routine]

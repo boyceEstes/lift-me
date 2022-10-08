@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Routine {
+public struct Routine {
     
     let id: UUID
     let creationDate: Date
