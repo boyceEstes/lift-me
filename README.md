@@ -123,14 +123,86 @@ Then remove the routine
 And modify routine records to not point to any routine (do not delete them)
 ```
 
+## Terminology
+I'm splitting up the names method calls for infrastructure layer from the controller to coordinator for easier distinction since they would be so similar.
+
+For controllers (named repositories in the codebase (which will usually be the below use-cases)):
+- Save - CREATE
+- Load - READ
+- Update - UPDATE
+- Remove - DELETE
+
+For Infrastructure layer (any caching, networking, etc commands):
+- Create - CREATE
+- Read - Read
+- Update - UPDATE
+- Delete - DELETE
+
+
 ## Use Cases
-### Cache Routine Record Use Case
+
+### Save Routine Use Case
+Can be used when saving active record routine as well as precreating routines
+
+#### Data:
+- Routine
+
+#### Primary course (happy path):
+1. Execute "Find duplicate routines Use Case" command
+2. System receives no results with the same routine information
+3. Execute "Create routine" command with above data
+4. System caches routine
+5. System delivers success message
+
+#### Duplicate routine name (but different exercises) (sad path):
+1. System receives results with routine's name
+2. System delivers error - duplicate name
+
+#### Duplicate routine exercises (but different name) (sad path):
+1. System receives results with routine's exercises
+2. System delivers error - routine already exists, and include duplicate's name
+
+#### Duplicate routine exercises and name (sad path):
+1. System receives results with routine's exercises and name
+2. System delivers error - routine already exists, and include duplicate's name
+
+---
+
+### Find Duplicate Routines Use Case
+
+#### Data:
+- Routine
+
+#### Primary course (happy path):
+1. Execute "Read all routine names" command
+2. System fetches all routines with matching names
+3. Execute "Read all routine exercises"
+4. System fetches all routines with matching exercises
+5. System delivers success if nothing is found
+
+---
+
+### Load Routines Use Case
+
+#### Primary course (happy path):
+1. Execute "Read all routines" command
+2. System fetches all routines
+3. System delivers routines
+
+#### System error course (sad path):
+1. System delivers error
+
+
+---
+
+### Save Routine Record Use Case
+If the user chooses not to save the routine, this will be called to save the routine information
 
 #### Data:
 - RoutineRecord
 
 #### Primary course (happy path):
-1. Execute "Insert Routine Record" command with above data
+1. Execute "Create Or Update Routine Record" command with above data
 2. System fetches any routine records cached with the same ID
 3. System updates if there is an existing record or inserts if this record is unique
 2. System delivers success message
@@ -138,18 +210,65 @@ And modify routine records to not point to any routine (do not delete them)
 #### System error course (sad path):
 1. System delivers error
 
+---
 
-### Cache Active Routine Record Use Case
+### Load Routine Record Use Case
+
+#### Data:
+- ID: UUID
+
+#### Primary course (happy path):
+1. Execute "Read Routine Record" command with above data
+2. System fetches cached routine record with the same ID
+3. System delivers cached routine record
+
+#### Cannot find ID (sad path):
+1. System delivers error
+
+#### System error:
+1. System delivers error
+
+
+---
+
+
+### Save Active Routine Record Use Case
 #### Data:
 - RoutineRecord
 
 #### Primary course (happy path):
-1. Execute "Cache Routine Record Use Case" command
-2. Execute "Cache Active Routine Record ID" command
+1. Execute "Save Routine Record Use Case" command
+2. Execute "Create Active Routine Record ID" command
+3. System replaces any active routine record value with provided ID
 3. System delivers success message
 
 #### Cache Routine Record Use Case error course (sad path):
-1. System delivers failure message
+1. System delivers error
 
 #### Cache Active Routine Record ID Use Case error course (sad path):
-1. System delivers failure message
+1. System delivers error
+
+
+---
+
+
+### Load Active Routine Record Use Case
+
+#### Data:
+
+#### Primary course (happy path):
+1. Execute "Read and delete active routine record ID" command
+2. System clears active routine record ID
+3. System returns previous active routine record ID
+3. Execute "Load Active Routine Record" command
+4. System delivers cached routine record
+
+#### No Active Routine Record course (happy path):
+1. Execute "Read and delete active routine record ID" command
+2. System returns no active routine record ID
+3. System delivers nil
+
+#### Load Active Routine Record error course:
+1. System delivers Error
+
+---
