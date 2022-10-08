@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B30C4E8F28B576E700CB5000 /* ExerciseListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C4E8E28B576E700CB5000 /* ExerciseListViewTests.swift */; };
+		B30C4E9B28B57CAC00CB5000 /* ExerciseRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */; platformFilter = ios; };
+		B30C4E9C28B57CAC00CB5000 /* ExerciseRepository.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B30C4EA428B587CB00CB5000 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B30C4EA328B587CB00CB5000 /* ViewInspector */; };
+		B30C4EA628B5D14000CB5000 /* LiftMeExercisesTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3151A75283CAB48006AE970 /* LiftMeExercisesTestHelpers.swift */; };
+		B30C4EA728BA8C4300CB5000 /* XCTestCase+trackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */; };
 		B30C9A60283CB048009FB932 /* UpdateSetRecordUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A5E283CB048009FB932 /* UpdateSetRecordUseCaseTests.swift */; };
 		B30C9A61283CB048009FB932 /* DeleteSetRecordUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A5D283CB048009FB932 /* DeleteSetRecordUseCaseTests.swift */; };
 		B30C9A62283CB048009FB932 /* SaveSetRecordUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30C9A5F283CB048009FB932 /* SaveSetRecordUseCaseTests.swift */; };
@@ -23,7 +29,6 @@
 		B316A67028AF3D3500327BEB /* LiftMeExercisesTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3151A75283CAB48006AE970 /* LiftMeExercisesTestHelpers.swift */; };
 		B316A69628B1F6C700327BEB /* LiftMeiOS.docc in Sources */ = {isa = PBXBuildFile; fileRef = B316A69528B1F6C700327BEB /* LiftMeiOS.docc */; };
 		B316A69C28B1F6C700327BEB /* LiftMeiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B316A69228B1F6C700327BEB /* LiftMeiOS.framework */; };
-		B316A6A128B1F6C700327BEB /* LiftMeiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B316A6A028B1F6C700327BEB /* LiftMeiOSTests.swift */; };
 		B316A6A228B1F6C700327BEB /* LiftMeiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B316A69428B1F6C700327BEB /* LiftMeiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B35CB6AF283CAEE0004551AD /* CoreDataExerciseStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35CB6AE283CAEE0004551AD /* CoreDataExerciseStoreTests.swift */; };
 		B3711D5128394CF40031F123 /* ExerciseRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3711D5028394CF40031F123 /* ExerciseRepository.docc */; };
@@ -48,6 +53,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B30C4E9D28B57CAC00CB5000 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3711D4328394CF40031F123 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3711D4B28394CF40031F123;
+			remoteInfo = ExerciseRepository;
+		};
 		B316A69D28B1F6C700327BEB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B3711D4328394CF40031F123 /* Project object */;
@@ -71,7 +83,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B30C4E9F28B57CAC00CB5000 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B30C4E9C28B57CAC00CB5000 /* ExerciseRepository.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		B30C4E8E28B576E700CB5000 /* ExerciseListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListViewTests.swift; sourceTree = "<group>"; };
 		B30C9A5D283CB048009FB932 /* DeleteSetRecordUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSetRecordUseCaseTests.swift; sourceTree = "<group>"; };
 		B30C9A5E283CB048009FB932 /* UpdateSetRecordUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateSetRecordUseCaseTests.swift; sourceTree = "<group>"; };
 		B30C9A5F283CB048009FB932 /* SaveSetRecordUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveSetRecordUseCaseTests.swift; sourceTree = "<group>"; };
@@ -91,7 +118,6 @@
 		B316A69428B1F6C700327BEB /* LiftMeiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiftMeiOS.h; sourceTree = "<group>"; };
 		B316A69528B1F6C700327BEB /* LiftMeiOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LiftMeiOS.docc; sourceTree = "<group>"; };
 		B316A69B28B1F6C700327BEB /* LiftMeiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B316A6A028B1F6C700327BEB /* LiftMeiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeiOSTests.swift; sourceTree = "<group>"; };
 		B35CB6AE283CAEE0004551AD /* CoreDataExerciseStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataExerciseStoreTests.swift; sourceTree = "<group>"; };
 		B3711D4C28394CF40031F123 /* ExerciseRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ExerciseRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3711D4F28394CF40031F123 /* ExerciseRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExerciseRepository.h; sourceTree = "<group>"; };
@@ -117,6 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B30C4E9B28B57CAC00CB5000 /* ExerciseRepository.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B316A69C28B1F6C700327BEB /* LiftMeiOS.framework in Frameworks */,
+				B30C4EA428B587CB00CB5000 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +182,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B30C4E9528B57BE200CB5000 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B30C9A63283CB078009FB932 /* ExerciseUseCases */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,7 +278,7 @@
 		B316A69F28B1F6C700327BEB /* LiftMeiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				B316A6A028B1F6C700327BEB /* LiftMeiOSTests.swift */,
+				B30C4E8E28B576E700CB5000 /* ExerciseListViewTests.swift */,
 			);
 			path = LiftMeiOSTests;
 			sourceTree = "<group>";
@@ -257,6 +292,7 @@
 				B316A69328B1F6C700327BEB /* LiftMeiOS */,
 				B316A69F28B1F6C700327BEB /* LiftMeiOSTests */,
 				B3711D4D28394CF40031F123 /* Products */,
+				B30C4E9528B57BE200CB5000 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -340,10 +376,12 @@
 				B316A68E28B1F6C700327BEB /* Sources */,
 				B316A68F28B1F6C700327BEB /* Frameworks */,
 				B316A69028B1F6C700327BEB /* Resources */,
+				B30C4E9F28B57CAC00CB5000 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B30C4E9E28B57CAC00CB5000 /* PBXTargetDependency */,
 			);
 			name = LiftMeiOS;
 			productName = LiftMeiOS;
@@ -364,6 +402,9 @@
 				B316A69E28B1F6C700327BEB /* PBXTargetDependency */,
 			);
 			name = LiftMeiOSTests;
+			packageProductDependencies = (
+				B30C4EA328B587CB00CB5000 /* ViewInspector */,
+			);
 			productName = LiftMeiOSTests;
 			productReference = B316A69B28B1F6C700327BEB /* LiftMeiOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -382,6 +423,8 @@
 			dependencies = (
 			);
 			name = ExerciseRepository;
+			packageProductDependencies = (
+			);
 			productName = ExerciseRepository;
 			productReference = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */;
 			productType = "com.apple.product-type.framework";
@@ -437,6 +480,7 @@
 					};
 					B316A69A28B1F6C700327BEB = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1320;
 					};
 					B3711D4B28394CF40031F123 = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -459,6 +503,9 @@
 				Base,
 			);
 			mainGroup = B3711D4228394CF40031F123;
+			packageReferences = (
+				B30C4EA028B583C900CB5000 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			productRefGroup = B3711D4D28394CF40031F123 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -523,7 +570,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B316A6A128B1F6C700327BEB /* LiftMeiOSTests.swift in Sources */,
+				B30C4EA728BA8C4300CB5000 /* XCTestCase+trackForMemoryLeaks.swift in Sources */,
+				B30C4EA628B5D14000CB5000 /* LiftMeExercisesTestHelpers.swift in Sources */,
+				B30C4E8F28B576E700CB5000 /* ExerciseListViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,6 +631,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B30C4E9E28B57CAC00CB5000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = B3711D4B28394CF40031F123 /* ExerciseRepository */;
+			targetProxy = B30C4E9D28B57CAC00CB5000 /* PBXContainerItemProxy */;
+		};
 		B316A69E28B1F6C700327BEB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B316A69128B1F6C700327BEB /* LiftMeiOS */;
@@ -664,16 +719,23 @@
 		B316A6A728B1F6C700327BEB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RXL7292WR8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeiOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -682,11 +744,17 @@
 		B316A6A828B1F6C700327BEB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RXL7292WR8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeiOSTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1016,6 +1084,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B30C4EA028B583C900CB5000 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B30C4EA328B587CB00CB5000 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B30C4EA028B583C900CB5000 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B30C9A77283D3703009FB932 /* ExerciseStore.xcdatamodeld */ = {

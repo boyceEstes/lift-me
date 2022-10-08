@@ -13,14 +13,16 @@ public struct LocalExercise: Equatable, Codable {
     let name: String
     let dateCreated: Date
     let desc: String?
+    let dateLastCompleted: Date?
     
     var exerciseRecords: [LocalExerciseRecord]
     
-    public init(id: UUID, name: String, dateCreated: Date, desc: String?, exerciseRecords: [LocalExerciseRecord]) {
+    public init(id: UUID, name: String, dateCreated: Date, desc: String?, dateLastCompleted: Date?, exerciseRecords: [LocalExerciseRecord]) {
         self.id = id
         self.name = name
         self.dateCreated = dateCreated
         self.desc = desc
+        self.dateLastCompleted = dateLastCompleted
         self.exerciseRecords = exerciseRecords
     }
 }
@@ -28,14 +30,14 @@ public struct LocalExercise: Equatable, Codable {
 extension LocalExercise {
     
     func toModel() -> Exercise {
-        Exercise(id: self.id, name: self.name, dateCreated: self.dateCreated, desc: self.desc, exerciseRecords: self.exerciseRecords.toModels())
+        Exercise(id: self.id, name: self.name, dateCreated: self.dateCreated, desc: self.desc, dateLastCompleted: self.dateLastCompleted, exerciseRecords: self.exerciseRecords.toModels())
     }
 }
 
 extension Exercise {
     
     func toLocal() -> LocalExercise {
-        LocalExercise(id: self.id, name: self.name, dateCreated: self.dateCreated, desc: self.desc, exerciseRecords: self.exerciseRecords.toLocal())
+        LocalExercise(id: self.id, name: self.name, dateCreated: self.dateCreated, desc: self.desc, dateLastCompleted: self.dateLastCompleted, exerciseRecords: self.exerciseRecords.toLocal())
     }
 }
 
@@ -57,6 +59,7 @@ extension Array where Element == LocalExercise {
                 name: $0.name,
                 dateCreated: $0.dateCreated,
                 desc: $0.desc,
+                dateLastCompleted: $0.dateLastCompleted,
                 exerciseRecords: $0.exerciseRecords.toModels())
         }
     }

@@ -39,6 +39,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .onAppear {
+                print("Exercise list appeared")
+            }
         }
     }
     
@@ -122,12 +125,10 @@ struct ExerciseRow: View {
     let exercise: Exercise
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(exercise.name)
-                Text(exercise.lastDoneDateString)
-                    .font(.caption)
-            }
+        VStack(alignment: .leading) {
+            Text(exercise.name)
+            Text(exercise.lastDoneDateString)
+                .font(.caption)
         }
     }
 }
