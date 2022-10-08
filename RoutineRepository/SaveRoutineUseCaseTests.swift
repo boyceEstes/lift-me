@@ -189,4 +189,18 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         XCTAssertEqual(routineStore.receivedMessages, [])
     }
+    
+    
+    func test_routineRepository_saveDuplicateRoutineName_deliversDuplicateRoutineNameError() {
+        
+        let routineStore = RoutineStoreSpy()
+        let sut = LocalRoutineRepository(routineStore: routineStore)
+        
+        let routine = Routine(
+            id: UUID(),
+            creationDate: Date(),
+            exercises: [],
+            routineRecords: [])
+        sut.save(routine: <#T##Routine#>)
+    }
 }
