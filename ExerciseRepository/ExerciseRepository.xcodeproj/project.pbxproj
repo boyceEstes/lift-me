@@ -50,6 +50,7 @@
 		B3C98C68286366A90093ADD2 /* ExerciseRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3711D4C28394CF40031F123 /* ExerciseRepository.framework */; };
 		B3C98C6F28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */; };
 		B3C98C7028636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */; };
+		B3E6F5E628B414930024ECC7 /* ExerciseViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E6F5E528B414930024ECC7 /* ExerciseViewTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +137,7 @@
 		B3C98C64286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExerciseRepositoryCacheIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C98C66286366A90093ADD2 /* ExerciseRepositoryCacheIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRepositoryCacheIntegrationTests.swift; sourceTree = "<group>"; };
 		B3C98C6E28636A060093ADD2 /* XCTestCase+trackForMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+trackForMemoryLeaks.swift"; sourceTree = "<group>"; };
+		B3E6F5E528B414930024ECC7 /* ExerciseViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,7 +280,11 @@
 		B316A69F28B1F6C700327BEB /* LiftMeiOSTests */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				B30C4E8E28B576E700CB5000 /* ExerciseListViewTests.swift */,
+=======
+				B3E6F5E528B414930024ECC7 /* ExerciseViewTests.swift */,
+>>>>>>> Stashed changes
 			);
 			path = LiftMeiOSTests;
 			sourceTree = "<group>";
@@ -570,9 +576,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< Updated upstream
 				B30C4EA728BA8C4300CB5000 /* XCTestCase+trackForMemoryLeaks.swift in Sources */,
 				B30C4EA628B5D14000CB5000 /* LiftMeExercisesTestHelpers.swift in Sources */,
 				B30C4E8F28B576E700CB5000 /* ExerciseListViewTests.swift in Sources */,
+=======
+				B3E6F5E628B414930024ECC7 /* ExerciseViewTests.swift in Sources */,
+>>>>>>> Stashed changes
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
