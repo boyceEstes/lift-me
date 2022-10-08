@@ -10,6 +10,13 @@
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BE828F12746006CC77D /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0028F1EDB4006CC77D /* Routine.swift */; };
+		B3D29C0428F1EDFA006CC77D /* RoutineRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0328F1EDFA006CC77D /* RoutineRecord.swift */; };
+		B3D29C0628F1EE3B006CC77D /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0528F1EE3B006CC77D /* Exercise.swift */; };
+		B3D29C0828F1EE92006CC77D /* ExerciseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0728F1EE92006CC77D /* ExerciseRecord.swift */; };
+		B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0928F1EEED006CC77D /* SetRecord.swift */; };
+		B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0B28F1EF4F006CC77D /* Tag.swift */; };
+		B3D29C0E28F1F077006CC77D /* RoutineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0D28F1F077006CC77D /* RoutineRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +34,13 @@
 		B3D29BE028F12746006CC77D /* RoutineRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineRepository.h; sourceTree = "<group>"; };
 		B3D29BE128F12746006CC77D /* RoutineRepository.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RoutineRepository.docc; sourceTree = "<group>"; };
 		B3D29BE728F12746006CC77D /* RoutineRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutineRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D29C0028F1EDB4006CC77D /* Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routine.swift; sourceTree = "<group>"; };
+		B3D29C0328F1EDFA006CC77D /* RoutineRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRecord.swift; sourceTree = "<group>"; };
+		B3D29C0528F1EE3B006CC77D /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		B3D29C0728F1EE92006CC77D /* ExerciseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecord.swift; sourceTree = "<group>"; };
+		B3D29C0928F1EEED006CC77D /* SetRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRecord.swift; sourceTree = "<group>"; };
+		B3D29C0B28F1EF4F006CC77D /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		B3D29C0D28F1F077006CC77D /* RoutineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +83,7 @@
 		B3D29BDF28F12746006CC77D /* RoutineRepository */ = {
 			isa = PBXGroup;
 			children = (
+				B3D29C0228F1EDB7006CC77D /* Routine Repository Feature */,
 				B3D29BE028F12746006CC77D /* RoutineRepository.h */,
 				B3D29BE128F12746006CC77D /* RoutineRepository.docc */,
 			);
@@ -80,6 +95,20 @@
 			children = (
 			);
 			path = RoutineRepositoryTests;
+			sourceTree = "<group>";
+		};
+		B3D29C0228F1EDB7006CC77D /* Routine Repository Feature */ = {
+			isa = PBXGroup;
+			children = (
+				B3D29C0028F1EDB4006CC77D /* Routine.swift */,
+				B3D29C0328F1EDFA006CC77D /* RoutineRecord.swift */,
+				B3D29C0528F1EE3B006CC77D /* Exercise.swift */,
+				B3D29C0728F1EE92006CC77D /* ExerciseRecord.swift */,
+				B3D29C0928F1EEED006CC77D /* SetRecord.swift */,
+				B3D29C0B28F1EF4F006CC77D /* Tag.swift */,
+				B3D29C0D28F1F077006CC77D /* RoutineRepository.swift */,
+			);
+			path = "Routine Repository Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,7 +220,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D29C0E28F1F077006CC77D /* RoutineRepository.swift in Sources */,
+				B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */,
+				B3D29C0628F1EE3B006CC77D /* Exercise.swift in Sources */,
 				B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */,
+				B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */,
+				B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */,
+				B3D29C0828F1EE92006CC77D /* ExerciseRecord.swift in Sources */,
+				B3D29C0428F1EDFA006CC77D /* RoutineRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,6 +430,7 @@
 		B3D29BF528F12746006CC77D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RXL7292WR8;
@@ -410,6 +447,7 @@
 		B3D29BF628F12746006CC77D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RXL7292WR8;
