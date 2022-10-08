@@ -64,10 +64,6 @@ struct LocalTag: Equatable {
 }
 
 
-protocol RoutineStore {
-    
-    func create(_ routine: LocalRoutine)
-}
 
 
 private extension Routine {
@@ -144,27 +140,55 @@ private extension Array where Element == RoutineRecord {
 
 
 
+protocol RoutineStore {
+    
+    typealias ReadRoutineResult = Result<[LocalRoutine], Error>
+    
+    typealias ReadRoutineCompletion = (ReadRoutineResult) -> Void
+    
+    func create(_ routine: LocalRoutine)
+    // fetch routines with the given name or exercises
+    func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutineCompletion)
+}
+
+
 class RoutineStoreSpy: RoutineStore {
 
     enum ReceivedMessage: Equatable {
-        case create(LocalRoutine)
+        case createRoutine(LocalRoutine)
+        case readRoutines(name: String, exercises: [LocalExercise])
     }
     
     private(set) var receivedMessages = [ReceivedMessage]()
+    private(set) var readRoutineCompletions = [RoutineStore.ReadRoutineCompletion]()
     
-    init() {
-    }
+    init() {}
     
     // Conformance to RoutineStore
     func create(_ routine: LocalRoutine) {
-        receivedMessages.append(.create(routine))
+        
+        receivedMessages.append(.createRoutine(routine))
+    }
+    
+    
+    func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping RoutineStore.ReadRoutineCompletion) {
+        
+        receivedMessages.append(.readRoutines(name: name, exercises: exercises))
+        readRoutineCompletions.append(completion)
     }
     
     // Spy work 🕵🏼‍♂️
+    func completeReadRoutines(with routines: [LocalRoutine], at index: Int = 0) {
+        readRoutineCompletions[index](.success(routines))
+    }
 }
 
 
 class LocalRoutineRepository: RoutineRepository {
+    
+    enum Error: Swift.Error {
+        case duplicateRoutineName
+    }
     
     let routineStore: RoutineStore
     
@@ -172,8 +196,22 @@ class LocalRoutineRepository: RoutineRepository {
         self.routineStore = routineStore
     }
     
-    func save(routine: Routine) {
-        routineStore.create(routine.toLocal())
+    func save(routine: Routine, completion: @escaping RoutineRepository.SaveRoutineCompletion) {
+        
+        let localRoutine = routine.toLocal()
+        
+        routineStore.readRoutines(with: routine.name, or: localRoutine.exercises) { [weak self] readRoutineResult in
+            
+            switch readRoutineResult {
+            case let .success(routines):
+                if routines.isEmpty {
+                    self?.routineStore.create(localRoutine)
+                } else {
+                    completion(.failure(Error.duplicateRoutineName))
+                }
+            case .failure: break
+            }
+        }
     }
     
     func loadAllRoutines() -> [Routine] {
@@ -198,11 +236,28 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let routineStore = RoutineStoreSpy()
         let sut = LocalRoutineRepository(routineStore: routineStore)
         
+        let exp = expectation(description: "Wait for save routine completion")
         let routine = Routine(
             id: UUID(),
+            name: UUID().uuidString,
             creationDate: Date(),
             exercises: [],
             routineRecords: [])
-        sut.save(routine: <#T##Routine#>)
+        
+        sut.save(routine: routine) { result in
+            switch result {
+            case let .failure(error):
+                XCTAssertEqual(error as! LocalRoutineRepository.Error, .duplicateRoutineName)
+            default:
+                XCTFail("Expected result to be duplicate routine name, got \(result) instead")
+            }
+            
+            exp.fulfill()
+        }
+        
+        routineStore.completeReadRoutines(with: [routine.toLocal()])
+        // Do not need to complete with save success since it should fail if there is no error
+        
+        wait(for: [exp], timeout: 1)
     }
 }
