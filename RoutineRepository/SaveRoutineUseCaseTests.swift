@@ -224,8 +224,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
     
     func test_routineRepository_init_doesNotMessageStore() {
         
-        let routineStore = RoutineStoreSpy()
-        let _ = LocalRoutineRepository(routineStore: routineStore)
+        let (_, routineStore) = makeSUT()
         
         XCTAssertEqual(routineStore.receivedMessages, [])
     }
@@ -233,8 +232,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
     
     func test_routineRepository_saveDuplicateRoutineName_deliversDuplicateRoutineNameError() {
         
-        let routineStore = RoutineStoreSpy()
-        let sut = LocalRoutineRepository(routineStore: routineStore)
+        let (sut, routineStore) = makeSUT()
         
         let exp = expectation(description: "Wait for save routine completion")
         let routine = Routine(
@@ -259,5 +257,15 @@ class SaveRoutineUseCaseTests: XCTestCase {
         // Do not need to complete with save success since it should fail if there is no error
         
         wait(for: [exp], timeout: 1)
+    }
+    
+    
+    // MARK: - Helpers
+    private func makeSUT() -> (sut: LocalRoutineRepository, routineStore: RoutineStoreSpy) {
+        
+        let routineStore = RoutineStoreSpy()
+        let sut = LocalRoutineRepository(routineStore: routineStore)
+        
+        return (sut, routineStore)
     }
 }
