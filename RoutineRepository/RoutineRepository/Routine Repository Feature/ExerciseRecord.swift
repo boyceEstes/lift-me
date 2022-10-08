@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ExerciseRecord: Equatable {
+struct ExerciseRecord {
     
     let id: UUID
     

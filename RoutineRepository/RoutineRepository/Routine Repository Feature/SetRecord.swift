@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct SetRecord: Equatable {
+struct SetRecord {
     
     let id: UUID
     let duration: Int?
