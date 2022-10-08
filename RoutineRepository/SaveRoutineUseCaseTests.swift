@@ -12,6 +12,7 @@ import RoutineRepository
 struct LocalRoutine: Equatable {
     
     let id: UUID
+    let name: String
     let creationDate: Date
     
     // relationships
@@ -74,6 +75,7 @@ private extension Routine {
     func toLocal() -> LocalRoutine {
         return LocalRoutine(
             id: self.id,
+            name: self.name,
             creationDate: self.creationDate,
             exercises: self.exercises.toLocal(),
             routineRecords: self.routineRecords.toLocal())
