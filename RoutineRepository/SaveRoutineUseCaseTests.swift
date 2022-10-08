@@ -182,4 +182,11 @@ class LocalRoutineRepository: RoutineRepository {
 
 class SaveRoutineUseCaseTests: XCTestCase {
     
+    func test_routineRepository_init_doesNotMessageStore() {
+        
+        let routineStore = RoutineStoreSpy()
+        let _ = LocalRoutineRepository(routineStore: routineStore)
+        
+        XCTAssertEqual(routineStore.receivedMessages, [])
+    }
 }
