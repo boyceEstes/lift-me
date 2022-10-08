@@ -124,6 +124,8 @@ And modify routine records to not point to any routine (do not delete them)
 ```
 
 ## Terminology
+
+### Naming
 I'm splitting up the names method calls for infrastructure layer from the controller to coordinator for easier distinction since they would be so similar.
 
 For controllers (named repositories in the codebase (which will usually be the below use-cases)):
@@ -137,6 +139,19 @@ For Infrastructure layer (any caching, networking, etc commands):
 - Read - Read
 - Update - UPDATE
 - Delete - DELETE
+
+
+### Testing Naming Conventions
+
+Naming will be done so that we can easily tell what the system under test (sut) is, the test scenario, and the expected outcome
+
+```
+func test_<sut>_<conditions-of-test>_<outcome-of-test>
+```
+
+```
+func test_routineRepository_init_doesNotMessageStore()
+```
 
 
 ## Use Cases
@@ -179,6 +194,8 @@ Can be used when saving active record routine as well as precreating routines
 3. Execute "Read all routine exercises"
 4. System fetches all routines with matching exercises
 5. System delivers success if nothing is found
+
+Update this as we go
 
 ---
 
