@@ -209,8 +209,17 @@ class LocalRoutineRepository: RoutineRepository {
             case let .success(routines):
                 if routines.isEmpty {
                     self?.routineStore.create(localRoutine)
+                    
                 } else {
-                    completion(.failure(Error.routineWithNameAlreadyExists))
+                    guard let firstRoutine = routines.first else { return }
+                    
+                    if localRoutine.name == firstRoutine.name {
+                        completion(.failure(Error.routineWithNameAlreadyExists))
+                        
+                    } else {
+                        // Only these two cases should exist, so if it isn't one it must be the other
+                        completion(.failure(Error.routineWithExercisesAlreadyExists))
+                    }
                 }
             case .failure: break
             }
@@ -233,7 +242,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
     }
     
     
-    func test_routineRepository_saveRoutineWhenRoutineNameIsAlreadyCached_deliversDuplicateRoutineNameError() {
+    func test_routineRepository_saveRoutineWhenRoutineNameIsAlreadyCached_deliversRoutineWithNameAlreadyExistsError() {
         
         let (sut, routineStore) = makeSUT()
         
@@ -258,7 +267,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
     }
     
     
-    func test_routineRepository_saveRoutineWhenRoutineWithExercisesIsAlreadyCached_deliversDuplicateRoutineError() {
+    func test_routineRepository_saveRoutineWhenRoutineWithExercisesIsAlreadyCached_deliversRoutineWithExercisesAlreadyExistsError() {
         
         let (sut, routineStore) = makeSUT()
         

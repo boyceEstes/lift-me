@@ -163,11 +163,17 @@ Can be used when saving active record routine as well as precreating routines
 - Routine
 
 #### Primary course (happy path):
-1. Execute "Find duplicate routines Use Case" command
+1. Execute "read routines with name or exercises" command to find duplicate cached routines
 2. System receives no results with the same routine information
 3. Execute "Create routine" command with above data
 4. System caches routine
 5. System delivers success message
+
+#### Read routines with name error course (sad path):
+1. System delivers error
+
+#### Create routine system error course (sad path):
+1. System delivers error
 
 #### Duplicate routine name (but different exercises) (sad path):
 1. System receives results with routine's name
@@ -181,21 +187,6 @@ Can be used when saving active record routine as well as precreating routines
 1. System receives results with routine's exercises and name
 2. System delivers error - routine already exists, and include duplicate's name
 
----
-
-### Find Duplicate Routines Use Case
-
-#### Data:
-- Routine
-
-#### Primary course (happy path):
-1. Execute "Read all routine names" command
-2. System fetches all routines with matching names
-3. Execute "Read all routine exercises"
-4. System fetches all routines with matching exercises
-5. System delivers success if nothing is found
-
-Update this as we go
 
 ---
 
