@@ -195,7 +195,7 @@ class LocalRoutineRepository: RoutineRepository {
     
     enum Error: Swift.Error {
         case routineWithNameAlreadyExists
-        case routineWithExercisesAlreadyExists
+        case routineWithExercisesAlreadyExists(cachedRoutineName: String)
     }
     
     let routineStore: RoutineStore
@@ -223,7 +223,7 @@ class LocalRoutineRepository: RoutineRepository {
                         
                     } else {
                         // Only these two cases should exist, so if it isn't one it must be the other
-                        completion(.failure(Error.routineWithExercisesAlreadyExists))
+                        completion(.failure(Error.routineWithExercisesAlreadyExists(cachedRoutineName: firstRoutine.name)))
                     }
                 }
                 
@@ -281,7 +281,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let routine = uniqueRoutine(exercises: exercises)
         let cachedRoutineWithSameExercises = uniqueRoutine(exercises: exercises)
 
-        save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithExercisesAlreadyExists)) {
+        save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithExercisesAlreadyExists(cachedRoutineName: cachedRoutineWithSameExercises.name))) {
             routineStore.completeReadRoutines(with: [cachedRoutineWithSameExercises.toLocal()])
         }
     }
