@@ -237,12 +237,33 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let (sut, routineStore) = makeSUT()
         
         let exp = expectation(description: "Wait for save routine completion")
-        let routine = Routine(
-            id: UUID(),
-            name: UUID().uuidString,
-            creationDate: Date(),
-            exercises: [],
-            routineRecords: [])
+        let routine = uniqueRoutine()
+        
+        sut.save(routine: routine) { result in
+            switch result {
+            case let .failure(error):
+                XCTAssertEqual(error as! LocalRoutineRepository.Error, .duplicateRoutineName)
+            default:
+                XCTFail("Expected result to be duplicate routine name, got \(result) instead")
+            }
+            
+            exp.fulfill()
+        }
+        
+        routineStore.completeReadRoutines(with: [routine.toLocal()])
+        // Do not need to complete with save success since it should fail if there is no error
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_routineRepository_saveRoutineWhenRoutineWithExercisesIsAlreadyCached_deliversDuplicateRoutineError() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let exp = expectation(description: "Wait for save routine completion")
+        
+        let routine = uniqueRoutine()
         
         sut.save(routine: routine) { result in
             switch result {
@@ -272,6 +293,26 @@ class SaveRoutineUseCaseTests: XCTestCase {
         trackForMemoryLeaks(sut)
         
         return (sut, routineStore)
+    }
+    
+    
+    private func uniqueExercise() -> Exercise {
+        return Exercise(
+            id: UUID(),
+            name: UUID().uuidString,
+            creationDate: Date(),
+            exerciseRecords: [],
+            tags: [])
+    }
+    
+    
+    private func uniqueRoutine() -> Routine {
+        return Routine(
+            id: UUID(),
+            name: UUID().uuidString,
+            creationDate: Date(),
+            exercises: [uniqueExercise(), uniqueExercise()],
+            routineRecords: [])
     }
 }
 
