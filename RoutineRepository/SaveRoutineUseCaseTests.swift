@@ -247,9 +247,12 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let (sut, routineStore) = makeSUT()
         
         let exp = expectation(description: "Wait for save routine completion")
-        let routine = uniqueRoutine()
         
-        sut.save(routine: routine) { result in
+        let name = "Any"
+        let saveRoutine = uniqueRoutine(name: name)
+        let savedRoutine = uniqueRoutine(name: name)
+        
+        sut.save(routine: saveRoutine) { result in
             switch result {
             case let .failure(error):
                 XCTAssertEqual(error as! LocalRoutineRepository.Error, .routineWithNameAlreadyExists)
@@ -260,7 +263,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
             exp.fulfill()
         }
         
-        routineStore.completeReadRoutines(with: [routine.toLocal()])
+        routineStore.completeReadRoutines(with: [savedRoutine.toLocal()])
         // Do not need to complete with save success since it should fail if there is no error
         
         wait(for: [exp], timeout: 1)
@@ -273,9 +276,11 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         let exp = expectation(description: "Wait for save routine completion")
         
-        let routine = uniqueRoutine()
+        let exercises = [uniqueExercise(), uniqueExercise()]
+        let saveRoutine = uniqueRoutine(exercises: exercises)
+        let savedRoutine = uniqueRoutine(exercises: exercises)
         
-        sut.save(routine: routine) { result in
+        sut.save(routine: saveRoutine) { result in
             switch result {
             case let .failure(error):
                 XCTAssertEqual(error as! LocalRoutineRepository.Error, .routineWithExercisesAlreadyExists)
@@ -286,7 +291,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
             exp.fulfill()
         }
         
-        routineStore.completeReadRoutines(with: [routine.toLocal()])
+        routineStore.completeReadRoutines(with: [savedRoutine.toLocal()])
         // Do not need to complete with save success since it should fail if there is no error
         
         wait(for: [exp], timeout: 1)
@@ -316,12 +321,13 @@ class SaveRoutineUseCaseTests: XCTestCase {
     }
     
     
-    private func uniqueRoutine() -> Routine {
+    private func uniqueRoutine(name: String? = nil, exercises: [Exercise]? = nil) -> Routine {
+        
         return Routine(
             id: UUID(),
-            name: UUID().uuidString,
+            name: name ?? UUID().uuidString,
             creationDate: Date(),
-            exercises: [uniqueExercise(), uniqueExercise()],
+            exercises: exercises ?? [uniqueExercise(), uniqueExercise()],
             routineRecords: [])
     }
 }
