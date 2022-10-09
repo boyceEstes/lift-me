@@ -183,6 +183,11 @@ class RoutineStoreSpy: RoutineStore {
     func completeReadRoutines(with routines: [LocalRoutine], at index: Int = 0) {
         readRoutineCompletions[index](.success(routines))
     }
+    
+    
+    func completeReadRoutines(with error: NSError, at index: Int = 0) {
+        readRoutineCompletions[index](.failure(error))
+    }
 }
 
 
@@ -221,7 +226,9 @@ class LocalRoutineRepository: RoutineRepository {
                         completion(.failure(Error.routineWithExercisesAlreadyExists))
                     }
                 }
-            case .failure: break
+                
+            case let .failure(error):
+                completion(.failure(error))
             }
         }
     }
@@ -280,6 +287,22 @@ class SaveRoutineUseCaseTests: XCTestCase {
     }
     
     
+    func test_routineRepository_saveRoutineReadRoutinesWithNameAndExercisesFails_deliversReadRoutineError() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let routine = uniqueRoutine()
+        let error = anyNSError()
+        
+        save(routine: routine, on: sut, completesWith: .failure(error)) {
+            routineStore.completeReadRoutines(with: error)
+        }
+    }
+    
+    
+    
+    
+    
     // MARK: - Helpers
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: LocalRoutineRepository, routineStore: RoutineStoreSpy) {
         
@@ -333,5 +356,10 @@ class SaveRoutineUseCaseTests: XCTestCase {
             creationDate: Date(),
             exercises: exercises ?? [uniqueExercise(), uniqueExercise()],
             routineRecords: [])
+    }
+    
+    
+    private func anyNSError() -> NSError {
+        return NSError(domain: "Any", code: 0)
     }
 }
