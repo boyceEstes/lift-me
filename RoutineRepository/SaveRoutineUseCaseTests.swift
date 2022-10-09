@@ -232,6 +232,16 @@ class LocalRoutineRepository: RoutineRepository {
 }
 
 
+extension XCTestCase {
+    func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
+        }
+    }
+}
+
+
+
 class SaveRoutineUseCaseTests: XCTestCase {
     
     func test_routineRepository_init_doesNotMessageStore() {
@@ -245,28 +255,14 @@ class SaveRoutineUseCaseTests: XCTestCase {
     func test_routineRepository_saveRoutineWhenRoutineNameIsAlreadyCached_deliversRoutineWithNameAlreadyExistsError() {
         
         let (sut, routineStore) = makeSUT()
-        
-        let exp = expectation(description: "Wait for save routine completion")
-        
+                
         let name = "Any"
-        let saveRoutine = uniqueRoutine(name: name)
-        let savedRoutine = uniqueRoutine(name: name)
-        
-        sut.save(routine: saveRoutine) { result in
-            switch result {
-            case let .failure(error):
-                XCTAssertEqual(error as! LocalRoutineRepository.Error, .routineWithNameAlreadyExists)
-            default:
-                XCTFail("Expected result to be duplicate routine name, got \(result) instead")
-            }
-            
-            exp.fulfill()
+        let routine = uniqueRoutine(name: name)
+        let cachedRoutineWithSameName = uniqueRoutine(name: name)
+
+        save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithNameAlreadyExists)) {
+            routineStore.completeReadRoutines(with: [cachedRoutineWithSameName.toLocal()])
         }
-        
-        routineStore.completeReadRoutines(with: [savedRoutine.toLocal()])
-        // Do not need to complete with save success since it should fail if there is no error
-        
-        wait(for: [exp], timeout: 1)
     }
     
     
@@ -274,40 +270,48 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         let (sut, routineStore) = makeSUT()
         
-        let exp = expectation(description: "Wait for save routine completion")
-        
         let exercises = [uniqueExercise(), uniqueExercise()]
-        let saveRoutine = uniqueRoutine(exercises: exercises)
-        let savedRoutine = uniqueRoutine(exercises: exercises)
-        
-        sut.save(routine: saveRoutine) { result in
-            switch result {
-            case let .failure(error):
-                XCTAssertEqual(error as! LocalRoutineRepository.Error, .routineWithExercisesAlreadyExists)
-            default:
-                XCTFail("Expected result to be duplicate routine name, got \(result) instead")
-            }
-            
-            exp.fulfill()
+        let routine = uniqueRoutine(exercises: exercises)
+        let cachedRoutineWithSameExercises = uniqueRoutine(exercises: exercises)
+
+        save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithExercisesAlreadyExists)) {
+            routineStore.completeReadRoutines(with: [cachedRoutineWithSameExercises.toLocal()])
         }
-        
-        routineStore.completeReadRoutines(with: [savedRoutine.toLocal()])
-        // Do not need to complete with save success since it should fail if there is no error
-        
-        wait(for: [exp], timeout: 1)
     }
     
     
     // MARK: - Helpers
-    private func makeSUT() -> (sut: LocalRoutineRepository, routineStore: RoutineStoreSpy) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: LocalRoutineRepository, routineStore: RoutineStoreSpy) {
         
         let routineStore = RoutineStoreSpy()
         let sut = LocalRoutineRepository(routineStore: routineStore)
         
-        trackForMemoryLeaks(routineStore)
-        trackForMemoryLeaks(sut)
+        trackForMemoryLeaks(routineStore, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         
         return (sut, routineStore)
+    }
+    
+    
+    private func save(routine: Routine, on sut: LocalRoutineRepository, completesWith expectedResult: RoutineRepository.SaveRoutineResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        
+        let exp = expectation(description: "Wait for save routine completion")
+        
+        sut.save(routine: routine) { result in
+            
+            switch (result, expectedResult) {
+            case let (.failure(error), .failure(expectedError)):
+                XCTAssertEqual(error as NSError, expectedError as NSError, "Got \(result) but expected \(expectedResult)")
+            default:
+                XCTFail("Expected \(expectedResult), got \(result) instead")
+            }
+
+            exp.fulfill()
+        }
+        
+        action()
+        
+        wait(for: [exp], timeout: 1)
     }
     
     
@@ -331,12 +335,3 @@ class SaveRoutineUseCaseTests: XCTestCase {
             routineRecords: [])
     }
 }
-
-extension XCTestCase {
-    func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
-        }
-    }
-}
-
