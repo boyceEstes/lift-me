@@ -189,7 +189,8 @@ class RoutineStoreSpy: RoutineStore {
 class LocalRoutineRepository: RoutineRepository {
     
     enum Error: Swift.Error {
-        case duplicateRoutineName
+        case routineWithNameAlreadyExists
+        case routineWithExercisesAlreadyExists
     }
     
     let routineStore: RoutineStore
@@ -209,7 +210,7 @@ class LocalRoutineRepository: RoutineRepository {
                 if routines.isEmpty {
                     self?.routineStore.create(localRoutine)
                 } else {
-                    completion(.failure(Error.duplicateRoutineName))
+                    completion(.failure(Error.routineWithNameAlreadyExists))
                 }
             case .failure: break
             }
@@ -242,7 +243,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         sut.save(routine: routine) { result in
             switch result {
             case let .failure(error):
-                XCTAssertEqual(error as! LocalRoutineRepository.Error, .duplicateRoutineName)
+                XCTAssertEqual(error as! LocalRoutineRepository.Error, .routineWithNameAlreadyExists)
             default:
                 XCTFail("Expected result to be duplicate routine name, got \(result) instead")
             }
@@ -268,7 +269,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         sut.save(routine: routine) { result in
             switch result {
             case let .failure(error):
-                XCTAssertEqual(error as! LocalRoutineRepository.Error, .duplicateRoutineName)
+                XCTAssertEqual(error as! LocalRoutineRepository.Error, .routineWithExercisesAlreadyExists)
             default:
                 XCTFail("Expected result to be duplicate routine name, got \(result) instead")
             }
