@@ -302,7 +302,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
     }
     
     
-    func test_routineRepository_saveRoutineReadRoutinesWithNameAndExercisesFails_deliversReadRoutineError() {
+    func test_routineRepository_saveRoutineReadRoutinesWithNameAndExercisesFails_deliversError() {
         
         let (sut, routineStore) = makeSUT()
         
@@ -313,10 +313,6 @@ class SaveRoutineUseCaseTests: XCTestCase {
             routineStore.completeReadRoutines(with: error)
         }
     }
-    
-    
-    
-    
     
     // MARK: - Helpers
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: LocalRoutineRepository, routineStore: RoutineStoreSpy) {
