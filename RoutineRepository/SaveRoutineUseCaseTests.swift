@@ -145,10 +145,12 @@ private extension Array where Element == RoutineRecord {
 protocol RoutineStore {
     
     typealias ReadRoutineResult = Result<[LocalRoutine], Error>
+    typealias CreateRoutineResult = Result<Void, Error>
     
     typealias ReadRoutineCompletion = (ReadRoutineResult) -> Void
+    typealias CreateRoutineCompletion = (CreateRoutineResult) -> Void
     
-    func create(_ routine: LocalRoutine)
+    func create(_ routine: LocalRoutine, completion: @escaping CreateRoutineCompletion)
     // fetch routines with the given name or exercises
     func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutineCompletion)
 }
@@ -163,13 +165,15 @@ class RoutineStoreSpy: RoutineStore {
     
     private(set) var receivedMessages = [ReceivedMessage]()
     private(set) var readRoutineCompletions = [RoutineStore.ReadRoutineCompletion]()
+    private(set) var createRoutineCompletions = [RoutineStore.CreateRoutineCompletion]()
     
     init() {}
     
     // Conformance to RoutineStore
-    func create(_ routine: LocalRoutine) {
+    func create(_ routine: LocalRoutine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
         
         receivedMessages.append(.createRoutine(routine))
+        createRoutineCompletions.append(completion)
     }
     
     
@@ -187,6 +191,11 @@ class RoutineStoreSpy: RoutineStore {
     
     func completeReadRoutines(with error: NSError, at index: Int = 0) {
         readRoutineCompletions[index](.failure(error))
+    }
+    
+    
+    func completeCreateRoutine(with error: NSError, at index: Int = 0) {
+        createRoutineCompletions[index](.failure(error))
     }
 }
 
@@ -213,7 +222,14 @@ class LocalRoutineRepository: RoutineRepository {
             switch readRoutineResult {
             case let .success(routines):
                 if routines.isEmpty {
-                    self?.routineStore.create(localRoutine)
+                    self?.routineStore.create(localRoutine) { createRoutineResult in
+                        switch createRoutineResult {
+                        case let .failure(error):
+                            completion(.failure(error))
+                            
+                        default: break
+                        }
+                    }
                     
                 } else {
                     guard let firstRoutine = routines.first else { return }
@@ -314,6 +330,21 @@ class SaveRoutineUseCaseTests: XCTestCase {
         }
     }
     
+    
+    func test_routineRepository_saveRoutineCreateRoutineFails_deliversError() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let routine = uniqueRoutine()
+        let error = anyNSError()
+        
+        save(routine: routine, on: sut, completesWith: .failure(error)) {
+            routineStore.completeReadRoutines(with: [])
+            routineStore.completeCreateRoutine(with: error)
+        }
+    }
+    
+    
     // MARK: - Helpers
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: LocalRoutineRepository, routineStore: RoutineStoreSpy) {
         
@@ -335,9 +366,9 @@ class SaveRoutineUseCaseTests: XCTestCase {
             
             switch (result, expectedResult) {
             case let (.failure(error), .failure(expectedError)):
-                XCTAssertEqual(error as NSError, expectedError as NSError, "Got \(result) but expected \(expectedResult)")
+                XCTAssertEqual(error as NSError, expectedError as NSError, "Got \(result) but expected \(expectedResult)", file: file, line: line)
             default:
-                XCTFail("Expected \(expectedResult), got \(result) instead")
+                XCTFail("Expected \(expectedResult), got \(result) instead", file: file, line: line)
             }
 
             exp.fulfill()
