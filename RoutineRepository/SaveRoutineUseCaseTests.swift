@@ -197,6 +197,11 @@ class RoutineStoreSpy: RoutineStore {
     func completeCreateRoutine(with error: NSError, at index: Int = 0) {
         createRoutineCompletions[index](.failure(error))
     }
+    
+    
+    func completeCreateRoutineSuccessfully(at index: Int = 0) {
+        createRoutineCompletions[index](.success(()))
+    }
 }
 
 
@@ -220,14 +225,18 @@ class LocalRoutineRepository: RoutineRepository {
         routineStore.readRoutines(with: routine.name, or: localRoutine.exercises) { [weak self] readRoutineResult in
             
             switch readRoutineResult {
+                
             case let .success(routines):
+                
                 if routines.isEmpty {
                     self?.routineStore.create(localRoutine) { createRoutineResult in
                         switch createRoutineResult {
+                            
+                        case .success:
+                            completion(.success(()))
+                            
                         case let .failure(error):
                             completion(.failure(error))
-                            
-                        default: break
                         }
                     }
                     
@@ -345,6 +354,19 @@ class SaveRoutineUseCaseTests: XCTestCase {
     }
     
     
+    func test_routineRepository_saveRoutineSucceeds_deliversSuccess() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let routine = uniqueRoutine()
+        
+        save(routine: routine, on: sut, completesWith: .success(())) {
+            routineStore.completeReadRoutines(with: [])
+            routineStore.completeCreateRoutineSuccessfully()
+        }
+    }
+    
+    
     // MARK: - Helpers
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: LocalRoutineRepository, routineStore: RoutineStoreSpy) {
         
@@ -365,6 +387,8 @@ class SaveRoutineUseCaseTests: XCTestCase {
         sut.save(routine: routine) { result in
             
             switch (result, expectedResult) {
+            case (.success, .success): break
+               
             case let (.failure(error), .failure(expectedError)):
                 XCTAssertEqual(error as NSError, expectedError as NSError, "Got \(result) but expected \(expectedResult)", file: file, line: line)
             default:
