@@ -194,6 +194,11 @@ class RoutineStoreSpy: RoutineStore {
     }
     
     
+    func completeReadRoutinesSuccessfully(at index: Int = 0) {
+        completeReadRoutines(with: [], at: index)
+    }
+    
+    
     func completeCreateRoutine(with error: NSError, at index: Int = 0) {
         createRoutineCompletions[index](.failure(error))
     }
@@ -348,7 +353,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let error = anyNSError()
         
         save(routine: routine, on: sut, completesWith: .failure(error)) {
-            routineStore.completeReadRoutines(with: [])
+            routineStore.completeReadRoutinesSuccessfully()
             routineStore.completeCreateRoutine(with: error)
         }
     }
@@ -361,7 +366,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let routine = uniqueRoutine()
         
         save(routine: routine, on: sut, completesWith: .success(())) {
-            routineStore.completeReadRoutines(with: [])
+            routineStore.completeReadRoutinesSuccessfully()
             routineStore.completeCreateRoutineSuccessfully()
         }
     }
