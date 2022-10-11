@@ -217,11 +217,14 @@ class LocalRoutineRepository: RoutineRepository {
         case routineWithExercisesAlreadyExists(cachedRoutineName: String)
     }
     
+    
     let routineStore: RoutineStore
+    
     
     init(routineStore: RoutineStore) {
         self.routineStore = routineStore
     }
+    
     
     func save(routine: Routine, completion: @escaping RoutineRepository.SaveRoutineCompletion) {
         
@@ -229,12 +232,15 @@ class LocalRoutineRepository: RoutineRepository {
         
         routineStore.readRoutines(with: routine.name, or: localRoutine.exercises) { [weak self] readRoutineResult in
             
+            guard let self = self else { return }
+            
             switch readRoutineResult {
                 
-            case let .success(routines):
+            case let .success(cachedRoutines):
                 
-                if routines.isEmpty {
-                    self?.routineStore.create(localRoutine) { createRoutineResult in
+                if cachedRoutines.isEmpty {
+                    
+                    self.routineStore.create(localRoutine) { createRoutineResult in
                         switch createRoutineResult {
                             
                         case .success:
@@ -246,15 +252,8 @@ class LocalRoutineRepository: RoutineRepository {
                     }
                     
                 } else {
-                    guard let firstRoutine = routines.first else { return }
-                    
-                    if localRoutine.name == firstRoutine.name {
-                        completion(.failure(Error.routineWithNameAlreadyExists))
-                        
-                    } else {
-                        // Only these two cases should exist, so if it isn't one it must be the other
-                        completion(.failure(Error.routineWithExercisesAlreadyExists(cachedRoutineName: firstRoutine.name)))
-                    }
+                    let error = self.getErrorFrom(saving: localRoutine, with: cachedRoutines)
+                    completion(.failure(error))
                 }
                 
             case let .failure(error):
@@ -262,6 +261,19 @@ class LocalRoutineRepository: RoutineRepository {
             }
         }
     }
+    
+    
+    private func getErrorFrom(saving routine: LocalRoutine, with routines: [LocalRoutine]) -> LocalRoutineRepository.Error {
+        
+        if let firstRoutine = routines.first,
+           routine.name != firstRoutine.name {
+            
+            return .routineWithExercisesAlreadyExists(cachedRoutineName: firstRoutine.name)
+        } else {
+            return .routineWithNameAlreadyExists
+        }
+    }
+    
     
     func loadAllRoutines() -> [Routine] {
         return []
