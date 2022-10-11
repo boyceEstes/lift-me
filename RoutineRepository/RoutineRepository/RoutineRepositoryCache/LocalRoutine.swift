@@ -9,13 +9,13 @@ import Foundation
 
 public struct LocalRoutine: Equatable {
 
-    let id: UUID
-    let name: String
-    let creationDate: Date
+    public let id: UUID
+    public let name: String
+    public let creationDate: Date
     
     // relationships
-    let exercises: [LocalExercise]
-    let routineRecords: [LocalRoutineRecord]
+    public let exercises: [LocalExercise]
+    public let routineRecords: [LocalRoutineRecord]
     
     
     public init(id: UUID, name: String, creationDate: Date, exercises: [LocalExercise], routineRecords: [LocalRoutineRecord]) {

@@ -9,10 +9,10 @@ import Foundation
 
 public struct LocalExerciseRecord: Equatable {
     
-    let id: UUID
+    public let id: UUID
     
     // relationships
-    let setRecords: [LocalSetRecord]
+    public let setRecords: [LocalSetRecord]
     
     public init(id: UUID, setRecords: [LocalSetRecord]) {
         self.id = id
