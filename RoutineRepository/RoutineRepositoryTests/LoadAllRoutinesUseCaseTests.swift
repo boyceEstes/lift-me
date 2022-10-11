@@ -33,24 +33,11 @@ class LoadAllRoutinesUseCaseTests: XCTestCase {
         let (sut, routineStore) = makeSUT()
         let expectedError = anyNSError()
         
-        let exp = expectation(description: "Wait for loadAllRoutines completion")
-        sut.loadAllRoutines { result in
+        expect(sut, toCompleteWith: .failure(expectedError)) {
             
-            switch result {
-            case let .failure(receivedError):
-                XCTAssertEqual(receivedError as NSError, expectedError, "Expected \(expectedError), got \(receivedError) instead")
-            default:
-                XCTFail("Expected to receive \(expectedError), but got \(result) instead")
-            }
-            
-            exp.fulfill()
+            routineStore.completeReadAllRoutines(with: expectedError)
         }
-            
-        routineStore.completeReadAllRoutines(with: expectedError)
-        
-        wait(for: [exp], timeout: 1)
     }
-    
     
     
     // MARK: -- Helpers
@@ -63,5 +50,28 @@ class LoadAllRoutinesUseCaseTests: XCTestCase {
         trackForMemoryLeaks(sut, file: file, line: line)
         
         return (sut, routineStore)
+    }
+    
+    
+    private func expect(_ sut: LocalRoutineRepository, toCompleteWith expectedResult: RoutineRepository.LoadAllRoutinesResult, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        
+        let exp = expectation(description: "Wait for loadAllRoutines completion")
+        
+        sut.loadAllRoutines { result in
+            
+            switch (result, expectedResult) {
+            case let (.failure(receivedError), .failure(expectedError)):
+                XCTAssertEqual(receivedError as NSError, expectedError as NSError, "Expected \(expectedError), got \(receivedError) instead", file: file, line: line)
+                
+            default:
+                XCTFail("Expected to receive failure, but got \(result) instead", file: file, line: line)
+            }
+            
+            exp.fulfill()
+        }
+            
+        action()
+        
+        wait(for: [exp], timeout: 1)
     }
 }
