@@ -9,6 +9,7 @@ import XCTest
 import RoutineRepository
 
 
+
 class RoutineStoreSpy: RoutineStore {
 
     enum ReceivedMessage: Equatable {
@@ -61,9 +62,6 @@ class RoutineStoreSpy: RoutineStore {
         createRoutineCompletions[index](.success(()))
     }
 }
-
-
-
 
 
 extension XCTestCase {
