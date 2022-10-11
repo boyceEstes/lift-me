@@ -18,7 +18,7 @@ class LoadAllRoutinesUseCaseTests: XCTestCase {
     }
 
     
-    func test_routineRepository_readAllRoutines_sendsReadAllRoutineMessageToStore() {
+    func test_routineRepository_readAllRoutines_requestsReadAllRoutine() {
         
         let (sut, routineStore) = makeSUT()
         
