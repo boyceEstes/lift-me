@@ -72,8 +72,15 @@ public class LocalRoutineRepository: RoutineRepository {
     }
     
     
-    public func loadAllRoutines() -> [Routine] {
-        return []
+    public func loadAllRoutines(completion: @escaping LoadAllRoutinesCompletion) {
+        routineStore.readAllRoutines { result in
+            switch result {
+            case let .failure(error):
+                completion(.failure(error))
+            default:
+                break
+            }
+        }
     }
 }
 
