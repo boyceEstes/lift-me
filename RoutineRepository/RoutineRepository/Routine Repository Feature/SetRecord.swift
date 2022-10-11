@@ -8,11 +8,11 @@
 import Foundation
 
 
-struct SetRecord {
+public struct SetRecord {
     
-    let id: UUID
-    let duration: Int?
-    let repCount: Int?
-    let weight: Int
-    let difficulty: Int
+    public let id: UUID
+    public let duration: Int?
+    public let repCount: Int?
+    public let weight: Int
+    public let difficulty: Int
 }

@@ -8,8 +8,8 @@
 import Foundation
 
 
-struct Tag {
+public struct Tag {
     
-    let id: UUID
-    let name: String
+    public let id: UUID
+    public let name: String
 }

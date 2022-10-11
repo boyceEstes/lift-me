@@ -7,8 +7,13 @@
 
 import Foundation
 
-protocol RoutineRepository {
+public protocol RoutineRepository {
     
-    func save(routine: Routine)
+    typealias SaveRoutineResult = Result<Void, Error>
+    typealias SaveRoutineCompletion = (RoutineRepository.SaveRoutineResult) -> Void
+    
+    func save(routine: Routine, completion: @escaping SaveRoutineCompletion)
+    
     func loadAllRoutines() -> [Routine]
 }
+
