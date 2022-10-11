@@ -19,6 +19,23 @@ class SaveRoutineUseCaseTests: XCTestCase {
     }
     
     
+    func test_routineRepository_saveRoutineWhenReadCallFails_requestsReadAndNotCreateRoutine() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let routine = uniqueRoutine()
+        let error = anyNSError()
+        
+        sut.save(routine: routine.model) { _ in }
+        
+        routineStore.completeReadRoutines(with: error)
+        
+        XCTAssertEqual(
+            routineStore.receivedMessages, [.readRoutines(name: routine.local.name, exercises: routine.local.exercises)]
+        )
+    }
+    
+    
     func test_routineRepository_saveRoutineWhenRoutineNameIsAlreadyCached_deliversRoutineWithNameAlreadyExistsError() {
         
         let (sut, routineStore) = makeSUT()
