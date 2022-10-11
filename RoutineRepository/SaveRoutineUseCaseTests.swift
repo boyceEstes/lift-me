@@ -9,153 +9,6 @@ import XCTest
 import RoutineRepository
 
 
-struct LocalRoutine: Equatable {
-    
-    let id: UUID
-    let name: String
-    let creationDate: Date
-    
-    // relationships
-    let exercises: [LocalExercise]
-    let routineRecords: [LocalRoutineRecord]
-}
-
-struct LocalRoutineRecord: Equatable {
-    
-    let id: UUID
-    let creationDate: Date
-    let completionDate: Date?
-    
-    // relationships
-    let exerciseRecords: [LocalExerciseRecord]
-}
-
-struct LocalExercise: Equatable {
-    
-    let id: UUID
-    let name: String
-    let creationDate: Date
-    
-    // relationships
-    let exerciseRecords: [LocalExerciseRecord]
-    let tags: [LocalTag]
-}
-
-struct LocalExerciseRecord: Equatable {
-    
-    let id: UUID
-    
-    // relationships
-    let setRecords: [LocalSetRecord]
-}
-
-struct LocalSetRecord: Equatable {
-    
-    let id: UUID
-    let duration: Int?
-    let repCount: Int?
-    let weight: Int
-    let difficulty: Int
-}
-
-struct LocalTag: Equatable {
-    
-    let id: UUID
-    let name: String
-}
-
-
-
-
-private extension Routine {
-    
-    func toLocal() -> LocalRoutine {
-        return LocalRoutine(
-            id: self.id,
-            name: self.name,
-            creationDate: self.creationDate,
-            exercises: self.exercises.toLocal(),
-            routineRecords: self.routineRecords.toLocal())
-    }
-}
-
-private extension Array where Element == Exercise {
-    
-    func toLocal() -> [LocalExercise] {
-        return map {
-            LocalExercise(
-                id: $0.id,
-                name: $0.name,
-                creationDate: $0.creationDate,
-                exerciseRecords: $0.exerciseRecords.toLocal(),
-                tags: $0.tags.toLocal())
-        }
-    }
-}
-
-private extension Array where Element == ExerciseRecord {
-    
-    func toLocal() -> [LocalExerciseRecord] {
-        return map {
-            LocalExerciseRecord(
-                id: $0.id,
-                setRecords: $0.setRecords.toLocal())
-        }
-    }
-}
-
-private extension Array where Element == SetRecord {
-    
-    func toLocal() -> [LocalSetRecord] {
-        return map {
-            LocalSetRecord(
-                id: $0.id,
-                duration: $0.duration,
-                repCount: $0.repCount,
-                weight: $0.weight,
-                difficulty: $0.difficulty)
-        }
-    }
-}
-
-private extension Array where Element == Tag {
-    
-    func toLocal() -> [LocalTag] {
-        return map {
-            LocalTag(id: $0.id, name: $0.name)
-        }
-    }
-}
-
-private extension Array where Element == RoutineRecord {
-    
-    func toLocal() -> [LocalRoutineRecord] {
-        return map {
-            LocalRoutineRecord(
-                id: $0.id,
-                creationDate: $0.creationDate,
-                completionDate: $0.completionDate,
-                exerciseRecords: $0.exerciseRecords.toLocal())
-        }
-    }
-}
-
-
-
-protocol RoutineStore {
-    
-    typealias ReadRoutineResult = Result<[LocalRoutine], Error>
-    typealias CreateRoutineResult = Result<Void, Error>
-    
-    typealias ReadRoutineCompletion = (ReadRoutineResult) -> Void
-    typealias CreateRoutineCompletion = (CreateRoutineResult) -> Void
-    
-    func create(_ routine: LocalRoutine, completion: @escaping CreateRoutineCompletion)
-    // fetch routines with the given name or exercises
-    func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutineCompletion)
-}
-
-
 class RoutineStoreSpy: RoutineStore {
 
     enum ReceivedMessage: Equatable {
@@ -210,75 +63,7 @@ class RoutineStoreSpy: RoutineStore {
 }
 
 
-class LocalRoutineRepository: RoutineRepository {
-    
-    enum Error: Swift.Error {
-        case routineWithNameAlreadyExists
-        case routineWithExercisesAlreadyExists(cachedRoutineName: String)
-    }
-    
-    
-    let routineStore: RoutineStore
-    
-    
-    init(routineStore: RoutineStore) {
-        self.routineStore = routineStore
-    }
-    
-    
-    func save(routine: Routine, completion: @escaping RoutineRepository.SaveRoutineCompletion) {
-        
-        let localRoutine = routine.toLocal()
-        
-        routineStore.readRoutines(with: routine.name, or: localRoutine.exercises) { [weak self] readRoutineResult in
-            
-            guard let self = self else { return }
-            
-            switch readRoutineResult {
-                
-            case let .success(cachedRoutines):
-                
-                if cachedRoutines.isEmpty {
-                    
-                    self.routineStore.create(localRoutine) { createRoutineResult in
-                        switch createRoutineResult {
-                            
-                        case .success:
-                            completion(.success(()))
-                            
-                        case let .failure(error):
-                            completion(.failure(error))
-                        }
-                    }
-                    
-                } else {
-                    let error = self.getErrorFrom(saving: localRoutine, with: cachedRoutines)
-                    completion(.failure(error))
-                }
-                
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    
-    private func getErrorFrom(saving routine: LocalRoutine, with routines: [LocalRoutine]) -> LocalRoutineRepository.Error {
-        
-        if let firstRoutine = routines.first,
-           routine.name != firstRoutine.name {
-            
-            return .routineWithExercisesAlreadyExists(cachedRoutineName: firstRoutine.name)
-        } else {
-            return .routineWithNameAlreadyExists
-        }
-    }
-    
-    
-    func loadAllRoutines() -> [Routine] {
-        return []
-    }
-}
+
 
 
 extension XCTestCase {
@@ -306,11 +91,11 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let (sut, routineStore) = makeSUT()
                 
         let name = "Any"
-        let routine = uniqueRoutine(name: name)
-        let cachedRoutineWithSameName = uniqueRoutine(name: name)
+        let routine = uniqueRoutine(name: name).model
+        let cachedRoutineWithSameName = uniqueRoutine(name: name).local
 
         save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithNameAlreadyExists)) {
-            routineStore.completeReadRoutines(with: [cachedRoutineWithSameName.toLocal()])
+            routineStore.completeReadRoutines(with: [cachedRoutineWithSameName])
         }
     }
     
@@ -320,11 +105,11 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let (sut, routineStore) = makeSUT()
         
         let exercises = [uniqueExercise(), uniqueExercise()]
-        let routine = uniqueRoutine(exercises: exercises)
+        let routine = uniqueRoutine(exercises: exercises).model
         let cachedRoutineWithSameExercises = uniqueRoutine(exercises: exercises)
 
-        save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithExercisesAlreadyExists(cachedRoutineName: cachedRoutineWithSameExercises.name))) {
-            routineStore.completeReadRoutines(with: [cachedRoutineWithSameExercises.toLocal()])
+        save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithExercisesAlreadyExists(cachedRoutineName: cachedRoutineWithSameExercises.model.name))) {
+            routineStore.completeReadRoutines(with: [cachedRoutineWithSameExercises.local])
         }
     }
     
@@ -335,11 +120,11 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         let name = "Any"
         let exercises = [uniqueExercise(), uniqueExercise()]
-        let routine = uniqueRoutine(name: name, exercises: exercises)
+        let routine = uniqueRoutine(name: name, exercises: exercises).model
         let cachedRoutineWithSameExercises = uniqueRoutine(name: name, exercises: exercises)
 
         save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithNameAlreadyExists)) {
-            routineStore.completeReadRoutines(with: [cachedRoutineWithSameExercises.toLocal()])
+            routineStore.completeReadRoutines(with: [cachedRoutineWithSameExercises.local])
         }
     }
     
@@ -348,7 +133,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         let (sut, routineStore) = makeSUT()
         
-        let routine = uniqueRoutine()
+        let routine = uniqueRoutine().model
         let error = anyNSError()
         
         save(routine: routine, on: sut, completesWith: .failure(error)) {
@@ -361,7 +146,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         let (sut, routineStore) = makeSUT()
         
-        let routine = uniqueRoutine()
+        let routine = uniqueRoutine().model
         let error = anyNSError()
         
         save(routine: routine, on: sut, completesWith: .failure(error)) {
@@ -375,7 +160,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         let (sut, routineStore) = makeSUT()
         
-        let routine = uniqueRoutine()
+        let routine = uniqueRoutine().model
         
         save(routine: routine, on: sut, completesWith: .success(())) {
             routineStore.completeReadRoutinesSuccessfully()
@@ -431,14 +216,16 @@ class SaveRoutineUseCaseTests: XCTestCase {
     }
     
     
-    private func uniqueRoutine(name: String? = nil, exercises: [Exercise]? = nil) -> Routine {
+    private func uniqueRoutine(name: String? = nil, exercises: [Exercise]? = nil) -> (model: Routine, local: LocalRoutine) {
         
-        return Routine(
+        let routine = Routine(
             id: UUID(),
             name: name ?? UUID().uuidString,
             creationDate: Date(),
             exercises: exercises ?? [uniqueExercise(), uniqueExercise()],
             routineRecords: [])
+        
+        return (routine, routine.toLocal())
     }
     
     
