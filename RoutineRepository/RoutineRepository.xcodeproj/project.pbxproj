@@ -26,6 +26,7 @@
 		B3D29C2528F4FB34006CC77D /* RoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C2428F4FB34006CC77D /* RoutineStore.swift */; };
 		B3D29C3028F50236006CC77D /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
 		B3D29C3728F502C7006CC77D /* SaveRoutineUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */; };
+		B3D29C3928F503B7006CC77D /* RoutineStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		B3D29C2428F4FB34006CC77D /* RoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStore.swift; sourceTree = "<group>"; };
 		B3D29C2C28F50236006CC77D /* RoutineRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutineRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoutineUseCaseTests.swift; sourceTree = "<group>"; };
+		B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStoreSpy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */,
+				B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */,
 			);
 			path = RoutineRepositoryTests;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3D29C3728F502C7006CC77D /* SaveRoutineUseCaseTests.swift in Sources */,
+				B3D29C3928F503B7006CC77D /* RoutineStoreSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
