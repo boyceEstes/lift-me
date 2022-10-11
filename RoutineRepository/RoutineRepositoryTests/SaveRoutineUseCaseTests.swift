@@ -161,9 +161,4 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         return (routine, routine.toLocal())
     }
-    
-    
-    private func anyNSError() -> NSError {
-        return NSError(domain: "Any", code: 0)
-    }
 }

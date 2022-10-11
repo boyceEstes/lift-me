@@ -29,6 +29,7 @@
 		B3D29C3928F503B7006CC77D /* RoutineStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */; };
 		B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
 		B3D29C6128F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6028F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift */; };
+		B3D29C6328F517EA006CC77D /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStoreSpy.swift; sourceTree = "<group>"; };
 		B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TrackForMemoryLeaks.swift"; sourceTree = "<group>"; };
 		B3D29C6028F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAllRoutinesUseCaseTests.swift; sourceTree = "<group>"; };
+		B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */,
 				B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */,
 				B3D29C6028F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift */,
+				B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */,
 			);
 			path = RoutineRepositoryTests;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			files = (
 				B3D29C3728F502C7006CC77D /* SaveRoutineUseCaseTests.swift in Sources */,
 				B3D29C3928F503B7006CC77D /* RoutineStoreSpy.swift in Sources */,
+				B3D29C6328F517EA006CC77D /* SharedTestHelpers.swift in Sources */,
 				B3D29C6128F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift in Sources */,
 				B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 			);
