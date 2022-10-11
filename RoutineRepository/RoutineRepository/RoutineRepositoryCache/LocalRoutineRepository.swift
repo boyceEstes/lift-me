@@ -85,7 +85,7 @@ public class LocalRoutineRepository: RoutineRepository {
 }
 
 
-public extension Routine {
+private extension Routine {
     
     func toLocal() -> LocalRoutine {
         return LocalRoutine(

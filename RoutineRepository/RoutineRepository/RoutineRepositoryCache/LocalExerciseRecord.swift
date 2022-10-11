@@ -13,4 +13,9 @@ public struct LocalExerciseRecord: Equatable {
     
     // relationships
     let setRecords: [LocalSetRecord]
+    
+    public init(id: UUID, setRecords: [LocalSetRecord]) {
+        self.id = id
+        self.setRecords = setRecords
+    }
 }

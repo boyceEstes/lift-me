@@ -10,8 +10,6 @@ import RoutineRepository
 
 class LoadAllRoutinesUseCaseTests: XCTestCase {
     
-    // TODO: Don't forget to test that the message is sent on the SaveRoutine too
-    
     func test_routineRepository_init_doesNotMessageStore() {
         
         let (_, routineStore) = makeSUT()
