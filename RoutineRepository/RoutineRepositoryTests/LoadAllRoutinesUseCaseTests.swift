@@ -40,6 +40,19 @@ class LoadAllRoutinesUseCaseTests: XCTestCase {
     }
     
     
+    func test_routineRepository_realAllRoutines_deliversCachedRoutines() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let routines = [uniqueRoutine(), uniqueRoutine()]
+        
+        expect(sut, toCompleteWith: .failure(expectedError)) {
+            
+            routineStore.completeReadAllRoutines(with: expectedError)
+        }
+    }
+    
+    
     // MARK: -- Helpers
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: LocalRoutineRepository, routineStore: RoutineStoreSpy) {
         
