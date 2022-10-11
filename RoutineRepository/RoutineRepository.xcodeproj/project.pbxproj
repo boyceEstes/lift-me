@@ -27,6 +27,7 @@
 		B3D29C3028F50236006CC77D /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
 		B3D29C3728F502C7006CC77D /* SaveRoutineUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */; };
 		B3D29C3928F503B7006CC77D /* RoutineStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */; };
+		B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		B3D29C2C28F50236006CC77D /* RoutineRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutineRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoutineUseCaseTests.swift; sourceTree = "<group>"; };
 		B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStoreSpy.swift; sourceTree = "<group>"; };
+		B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TrackForMemoryLeaks.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 			children = (
 				B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */,
 				B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */,
+				B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */,
 			);
 			path = RoutineRepositoryTests;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			files = (
 				B3D29C3728F502C7006CC77D /* SaveRoutineUseCaseTests.swift in Sources */,
 				B3D29C3928F503B7006CC77D /* RoutineStoreSpy.swift in Sources */,
+				B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
