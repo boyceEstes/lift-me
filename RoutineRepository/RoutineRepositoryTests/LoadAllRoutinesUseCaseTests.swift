@@ -40,15 +40,15 @@ class LoadAllRoutinesUseCaseTests: XCTestCase {
     }
     
     
-    func test_routineRepository_realAllRoutines_deliversCachedRoutines() {
+    func test_routineRepository_readAllRoutines_deliversCachedRoutines() {
         
         let (sut, routineStore) = makeSUT()
         
-        let routines = [uniqueRoutine(), uniqueRoutine()]
+        let routines = uniqueRoutines()
         
-        expect(sut, toCompleteWith: .failure(expectedError)) {
+        expect(sut, toCompleteWith: .success(routines.model)) {
             
-            routineStore.completeReadAllRoutines(with: expectedError)
+            routineStore.completeReadAllRoutines(with: routines.local)
         }
     }
     
@@ -73,6 +73,10 @@ class LoadAllRoutinesUseCaseTests: XCTestCase {
         sut.loadAllRoutines { result in
             
             switch (result, expectedResult) {
+                
+            case let (.success(receivedRoutines), .success(expectedRoutines)):
+                XCTAssertEqual(receivedRoutines, expectedRoutines, "Expected \(expectedRoutines), got \(receivedRoutines) instead", file: file, line: line)
+                
             case let (.failure(receivedError), .failure(expectedError)):
                 XCTAssertEqual(receivedError as NSError, expectedError as NSError, "Expected \(expectedError), got \(receivedError) instead", file: file, line: line)
                 
@@ -86,5 +90,15 @@ class LoadAllRoutinesUseCaseTests: XCTestCase {
         action()
         
         wait(for: [exp], timeout: 1)
+    }
+    
+    
+    private func uniqueRoutines() -> (model: [Routine], local: [LocalRoutine]) {
+        
+        let routines = [uniqueRoutine(), uniqueRoutine()]
+        let model = routines.map { $0.0 }
+        let local = routines.map { $0.1 }
+        
+        return (model, local)
     }
 }

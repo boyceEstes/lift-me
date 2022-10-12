@@ -14,7 +14,7 @@ func anyNSError() -> NSError {
 }
 
 
-private func uniqueExercise() -> Exercise {
+func uniqueExercise() -> Exercise {
     return Exercise(
         id: UUID(),
         name: UUID().uuidString,
@@ -24,7 +24,7 @@ private func uniqueExercise() -> Exercise {
 }
 
 
-private func uniqueRoutine(name: String? = nil, exercises: [Exercise]? = nil) -> (model: Routine, local: LocalRoutine) {
+func uniqueRoutine(name: String? = nil, exercises: [Exercise]? = nil) -> (model: Routine, local: LocalRoutine) {
     
     let routine = Routine(
         id: UUID(),

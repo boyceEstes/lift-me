@@ -37,6 +37,7 @@ class RoutineStoreSpy: RoutineStore {
         readRoutinesCompletions.append(completion)
     }
     
+    
     func readAllRoutines(completion: @escaping ReadRoutinesCompletion) {
         receivedMessages.append(.readAllRoutines)
         readAllRoutinesCompletions.append(completion)
@@ -73,5 +74,10 @@ class RoutineStoreSpy: RoutineStore {
     // Read All Routines
     func completeReadAllRoutines(with error: NSError, at index: Int = 0) {
         readAllRoutinesCompletions[index](.failure(error))
+    }
+    
+    
+    func completeReadAllRoutines(with routines: [LocalRoutine], at index: Int = 0) {
+        readAllRoutinesCompletions[index](.success(routines))
     }
 }
