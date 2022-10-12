@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct RoutineRecord {
+public struct RoutineRecord: Equatable {
     
     public let id: UUID
     public let creationDate: Date

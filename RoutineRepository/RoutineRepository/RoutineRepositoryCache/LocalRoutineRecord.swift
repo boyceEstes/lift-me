@@ -8,11 +8,18 @@
 import Foundation
 
 public struct LocalRoutineRecord: Equatable {
-    
-    let id: UUID
-    let creationDate: Date
-    let completionDate: Date?
+
+    public let id: UUID
+    public let creationDate: Date
+    public let completionDate: Date?
     
     // relationships
-    let exerciseRecords: [LocalExerciseRecord]
+    public let exerciseRecords: [LocalExerciseRecord]
+    
+    public init(id: UUID, creationDate: Date, completionDate: Date?, exerciseRecords: [LocalExerciseRecord]) {
+        self.id = id
+        self.creationDate = creationDate
+        self.completionDate = completionDate
+        self.exerciseRecords = exerciseRecords
+    }
 }

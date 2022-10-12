@@ -9,7 +9,6 @@ import XCTest
 import RoutineRepository
 
 
-
 class SaveRoutineUseCaseTests: XCTestCase {
     
     func test_routineRepository_init_doesNotMessageStore() {
@@ -17,6 +16,75 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let (_, routineStore) = makeSUT()
         
         XCTAssertEqual(routineStore.receivedMessages, [])
+    }
+    
+    
+    func test_routineRepository_saveRoutineWhenReadCallFails_requestsReadAndNotCreateRoutine() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let routine = uniqueRoutine()
+        let error = anyNSError()
+        
+        sut.save(routine: routine.model) { _ in }
+        
+        routineStore.completeReadRoutines(with: error)
+        
+        XCTAssertEqual(
+            routineStore.receivedMessages, [.readRoutines(name: routine.local.name, exercises: routine.local.exercises)]
+        )
+    }
+    
+    
+    func test_routineRepository_saveRoutineWhenReadCallReturnsRoutineWithNameAlreadyExists_requestsReadAndNotCreateRoutine() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let name = "Any"
+        let routine = uniqueRoutine(name: name)
+        let cachedRoutine = uniqueRoutine(name: name)
+        
+        sut.save(routine: routine.model) { _ in }
+        
+        routineStore.completeReadRoutines(with: [cachedRoutine.local])
+        
+        XCTAssertEqual(
+            routineStore.receivedMessages, [.readRoutines(name: routine.local.name, exercises: routine.local.exercises)]
+        )
+    }
+    
+    
+    func test_routineRepository_saveRoutineWhenReadCallReturnsRoutineWithExercisesAlreadyExists_requestsReadAndNotCreateRoutine() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let exercises = [uniqueExercise(), uniqueExercise()]
+        let routine = uniqueRoutine(exercises: exercises)
+        let cachedRoutine = uniqueRoutine(exercises: exercises)
+        
+        sut.save(routine: routine.model) { _ in }
+        
+        routineStore.completeReadRoutines(with: [cachedRoutine.local])
+        
+        XCTAssertEqual(
+            routineStore.receivedMessages, [.readRoutines(name: routine.local.name, exercises: routine.local.exercises)]
+        )
+    }
+    
+    
+    func test_routineRepository_saveRoutineWhenReadReturnsNoRoutines_requestsReadAndCreateRoutine() {
+        
+        let (sut, routineStore) = makeSUT()
+        
+        let routine = uniqueRoutine()
+        
+        sut.save(routine: routine.model) { _ in }
+        
+        routineStore.completeReadRoutinesSuccessfully()
+        
+        XCTAssertEqual(
+            routineStore.receivedMessages, [.readRoutines(name: routine.local.name, exercises: routine.local.exercises), .createRoutine(routine.local)]
+        )
     }
     
     
@@ -137,33 +205,5 @@ class SaveRoutineUseCaseTests: XCTestCase {
         action()
         
         wait(for: [exp], timeout: 1)
-    }
-    
-    
-    private func uniqueExercise() -> Exercise {
-        return Exercise(
-            id: UUID(),
-            name: UUID().uuidString,
-            creationDate: Date(),
-            exerciseRecords: [],
-            tags: [])
-    }
-    
-    
-    private func uniqueRoutine(name: String? = nil, exercises: [Exercise]? = nil) -> (model: Routine, local: LocalRoutine) {
-        
-        let routine = Routine(
-            id: UUID(),
-            name: name ?? UUID().uuidString,
-            creationDate: Date(),
-            exercises: exercises ?? [uniqueExercise(), uniqueExercise()],
-            routineRecords: [])
-        
-        return (routine, routine.toLocal())
-    }
-    
-    
-    private func anyNSError() -> NSError {
-        return NSError(domain: "Any", code: 0)
     }
 }

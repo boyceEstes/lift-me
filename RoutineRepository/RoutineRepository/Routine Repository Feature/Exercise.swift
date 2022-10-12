@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Exercise {
+public struct Exercise: Equatable {
 
     public let id: UUID
     public let name: String
