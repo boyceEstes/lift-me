@@ -22,9 +22,68 @@ class CoreDataRoutineStore {
     // Any and all functions that you want
     func readAllRoutines(completion: @escaping RoutineStore.ReadRoutinesCompletion) {
         
-        completion(.success([]))
+        let context = context
+        context.perform {
+            do {
+                let routines = try ManagedRoutine.findRoutines(in: context).toLocal()
+                completion(.success(routines))
+            } catch {
+                completion(.success([]))
+            }
+        }
+    }
+    
+    
+    func create(_ routine: LocalRoutine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
+        
+        let context = context
+        context.perform {
+            do {
+                ManagedRoutine.create(routine, in: context)
+                try context.save()
+                completion(.success(()))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+
     }
 }
+
+
+private extension Array where Element == ManagedRoutine {
+    func toLocal() -> [LocalRoutine] {
+        map { $0.toLocal() }
+    }
+}
+
+
+private extension ManagedRoutine {
+    
+    func toLocal() -> LocalRoutine {
+        LocalRoutine(
+            id: self.id,
+            name: self.name,
+            creationDate: self.creationDate,
+            exercises: [],
+            routineRecords: self.routineRecords.toLocal())
+    }
+}
+
+
+private extension Set where Element == ManagedRoutineRecord {
+    func toLocal() -> [LocalRoutineRecord] {
+        map {
+            LocalRoutineRecord(
+                id: $0.id,
+                creationDate: $0.creationDate,
+                completionDate: $0.completionDate,
+                exerciseRecords: [])
+        }
+    }
+}
+
+
 
 
 private extension NSPersistentContainer {
@@ -115,6 +174,34 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         wait(for: [exp], timeout: 1)
     }
+    
+    
+    func test_coreDataRoutineStore_readRoutinesOnNonEmtpyCache_deliversCachedRoutines() {
+        
+        let sut = makeSUT()
+        
+        // TODO: Since we have not implmented ManagedExercises, this uniqueRotuine will have to not have any for now
+        let routine = uniqueRoutine(exercises: []).local
+        let exp = expectation(description: "Wait for RoutineStore completion")
+        sut.create(routine) { firstResult in
+            
+            sut.readAllRoutines { secondResult in
+                switch (firstResult, secondResult) {
+                case let (.success, .success(receivedRoutines)):
+                    XCTAssertEqual(receivedRoutines, [routine])
+                    
+                default:
+                    XCTFail("Expected one success routine result, got \(firstResult) and \(secondResult) instead")
+                }
+                
+                exp.fulfill()
+            }
+        }
+        
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
     
     
     // MARK: - Helpers
