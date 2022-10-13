@@ -12,10 +12,10 @@ import CoreData
 @objc(ManagedRoutineRecord)
 public class ManagedRoutineRecord: NSManagedObject {
 
-    @NSManaged public var id: UUID?
-    @NSManaged public var creationDate: Date?
-    @NSManaged public var completionDate: Date?
-    @NSManaged public var routine: ManagedRoutine?
+    @NSManaged public var id: UUID
+    @NSManaged public var creationDate: Date
+    @NSManaged public var completionDate: Date
+    @NSManaged public var routine: ManagedRoutine
 }
 
 
