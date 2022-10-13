@@ -68,7 +68,7 @@ private extension NSManagedObjectModel {
 
 class CoreDataRoutineStoreTests: XCTestCase {
     
-    func test_coreDataRoutineStore_readRoutinesOnEmptyCache_deliversNothing() {
+    func test_coreDataRoutineStore_readRoutinesOnEmptyCache_deliversNoSideEffects() {
         
         let sut = makeSUT()
         
@@ -84,6 +84,32 @@ class CoreDataRoutineStoreTests: XCTestCase {
             }
             
             exp.fulfill()
+        }
+        
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_coreDataRoutineStore_readRoutinesOnEmptyCacheTwice_deliversNoSideEffects() {
+        
+        let sut = makeSUT()
+        
+        let exp = expectation(description: "Wait for RoutineStore completion")
+        sut.readAllRoutines() { firstResult in
+            
+            sut.readAllRoutines { secondResult in
+                switch (firstResult, secondResult) {
+                case let (.success(firstRoutines), .success(secondRoutines)):
+                    XCTAssertEqual(firstRoutines, [])
+                    XCTAssertEqual(secondRoutines, [])
+                    
+                default:
+                    XCTFail("Expected empty results, got \(firstResult) and \(secondResult) instead")
+                }
+                
+                exp.fulfill()
+            }
         }
         
         
