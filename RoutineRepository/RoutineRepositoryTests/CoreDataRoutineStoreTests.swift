@@ -20,6 +20,10 @@ class CoreDataRoutineStore {
     }
     
     // Any and all functions that you want
+    func readAllRoutines(completion: @escaping RoutineStore.ReadRoutinesCompletion) {
+        
+        completion(.success([]))
+    }
 }
 
 
@@ -64,9 +68,26 @@ private extension NSManagedObjectModel {
 
 class CoreDataRoutineStoreTests: XCTestCase {
     
-    func test_coreDataRoutineStore_creation_deliversNoError() {
+    func test_coreDataRoutineStore_readRoutinesOnEmptyCache_deliversNothing() {
         
-        let _ = makeSUT()
+        let sut = makeSUT()
+        
+        let exp = expectation(description: "Wait for RoutineStore completion")
+        sut.readAllRoutines() { result in
+            
+            switch result {
+            case let .success(routines):
+                XCTAssertEqual(routines, [])
+                
+            default:
+                XCTFail("Expected empty results, got \(result) instead")
+            }
+            
+            exp.fulfill()
+        }
+        
+        
+        wait(for: [exp], timeout: 1)
     }
     
     
