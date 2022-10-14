@@ -96,7 +96,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let routine = uniqueRoutine(name: name).model
         let cachedRoutineWithSameName = uniqueRoutine(name: name).local
 
-        save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithNameAlreadyExists)) {
+        save(routine: routine, on: sut, completesWith: LocalRoutineRepository.Error.routineWithNameAlreadyExists) {
             routineStore.completeReadRoutines(with: [cachedRoutineWithSameName])
         }
     }
@@ -110,7 +110,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let routine = uniqueRoutine(exercises: exercises).model
         let cachedRoutineWithSameExercises = uniqueRoutine(exercises: exercises)
 
-        save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithExercisesAlreadyExists(cachedRoutineName: cachedRoutineWithSameExercises.model.name))) {
+        save(routine: routine, on: sut, completesWith: LocalRoutineRepository.Error.routineWithExercisesAlreadyExists(cachedRoutineName: cachedRoutineWithSameExercises.model.name)) {
             routineStore.completeReadRoutines(with: [cachedRoutineWithSameExercises.local])
         }
     }
@@ -125,7 +125,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let routine = uniqueRoutine(name: name, exercises: exercises).model
         let cachedRoutineWithSameExercises = uniqueRoutine(name: name, exercises: exercises)
 
-        save(routine: routine, on: sut, completesWith: .failure(LocalRoutineRepository.Error.routineWithNameAlreadyExists)) {
+        save(routine: routine, on: sut, completesWith: LocalRoutineRepository.Error.routineWithNameAlreadyExists) {
             routineStore.completeReadRoutines(with: [cachedRoutineWithSameExercises.local])
         }
     }
@@ -138,7 +138,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let routine = uniqueRoutine().model
         let error = anyNSError()
         
-        save(routine: routine, on: sut, completesWith: .failure(error)) {
+        save(routine: routine, on: sut, completesWith: error) {
             routineStore.completeReadRoutines(with: error)
         }
     }
@@ -151,7 +151,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         let routine = uniqueRoutine().model
         let error = anyNSError()
         
-        save(routine: routine, on: sut, completesWith: .failure(error)) {
+        save(routine: routine, on: sut, completesWith: error) {
             routineStore.completeReadRoutinesSuccessfully()
             routineStore.completeCreateRoutine(with: error)
         }
@@ -164,7 +164,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         let routine = uniqueRoutine().model
         
-        save(routine: routine, on: sut, completesWith: .success(())) {
+        save(routine: routine, on: sut, completesWith: nil) {
             routineStore.completeReadRoutinesSuccessfully()
             routineStore.completeCreateRoutineSuccessfully()
         }
@@ -190,14 +190,7 @@ class SaveRoutineUseCaseTests: XCTestCase {
         
         sut.save(routine: routine) { result in
             
-            switch (result, expectedResult) {
-            case (.success, .success): break
-               
-            case let (.failure(error), .failure(expectedError)):
-                XCTAssertEqual(error as NSError, expectedError as NSError, "Got \(result) but expected \(expectedResult)", file: file, line: line)
-            default:
-                XCTFail("Expected \(expectedResult), got \(result) instead", file: file, line: line)
-            }
+            XCTAssertEqual(result as NSError?, expectedResult as NSError?, file: file, line: line)
 
             exp.fulfill()
         }

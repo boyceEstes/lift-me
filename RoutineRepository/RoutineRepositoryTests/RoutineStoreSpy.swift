@@ -62,12 +62,12 @@ class RoutineStoreSpy: RoutineStore {
     
     // Create Routine
     func completeCreateRoutine(with error: NSError, at index: Int = 0) {
-        createRoutineCompletions[index](.failure(error))
+        createRoutineCompletions[index](error)
     }
     
     
     func completeCreateRoutineSuccessfully(at index: Int = 0) {
-        createRoutineCompletions[index](.success(()))
+        createRoutineCompletions[index](nil)
     }
     
     

@@ -38,23 +38,20 @@ public class LocalRoutineRepository: RoutineRepository {
                 if cachedRoutines.isEmpty {
                     
                     self.routineStore.create(localRoutine) { createRoutineResult in
-                        switch createRoutineResult {
-                            
-                        case .success:
-                            completion(.success(()))
-                            
-                        case let .failure(error):
-                            completion(.failure(error))
+                        if createRoutineResult == nil {
+                            completion(nil)
+                        } else {
+                            completion(createRoutineResult)
                         }
                     }
                     
                 } else {
                     let error = self.getErrorFrom(saving: localRoutine, with: cachedRoutines)
-                    completion(.failure(error))
+                    completion(error)
                 }
                 
             case let .failure(error):
-                completion(.failure(error))
+                completion(error)
             }
         }
     }
