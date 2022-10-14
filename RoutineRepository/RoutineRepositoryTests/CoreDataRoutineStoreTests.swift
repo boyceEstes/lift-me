@@ -149,27 +149,20 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         // TODO: Since we have not implmented ManagedExercises, this uniqueRotuine will have to not have any for now
         let routine = uniqueRoutine(exercises: []).local
-        let exp = expectation(description: "Wait for RoutineStore completion")
-        sut.create(routine) { firstResult in
-            XCTAssertNil(firstResult)
-            
-            sut.readAllRoutines { secondResult in
-                switch secondResult {
-                case let .success(receivedRoutines):
-                    XCTAssertEqual(receivedRoutines, [routine])
-                    
-                default:
-                    XCTFail("Expected one success routine result, got \(String(describing: firstResult)) and \(secondResult) instead")
-                }
-                
-                exp.fulfill()
-            }
-        }
-        
-        
-        wait(for: [exp], timeout: 1)
+        create(routine, into: sut)
+        expect(sut, toCompleteWith: .success([routine]))
     }
     
+    
+    func test_coreDataRoutineStore_readRoutinesOnNonEmptyCacheTwice_deliversNoSideEffects() {
+        
+        let sut = makeSUT()
+        
+        // TODO: Since we have not implmented ManagedExercises, this uniqueRotuine will have to not have any for now
+        let routine = uniqueRoutine(exercises: []).local
+        create(routine, into: sut)
+        expect(sut, toCompleteTwiceWith: .success([routine]))
+    }
     
     
     // MARK: - Helpers
@@ -183,7 +176,12 @@ class CoreDataRoutineStoreTests: XCTestCase {
         return sut
     }
     
-    
+    /*
+     * This is returning a result instead of actually testing as this should be reusable
+     * A command to create rather than a test to create. It should be tested as necessary
+     * in the test cases
+     */
+    @discardableResult
     private func create(_ routine: LocalRoutine, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateRoutineResult {
         
         let exp = expectation(description: "Wait for RoutineStore create completion")
