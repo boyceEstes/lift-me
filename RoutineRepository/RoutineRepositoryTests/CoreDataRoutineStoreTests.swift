@@ -28,7 +28,7 @@ class CoreDataRoutineStore {
                 let routines = try ManagedRoutine.findRoutines(in: context).toLocal()
                 completion(.success(routines))
             } catch {
-                completion(.success([]))
+                completion(.failure(error))
             }
         }
     }
