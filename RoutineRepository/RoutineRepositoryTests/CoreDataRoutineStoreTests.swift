@@ -165,6 +165,16 @@ class CoreDataRoutineStoreTests: XCTestCase {
     }
     
     
+    func test_coreDataRoutineStore_createRoutineInEmptyCache_deliversNoError() {
+        
+        let sut = makeSUT()
+        
+        let routine = uniqueRoutine(exercises: []).local
+        let createError = create(routine, into: sut)
+        XCTAssertNil(createError, "Creating routine in empty cache delivers error, \(createError!)")
+    }
+    
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CoreDataRoutineStore {

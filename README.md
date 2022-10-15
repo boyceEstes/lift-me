@@ -187,6 +187,9 @@ Can be used when saving active record routine as well as precreating routines
 1. System receives results with routine's exercises and name
 2. System delivers error - routine already exists, and include duplicate's name
 
+#### Create in Cache Behavior
+- [ ] To empty cache works
+- [ ] To non-empty cache overrides previous value
 
 ---
 
@@ -200,6 +203,11 @@ Can be used when saving active record routine as well as precreating routines
 #### System error course (sad path):
 1. System delivers error
 
+#### Retrieve From Cache Behavior
+- [x] Empty cache returns empty
+- [x] Empty cache twice returns empty (no side-effects)
+- [x] Non-empty cache returns data
+- [x] Non-empty cache twice returns data (no side-effects)
 
 ---
 
