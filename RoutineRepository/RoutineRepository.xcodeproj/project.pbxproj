@@ -120,7 +120,7 @@
 		B3D29BDF28F12746006CC77D /* RoutineRepository */ = {
 			isa = PBXGroup;
 			children = (
-				B3D29C1528F4FA0C006CC77D /* RoutineRepositoryCache */,
+				B3D29C1528F4FA0C006CC77D /* Routine Repository Cache */,
 				B3D29C0228F1EDB7006CC77D /* Routine Repository Feature */,
 				B3D29BE028F12746006CC77D /* RoutineRepository.h */,
 				B3D29BE128F12746006CC77D /* RoutineRepository.docc */,
@@ -142,7 +142,7 @@
 			path = "Routine Repository Feature";
 			sourceTree = "<group>";
 		};
-		B3D29C1528F4FA0C006CC77D /* RoutineRepositoryCache */ = {
+		B3D29C1528F4FA0C006CC77D /* Routine Repository Cache */ = {
 			isa = PBXGroup;
 			children = (
 				B3D29C7228F8790D006CC77D /* Core Data */,
@@ -155,7 +155,7 @@
 				B3D29C2228F4FAC8006CC77D /* LocalRoutineRepository.swift */,
 				B3D29C2428F4FB34006CC77D /* RoutineStore.swift */,
 			);
-			path = RoutineRepositoryCache;
+			path = "Routine Repository Cache";
 			sourceTree = "<group>";
 		};
 		B3D29C2D28F50236006CC77D /* RoutineRepositoryTests */ = {
