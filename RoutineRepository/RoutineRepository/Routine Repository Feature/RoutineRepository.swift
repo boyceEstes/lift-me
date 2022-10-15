@@ -9,7 +9,7 @@ import Foundation
 
 public protocol RoutineRepository {
     
-    typealias SaveRoutineResult = Result<Void, Error>
+    typealias SaveRoutineResult = Error?
     typealias SaveRoutineCompletion = (RoutineRepository.SaveRoutineResult) -> Void
     
     typealias LoadAllRoutinesResult = Result<[Routine], Error>

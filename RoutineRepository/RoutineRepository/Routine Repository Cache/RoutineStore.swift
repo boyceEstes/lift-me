@@ -11,7 +11,7 @@ import Foundation
 public protocol RoutineStore {
     
     typealias ReadRoutinesResult = Result<[LocalRoutine], Error>
-    typealias CreateRoutineResult = Result<Void, Error>
+    typealias CreateRoutineResult = Error?
     
     typealias ReadRoutinesCompletion = (ReadRoutinesResult) -> Void
     typealias CreateRoutineCompletion = (CreateRoutineResult) -> Void

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0028F1EDB4006CC77D /* Routine.swift */; };
@@ -30,6 +31,11 @@
 		B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
 		B3D29C6128F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6028F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift */; };
 		B3D29C6328F517EA006CC77D /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
+		B3D29C6728F66B73006CC77D /* CoreDataRoutineStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests.swift */; };
+		B3D29C6A28F71A3F006CC77D /* RoutineStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */; };
+		B3D29C6D28F7B787006CC77D /* RoutineStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */; };
+		B3D29C7028F86C16006CC77D /* ManagedRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */; };
+		B3D29C7528F879DC006CC77D /* ManagedRoutineRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C7328F879DC006CC77D /* ManagedRoutineRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRoutineStore.swift; sourceTree = "<group>"; };
 		B3D29BDD28F12746006CC77D /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29BE028F12746006CC77D /* RoutineRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineRepository.h; sourceTree = "<group>"; };
 		B3D29BE128F12746006CC77D /* RoutineRepository.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RoutineRepository.docc; sourceTree = "<group>"; };
@@ -67,6 +74,10 @@
 		B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TrackForMemoryLeaks.swift"; sourceTree = "<group>"; };
 		B3D29C6028F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAllRoutinesUseCaseTests.swift; sourceTree = "<group>"; };
 		B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
+		B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRoutineStoreTests.swift; sourceTree = "<group>"; };
+		B3D29C6928F71A3F006CC77D /* RoutineStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoutineStore.xcdatamodel; sourceTree = "<group>"; };
+		B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedRoutine.swift; sourceTree = "<group>"; };
+		B3D29C7328F879DC006CC77D /* ManagedRoutineRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedRoutineRecord.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +120,7 @@
 		B3D29BDF28F12746006CC77D /* RoutineRepository */ = {
 			isa = PBXGroup;
 			children = (
-				B3D29C1528F4FA0C006CC77D /* RoutineRepositoryCache */,
+				B3D29C1528F4FA0C006CC77D /* Routine Repository Cache */,
 				B3D29C0228F1EDB7006CC77D /* Routine Repository Feature */,
 				B3D29BE028F12746006CC77D /* RoutineRepository.h */,
 				B3D29BE128F12746006CC77D /* RoutineRepository.docc */,
@@ -131,9 +142,10 @@
 			path = "Routine Repository Feature";
 			sourceTree = "<group>";
 		};
-		B3D29C1528F4FA0C006CC77D /* RoutineRepositoryCache */ = {
+		B3D29C1528F4FA0C006CC77D /* Routine Repository Cache */ = {
 			isa = PBXGroup;
 			children = (
+				B3D29C7228F8790D006CC77D /* Core Data */,
 				B3D29C1628F4FA3B006CC77D /* LocalRoutine.swift */,
 				B3D29C1828F4FA5B006CC77D /* LocalRoutineRecord.swift */,
 				B3D29C1A28F4FA67006CC77D /* LocalExercise.swift */,
@@ -143,7 +155,7 @@
 				B3D29C2228F4FAC8006CC77D /* LocalRoutineRepository.swift */,
 				B3D29C2428F4FB34006CC77D /* RoutineStore.swift */,
 			);
-			path = RoutineRepositoryCache;
+			path = "Routine Repository Cache";
 			sourceTree = "<group>";
 		};
 		B3D29C2D28F50236006CC77D /* RoutineRepositoryTests */ = {
@@ -154,8 +166,20 @@
 				B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */,
 				B3D29C6028F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift */,
 				B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */,
+				B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests.swift */,
 			);
 			path = RoutineRepositoryTests;
+			sourceTree = "<group>";
+		};
+		B3D29C7228F8790D006CC77D /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				B3D29C7328F879DC006CC77D /* ManagedRoutineRecord.swift */,
+				B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */,
+				B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */,
+				B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */,
+			);
+			path = "Core Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,21 +291,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3D29C7028F86C16006CC77D /* ManagedRoutine.swift in Sources */,
 				B3D29C2528F4FB34006CC77D /* RoutineStore.swift in Sources */,
 				B3D29C1F28F4FA86006CC77D /* LocalSetRecord.swift in Sources */,
 				B3D29C0E28F1F077006CC77D /* RoutineRepository.swift in Sources */,
 				B3D29C1928F4FA5B006CC77D /* LocalRoutineRecord.swift in Sources */,
 				B3D29C1D28F4FA76006CC77D /* LocalExerciseRecord.swift in Sources */,
 				B3D29C2328F4FAC8006CC77D /* LocalRoutineRepository.swift in Sources */,
+				B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */,
 				B3D29C2128F4FA95006CC77D /* LocalTag.swift in Sources */,
 				B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */,
 				B3D29C0628F1EE3B006CC77D /* Exercise.swift in Sources */,
 				B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */,
 				B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */,
 				B3D29C1728F4FA3B006CC77D /* LocalRoutine.swift in Sources */,
+				B3D29C7528F879DC006CC77D /* ManagedRoutineRecord.swift in Sources */,
 				B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */,
 				B3D29C0828F1EE92006CC77D /* ExerciseRecord.swift in Sources */,
 				B3D29C1B28F4FA67006CC77D /* LocalExercise.swift in Sources */,
+				B3D29C6A28F71A3F006CC77D /* RoutineStore.xcdatamodeld in Sources */,
 				B3D29C0428F1EDFA006CC77D /* RoutineRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,8 +321,10 @@
 				B3D29C3728F502C7006CC77D /* SaveRoutineUseCaseTests.swift in Sources */,
 				B3D29C3928F503B7006CC77D /* RoutineStoreSpy.swift in Sources */,
 				B3D29C6328F517EA006CC77D /* SharedTestHelpers.swift in Sources */,
+				B3D29C6728F66B73006CC77D /* CoreDataRoutineStoreTests.swift in Sources */,
 				B3D29C6128F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift in Sources */,
 				B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
+				B3D29C6D28F7B787006CC77D /* RoutineStore.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +588,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B3D29C6928F71A3F006CC77D /* RoutineStore.xcdatamodel */,
+			);
+			currentVersion = B3D29C6928F71A3F006CC77D /* RoutineStore.xcdatamodel */;
+			path = RoutineStore.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B3D29BD428F12746006CC77D /* Project object */;
 }
