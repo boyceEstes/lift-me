@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0028F1EDB4006CC77D /* Routine.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRoutineStore.swift; sourceTree = "<group>"; };
 		B3D29BDD28F12746006CC77D /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29BE028F12746006CC77D /* RoutineRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineRepository.h; sourceTree = "<group>"; };
 		B3D29BE128F12746006CC77D /* RoutineRepository.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RoutineRepository.docc; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				B3D29C7328F879DC006CC77D /* ManagedRoutineRecord.swift */,
 				B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */,
 				B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */,
+				B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				B3D29C1928F4FA5B006CC77D /* LocalRoutineRecord.swift in Sources */,
 				B3D29C1D28F4FA76006CC77D /* LocalExerciseRecord.swift in Sources */,
 				B3D29C2328F4FAC8006CC77D /* LocalRoutineRepository.swift in Sources */,
+				B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */,
 				B3D29C2128F4FA95006CC77D /* LocalTag.swift in Sources */,
 				B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */,
 				B3D29C0628F1EE3B006CC77D /* Exercise.swift in Sources */,
