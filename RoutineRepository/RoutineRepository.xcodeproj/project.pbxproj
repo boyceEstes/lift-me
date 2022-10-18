@@ -11,6 +11,10 @@
 		B32CADF128FEF53D00B154BD /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
 		B32CADF728FEFC6100B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
 		B32CADF928FEFF2800B154BD /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
+		B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */; };
+		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; platformFilter = maccatalyst; };
+		B32CAE0E28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */; };
+		B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -50,6 +54,13 @@
 			remoteGlobalIDString = B3D29BDC28F12746006CC77D;
 			remoteInfo = RoutineRepository;
 		};
+		B32CAE0A28FF4A2F00B154BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3D29BD428F12746006CC77D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B32CADFE28FF4A2F00B154BD;
+			remoteInfo = LiftMeRoutinesiOS;
+		};
 		B3D29C3128F50236006CC77D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B3D29BD428F12746006CC77D /* Project object */;
@@ -62,6 +73,11 @@
 /* Begin PBXFileReference section */
 		B32CADED28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutineRepositoryCacheIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRepositoryCacheIntegrationTests.swift; sourceTree = "<group>"; };
+		B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiftMeRoutinesiOS.h; sourceTree = "<group>"; };
+		B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LiftMeRoutinesiOS.docc; sourceTree = "<group>"; };
+		B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeRoutinesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeRoutinesiOSTests.swift; sourceTree = "<group>"; };
 		B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRoutineStore.swift; sourceTree = "<group>"; };
 		B3D29BDD28F12746006CC77D /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29BE028F12746006CC77D /* RoutineRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineRepository.h; sourceTree = "<group>"; };
@@ -102,6 +118,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B32CADFC28FF4A2F00B154BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B32CAE0528FF4A2F00B154BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3D29BDA28F12746006CC77D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,12 +159,31 @@
 			path = RoutineRepositoryCacheIntegrationTests;
 			sourceTree = "<group>";
 		};
+		B32CAE0028FF4A2F00B154BD /* LiftMeRoutinesiOS */ = {
+			isa = PBXGroup;
+			children = (
+				B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */,
+				B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */,
+			);
+			path = LiftMeRoutinesiOS;
+			sourceTree = "<group>";
+		};
+		B32CAE0C28FF4A2F00B154BD /* LiftMeRoutinesiOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */,
+			);
+			path = LiftMeRoutinesiOSTests;
+			sourceTree = "<group>";
+		};
 		B3D29BD328F12746006CC77D = {
 			isa = PBXGroup;
 			children = (
 				B3D29BDF28F12746006CC77D /* RoutineRepository */,
 				B3D29C2D28F50236006CC77D /* RoutineRepositoryTests */,
 				B32CADEE28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests */,
+				B32CAE0028FF4A2F00B154BD /* LiftMeRoutinesiOS */,
+				B32CAE0C28FF4A2F00B154BD /* LiftMeRoutinesiOSTests */,
 				B3D29BDE28F12746006CC77D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -144,6 +194,8 @@
 				B3D29BDD28F12746006CC77D /* RoutineRepository.framework */,
 				B3D29C2C28F50236006CC77D /* RoutineRepositoryTests.xctest */,
 				B32CADED28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.xctest */,
+				B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */,
+				B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,6 +268,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		B32CADFA28FF4A2F00B154BD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3D29BD828F12746006CC77D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -243,6 +303,42 @@
 			name = RoutineRepositoryCacheIntegrationTests;
 			productName = RoutineRepositoryCacheIntegrationTests;
 			productReference = B32CADED28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B32CADFE28FF4A2F00B154BD /* LiftMeRoutinesiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B32CAE1028FF4A2F00B154BD /* Build configuration list for PBXNativeTarget "LiftMeRoutinesiOS" */;
+			buildPhases = (
+				B32CADFA28FF4A2F00B154BD /* Headers */,
+				B32CADFB28FF4A2F00B154BD /* Sources */,
+				B32CADFC28FF4A2F00B154BD /* Frameworks */,
+				B32CADFD28FF4A2F00B154BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LiftMeRoutinesiOS;
+			productName = LiftMeRoutinesiOS;
+			productReference = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B32CAE0728FF4A2F00B154BD /* LiftMeRoutinesiOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B32CAE1328FF4A2F00B154BD /* Build configuration list for PBXNativeTarget "LiftMeRoutinesiOSTests" */;
+			buildPhases = (
+				B32CAE0428FF4A2F00B154BD /* Sources */,
+				B32CAE0528FF4A2F00B154BD /* Frameworks */,
+				B32CAE0628FF4A2F00B154BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B32CAE0B28FF4A2F00B154BD /* PBXTargetDependency */,
+			);
+			name = LiftMeRoutinesiOSTests;
+			productName = LiftMeRoutinesiOSTests;
+			productReference = B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		B3D29BDC28F12746006CC77D /* RoutineRepository */ = {
@@ -294,6 +390,12 @@
 					B32CADEC28FEF53D00B154BD = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
+					B32CADFE28FF4A2F00B154BD = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					B32CAE0728FF4A2F00B154BD = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					B3D29BDC28F12746006CC77D = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -318,12 +420,28 @@
 				B3D29BDC28F12746006CC77D /* RoutineRepository */,
 				B3D29C2B28F50236006CC77D /* RoutineRepositoryTests */,
 				B32CADEC28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests */,
+				B32CADFE28FF4A2F00B154BD /* LiftMeRoutinesiOS */,
+				B32CAE0728FF4A2F00B154BD /* LiftMeRoutinesiOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B32CADEB28FEF53D00B154BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B32CADFD28FF4A2F00B154BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B32CAE0628FF4A2F00B154BD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -354,6 +472,22 @@
 				B32CADF728FEFC6100B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 				B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */,
 				B32CADF928FEFF2800B154BD /* SharedTestHelpers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B32CADFB28FF4A2F00B154BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B32CAE0428FF4A2F00B154BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B32CAE0E28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +540,12 @@
 			target = B3D29BDC28F12746006CC77D /* RoutineRepository */;
 			targetProxy = B32CADF228FEF53D00B154BD /* PBXContainerItemProxy */;
 		};
+		B32CAE0B28FF4A2F00B154BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = maccatalyst;
+			target = B32CADFE28FF4A2F00B154BD /* LiftMeRoutinesiOS */;
+			targetProxy = B32CAE0A28FF4A2F00B154BD /* PBXContainerItemProxy */;
+		};
 		B3D29C3228F50236006CC77D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B3D29BDC28F12746006CC77D /* RoutineRepository */;
@@ -443,6 +583,98 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B32CAE1128FF4A2F00B154BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RXL7292WR8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeRoutinesiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B32CAE1228FF4A2F00B154BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = RXL7292WR8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeRoutinesiOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B32CAE1428FF4A2F00B154BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RXL7292WR8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeRoutinesiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B32CAE1528FF4A2F00B154BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RXL7292WR8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeRoutinesiOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -672,6 +904,24 @@
 			buildConfigurations = (
 				B32CADF428FEF53D00B154BD /* Debug */,
 				B32CADF528FEF53D00B154BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B32CAE1028FF4A2F00B154BD /* Build configuration list for PBXNativeTarget "LiftMeRoutinesiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B32CAE1128FF4A2F00B154BD /* Debug */,
+				B32CAE1228FF4A2F00B154BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B32CAE1328FF4A2F00B154BD /* Build configuration list for PBXNativeTarget "LiftMeRoutinesiOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B32CAE1428FF4A2F00B154BD /* Debug */,
+				B32CAE1528FF4A2F00B154BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
