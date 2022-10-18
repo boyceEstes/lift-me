@@ -12,8 +12,8 @@ import RoutineRepository
  *
  * - [x] Create Cache is Empty
  * - [x] Save to Cache and Load to cache on different instances
- * - Save to Cache and Save duplicate exercise on different instance
- * - Save to Cache and Save unmatching exercise on different instance
+ * - [x] Save to Cache and Save duplicate routine on different instance
+ * - [x] Save to Cache and Save unmatching exercise on different instance
  */
 
 class RoutineRepositoryCacheIntegrationTests: XCTestCase {
@@ -47,11 +47,43 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         
         let routine = uniqueRoutine(exercises: []).model // This does not take exercises in consideration
 
-        save(routine, on: sutToPerformSave)
+        XCTAssertNil(save(routine, on: sutToPerformSave))
         
         expect(sutToPerformLoad, toCompleteWith: .success([routine]))
-
     }
+    
+    
+    func test_localRoutineRepository_saveAndSaveRoutineWithSameNameOnDifferentInstances_deliversSameNameError() {
+        
+        let sutToPerformSave1 = makeSUT()
+        let sutToPerformSave2 = makeSUT()
+        let sutToPerformLoad = makeSUT()
+        
+        let routine = uniqueRoutine(name: "AnyName", exercises: []).model
+        
+        XCTAssertNil(save(routine, on: sutToPerformSave1))
+        XCTAssertEqual(save(routine, on: sutToPerformSave2) as NSError?, LocalRoutineRepository.Error.routineWithNameAlreadyExists as NSError)
+        
+        expect(sutToPerformLoad, toCompleteWith: .success([routine]))
+    }
+    
+    
+    func test_localRoutineRepository_saveAndSaveRoutineWithNoMatchingRoutine_deliversBothSavedRoutines() {
+        
+        let sutToPerformSave1 = makeSUT()
+        let sutToPerformSave2 = makeSUT()
+        let sutToPerformLoad = makeSUT()
+        
+        let routine1 = uniqueRoutine(exercises: []).model
+        let routine2 = uniqueRoutine(exercises: []).model
+        
+        XCTAssertNil(save(routine1, on: sutToPerformSave1))
+        XCTAssertNil(save(routine2, on: sutToPerformSave2))
+        
+        expect(sutToPerformLoad, toCompleteWith: .success([routine1, routine2]))
+    }
+    
+    
     
     // MARK: - Helpers
     
@@ -67,16 +99,20 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
     }
     
     
-    private func save(_ routine: Routine, on sut: LocalRoutineRepository, file: StaticString = #file, line: UInt = #line) {
+    @discardableResult
+    private func save(_ routine: Routine, on sut: LocalRoutineRepository, file: StaticString = #file, line: UInt = #line) -> Error? {
         
         let expSave = expectation(description: "Wait for save routine completion")
         
+        var receivedError: Error?
         sut.save(routine: routine) { error in
-            XCTAssertNil(error, "Expected no error saving, got \(error!) instead")
+            receivedError = error
             expSave.fulfill()
         }
         
         wait(for: [expSave], timeout: 1)
+        
+        return receivedError
     }
     
     
@@ -87,10 +123,10 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         sut.loadAllRoutines { result in
             switch (result, expectedResult) {
             case let (.success(routines), .success(expectedRoutines)):
-                XCTAssertEqual(routines, expectedRoutines)
+                XCTAssertEqual(routines, expectedRoutines, file: file, line: line)
                 
             default:
-                XCTFail("Expected \(expectedResult) to be returned, got \(result) instead")
+                XCTFail("Expected \(expectedResult) to be returned, got \(result) instead", file: file, line: line)
             }
             expLoad.fulfill()
         }
