@@ -34,6 +34,8 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         let bundle = Bundle(for: CoreDataRoutineStore.self)
         let routineStore = try! CoreDataRoutineStore(storeURL: storeURL, bundle: bundle)
         let localRoutineRepository = LocalRoutineRepository(routineStore: routineStore)
+        trackForMemoryLeaks(routineStore)
+        trackForMemoryLeaks(localRoutineRepository)
         return localRoutineRepository
     }
     
