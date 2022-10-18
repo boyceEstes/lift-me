@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct ContentView: View {
+struct ExerciseListView: View {
     
     let allExercises = Exercise.mocks
     @State private var searchText = ""
@@ -134,8 +134,8 @@ struct ExerciseRow: View {
 }
 
 
-struct ContentView_Previews: PreviewProvider {
+struct ExerciseListView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ExerciseListView()
     }
 }
