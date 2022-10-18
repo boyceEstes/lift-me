@@ -71,6 +71,26 @@ class CoreDataRoutineStoreTests: XCTestCase {
         XCTAssertNil(createError, "Creating routine in empty cache delivers error, \(createError!)")
     }
     
+    // Read on Empty
+    // Read on Empty twice delivers no side effects
+    // Read on nonempty
+    // Read on nonempty twice delivers no side effects
+    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesOnEmptyCache_deliversNoResults() {
+        
+        let sut = makeSUT()
+        
+        let exp = expectation(description: "Wait for read routines with name or exercises completion")
+        sut.readRoutines(with: "AnyName", or: []) { result in
+            switch result {
+            case let .success(routines):
+                XCTAssertEqual(routines, [])
+            default:
+                XCTFail("Expected empty local routine array, got \(result) instead")
+            }
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1)
+    }
     
     
     // MARK: - Helpers

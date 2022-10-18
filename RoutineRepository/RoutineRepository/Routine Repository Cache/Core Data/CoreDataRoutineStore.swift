@@ -48,7 +48,10 @@ public class CoreDataRoutineStore: RoutineStore {
     }
     
     
-    public func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutinesCompletion) {}
+    public func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutinesCompletion) {
+        
+        return completion(.success([]))
+    }
 }
 
 
