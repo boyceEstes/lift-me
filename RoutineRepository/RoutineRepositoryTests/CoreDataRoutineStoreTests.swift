@@ -16,7 +16,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         let sut = makeSUT()
         
-        expect(sut, toCompleteWith: .success([]))
+        expectReadAllRoutines(on: sut, toCompleteWith: .success([]))
     }
     
     
@@ -24,7 +24,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         let sut = makeSUT()
         
-        expect(sut, toCompleteTwiceWith: .success([]))
+        expectReadAllRoutines(on: sut, toCompleteTwiceWith: .success([]))
     }
     
     
@@ -35,7 +35,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         // TODO: Since we have not implmented ManagedExercises, this uniqueRotuine will have to not have any for now
         let routine = uniqueRoutine(exercises: []).local
         create(routine, into: sut)
-        expect(sut, toCompleteWith: .success([routine]))
+        expectReadAllRoutines(on: sut, toCompleteWith: .success([routine]))
     }
     
     
@@ -46,7 +46,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         // TODO: Since we have not implmented ManagedExercises, this uniqueRotuine will have to not have any for now
         let routine = uniqueRoutine(exercises: []).local
         create(routine, into: sut)
-        expect(sut, toCompleteTwiceWith: .success([routine]))
+        expectReadAllRoutines(on: sut, toCompleteTwiceWith: .success([routine]))
     }
     
     
@@ -79,17 +79,15 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         let sut = makeSUT()
         
-        let exp = expectation(description: "Wait for read routines with name or exercises completion")
-        sut.readRoutines(with: "AnyName", or: []) { result in
-            switch result {
-            case let .success(routines):
-                XCTAssertEqual(routines, [])
-            default:
-                XCTFail("Expected empty local routine array, got \(result) instead")
-            }
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1)
+        expectReadAllRoutines(with: "AnyName", or: [], on: sut, toCompleteWith: .success([]))
+    }
+    
+    
+    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesTwiceOnEmptyCache_deliversNoResults() {
+        
+        let sut = makeSUT()
+        
+        expectReadAllRoutines(with: "AnyName", or: [], on: sut, toCompleteTwiceWith: .success([]))
     }
     
     
@@ -127,7 +125,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
     }
     
     
-    private func expect(_ sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
+    private func expectReadAllRoutines(on sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
         
         
         let exp = expectation(description: "Wait for RoutineStore read completion")
@@ -149,10 +147,39 @@ class CoreDataRoutineStoreTests: XCTestCase {
     }
     
     
-    private func expect(_ sut: CoreDataRoutineStore, toCompleteTwiceWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
+    private func expectReadAllRoutines(on sut: CoreDataRoutineStore, toCompleteTwiceWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
         
-        expect(sut, toCompleteWith: expectedResult, file: file, line: line)
-        expect(sut, toCompleteWith: expectedResult, file: file, line: line)
+        expectReadAllRoutines(on: sut, toCompleteWith: expectedResult, file: file, line: line)
+        expectReadAllRoutines(on: sut, toCompleteWith: expectedResult, file: file, line: line)
+    }
+    
+    
+    private func expectReadAllRoutines(with name: String, or exercises: [LocalExercise], on sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
+        
+        
+        let exp = expectation(description: "Wait for RoutineStore read completion")
+        
+        sut.readRoutines(with: name, or: exercises) { result in
+            
+            switch (result, expectedResult) {
+            case let (.success(routines), .success(expectedRoutines)):
+                XCTAssertEqual(routines, expectedRoutines, "Expected \(expectedRoutines) but got \(routines) instead", file: file, line: line)
+                
+            default:
+                XCTFail("Expected \(expectedResult), got \(result) instead", file: file, line: line)
+            }
+            
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    private func expectReadAllRoutines(with name: String, or exercises: [LocalExercise], on sut: CoreDataRoutineStore, toCompleteTwiceWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
+        
+        expectReadAllRoutines(with: name, or: exercises, on: sut, toCompleteWith: expectedResult, file: file, line: line)
+        expectReadAllRoutines(with: name, or: exercises, on: sut, toCompleteWith: expectedResult, file: file, line: line)
     }
 }
 

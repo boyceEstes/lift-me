@@ -8,6 +8,14 @@
 import XCTest
 import RoutineRepository
 
+/*
+ *
+ * - Create Cache is Empty
+ * - Save to Cache and Load to cache on different instances
+ * - Save to Cache and Save duplicate exercise on different instance
+ *
+ */
+
 class RoutineRepositoryCacheIntegrationTests: XCTestCase {
 
     func test_localRoutineRepository_emptyCache_deliversNoItems() {
@@ -25,6 +33,35 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_localRoutineRepository_saveAndLoadOnDifferentInstances_deliversSavedItems() {
+        
+        let sutToPerformSave = makeSUT()
+        let sutToPerformLoad = makeSUT()
+        
+        let routine = uniqueRoutine().model // This should fail bc a problem with the transference to ManagedExercise
+        
+        let expSave = expectation(description: "Wait for save routine completion")
+        sutToPerformSave.save(routine: routine) { error in
+            XCTAssertNil(error, "Expected no error saving, got \(error!) instead")
+            expSave.fulfill()
+        }
+        wait(for: [expSave], timeout: 1)
+        
+        
+        let expLoad = expectation(description: "Wait for loadAllRoutines completion")
+        sutToPerformLoad.loadAllRoutines { result in
+            switch result {
+            case let .success(routines):
+                XCTAssertEqual(routines, [])
+            default:
+                XCTFail("Expected empty routines array to be returned, got \(result) instead")
+            }
+            expLoad.fulfill()
+        }
+        wait(for: [expLoad], timeout: 1)
     }
     
     // MARK: - Helpers
@@ -49,3 +86,5 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         return FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
     }
 }
+
+
