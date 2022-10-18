@@ -55,7 +55,7 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         let sutToPerformSave = makeSUT()
         let sutToPerformLoad = makeSUT()
         
-        let routine = uniqueRoutine().model // This should fail bc a problem with the transference to ManagedExercise
+        let routine = uniqueRoutine(exercises: []).model // This does not take exercises in consideration
         
         let expSave = expectation(description: "Wait for save routine completion")
         sutToPerformSave.save(routine: routine) { error in
@@ -69,7 +69,7 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         sutToPerformLoad.loadAllRoutines { result in
             switch result {
             case let .success(routines):
-                XCTAssertEqual(routines, [])
+                XCTAssertEqual(routines, [routine])
             default:
                 XCTFail("Expected empty routines array to be returned, got \(result) instead")
             }
