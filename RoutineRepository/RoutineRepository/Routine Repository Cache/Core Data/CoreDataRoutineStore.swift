@@ -70,6 +70,7 @@ private extension NSPersistentContainer {
         case failedToLoadPersistentStores(Error)
     }
     
+    
     static func load(name: String, url: URL, in bundle: Bundle) throws -> NSPersistentContainer {
         
         guard let model = NSManagedObjectModel.with(name: name, in: bundle) else {
@@ -92,12 +93,21 @@ private extension NSPersistentContainer {
 
 private extension NSManagedObjectModel {
     
+    
+    // Necessary for in-memory caching so that we can avoid ambiguous NSEntityDescription warning during testing
+    private static var _model: NSManagedObjectModel?
+    
     static func with(name: String, in bundle: Bundle) -> NSManagedObjectModel? {
-        return bundle
-            .url(forResource: name, withExtension: "momd")
-            .flatMap { url in
-                NSManagedObjectModel(contentsOf: url)
-            }
+        
+        if _model == nil {
+            _model = bundle
+               .url(forResource: name, withExtension: "momd")
+               .flatMap { url in
+                   NSManagedObjectModel(contentsOf: url)
+               }
+        }
+        
+        return _model
     }
 }
 

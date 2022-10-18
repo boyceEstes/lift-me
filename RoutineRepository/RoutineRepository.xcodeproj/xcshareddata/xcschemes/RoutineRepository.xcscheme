@@ -50,6 +50,17 @@
                ReferencedContainer = "container:RoutineRepository.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B32CADEC28FEF53D00B154BD"
+               BuildableName = "RoutineRepositoryCacheIntegrationTests.xctest"
+               BlueprintName = "RoutineRepositoryCacheIntegrationTests"
+               ReferencedContainer = "container:RoutineRepository.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
