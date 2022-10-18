@@ -75,6 +75,8 @@ class CoreDataRoutineStoreTests: XCTestCase {
     // Read on Empty twice delivers no side effects
     // Read on nonempty with matching name
     // Read on nonempty twice matching name delivers no side effects
+    // Read on nonempty with matching exercises
+    // Read on nonempty twice with matching exercises
     // Read on nonempty with no matching name
     // Read on nonempty twice with no matching name delivers no side effects
     func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesOnEmptyCache_deliversNoResults() {
@@ -112,8 +114,32 @@ class CoreDataRoutineStoreTests: XCTestCase {
         let routine = uniqueRoutine(name: name, exercises: []).local
         create(routine, into: sut)
         
-        expectReadAllRoutines(with: name, or: [], on: sut, toCompleteWith: .success([routine]))
-        expectReadAllRoutines(with: name, or: [], on: sut, toCompleteWith: .success([routine]))
+        expectReadAllRoutines(with: name, or: [], on: sut, toCompleteTwiceWith: .success([routine]))
+    }
+    
+    
+//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesWithSameExercisesRoutineInCache_deliversDuplicateExercisesRoutine() {}
+//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesTwiceWithSameExercisesRoutineInCache_deliversDuplicateExercisesRoutine() {}
+    
+    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesWithNoMatchInNonEmptyCache_deliversNoResults() {
+        
+        let sut = makeSUT()
+        
+        let routine = uniqueRoutine().local
+        create(routine, into: sut)
+        
+        expectReadAllRoutines(with: "Any", or: [], on: sut, toCompleteWith: .success([]))
+    }
+    
+    
+    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesTwiceWithNoMatchInNonEmptyCache_deliversNoSideEffects() {
+        
+        let sut = makeSUT()
+        
+        let routine = uniqueRoutine().local
+        create(routine, into: sut)
+        
+        expectReadAllRoutines(with: "Any", or: [], on: sut, toCompleteTwiceWith: .success([]))
     }
     
     
