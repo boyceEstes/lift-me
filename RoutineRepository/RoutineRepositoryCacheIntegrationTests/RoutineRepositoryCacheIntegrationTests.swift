@@ -46,13 +46,8 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         let sutToPerformLoad = makeSUT()
         
         let routine = uniqueRoutine(exercises: []).model // This does not take exercises in consideration
-        
-        let expSave = expectation(description: "Wait for save routine completion")
-        sutToPerformSave.save(routine: routine) { error in
-            XCTAssertNil(error, "Expected no error saving, got \(error!) instead")
-            expSave.fulfill()
-        }
-        wait(for: [expSave], timeout: 1)
+
+        save(routine, on: sutToPerformSave)
         
         expect(sutToPerformLoad, toCompleteWith: .success([routine]))
 
@@ -69,6 +64,19 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         trackForMemoryLeaks(routineStore)
         trackForMemoryLeaks(localRoutineRepository)
         return localRoutineRepository
+    }
+    
+    
+    private func save(_ routine: Routine, on sut: LocalRoutineRepository, file: StaticString = #file, line: UInt = #line) {
+        
+        let expSave = expectation(description: "Wait for save routine completion")
+        
+        sut.save(routine: routine) { error in
+            XCTAssertNil(error, "Expected no error saving, got \(error!) instead")
+            expSave.fulfill()
+        }
+        
+        wait(for: [expSave], timeout: 1)
     }
     
     
