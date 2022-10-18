@@ -10,6 +10,7 @@
 		B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */; };
 		B32CADF128FEF53D00B154BD /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
 		B32CADF728FEFC6100B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
+		B32CADF928FEFF2800B154BD /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -352,6 +353,7 @@
 			files = (
 				B32CADF728FEFC6100B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 				B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */,
+				B32CADF928FEFF2800B154BD /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
