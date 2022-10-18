@@ -30,6 +30,18 @@ extension ManagedRoutine {
     }
     
     
+    public static func findRoutines(with name: String, or exercises: [LocalExercise], in context: NSManagedObjectContext) throws ->  [ManagedRoutine] {
+        
+        let request = ManagedRoutine.fetchRequest
+        request.returnsObjectsAsFaults = false
+        
+        let predicate = NSPredicate(format: "%K == %@", #keyPath(ManagedRoutine.name), name)
+        request.predicate = predicate
+        
+        return try context.fetch(request)
+    }
+    
+    
     public static func create(_ routine: LocalRoutine, in context: NSManagedObjectContext) {
         
         let managedRoutine = ManagedRoutine(context: context)

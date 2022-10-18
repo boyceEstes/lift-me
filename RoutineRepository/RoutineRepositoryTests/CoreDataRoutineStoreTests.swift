@@ -73,8 +73,10 @@ class CoreDataRoutineStoreTests: XCTestCase {
     
     // Read on Empty
     // Read on Empty twice delivers no side effects
-    // Read on nonempty
-    // Read on nonempty twice delivers no side effects
+    // Read on nonempty with matching name
+    // Read on nonempty twice matching name delivers no side effects
+    // Read on nonempty with no matching name
+    // Read on nonempty twice with no matching name delivers no side effects
     func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesOnEmptyCache_deliversNoResults() {
         
         let sut = makeSUT()
@@ -88,6 +90,30 @@ class CoreDataRoutineStoreTests: XCTestCase {
         let sut = makeSUT()
         
         expectReadAllRoutines(with: "AnyName", or: [], on: sut, toCompleteTwiceWith: .success([]))
+    }
+    
+    
+    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesWithSameNamedRoutineInCache_deliversDuplicateNameRoutine() {
+        
+        let sut = makeSUT()
+        
+        let name = "AnyName"
+        let routine = uniqueRoutine(name: name, exercises: []).local
+        create(routine, into: sut)
+        
+        expectReadAllRoutines(with: name, or: [], on: sut, toCompleteWith: .success([routine]))
+    }
+    
+    
+    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesTwiceWithSameNamedRoutineInCache_deliversNoSideEffects() {
+        let sut = makeSUT()
+        
+        let name = "AnyName"
+        let routine = uniqueRoutine(name: name, exercises: []).local
+        create(routine, into: sut)
+        
+        expectReadAllRoutines(with: name, or: [], on: sut, toCompleteWith: .success([routine]))
+        expectReadAllRoutines(with: name, or: [], on: sut, toCompleteWith: .success([routine]))
     }
     
     

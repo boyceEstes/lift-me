@@ -33,6 +33,20 @@ public class CoreDataRoutineStore: RoutineStore {
     }
     
     
+    public func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutinesCompletion) {
+        
+        let context = context
+        context.perform {
+            do {
+                let routines = try ManagedRoutine.findRoutines(with: name, or: exercises, in: context).toLocal()
+                completion(.success(routines))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
     public func create(_ routine: LocalRoutine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
         
         let context = context
@@ -45,12 +59,6 @@ public class CoreDataRoutineStore: RoutineStore {
                 completion(error)
             }
         }
-    }
-    
-    
-    public func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutinesCompletion) {
-        
-        return completion(.success([]))
     }
 }
 
