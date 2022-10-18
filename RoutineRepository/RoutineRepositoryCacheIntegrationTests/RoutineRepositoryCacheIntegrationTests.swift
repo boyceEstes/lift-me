@@ -13,10 +13,24 @@ import RoutineRepository
  * - Create Cache is Empty
  * - Save to Cache and Load to cache on different instances
  * - Save to Cache and Save duplicate exercise on different instance
- *
+ * - Save to Cache and Save unmatching exercise on different instance
  */
 
 class RoutineRepositoryCacheIntegrationTests: XCTestCase {
+    
+    override func setUp() {
+        super.setUp()
+        
+        setupEmptyStoreState()
+    }
+    
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        undoStoreSideEffects()
+    }
+    
 
     func test_localRoutineRepository_emptyCache_deliversNoItems() {
         
@@ -67,6 +81,7 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> LocalRoutineRepository {
+        
         let storeURL = specificTestStoreURL()
         let bundle = Bundle(for: CoreDataRoutineStore.self)
         let routineStore = try! CoreDataRoutineStore(storeURL: storeURL, bundle: bundle)
@@ -74,6 +89,24 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         trackForMemoryLeaks(routineStore)
         trackForMemoryLeaks(localRoutineRepository)
         return localRoutineRepository
+    }
+    
+    
+    private func setupEmptyStoreState() {
+        
+        deleteStoreArtifacts()
+    }
+    
+    
+    private func undoStoreSideEffects() {
+        
+        deleteStoreArtifacts()
+    }
+    
+    
+    private func deleteStoreArtifacts() {
+        
+        try? FileManager.default.removeItem(at: specificTestStoreURL())
     }
     
     
