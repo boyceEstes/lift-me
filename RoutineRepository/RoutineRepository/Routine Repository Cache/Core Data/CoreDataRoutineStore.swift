@@ -8,7 +8,7 @@
 import CoreData
 
 
-public class CoreDataRoutineStore {
+public class CoreDataRoutineStore: RoutineStore {
     
     private let container: NSPersistentContainer
     private let context: NSManagedObjectContext
@@ -45,8 +45,10 @@ public class CoreDataRoutineStore {
                 completion(error)
             }
         }
-
     }
+    
+    
+    public func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutinesCompletion) {}
 }
 
 
