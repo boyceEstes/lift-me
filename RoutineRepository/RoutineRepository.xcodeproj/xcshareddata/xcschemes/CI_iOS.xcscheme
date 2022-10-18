@@ -37,6 +37,13 @@
             BlueprintName = "RoutineRepository"
             ReferencedContainer = "container:RoutineRepository.xcodeproj">
          </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B32CADFE28FF4A2F00B154BD"
+            BuildableName = "LiftMeRoutinesiOS.framework"
+            BlueprintName = "LiftMeRoutinesiOS"
+            ReferencedContainer = "container:RoutineRepository.xcodeproj">
+         </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
          <TestableReference
@@ -58,6 +65,17 @@
                BlueprintIdentifier = "B32CADEC28FEF53D00B154BD"
                BuildableName = "RoutineRepositoryCacheIntegrationTests.xctest"
                BlueprintName = "RoutineRepositoryCacheIntegrationTests"
+               ReferencedContainer = "container:RoutineRepository.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            testExecutionOrdering = "random">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B32CAE0728FF4A2F00B154BD"
+               BuildableName = "LiftMeRoutinesiOSTests.xctest"
+               BlueprintName = "LiftMeRoutinesiOSTests"
                ReferencedContainer = "container:RoutineRepository.xcodeproj">
             </BuildableReference>
          </TestableReference>
