@@ -10,8 +10,8 @@ import RoutineRepository
 
 /*
  *
- * - Create Cache is Empty
- * - Save to Cache and Load to cache on different instances
+ * - [x] Create Cache is Empty
+ * - [x] Save to Cache and Load to cache on different instances
  * - Save to Cache and Save duplicate exercise on different instance
  * - Save to Cache and Save unmatching exercise on different instance
  */
@@ -36,17 +36,7 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         
         let sut = makeSUT()
         
-        let exp = expectation(description: "Wait for loadAllRoutines completion")
-        sut.loadAllRoutines { result in
-            switch result {
-            case let .success(routines):
-                XCTAssertEqual(routines, [])
-            default:
-                XCTFail("Expected empty routines array to be returned, got \(result) instead")
-            }
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1)
+        expect(sut, toCompleteWith: .success([]))
     }
     
     
@@ -64,18 +54,8 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         }
         wait(for: [expSave], timeout: 1)
         
-        
-        let expLoad = expectation(description: "Wait for loadAllRoutines completion")
-        sutToPerformLoad.loadAllRoutines { result in
-            switch result {
-            case let .success(routines):
-                XCTAssertEqual(routines, [routine])
-            default:
-                XCTFail("Expected empty routines array to be returned, got \(result) instead")
-            }
-            expLoad.fulfill()
-        }
-        wait(for: [expLoad], timeout: 1)
+        expect(sutToPerformLoad, toCompleteWith: .success([routine]))
+
     }
     
     // MARK: - Helpers
@@ -89,6 +69,25 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
         trackForMemoryLeaks(routineStore)
         trackForMemoryLeaks(localRoutineRepository)
         return localRoutineRepository
+    }
+    
+    
+    private func expect(_ sut: LocalRoutineRepository, toCompleteWith expectedResult: RoutineRepository.LoadAllRoutinesResult, file: StaticString = #file, line: UInt = #line) {
+        
+        let expLoad = expectation(description: "Wait for loadAllRoutines completion")
+        
+        sut.loadAllRoutines { result in
+            switch (result, expectedResult) {
+            case let (.success(routines), .success(expectedRoutines)):
+                XCTAssertEqual(routines, expectedRoutines)
+                
+            default:
+                XCTFail("Expected \(expectedResult) to be returned, got \(result) instead")
+            }
+            expLoad.fulfill()
+        }
+        
+        wait(for: [expLoad], timeout: 1)
     }
     
     
