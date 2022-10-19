@@ -15,6 +15,7 @@
 		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; platformFilter = maccatalyst; };
 		B32CAE0E28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */; };
 		B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B32CAE1828FF889900B154BD /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B32CAE1728FF889900B154BD /* ViewInspector */; };
 		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -122,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B32CAE1828FF889900B154BD /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +321,9 @@
 			dependencies = (
 			);
 			name = LiftMeRoutinesiOS;
+			packageProductDependencies = (
+				B32CAE1728FF889900B154BD /* ViewInspector */,
+			);
 			productName = LiftMeRoutinesiOS;
 			productReference = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */;
 			productType = "com.apple.product-type.framework";
@@ -413,6 +418,9 @@
 				Base,
 			);
 			mainGroup = B3D29BD328F12746006CC77D;
+			packageReferences = (
+				B32CAE1628FF889900B154BD /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			productRefGroup = B3D29BDE28F12746006CC77D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -962,6 +970,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B32CAE1628FF889900B154BD /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B32CAE1728FF889900B154BD /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B32CAE1628FF889900B154BD /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */ = {

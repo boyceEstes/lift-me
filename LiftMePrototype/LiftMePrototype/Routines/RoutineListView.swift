@@ -346,7 +346,7 @@ struct RoutineCellView3: View {
 struct RoutineListView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .preferredColorScheme(.light)
+            .preferredColorScheme(.dark)
     }
 }
 
