@@ -54,6 +54,7 @@ extension Color {
 
 
 struct HomeView: View {
+
     var body: some View {
         ZStack {
 //            LinearGradient(colors: [.white, .universeWhite], startPoint: .bottom, endPoint: .top)
@@ -67,9 +68,6 @@ struct HomeView: View {
 struct RoutineListView: View {
     
     var body: some View {
-        ZStack {
-            
-        }
         VStack(spacing: 0) {
             
             HStack {
@@ -241,6 +239,7 @@ struct RoutineCellView2: View {
 
 struct RoutineListView3: View {
     let routineNames = ["Back and Biceps 1", "Chest and Triceps - Powerlifting", "Pull Day", "Push Day"]
+    let error = true
     
     var body: some View {
         
@@ -255,10 +254,7 @@ struct RoutineListView3: View {
                     } label: {
                         HStack {
                             Text("New")
-                                
                             Image(systemName: "plus")
-        
-                            
                         }
                         .font(.headline)
                         .foregroundColor(Color(uiColor: .label))
@@ -281,25 +277,51 @@ struct RoutineListView3: View {
                         Image(systemName: "chevron.right")
                     }.foregroundColor(.universeRed)
                 }
-
             }
             .padding(.horizontal)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyVStack {
-                    LazyHStack(spacing: 12) {
-                        ForEach(routineNames, id: \.self) { id in
-                            RoutineCellView3(routineName: "\(id)")
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyVStack {
+                        LazyHStack(spacing: 12) {
+                            if !error {
+                                ForEach(routineNames, id: \.self) { id in
+                                    RoutineCellView3(routineName: "\(id)")
+                                }
+                            } else {
+                                RoutineErrorCellView(error: NSError(domain: "Any Error", code: 0))
+                            }
                         }
+                        .padding(.leading)
                     }
-                    .padding(.leading)
                 }
-            }
-            
-            .background(Color(uiColor: .secondarySystemBackground))
+                .background(Color(uiColor: .secondarySystemBackground))
         }
+    }
+}
 
 
+struct RoutineErrorCellView: View {
+    
+    let cellHeight: CGFloat = 120
+    let error: Error
+    
+    var body: some View {
+        Button {
+            print("Retry")
+        } label: {
+            VStack(spacing: 8) {
+                Text("Failed to Fetch Routines")
+                    
+//                Image(systemName: "arrow.clockwise")
+//                    .imageScale(.large)
+            }
+            .padding()
+            .foregroundColor(Color(uiColor: .label))
+            .frame(width: cellHeight * 2, height: cellHeight)
+            .background(Color(uiColor: .tertiarySystemBackground))
+            .cornerRadius(16)
+            .shadow(radius: 4)
+            .padding(.vertical)
+        }
     }
 }
 
@@ -322,10 +344,8 @@ struct RoutineCellView3: View {
                     Image(systemName: "star")
                     Image(systemName: "star")
                 }
-//                    .foregroundColor(.universeYellow)
                 Text("(12)")
                     .font(.subheadline)
-//                    .foregroundColor(.universeYellow)
             }
             .font(.callout)
             .foregroundColor(Color(uiColor: .label))
