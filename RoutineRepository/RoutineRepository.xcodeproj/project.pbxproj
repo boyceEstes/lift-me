@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B313A4402900EDA800740E61 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B313A43F2900EDA800740E61 /* ViewInspector */; };
 		B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */; };
 		B32CADF128FEF53D00B154BD /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
 		B32CADF728FEFC6100B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
@@ -15,7 +16,6 @@
 		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; platformFilter = maccatalyst; };
 		B32CAE0E28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */; };
 		B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B32CAE1828FF889900B154BD /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B32CAE1728FF889900B154BD /* ViewInspector */; };
 		B32CAE1928FF915D00B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
 		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
@@ -124,7 +124,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B32CAE1828FF889900B154BD /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */,
+				B313A4402900EDA800740E61 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +323,6 @@
 			);
 			name = LiftMeRoutinesiOS;
 			packageProductDependencies = (
-				B32CAE1728FF889900B154BD /* ViewInspector */,
 			);
 			productName = LiftMeRoutinesiOS;
 			productReference = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */;
@@ -343,6 +342,9 @@
 				B32CAE0B28FF4A2F00B154BD /* PBXTargetDependency */,
 			);
 			name = LiftMeRoutinesiOSTests;
+			packageProductDependencies = (
+				B313A43F2900EDA800740E61 /* ViewInspector */,
+			);
 			productName = LiftMeRoutinesiOSTests;
 			productReference = B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -420,7 +422,7 @@
 			);
 			mainGroup = B3D29BD328F12746006CC77D;
 			packageReferences = (
-				B32CAE1628FF889900B154BD /* XCRemoteSwiftPackageReference "ViewInspector" */,
+				B313A43E2900EDA800740E61 /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			productRefGroup = B3D29BDE28F12746006CC77D /* Products */;
 			projectDirPath = "";
@@ -974,20 +976,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B32CAE1628FF889900B154BD /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+		B313A43E2900EDA800740E61 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nalexn/ViewInspector";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.9.2;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B32CAE1728FF889900B154BD /* ViewInspector */ = {
+		B313A43F2900EDA800740E61 /* ViewInspector */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B32CAE1628FF889900B154BD /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			package = B313A43E2900EDA800740E61 /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
 		};
 /* End XCSwiftPackageProductDependency section */

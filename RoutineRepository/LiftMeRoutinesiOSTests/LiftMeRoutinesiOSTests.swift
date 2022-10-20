@@ -9,11 +9,43 @@ import XCTest
 import LiftMeRoutinesiOS
 import RoutineRepository
 import SwiftUI
+import ViewInspector
+
+
+class RoutineViewModel {
+    
+    let routineRepository: RoutineRepository
+    
+    
+    init(routineRepository: RoutineRepository) {
+        self.routineRepository = routineRepository
+    }
+    
+    
+    func loadRoutines() {
+        routineRepository.loadAllRoutines { result in
+            switch result {
+            case let .success(routines):
+                break
+            case let .failure(error):
+                break
+            }
+        }
+    }
+}
+
 
 struct RoutineListView: View {
     
+    let viewModel: RoutineViewModel
+    var didAppear: ((Self) -> Void)?
+    
     var body: some View {
         Text("Hello world")
+            .onAppear {
+                viewModel.loadRoutines()
+                self.didAppear?(self)
+            }
     }
 }
 
@@ -35,11 +67,32 @@ class LiftMeRoutinesiOSTests: XCTestCase {
     }
     
     
+    func test_routineListView_viewWillAppear_requestsToLoadRoutines() {
+        
+        var (sut, routineRepository) = makeSUT()
+        
+        let exp = expectation(description: "Wait for RoutineListView completion")
+        
+        sut.didAppear = { _ in
+            
+            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines])
+            exp.fulfill()
+        }
+        
+        ViewHosting.host(view: sut)
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy) {
         
         let routineRepository = RoutineRepositorySpy()
-        let sut = RoutineListView()
-        trackForMemoryLeaks(routineRepository)
+        let routineViewModel = RoutineViewModel(routineRepository: routineRepository)
+        let sut = RoutineListView(viewModel: routineViewModel)
+        
+//        trackForMemoryLeaks(routineRepository)
+//        trackForMemoryLeaks(routineViewModel)
         
         return (sut, routineRepository)
     }
