@@ -66,8 +66,19 @@ struct RoutineListView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Text("Routines")
-                    .font(.title2)
+                HStack(spacing: 16) {
+                    Text("Routines")
+                        .font(.title2)
+                    
+                    Button {
+                        print("hello world")
+                    } label: {
+                        HStack {
+                            Text("New")
+                            Image(systemName: "plus")
+                        }
+                    }
+                }
             }
             List {
                 if viewModel.firstLoadCompleted {
@@ -152,7 +163,7 @@ class LiftMeRoutinesiOSTests: XCTestCase {
     }
     
     
-    func test_routineListView_title_displaysRoutineTitle() throws {
+    func test_routineListView_init_displaysRoutineListTitle() throws {
         
         // given
         let (sut, _) = makeSUT()
@@ -160,6 +171,17 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         
         // when/then
         let _ = try sut.inspect().find(text: expectedTitle)
+    }
+    
+    
+    func test_routineListView_init_displaysNewRoutineButton() throws {
+        
+        // given
+        let (sut, _) = makeSUT()
+        let expectedButtonTitle = "New"
+        
+        // when/then
+        let _ = try sut.inspect().find(button: "New")
     }
     
 
