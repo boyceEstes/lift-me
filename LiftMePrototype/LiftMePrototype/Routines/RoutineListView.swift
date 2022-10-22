@@ -238,7 +238,7 @@ struct RoutineCellView2: View {
 
 
 struct RoutineListView3: View {
-    let routineNames = ["Back and Biceps 1", "Chest and Triceps - Powerlifting", "Pull Day", "Push Day"]
+    let routineNames: [String] = ["Back and Biceps 1", "Chest and Triceps - Powerlifting", "Pull Day", "Push Day"]
     let error = true
     
     var body: some View {
@@ -283,8 +283,12 @@ struct RoutineListView3: View {
                     LazyVStack {
                         LazyHStack(spacing: 12) {
                             if !error {
-                                ForEach(routineNames, id: \.self) { id in
-                                    RoutineCellView3(routineName: "\(id)")
+                                if routineNames.isEmpty {
+                                    RoutineEmptyCellView()
+                                } else {
+                                    ForEach(routineNames, id: \.self) { id in
+                                        RoutineCellView3(routineName: "\(id)")
+                                    }
                                 }
                             } else {
                                 RoutineErrorCellView(error: NSError(domain: "Any Error", code: 0))
@@ -301,7 +305,7 @@ struct RoutineListView3: View {
 
 struct RoutineErrorCellView: View {
     
-    let cellHeight: CGFloat = 120
+    let cellHeight: CGFloat = 130
     let error: Error
     
     var body: some View {
@@ -316,7 +320,33 @@ struct RoutineErrorCellView: View {
             }
             .padding()
             .foregroundColor(Color(uiColor: .label))
-            .frame(width: cellHeight * 2, height: cellHeight)
+            .frame(width: cellHeight, height: cellHeight)
+            .background(Color(uiColor: .tertiarySystemBackground))
+            .cornerRadius(16)
+            .shadow(radius: 4)
+            .padding(.vertical)
+        }
+    }
+}
+
+
+struct RoutineEmptyCellView: View {
+    
+    let cellHeight: CGFloat = 130
+    
+    var body: some View {
+        Button {
+            print("Retry")
+        } label: {
+            VStack(spacing: 8) {
+                Text("Aww shucks. No Routines")
+                    
+//                Image(systemName: "arrow.clockwise")
+//                    .imageScale(.large)
+            }
+            .padding()
+            .foregroundColor(Color(uiColor: .label))
+            .frame(width: cellHeight , height: cellHeight)
             .background(Color(uiColor: .tertiarySystemBackground))
             .cornerRadius(16)
             .shadow(radius: 4)
@@ -328,7 +358,7 @@ struct RoutineErrorCellView: View {
 
 struct RoutineCellView3: View {
     
-    let cellHeight: CGFloat = 120
+    let cellHeight: CGFloat = 130
     let routineName: String
     
     var body: some View {
