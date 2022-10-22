@@ -56,7 +56,7 @@ struct RoutineListView: View {
     
     var body: some View {
         List(viewModel.routines, id: \.self) { routine in
-             RoutineCellView()
+            RoutineCellView(routine: routine)
         }
             .onAppear {
                 viewModel.loadRoutines()
@@ -70,8 +70,10 @@ struct RoutineListView: View {
 
 struct RoutineCellView: View {
     
+    let routine: Routine
+    
     var body: some View {
-        Text("Hello world")
+        Text("\(routine.name)")
     }
 }
 
@@ -79,7 +81,8 @@ struct RoutineCellView: View {
  * - Init of view will request no routines
  * - Appear will request load once
  * - ViewInspector works as expected
- * - Appear will render routine
+ * - Appear will render routines
+ * - Appear will render empty routines
  * - Failure to load will display failure message
  */
 
@@ -120,18 +123,27 @@ class LiftMeRoutinesiOSTests: XCTestCase {
     }
     
     
-    func test_routineListView_successfullyLoadedRoutines_willRenderRoutines() {
+    func test_routineListView_successfullyLoadedRoutines_willRenderRoutines() throws {
         
         let routines = [uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model]
         
         let (sut, routineRepository) = makeSUT()
         
-        let exp = sut.inspection.inspect { view in
+        let exp = sut.inspection.inspect { sut in
+            
+            let cellsBeforeRoutineLoad = sut.findAll(RoutineCellView.self)
+            XCTAssertTrue(cellsBeforeRoutineLoad.isEmpty)
             
             routineRepository.completeRoutineLoading(with: routines)
             
-            let cells = view.findAll(RoutineCellView.self)
-            XCTAssertEqual(cells.count, routines.count)
+            let cellsAfterRoutineLoad = sut.findAll(RoutineCellView.self)
+            XCTAssertEqual(cellsAfterRoutineLoad.count, routines.count)
+            
+            for (index, routineCellView) in cellsAfterRoutineLoad.enumerated() {
+                
+                let expectedRoutineName = routines[index].name
+                let _ = try routineCellView.find(text: "\(expectedRoutineName)").string()
+            }
         }
         
         ViewHosting.host(view: sut)

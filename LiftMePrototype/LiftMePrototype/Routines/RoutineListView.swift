@@ -367,7 +367,6 @@ struct RoutineCellView3: View {
                 .frame(maxWidth: .infinity, maxHeight: cellHeight / 3 * 2)
                 .font(.headline)
             
-
             HStack() {
                 HStack(spacing:0) {
                     Image(systemName: "star.fill")
