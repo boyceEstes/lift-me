@@ -8,7 +8,7 @@
 import Foundation
 
 
-public struct Tag: Equatable {
+public struct Tag: Equatable, Hashable {
     
     public let id: UUID
     public let name: String

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Routine: Equatable {
+public struct Routine: Equatable, Hashable {
 
     public let id: UUID
     public let name: String
