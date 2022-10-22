@@ -30,6 +30,7 @@ class RoutineViewModel: ObservableObject {
     
     // TODO: Could I make this a future instead since it should only be emitted once
     @Published var firstLoadCompleted = false
+    @Published var routineLoadError = false
     @Published var routines = [Routine]()
     
     init(routineRepository: RoutineRepository) {
@@ -39,17 +40,18 @@ class RoutineViewModel: ObservableObject {
     
     func loadRoutines() {
         routineRepository.loadAllRoutines { [weak self] result in
+            
+            if self?.firstLoadCompleted == false {
+                self?.firstLoadCompleted = true
+            }
+            
             switch result {
             case let .success(routines):
                 
-                if self?.firstLoadCompleted == false {
-                    self?.firstLoadCompleted = true
-                }
-                
                 self?.routines = routines
                 
-            case let .failure(_):
-                break
+            case .failure:
+                self?.routineLoadError = true
             }
         }
     }
@@ -64,13 +66,19 @@ struct RoutineListView: View {
     var body: some View {
         List {
             if viewModel.firstLoadCompleted {
-                if viewModel.routines.isEmpty {
-                    EmptyRoutineCellView()
+                if viewModel.routineLoadError {
+                    ErrorRoutineCellView()
                 } else {
-                    ForEach(viewModel.routines, id: \.self) { routine in
-                        RoutineCellView(routine: routine)
+                    if viewModel.routines.isEmpty {
+                        EmptyRoutineCellView()
+                    } else {
+                        ForEach(viewModel.routines, id: \.self) { routine in
+                            RoutineCellView(routine: routine)
+                        }
                     }
                 }
+            } else {
+                
             }
         }
         .onAppear {
@@ -99,6 +107,14 @@ struct EmptyRoutineCellView: View {
         Text("Aww shucks. No routines yet.")
     }
 }
+
+
+struct ErrorRoutineCellView: View {
+    
+    var body: some View {
+        Text("Error loading routines... dang")
+    }
+}
 /*
  * - Init of view will request no routines
  * - Appear will request load once
@@ -106,11 +122,16 @@ struct EmptyRoutineCellView: View {
  * - Appear will render routines
  * - Appear will render empty routines
  * - Failure to load will display failure message
+ * // TODO: All Routine Cells will have the same modifier (to make it a roundedRectangle)
+ * // TODO: What happens when we have loaded routines successfully once and then fail the second time? We should NOT replace the routines with the error...
+ * - Tapping Add new button will Take to the CreateRoutineView
+ * -
  */
 
 extension RoutineListView: Inspectable {}
 extension RoutineCellView: Inspectable {}
 extension EmptyRoutineCellView: Inspectable {}
+extension ErrorRoutineCellView: Inspectable {}
 extension Inspection: InspectionEmissary {}
 
 class LiftMeRoutinesiOSTests: XCTestCase {
@@ -204,6 +225,35 @@ class LiftMeRoutinesiOSTests: XCTestCase {
     }
     
     
+    func test_routineListView_loadRoutineCompletionWithError_willRenderErrorRoutineCell() throws {
+        
+        // given
+        let (sut, routineRepository) = makeSUT()
+        let error = anyNSError()
+        let expectedRoutineErrorMessage = "Error loading routines... dang"
+        
+        let exp = sut.inspection.inspect { sut in
+            
+            // basecase
+            let cellsBeforeRoutineLoad = sut.findAll(ErrorRoutineCellView.self)
+            XCTAssertTrue(cellsBeforeRoutineLoad.isEmpty)
+            
+            // when
+            routineRepository.completeRoutineLoading(with: error)
+            
+            // then
+            let cellsAfterRoutineLoad = sut.findAll(ErrorRoutineCellView.self)
+            XCTAssertEqual(cellsAfterRoutineLoad.count, 1)
+            
+            let _ = try cellsAfterRoutineLoad.first!.find(text: expectedRoutineErrorMessage)
+        }
+        
+        ViewHosting.host(view: sut)
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy) {
         
         let routineRepository = RoutineRepositorySpy()
@@ -242,5 +292,10 @@ class RoutineRepositorySpy: RoutineRepository {
     
     func completeRoutineLoading(with routines: [Routine], at index: Int = 0) {
         loadAllRoutinesCompletions[index](.success(routines))
+    }
+    
+    
+    func completeRoutineLoading(with error: Error, at index: Int = 0) {
+        loadAllRoutinesCompletions[index](.failure(error))
     }
 }
