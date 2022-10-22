@@ -145,6 +145,7 @@ struct ErrorRoutineCellView: View {
  * - There is a title
  * - There is a new routine button
  * - There is a more button
+ * // TODO: Refactor all the above basic components in their own view so we can search for the string in that component. Feels safer in ensuring its existance
  * - Init of view will request no routines
  * - Appear will request load once
  * - ViewInspector works as expected
