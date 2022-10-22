@@ -24,10 +24,11 @@ final class Inspection<V> {
 }
 
 
-class RoutineViewModel {
+class RoutineViewModel: ObservableObject {
     
     let routineRepository: RoutineRepository
     
+    @Published var routines = [Routine]()
     
     init(routineRepository: RoutineRepository) {
         self.routineRepository = routineRepository
@@ -35,11 +36,12 @@ class RoutineViewModel {
     
     
     func loadRoutines() {
-        routineRepository.loadAllRoutines { result in
+        routineRepository.loadAllRoutines { [weak self] result in
             switch result {
             case let .success(routines):
-                break
-            case let .failure(error):
+                self?.routines = routines
+                
+            case let .failure(_):
                 break
             }
         }
@@ -53,13 +55,23 @@ struct RoutineListView: View {
     let inspection = Inspection<Self>()
     
     var body: some View {
-        Text("Hello world")
+        List(viewModel.routines, id: \.self) { routine in
+             RoutineCellView()
+        }
             .onAppear {
                 viewModel.loadRoutines()
             }
             .onReceive(inspection.notice) {
                 self.inspection.visit(self, $0)
             }
+    }
+}
+
+
+struct RoutineCellView: View {
+    
+    var body: some View {
+        Text("Hello world")
     }
 }
 
@@ -72,6 +84,7 @@ struct RoutineListView: View {
  */
 
 extension RoutineListView: Inspectable {}
+extension RoutineCellView: Inspectable {}
 extension Inspection: InspectionEmissary {}
 
 class LiftMeRoutinesiOSTests: XCTestCase {
@@ -99,6 +112,26 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         
         let exp = sut.inspection.inspect { view in
             XCTAssertEqual(routineRepository.requests, [.loadAllRoutines])
+        }
+        
+        ViewHosting.host(view: sut)
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_routineListView_successfullyLoadedRoutines_willRenderRoutines() {
+        
+        let routines = [uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model]
+        
+        let (sut, routineRepository) = makeSUT()
+        
+        let exp = sut.inspection.inspect { view in
+            
+            routineRepository.completeRoutineLoading(with: routines)
+            
+            let cells = view.findAll(RoutineCellView.self)
+            XCTAssertEqual(cells.count, routines.count)
         }
         
         ViewHosting.host(view: sut)
@@ -143,7 +176,7 @@ class RoutineRepositorySpy: RoutineRepository {
     }
     
     
-    func completeRoutineLoading(with routines: [Routine]) {
-        
+    func completeRoutineLoading(with routines: [Routine], at index: Int = 0) {
+        loadAllRoutinesCompletions[index](.success(routines))
     }
 }
