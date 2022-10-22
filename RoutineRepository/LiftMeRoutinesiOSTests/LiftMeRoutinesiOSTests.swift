@@ -64,21 +64,25 @@ struct RoutineListView: View {
     let inspection = Inspection<Self>()
     
     var body: some View {
-        List {
-            if viewModel.firstLoadCompleted {
-                if viewModel.routineLoadError {
-                    ErrorRoutineCellView()
-                } else {
-                    if viewModel.routines.isEmpty {
-                        EmptyRoutineCellView()
+        VStack(alignment: .leading) {
+            HStack {
+                Text("Routines")
+                    .font(.title2)
+            }
+            List {
+                if viewModel.firstLoadCompleted {
+                    if viewModel.routineLoadError {
+                        ErrorRoutineCellView()
                     } else {
-                        ForEach(viewModel.routines, id: \.self) { routine in
-                            RoutineCellView(routine: routine)
+                        if viewModel.routines.isEmpty {
+                            EmptyRoutineCellView()
+                        } else {
+                            ForEach(viewModel.routines, id: \.self) { routine in
+                                RoutineCellView(routine: routine)
+                            }
                         }
                     }
                 }
-            } else {
-                
             }
         }
         .onAppear {
@@ -116,6 +120,9 @@ struct ErrorRoutineCellView: View {
     }
 }
 /*
+ * - There is a title
+ * - There is a new routine button
+ * - There is a more button
  * - Init of view will request no routines
  * - Appear will request load once
  * - ViewInspector works as expected
@@ -142,6 +149,17 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         let sut = Text(expected)
         let value = try sut.inspect().text().string()
         XCTAssertEqual(value, expected)
+    }
+    
+    
+    func test_routineListView_title_displaysRoutineTitle() throws {
+        
+        // given
+        let (sut, _) = makeSUT()
+        let expectedTitle = "Routines"
+        
+        // when/then
+        let _ = try sut.inspect().find(text: expectedTitle)
     }
     
 
