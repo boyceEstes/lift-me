@@ -79,6 +79,17 @@ struct RoutineListView: View {
                         }
                     }
                 }
+                
+                Spacer()
+
+                Button {
+                    print("hello world 2")
+                } label: {
+                    HStack {
+                        Text("More")
+                        Image(systemName: "chevron.right")
+                    }
+                }
             }
             List {
                 if viewModel.firstLoadCompleted {
@@ -182,6 +193,17 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         
         // when/then
         let _ = try sut.inspect().find(button: "New")
+    }
+    
+    
+    func test_routineListView_init_displaysMoreRoutinesButton() throws {
+        
+        // given
+        let (sut, _) = makeSUT()
+        let expectedButtonTitle = "More"
+        
+        // when/then
+        let _ = try sut.inspect().find(button: expectedButtonTitle)
     }
     
 
