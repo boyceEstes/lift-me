@@ -192,7 +192,7 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         let expectedButtonTitle = "New"
         
         // when/then
-        let _ = try sut.inspect().find(button: "New")
+        let _ = try sut.inspect().find(button: expectedButtonTitle)
     }
     
     
