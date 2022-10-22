@@ -28,6 +28,8 @@ class RoutineViewModel: ObservableObject {
     
     let routineRepository: RoutineRepository
     
+    // TODO: Could I make this a future instead since it should only be emitted once
+    @Published var firstLoadCompleted = false
     @Published var routines = [Routine]()
     
     init(routineRepository: RoutineRepository) {
@@ -39,6 +41,11 @@ class RoutineViewModel: ObservableObject {
         routineRepository.loadAllRoutines { [weak self] result in
             switch result {
             case let .success(routines):
+                
+                if self?.firstLoadCompleted == false {
+                    self?.firstLoadCompleted = true
+                }
+                
                 self?.routines = routines
                 
             case let .failure(_):
@@ -55,15 +62,23 @@ struct RoutineListView: View {
     let inspection = Inspection<Self>()
     
     var body: some View {
-        List(viewModel.routines, id: \.self) { routine in
-            RoutineCellView(routine: routine)
+        List {
+            if viewModel.firstLoadCompleted {
+                if viewModel.routines.isEmpty {
+                    EmptyRoutineCellView()
+                } else {
+                    ForEach(viewModel.routines, id: \.self) { routine in
+                        RoutineCellView(routine: routine)
+                    }
+                }
+            }
         }
-            .onAppear {
-                viewModel.loadRoutines()
-            }
-            .onReceive(inspection.notice) {
-                self.inspection.visit(self, $0)
-            }
+        .onAppear {
+            viewModel.loadRoutines()
+        }
+        .onReceive(inspection.notice) {
+            self.inspection.visit(self, $0)
+        }
     }
 }
 
@@ -77,6 +92,13 @@ struct RoutineCellView: View {
     }
 }
 
+
+struct EmptyRoutineCellView: View {
+    
+    var body: some View {
+        Text("Aww shucks. No routines yet.")
+    }
+}
 /*
  * - Init of view will request no routines
  * - Appear will request load once
@@ -88,6 +110,7 @@ struct RoutineCellView: View {
 
 extension RoutineListView: Inspectable {}
 extension RoutineCellView: Inspectable {}
+extension EmptyRoutineCellView: Inspectable {}
 extension Inspection: InspectionEmissary {}
 
 class LiftMeRoutinesiOSTests: XCTestCase {
@@ -123,11 +146,11 @@ class LiftMeRoutinesiOSTests: XCTestCase {
     }
     
     
-    func test_routineListView_successfullyLoadedRoutines_willRenderRoutines() throws {
+    func test_routineListView_loadRoutineCompletionWithRoutines_willRenderRoutines() throws {
         
-        let routines = [uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model]
-        
+        // given
         let (sut, routineRepository) = makeSUT()
+        let routines = [uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model]
         
         let exp = sut.inspection.inspect { sut in
             
@@ -142,8 +165,37 @@ class LiftMeRoutinesiOSTests: XCTestCase {
             for (index, routineCellView) in cellsAfterRoutineLoad.enumerated() {
                 
                 let expectedRoutineName = routines[index].name
-                let _ = try routineCellView.find(text: "\(expectedRoutineName)").string()
+                let _ = try routineCellView.find(text: "\(expectedRoutineName)")
             }
+        }
+        
+        ViewHosting.host(view: sut)
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_routineListView_loadRoutineCompletionWithoutRoutines_willRenderNoRoutinesMessage() throws {
+        
+        // given
+        let (sut, routineRepository) = makeSUT()
+        let routines: [Routine] = []
+        let expectedNoRoutinesMessage = "Aww shucks. No routines yet."
+        
+        let exp = sut.inspection.inspect { sut in
+            
+            // basecase
+            let cellsBeforeRoutineLoad = sut.findAll(EmptyRoutineCellView.self)
+            XCTAssertTrue(cellsBeforeRoutineLoad.isEmpty)
+            
+            // when
+            routineRepository.completeRoutineLoading(with: routines)
+            
+            // then
+            let cellsAfterRoutineLoad = sut.findAll(EmptyRoutineCellView.self)
+            XCTAssertEqual(cellsAfterRoutineLoad.count, 1)
+            
+            let _ = try cellsAfterRoutineLoad.first!.find(text: expectedNoRoutinesMessage)
         }
         
         ViewHosting.host(view: sut)

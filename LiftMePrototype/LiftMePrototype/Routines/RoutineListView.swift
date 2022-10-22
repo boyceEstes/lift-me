@@ -339,7 +339,7 @@ struct RoutineEmptyCellView: View {
             print("Retry")
         } label: {
             VStack(spacing: 8) {
-                Text("Aww shucks. No Routines")
+                Text("Aww shucks. No Routines yet")
                     
 //                Image(systemName: "arrow.clockwise")
 //                    .imageScale(.large)
