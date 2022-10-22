@@ -6,10 +6,22 @@
 //
 
 import XCTest
-import LiftMeRoutinesiOS
 import RoutineRepository
 import SwiftUI
 import ViewInspector
+import Combine
+
+
+final class Inspection<V> {
+    let notice = PassthroughSubject<UInt, Never>()
+    var callbacks: [UInt: (V) -> Void] = [:]
+    
+    func visit(_ view: V, _ line: UInt) {
+        if let callback = callbacks.removeValue(forKey: line) {
+            callback(view)
+        }
+    }
+}
 
 
 class RoutineViewModel {
@@ -38,13 +50,15 @@ class RoutineViewModel {
 struct RoutineListView: View {
     
     let viewModel: RoutineViewModel
-    var didAppear: ((Self) -> Void)?
+    let inspection = Inspection<Self>()
     
     var body: some View {
         Text("Hello world")
             .onAppear {
                 viewModel.loadRoutines()
-                self.didAppear?(self)
+            }
+            .onReceive(inspection.notice) {
+                self.inspection.visit(self, $0)
             }
     }
 }
@@ -57,6 +71,8 @@ struct RoutineListView: View {
  * - Failure to load will display failure message
  */
 
+extension RoutineListView: Inspectable {}
+extension Inspection: InspectionEmissary {}
 
 class LiftMeRoutinesiOSTests: XCTestCase {
     
@@ -79,14 +95,10 @@ class LiftMeRoutinesiOSTests: XCTestCase {
     
     func test_routineListView_viewWillAppear_requestsToLoadRoutines() {
         
-        var (sut, routineRepository) = makeSUT()
+        let (sut, routineRepository) = makeSUT()
         
-        let exp = expectation(description: "Wait for RoutineListView to appear")
-        
-        sut.didAppear = { _ in
-            
+        let exp = sut.inspection.inspect { view in
             XCTAssertEqual(routineRepository.requests, [.loadAllRoutines])
-            exp.fulfill()
         }
         
         ViewHosting.host(view: sut)
