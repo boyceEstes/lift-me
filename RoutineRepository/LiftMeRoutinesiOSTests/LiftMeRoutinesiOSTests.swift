@@ -67,8 +67,8 @@ struct RoutineListView: View {
         VStack(alignment: .leading) {
             HStack {
                 HStack(spacing: 16) {
-                    Text("Routines")
-                        .font(.title2)
+                    
+                    RoutineTitleView()
                     
                     Button {
                         print("hello world")
@@ -117,6 +117,15 @@ struct RoutineListView: View {
 }
 
 
+struct RoutineTitleView: View {
+    
+    var body: some View {
+        Text("Routines")
+            .font(.title2)
+    }
+}
+
+
 struct RoutineCellView: View {
     
     let routine: Routine
@@ -141,7 +150,11 @@ struct ErrorRoutineCellView: View {
         Text("Error loading routines... dang")
     }
 }
+
+
+
 /*
+ * // TODO: Add accessibility identifiers
  * - There is a title
  * - There is a new routine button
  * - There is a more button
@@ -159,6 +172,7 @@ struct ErrorRoutineCellView: View {
  */
 
 extension RoutineListView: Inspectable {}
+extension RoutineTitleView: Inspectable {}
 extension RoutineCellView: Inspectable {}
 extension EmptyRoutineCellView: Inspectable {}
 extension ErrorRoutineCellView: Inspectable {}
@@ -182,7 +196,7 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         let expectedTitle = "Routines"
         
         // when/then
-        let _ = try sut.inspect().find(text: expectedTitle)
+        let _ = try sut.inspect().find(RoutineTitleView.self, containing: expectedTitle)
     }
     
     
