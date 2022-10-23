@@ -70,14 +70,7 @@ struct RoutineListView: View {
                     
                     RoutineTitleView()
                     
-                    Button {
-                        print("hello world")
-                    } label: {
-                        HStack {
-                            Text("New")
-                            Image(systemName: "plus")
-                        }
-                    }
+                    NewRoutineButtonView()
                 }
                 
                 Spacer()
@@ -122,6 +115,21 @@ struct RoutineTitleView: View {
     var body: some View {
         Text("Routines")
             .font(.title2)
+    }
+}
+
+
+struct NewRoutineButtonView: View {
+    
+    var body: some View {
+        Button {
+            print("hello world")
+        } label: {
+            HStack {
+                Text("New")
+                Image(systemName: "plus")
+            }
+        }
     }
 }
 
