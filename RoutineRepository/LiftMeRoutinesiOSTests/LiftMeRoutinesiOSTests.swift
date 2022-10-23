@@ -75,14 +75,7 @@ struct RoutineListView: View {
                 
                 Spacer()
 
-                Button {
-                    print("hello world 2")
-                } label: {
-                    HStack {
-                        Text("More")
-                        Image(systemName: "chevron.right")
-                    }
-                }
+                MoreRoutinesButtonView()
             }
             List {
                 if viewModel.firstLoadCompleted {
@@ -128,6 +121,21 @@ struct NewRoutineButtonView: View {
             HStack {
                 Text("New")
                 Image(systemName: "plus")
+            }
+        }
+    }
+}
+
+
+struct MoreRoutinesButtonView: View {
+    
+    var body: some View {
+        Button {
+            print("hello world 2")
+        } label: {
+            HStack {
+                Text("More")
+                Image(systemName: "chevron.right")
             }
         }
     }
