@@ -196,7 +196,7 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         let expectedTitle = "Routines"
         
         // when/then
-        let _ = try sut.inspect().find(RoutineTitleView.self, containing: expectedTitle)
+        let _ = try sut.inspect().find(text: expectedTitle)
     }
     
     
