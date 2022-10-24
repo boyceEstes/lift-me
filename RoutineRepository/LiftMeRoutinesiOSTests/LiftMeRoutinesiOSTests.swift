@@ -46,22 +46,6 @@ class RoutineViewModel: ObservableObject {
 }
 
 
-extension UIColor {
-    
-    static var universeRedDark = UIColor(displayP3Red: 251/255, green: 91/255, blue: 104/255, alpha: 1.0)
-    static var universeRedLight = UIColor(displayP3Red: 251/255, green: 87/255, blue: 101/255, alpha: 1.0)
-}
-
-
-extension Color {
-    
-    static var universeRed = Color(uiColor: .universeRedLight)
-    
-    static var secondarySystemBackground = Color(uiColor: .secondarySystemBackground)
-    static var tertiarySystemBackground = Color(uiColor: .tertiarySystemBackground)
-}
-
-
 struct LowKeyButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Configuration) -> some View {
