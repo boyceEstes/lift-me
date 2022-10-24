@@ -68,21 +68,7 @@ struct RoutineListView: View {
 
             RoutineTitleBarView()
             
-            List {
-                if viewModel.firstLoadCompleted {
-                    if viewModel.routineLoadError {
-                        ErrorRoutineCellView()
-                    } else {
-                        if viewModel.routines.isEmpty {
-                            EmptyRoutineCellView()
-                        } else {
-                            ForEach(viewModel.routines, id: \.self) { routine in
-                                RoutineCellView(routine: routine)
-                            }
-                        }
-                    }
-                }
-            }
+            ScrollableRoutineListView(viewModel: viewModel)
         }
         .onAppear {
             viewModel.loadRoutines()
@@ -179,6 +165,35 @@ struct ErrorRoutineCellView: View {
 }
 
 
+struct ScrollableRoutineListView: View {
+    
+    let viewModel: RoutineViewModel
+    
+    var body: some View {
+        List {
+            
+            if viewModel.firstLoadCompleted {
+                
+                if viewModel.routineLoadError {
+                    ErrorRoutineCellView()
+                } else {
+                    
+                    if viewModel.routines.isEmpty {
+                        EmptyRoutineCellView()
+                        
+                    } else {
+                        
+                        ForEach(viewModel.routines, id: \.self) { routine in
+                            RoutineCellView(routine: routine)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 /*
  * // TODO: Add accessibility identifiers
@@ -206,6 +221,7 @@ extension RoutineTitleView: Inspectable {}
 extension RoutineCellView: Inspectable {}
 extension EmptyRoutineCellView: Inspectable {}
 extension ErrorRoutineCellView: Inspectable {}
+extension ScrollableRoutineListView: Inspectable {}
 extension Inspection: InspectionEmissary {}
 
 class LiftMeRoutinesiOSTests: XCTestCase {
@@ -322,7 +338,6 @@ class LiftMeRoutinesiOSTests: XCTestCase {
             // then
             let cellsAfterRoutineLoad = sut.findAll(EmptyRoutineCellView.self)
             XCTAssertEqual(cellsAfterRoutineLoad.count, 1)
-            
             let _ = try cellsAfterRoutineLoad.first!.find(text: expectedNoRoutinesMessage)
         }
         
