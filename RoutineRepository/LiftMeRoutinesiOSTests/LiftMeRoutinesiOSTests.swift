@@ -58,6 +58,28 @@ class RoutineViewModel: ObservableObject {
 }
 
 
+extension UIColor {
+    
+    static var universeRedDark = UIColor(displayP3Red: 251/255, green: 91/255, blue: 104/255, alpha: 1.0)
+    static var universeRedLight = UIColor(displayP3Red: 251/255, green: 87/255, blue: 101/255, alpha: 1.0)
+}
+
+
+extension Color {
+    
+    static var universeRed = Color(uiColor: .universeRedLight)
+}
+
+
+struct LowKeyButtonStyle: ButtonStyle {
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(Color.universeRed)
+    }
+}
+
+
 struct RoutineListView: View {
     
     let viewModel: RoutineViewModel
@@ -134,7 +156,7 @@ struct MoreRoutinesButtonView: View {
                 Text("More")
                 Image(systemName: "chevron.right")
             }
-        }
+        }.buttonStyle(LowKeyButtonStyle())
     }
 }
 
@@ -200,7 +222,6 @@ struct ScrollableRoutineListView: View {
  * - There is a title
  * - There is a new routine button
  * - There is a more button
- * // TODO: Refactor all the above basic components in their own view so we can search for the string in that component. Feels safer in ensuring its existance
  * - Init of view will request no routines
  * - Appear will request load once
  * - ViewInspector works as expected
@@ -208,6 +229,7 @@ struct ScrollableRoutineListView: View {
  * - Appear will render empty routines
  * - Failure to load will display failure message
  * // TODO: All Routine Cells will have the same modifier (to make it a roundedRectangle)
+ * // TODO: Create button styles for more and new routine
  * // TODO: What happens when we have loaded routines successfully once and then fail the second time? We should NOT replace the routines with the error...
  * - Tapping Add new button will Take to the CreateRoutineView
  * -
@@ -264,7 +286,7 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         let expectedButtonTitle = "More"
         
         // when/then
-        let _ = try sut.inspect().find(button: expectedButtonTitle)
+        let moreButton = try sut.inspect().find(button: expectedButtonTitle)
     }
     
 
