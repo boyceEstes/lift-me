@@ -7,21 +7,9 @@
 
 import XCTest
 import RoutineRepository
+import LiftMeRoutinesiOS
 import SwiftUI
 import ViewInspector
-import Combine
-
-
-final class Inspection<V> {
-    let notice = PassthroughSubject<UInt, Never>()
-    var callbacks: [UInt: (V) -> Void] = [:]
-    
-    func visit(_ view: V, _ line: UInt) {
-        if let callback = callbacks.removeValue(forKey: line) {
-            callback(view)
-        }
-    }
-}
 
 
 class RoutineViewModel: ObservableObject {
@@ -242,6 +230,16 @@ struct ScrollableRoutineListView: View {
     }
 }
 
+struct RoutineListView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        
+        RoutineListView(
+            viewModel: RoutineViewModel(
+                routineRepository: RoutineRepositorySpy()))
+            .preferredColorScheme(.dark)
+    }
+}
 
 
 /*

@@ -14,10 +14,12 @@
 		B32CADF728FEFC6100B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
 		B32CADF928FEFF2800B154BD /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */; };
-		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; platformFilter = maccatalyst; };
+		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; };
 		B32CAE0E28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */; };
 		B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B32CAE1928FF915D00B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
+		B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588AF290617BA006ED45C /* RoutineListView.swift */; };
+		B34588B2290617ED006ED45C /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B1290617ED006ED45C /* Inspection.swift */; };
 		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -81,6 +83,8 @@
 		B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LiftMeRoutinesiOS.docc; sourceTree = "<group>"; };
 		B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeRoutinesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeRoutinesiOSTests.swift; sourceTree = "<group>"; };
+		B34588AF290617BA006ED45C /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
+		B34588B1290617ED006ED45C /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
 		B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRoutineStore.swift; sourceTree = "<group>"; };
 		B3D29BDD28F12746006CC77D /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29BE028F12746006CC77D /* RoutineRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineRepository.h; sourceTree = "<group>"; };
@@ -168,6 +172,8 @@
 			children = (
 				B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */,
 				B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */,
+				B34588AF290617BA006ED45C /* RoutineListView.swift */,
+				B34588B1290617ED006ED45C /* Inspection.swift */,
 			);
 			path = LiftMeRoutinesiOS;
 			sourceTree = "<group>";
@@ -492,6 +498,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */,
+				B34588B2290617ED006ED45C /* Inspection.swift in Sources */,
+				B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -556,7 +564,6 @@
 		};
 		B32CAE0B28FF4A2F00B154BD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			platformFilter = maccatalyst;
 			target = B32CADFE28FF4A2F00B154BD /* LiftMeRoutinesiOS */;
 			targetProxy = B32CAE0A28FF4A2F00B154BD /* PBXContainerItemProxy */;
 		};
@@ -665,6 +672,7 @@
 		B32CAE1428FF4A2F00B154BD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RXL7292WR8;
@@ -683,6 +691,7 @@
 		B32CAE1528FF4A2F00B154BD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RXL7292WR8;
