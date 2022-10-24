@@ -279,25 +279,26 @@ struct RoutineListView3: View {
                 }
             }
             .padding(.horizontal)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyVStack {
-                        LazyHStack(spacing: 12) {
-                            if !error {
-                                if routineNames.isEmpty {
-                                    RoutineEmptyCellView()
-                                } else {
-                                    ForEach(routineNames, id: \.self) { id in
-                                        RoutineCellView3(routineName: "\(id)")
-                                    }
-                                }
+            
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 12) {
+                        if !error {
+                            if routineNames.isEmpty {
+                                RoutineEmptyCellView()
                             } else {
-                                RoutineErrorCellView(error: NSError(domain: "Any Error", code: 0))
+                                ForEach(routineNames, id: \.self) { id in
+                                    RoutineCellView3(routineName: "\(id)")
+                                }
                             }
+                        } else {
+                            RoutineErrorCellView(error: NSError(domain: "Any Error", code: 0))
                         }
-                        .padding(.leading)
                     }
-                }
-                .background(Color(uiColor: .secondarySystemBackground))
+                    .padding(.leading)
+                    .frame(height: 160)
+            }
+            .background(Color(uiColor: .secondarySystemBackground))
         }
     }
 }
@@ -305,7 +306,7 @@ struct RoutineListView3: View {
 
 struct RoutineErrorCellView: View {
     
-    let cellHeight: CGFloat = 130
+//    let cellHeight: CGFloat = 130
     let error: Error
     
     var body: some View {
@@ -320,7 +321,7 @@ struct RoutineErrorCellView: View {
             }
             .padding()
             .foregroundColor(Color(uiColor: .label))
-            .frame(width: cellHeight, height: cellHeight)
+            .frame(maxWidth: 130, maxHeight: .infinity)
             .background(Color(uiColor: .tertiarySystemBackground))
             .cornerRadius(16)
             .shadow(radius: 4)

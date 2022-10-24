@@ -68,6 +68,9 @@ extension UIColor {
 extension Color {
     
     static var universeRed = Color(uiColor: .universeRedLight)
+    
+    static var secondarySystemBackground = Color(uiColor: .secondarySystemBackground)
+    static var tertiarySystemBackground = Color(uiColor: .tertiarySystemBackground)
 }
 
 
@@ -210,26 +213,32 @@ struct ScrollableRoutineListView: View {
     let viewModel: RoutineViewModel
     
     var body: some View {
-        List {
+        ScrollView(.horizontal, showsIndicators: false) {
             
-            if viewModel.firstLoadCompleted {
+            LazyHStack(spacing: 12) {
                 
-                if viewModel.routineLoadError {
-                    ErrorRoutineCellView()
-                } else {
+                if viewModel.firstLoadCompleted {
                     
-                    if viewModel.routines.isEmpty {
-                        EmptyRoutineCellView()
-                        
+                    if viewModel.routineLoadError {
+                        ErrorRoutineCellView()
                     } else {
                         
-                        ForEach(viewModel.routines, id: \.self) { routine in
-                            RoutineCellView(routine: routine)
+                        if viewModel.routines.isEmpty {
+                            EmptyRoutineCellView()
+                            
+                        } else {
+                            
+                            ForEach(viewModel.routines, id: \.self) { routine in
+                                RoutineCellView(routine: routine)
+                            }
                         }
                     }
                 }
             }
+            .padding(.leading)
+            .frame(height: 160)
         }
+        .background(Color.secondarySystemBackground)
     }
 }
 
@@ -247,7 +256,7 @@ struct ScrollableRoutineListView: View {
  * - Appear will render empty routines
  * - Failure to load will display failure message
  * // TODO: All Routine Cells will have the same modifier (to make it a roundedRectangle)
- * // TODO: Create button styles for more and new routine
+ * // - Decided to not test if the button modifiers are applied to the button to create more functional testing than UI testing
  * // TODO: What happens when we have loaded routines successfully once and then fail the second time? We should NOT replace the routines with the error...
  * - Tapping Add new button will Take to the CreateRoutineView
  * -
@@ -304,7 +313,7 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         let expectedButtonTitle = "More"
         
         // when/then
-        let moreButton = try sut.inspect().find(button: expectedButtonTitle)
+        let _ = try sut.inspect().find(button: expectedButtonTitle)
     }
     
 
