@@ -80,6 +80,22 @@ struct LowKeyButtonStyle: ButtonStyle {
 }
 
 
+struct HighKeyButtonStyle: ButtonStyle {
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.headline)
+            .foregroundColor(Color(uiColor: .label))
+            .padding(4)
+            .padding(.horizontal, 6)
+            .background(
+                Capsule()
+                    .fill(Color.universeRed)
+            )
+    }
+}
+
+
 struct RoutineListView: View {
     
     let viewModel: RoutineViewModel
@@ -142,6 +158,7 @@ struct NewRoutineButtonView: View {
                 Image(systemName: "plus")
             }
         }
+        .buttonStyle(HighKeyButtonStyle())
     }
 }
 
@@ -156,7 +173,8 @@ struct MoreRoutinesButtonView: View {
                 Text("More")
                 Image(systemName: "chevron.right")
             }
-        }.buttonStyle(LowKeyButtonStyle())
+        }
+        .buttonStyle(LowKeyButtonStyle())
     }
 }
 
