@@ -65,18 +65,9 @@ struct RoutineListView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                HStack(spacing: 16) {
-                    
-                    RoutineTitleView()
-                    
-                    NewRoutineButtonView()
-                }
-                
-                Spacer()
 
-                MoreRoutinesButtonView()
-            }
+            RoutineTitleBarView()
+            
             List {
                 if viewModel.firstLoadCompleted {
                     if viewModel.routineLoadError {
@@ -98,6 +89,26 @@ struct RoutineListView: View {
         }
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
+        }
+    }
+}
+
+
+struct RoutineTitleBarView: View {
+    
+    var body: some View {
+        
+        HStack {
+            HStack(spacing: 16) {
+                
+                RoutineTitleView()
+                
+                NewRoutineButtonView()
+            }
+            
+            Spacer()
+
+            MoreRoutinesButtonView()
         }
     }
 }
@@ -188,6 +199,9 @@ struct ErrorRoutineCellView: View {
  */
 
 extension RoutineListView: Inspectable {}
+extension RoutineTitleBarView: Inspectable {}
+extension MoreRoutinesButtonView: Inspectable {}
+extension NewRoutineButtonView: Inspectable {}
 extension RoutineTitleView: Inspectable {}
 extension RoutineCellView: Inspectable {}
 extension EmptyRoutineCellView: Inspectable {}
