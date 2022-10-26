@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B34788092908DE3400F4C2A6 /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34788072908DE3400F4C2A6 /* LiftMeRoutinesiOS.framework */; };
+		B347880A2908DE3400F4C2A6 /* LiftMeRoutinesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B34788072908DE3400F4C2A6 /* LiftMeRoutinesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B347880B2908DE3400F4C2A6 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B34788082908DE3400F4C2A6 /* RoutineRepository.framework */; };
+		B347880C2908DE3400F4C2A6 /* RoutineRepository.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B34788082908DE3400F4C2A6 /* RoutineRepository.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */; };
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
@@ -33,7 +37,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B347880D2908DE3400F4C2A6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B347880A2908DE3400F4C2A6 /* LiftMeRoutinesiOS.framework in Embed Frameworks */,
+				B347880C2908DE3400F4C2A6 /* RoutineRepository.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		B34788072908DE3400F4C2A6 /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B34788082908DE3400F4C2A6 /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A854892908D48300F04CC1 /* LiftMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppApp.swift; sourceTree = "<group>"; };
 		B3A8548E2908D48300F04CC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B34788092908DE3400F4C2A6 /* LiftMeRoutinesiOS.framework in Frameworks */,
+				B347880B2908DE3400F4C2A6 /* RoutineRepository.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +94,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B34788062908DE3400F4C2A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B34788072908DE3400F4C2A6 /* LiftMeRoutinesiOS.framework */,
+				B34788082908DE3400F4C2A6 /* RoutineRepository.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B3A854802908D48300F04CC1 = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +110,7 @@
 				B3A8549C2908D48500F04CC1 /* LiftMeAppTests */,
 				B3A854A62908D48500F04CC1 /* LiftMeAppUITests */,
 				B3A8548A2908D48300F04CC1 /* Products */,
+				B34788062908DE3400F4C2A6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +170,7 @@
 				B3A854852908D48300F04CC1 /* Sources */,
 				B3A854862908D48300F04CC1 /* Frameworks */,
 				B3A854872908D48300F04CC1 /* Resources */,
+				B347880D2908DE3400F4C2A6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
