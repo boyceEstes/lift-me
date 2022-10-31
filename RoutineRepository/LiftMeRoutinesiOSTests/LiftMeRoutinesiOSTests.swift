@@ -22,12 +22,22 @@ import ViewInspector
  * - ViewInspector works as expected
  * - Appear will render routines
  * - Appear will render empty routines
+ * // TODO: Add button tap will add an routine call
+ * // TODO: Add button tap will display error if failed to save
  * - Failure to load will display failure message
  * // TODO: All Routine Cells will have the same modifier (to make it a roundedRectangle)
  * // - Decided to not test if the button modifiers are applied to the button to create more functional testing than UI testing
  * // TODO: What happens when we have loaded routines successfully once and then fail the second time? We should NOT replace the routines with the error...
  * - Tapping Add new button will Take to the CreateRoutineView
  * -
+ */
+
+
+/*
+ * A gotcha:
+ * Whenever you are testing using ViewInspector, it is not possible to see if the view model is doing live updates or not.
+ * To simplify, it is not possible to see if it is an @ObservedObject or just declared in the view.
+ * Instead, in the unit tests, it will always behave like it is being live-updated
  */
 
 extension RoutineListView: Inspectable {}
@@ -193,6 +203,45 @@ class LiftMeRoutinesiOSTests: XCTestCase {
     }
     
     
+    func test_routineListView_tapNewButton_SavesNewRoutineAndRendersRoutineCell() {
+
+        // given
+        let (sut, routineRepository) = makeSUT()
+
+        // when
+        let exp = sut.inspection.inspect { sut in
+
+            // load comes in on hosting
+            // complete load
+            routineRepository.completeRoutineLoading(with: [])
+
+            let cellsBeforeRoutineSave = sut.findAll(RoutineCellView.self)
+            XCTAssertTrue(cellsBeforeRoutineSave.isEmpty)
+            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines])
+
+            // when
+            try sut.find(button: "New").tap()
+
+            // then
+            // TODO: This should match the routine that is created from the routine view model in the future
+
+            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines, .saveRoutine])
+
+            routineRepository.completeSaveRoutineSuccessfully()
+
+            // to render a new cell, we would need to load again from the updated cache - Ideally we would test this was the same
+            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines, .saveRoutine, .loadAllRoutines])
+            routineRepository.completeRoutineLoading(with: [uniqueRoutine().model], at: 1)
+            let cellsAfterRoutineSaveThenLoad = sut.findAll(RoutineCellView.self)
+            XCTAssertFalse(cellsAfterRoutineSaveThenLoad.isEmpty)
+        }
+
+        ViewHosting.host(view: sut)
+
+        wait(for: [exp], timeout: 1)
+    }
+
+    
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy) {
         
         let routineRepository = RoutineRepositorySpy()
@@ -210,16 +259,18 @@ class LiftMeRoutinesiOSTests: XCTestCase {
 class RoutineRepositorySpy: RoutineRepository {
     
     enum ReceivedMessage: Equatable {
-        case save(Routine)
+        case saveRoutine
         case loadAllRoutines
     }
     
     private(set) var requests = [ReceivedMessage]()
     private(set) var loadAllRoutinesCompletions = [LoadAllRoutinesCompletion]()
+    private(set) var saveRoutineCompletions = [SaveRoutineCompletion]()
     
     
     func save(routine: Routine, completion: @escaping SaveRoutineCompletion) {
-        requests.append(.save(routine))
+        requests.append(.saveRoutine)
+        saveRoutineCompletions.append(completion)
     }
     
     
@@ -236,5 +287,10 @@ class RoutineRepositorySpy: RoutineRepository {
     
     func completeRoutineLoading(with error: Error, at index: Int = 0) {
         loadAllRoutinesCompletions[index](.failure(error))
+    }
+    
+    
+    func completeSaveRoutineSuccessfully(at index: Int = 0) {
+        saveRoutineCompletions[index](nil)
     }
 }

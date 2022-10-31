@@ -16,8 +16,6 @@
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
 		B3A854942908D48400F04CC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854932908D48400F04CC1 /* Preview Assets.xcassets */; };
 		B3A8549E2908D48500F04CC1 /* LiftMeAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8549D2908D48500F04CC1 /* LiftMeAppTests.swift */; };
-		B3A854A82908D48500F04CC1 /* LiftMeAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A854A72908D48500F04CC1 /* LiftMeAppUITests.swift */; };
-		B3A854AA2908D48500F04CC1 /* LiftMeAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A854A92908D48500F04CC1 /* LiftMeAppUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +61,6 @@
 		B3A854992908D48500F04CC1 /* LiftMeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8549D2908D48500F04CC1 /* LiftMeAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppTests.swift; sourceTree = "<group>"; };
 		B3A854A32908D48500F04CC1 /* LiftMeAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3A854A72908D48500F04CC1 /* LiftMeAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppUITests.swift; sourceTree = "<group>"; };
-		B3A854A92908D48500F04CC1 /* LiftMeAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,8 +150,6 @@
 		B3A854A62908D48500F04CC1 /* LiftMeAppUITests */ = {
 			isa = PBXGroup;
 			children = (
-				B3A854A72908D48500F04CC1 /* LiftMeAppUITests.swift */,
-				B3A854A92908D48500F04CC1 /* LiftMeAppUITestsLaunchTests.swift */,
 			);
 			path = LiftMeAppUITests;
 			sourceTree = "<group>";
@@ -308,8 +302,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3A854A82908D48500F04CC1 /* LiftMeAppUITests.swift in Sources */,
-				B3A854AA2908D48500F04CC1 /* LiftMeAppUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
