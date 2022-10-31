@@ -25,18 +25,34 @@ public class RoutineViewModel: ObservableObject {
     func loadRoutines() {
         routineRepository.loadAllRoutines { [weak self] result in
             
-            if self?.firstLoadCompleted == false {
-                self?.firstLoadCompleted = true
-            }
-            
-            switch result {
-            case let .success(routines):
+            DispatchQueue.main.async {
+                if self?.firstLoadCompleted == false {
+                    self?.firstLoadCompleted = true
+                }
                 
-                self?.routines = routines
-                
-            case .failure:
-                self?.routineLoadError = true
+                switch result {
+                case let .success(routines):
+                    self?.routines = routines
+                    
+                case .failure:
+                    self?.routineLoadError = true
+                }
             }
+        }
+    }
+    
+    
+    func newRoutine() {
+        let routine = Routine(
+            id: UUID(),
+            name: "Any",
+            creationDate: Date(),
+            exercises: [],
+            routineRecords: []
+        )
+        
+        routineRepository.save(routine: routine) { [weak self] _ in
+            self?.loadRoutines()
         }
     }
 }
@@ -70,7 +86,7 @@ struct HighKeyButtonStyle: ButtonStyle {
 public struct RoutineListView: View {
     
     public let inspection = Inspection<Self>()
-    public let viewModel: RoutineViewModel
+    @ObservedObject var viewModel: RoutineViewModel
     
     public init(viewModel: RoutineViewModel) {
         self.viewModel = viewModel
@@ -79,7 +95,7 @@ public struct RoutineListView: View {
     public var body: some View {
         VStack(alignment: .leading) {
 
-            RoutineTitleBarView()
+            RoutineTitleBarView(viewModel: viewModel)
             
             ScrollableRoutineListView(viewModel: viewModel)
         }
@@ -95,6 +111,8 @@ public struct RoutineListView: View {
 
 public struct RoutineTitleBarView: View {
     
+    @ObservedObject var viewModel: RoutineViewModel
+    
     public var body: some View {
         
         HStack {
@@ -102,13 +120,14 @@ public struct RoutineTitleBarView: View {
                 
                 RoutineTitleView()
                 
-                NewRoutineButtonView()
+                NewRoutineButtonView(viewModel: viewModel)
             }
             
             Spacer()
 
             MoreRoutinesButtonView()
         }
+        .padding(.horizontal)
     }
 }
 
@@ -124,9 +143,11 @@ public struct RoutineTitleView: View {
 
 public struct NewRoutineButtonView: View {
     
+    @ObservedObject var viewModel: RoutineViewModel
+    
     public var body: some View {
         Button {
-            print("hello world")
+            viewModel.newRoutine()
         } label: {
             HStack {
                 Text("New")
@@ -182,7 +203,7 @@ public struct ErrorRoutineCellView: View {
 
 public struct ScrollableRoutineListView: View {
     
-    let viewModel: RoutineViewModel
+    @ObservedObject var viewModel: RoutineViewModel
     
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -233,6 +254,13 @@ class RoutineRepositoryPreview: RoutineRepository {
     }
     
     func loadAllRoutines(completion: @escaping LoadAllRoutinesCompletion) {
-        completion(.success([]))
+        
+        let routine = Routine(
+            id: UUID(),
+            name: "Preview",
+            creationDate: Date(),
+            exercises: [],
+            routineRecords: [])
+        completion(.success([routine]))
     }
 }
