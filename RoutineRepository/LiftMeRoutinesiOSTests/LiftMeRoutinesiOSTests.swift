@@ -29,7 +29,7 @@ import ViewInspector
  * // - Decided to not test if the button modifiers are applied to the button to create more functional testing than UI testing
  * // TODO: What happens when we have loaded routines successfully once and then fail the second time? We should NOT replace the routines with the error...
  * - Tapping Add new button will Take to the CreateRoutineView
- * -
+ * // TODO: DispatchQueue.main.async is causing the tests to fail. Gotta figure it out.
  */
 
 
@@ -247,9 +247,6 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         let routineRepository = RoutineRepositorySpy()
         let routineViewModel = RoutineViewModel(routineRepository: routineRepository)
         let sut = RoutineListView(viewModel: routineViewModel)
-        
-//        trackForMemoryLeaks(routineRepository)
-//        trackForMemoryLeaks(routineViewModel)
         
         return (sut, routineRepository)
     }

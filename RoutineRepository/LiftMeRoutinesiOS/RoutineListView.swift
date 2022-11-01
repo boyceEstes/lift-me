@@ -25,16 +25,18 @@ public class RoutineViewModel: ObservableObject {
     func loadRoutines() {
         routineRepository.loadAllRoutines { [weak self] result in
             
-            if self?.firstLoadCompleted == false {
-                self?.firstLoadCompleted = true
-            }
-            
-            switch result {
-            case let .success(routines):
-                self?.routines = routines
+            DispatchQueue.main.async {
+                if self?.firstLoadCompleted == false {
+                    self?.firstLoadCompleted = true
+                }
                 
-            case .failure:
-                self?.routineLoadError = true
+                switch result {
+                case let .success(routines):
+                    self?.routines = routines
+                    
+                case .failure:
+                    self?.routineLoadError = true
+                }
             }
         }
     }
@@ -232,6 +234,7 @@ public struct ScrollableRoutineListView: View {
         .background(Color.secondarySystemBackground)
     }
 }
+
 
 struct RoutineListView_Previews: PreviewProvider {
     
