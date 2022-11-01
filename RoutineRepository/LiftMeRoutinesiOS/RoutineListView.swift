@@ -25,7 +25,7 @@ public class RoutineViewModel: ObservableObject {
     func loadRoutines() {
         routineRepository.loadAllRoutines { [weak self] result in
             
-            DispatchQueue.main.async {
+//            DispatchQueue.main.async {
                 if self?.firstLoadCompleted == false {
                     self?.firstLoadCompleted = true
                 }
@@ -37,7 +37,7 @@ public class RoutineViewModel: ObservableObject {
                 case .failure:
                     self?.routineLoadError = true
                 }
-            }
+//            }
         }
     }
     
@@ -79,6 +79,31 @@ struct HighKeyButtonStyle: ButtonStyle {
                 Capsule()
                     .fill(Color.universeRed)
             )
+    }
+}
+
+
+struct RoutineCell: ViewModifier {
+    
+    let cellHeight: CGFloat = 130
+    
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .foregroundColor(Color(uiColor: .label))
+            .frame(width: cellHeight , height: cellHeight)
+            .background(Color(uiColor: .tertiarySystemBackground))
+            .cornerRadius(16)
+            .shadow(radius: 4)
+            .padding(.vertical)
+    }
+}
+
+
+extension View {
+    
+    func routineCell() -> some View {
+        modifier(RoutineCell())
     }
 }
 
@@ -181,6 +206,7 @@ public struct RoutineCellView: View {
     
     public var body: some View {
         Text("\(routine.name)")
+            .routineCell()
     }
 }
 
@@ -189,6 +215,7 @@ public struct EmptyRoutineCellView: View {
     
     public var body: some View {
         Text("Aww shucks. No routines yet.")
+            .routineCell()
     }
 }
 
@@ -196,7 +223,9 @@ public struct EmptyRoutineCellView: View {
 public struct ErrorRoutineCellView: View {
     
     public var body: some View {
+        
         Text("Error loading routines... dang")
+            .routineCell()
     }
 }
 

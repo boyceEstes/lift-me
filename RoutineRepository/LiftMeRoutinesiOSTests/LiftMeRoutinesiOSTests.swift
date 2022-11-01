@@ -150,7 +150,6 @@ class LiftMeRoutinesiOSTests: XCTestCase {
         
         // given
         let (sut, routineRepository) = makeSUT()
-        let routines: [Routine] = []
         let expectedNoRoutinesMessage = "Aww shucks. No routines yet."
         
         let exp = sut.inspection.inspect { sut in
@@ -160,7 +159,7 @@ class LiftMeRoutinesiOSTests: XCTestCase {
             XCTAssertTrue(cellsBeforeRoutineLoad.isEmpty)
             
             // when
-            routineRepository.completeRoutineLoading(with: routines)
+            routineRepository.completeRoutineLoadingWithNoRoutines()
             
             // then
             let cellsAfterRoutineLoad = sut.findAll(EmptyRoutineCellView.self)
@@ -279,6 +278,11 @@ class RoutineRepositorySpy: RoutineRepository {
     
     func completeRoutineLoading(with routines: [Routine], at index: Int = 0) {
         loadAllRoutinesCompletions[index](.success(routines))
+    }
+    
+    
+    func completeRoutineLoadingWithNoRoutines(at index: Int = 0) {
+        loadAllRoutinesCompletions[index](.success([]))
     }
     
     
