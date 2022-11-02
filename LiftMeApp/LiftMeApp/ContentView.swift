@@ -12,23 +12,31 @@ import RoutineRepository
 
 struct ContentView: View {
     
-    let routineStore: CoreDataRoutineStore
     let routineRepository: RoutineRepository
-    
     
     init() {
         
         let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("routine-store.sqlite")
         let bundle = Bundle(for: CoreDataRoutineStore.self)
-        self.routineStore = try! CoreDataRoutineStore(storeURL: localStoreURL, bundle: bundle)
-        
-        let routineRepositoryMainQueue: RoutineRepository = DispatchQueueMainDecorator(decoratee: LocalRoutineRepository(routineStore: routineStore))
-        
-        self.routineRepository = routineRepositoryMainQueue
+        let routineStore = try! CoreDataRoutineStore(storeURL: localStoreURL, bundle: bundle)
+        self.routineRepository = DispatchQueueMainDecorator(decoratee: LocalRoutineRepository(routineStore: routineStore))
     }
 
     var body: some View {
-        RoutineListView(viewModel: RoutineViewModel(routineRepository: routineRepository))
+        RoutineListUIComposer.routineListComposedWith(routineRepository: routineRepository)
+    }
+}
+
+
+public final class RoutineListUIComposer {
+    
+    private init() {}
+    
+    
+    public static func routineListComposedWith(routineRepository: RoutineRepository) -> RoutineListView {
+        
+        let viewModel = RoutineViewModel(routineRepository: routineRepository)
+        return RoutineListView(viewModel: viewModel)
     }
 }
 
