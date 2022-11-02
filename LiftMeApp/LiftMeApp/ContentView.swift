@@ -22,7 +22,7 @@ struct ContentView: View {
         let bundle = Bundle(for: CoreDataRoutineStore.self)
         self.routineStore = try! CoreDataRoutineStore(storeURL: localStoreURL, bundle: bundle)
         
-        let routineRepositoryMainQueue = DispatchQueueMainDecorator(decoratee: LocalRoutineRepository(routineStore: routineStore))
+        let routineRepositoryMainQueue: RoutineRepository = DispatchQueueMainDecorator(decoratee: LocalRoutineRepository(routineStore: routineStore))
         
         self.routineRepository = routineRepositoryMainQueue
     }
@@ -33,19 +33,38 @@ struct ContentView: View {
 }
 
 
-class DispatchQueueMainDecorator: RoutineRepository {
+class DispatchQueueMainDecorator<T> {
     
-    let decoratee: RoutineRepository
+    let decoratee: T
     
-    init(decoratee: RoutineRepository) {
+    init(decoratee: T) {
         self.decoratee = decoratee
     }
     
+    func dispatch(_ work: @escaping () -> Void) {
+        guaranteeMainThread {
+            work()
+        }
+    }
+    
+    // TODO: Make this check for main queue instead of main thread
+    private func guaranteeMainThread(_ work: @escaping () -> Void) {
+        
+        if Thread.isMainThread {
+            work()
+        } else {
+            DispatchQueue.main.async(execute: work)
+        }
+    }
+}
+
+
+extension DispatchQueueMainDecorator: RoutineRepository where T == RoutineRepository {
     
     func save(routine: Routine, completion: @escaping SaveRoutineCompletion) {
-
+        
         decoratee.save(routine: routine) { [weak self] error in
-            self?.guaranteeMainThread {
+            self?.dispatch {
                 completion(error)
             }
         }
@@ -55,19 +74,9 @@ class DispatchQueueMainDecorator: RoutineRepository {
     func loadAllRoutines(completion: @escaping LoadAllRoutinesCompletion) {
         
         decoratee.loadAllRoutines { [weak self] result in
-            self?.guaranteeMainThread {
+            self?.dispatch {
                 completion(result)
             }
-        }
-    }
-    
-    
-    private func guaranteeMainThread(_ work: @escaping () -> Void) {
-        
-        if Thread.isMainThread {
-            work()
-        } else {
-            DispatchQueue.main.async(execute: work)
         }
     }
 }
