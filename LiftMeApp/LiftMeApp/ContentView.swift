@@ -13,7 +13,7 @@ import RoutineRepository
 struct ContentView: View {
     
     let routineStore: CoreDataRoutineStore
-    let routineRepository: LocalRoutineRepository
+    let routineRepository: RoutineRepository
     
     
     init() {
@@ -21,13 +21,57 @@ struct ContentView: View {
         let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("routine-store.sqlite")
         let bundle = Bundle(for: CoreDataRoutineStore.self)
         self.routineStore = try! CoreDataRoutineStore(storeURL: localStoreURL, bundle: bundle)
-        self.routineRepository = LocalRoutineRepository(routineStore: routineStore)
+        
+        let routineRepositoryMainQueue = DispatchQueueMainDecorator(decoratee: LocalRoutineRepository(routineStore: routineStore))
+        
+        self.routineRepository = routineRepositoryMainQueue
     }
 
     var body: some View {
         RoutineListView(viewModel: RoutineViewModel(routineRepository: routineRepository))
     }
 }
+
+
+class DispatchQueueMainDecorator: RoutineRepository {
+    
+    let decoratee: RoutineRepository
+    
+    init(decoratee: RoutineRepository) {
+        self.decoratee = decoratee
+    }
+    
+    
+    func save(routine: Routine, completion: @escaping SaveRoutineCompletion) {
+
+        decoratee.save(routine: routine) { [weak self] error in
+            self?.guaranteeMainThread {
+                completion(error)
+            }
+        }
+    }
+    
+    
+    func loadAllRoutines(completion: @escaping LoadAllRoutinesCompletion) {
+        
+        decoratee.loadAllRoutines { [weak self] result in
+            self?.guaranteeMainThread {
+                completion(result)
+            }
+        }
+    }
+    
+    
+    private func guaranteeMainThread(_ work: @escaping () -> Void) {
+        
+        if Thread.isMainThread {
+            work()
+        } else {
+            DispatchQueue.main.async(execute: work)
+        }
+    }
+}
+
 
 struct ContentView_Previews: PreviewProvider {
     

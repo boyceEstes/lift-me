@@ -24,20 +24,18 @@ public class RoutineViewModel: ObservableObject {
     
     func loadRoutines() {
         routineRepository.loadAllRoutines { [weak self] result in
+        
+            if self?.firstLoadCompleted == false {
+                self?.firstLoadCompleted = true
+            }
             
-//            DispatchQueue.main.async {
-                if self?.firstLoadCompleted == false {
-                    self?.firstLoadCompleted = true
-                }
+            switch result {
+            case let .success(routines):
+                self?.routines = routines
                 
-                switch result {
-                case let .success(routines):
-                    self?.routines = routines
-                    
-                case .failure:
-                    self?.routineLoadError = true
-                }
-//            }
+            case .failure:
+                self?.routineLoadError = true
+            }
         }
     }
     
