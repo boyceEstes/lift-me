@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../RoutineRepository/RoutineRepository.xcodeproj">
+      location = "group:../../RoutineRepository/RoutineRepository.xcodeproj">
    </FileRef>
    <FileRef
       location = "container:LiftMeApp.xcodeproj">
