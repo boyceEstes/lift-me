@@ -28,13 +28,6 @@
 			remoteGlobalIDString = B3A854882908D48300F04CC1;
 			remoteInfo = LiftMeApp;
 		};
-		B3A854A42908D48500F04CC1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B3A854812908D48300F04CC1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B3A854882908D48300F04CC1;
-			remoteInfo = LiftMeApp;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,7 +57,6 @@
 		B3A854932908D48400F04CC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B3A854992908D48500F04CC1 /* LiftMeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8549D2908D48500F04CC1 /* LiftMeAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppTests.swift; sourceTree = "<group>"; };
-		B3A854A32908D48500F04CC1 /* LiftMeAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,13 +70,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B3A854962908D48500F04CC1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B3A854A02908D48500F04CC1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -108,7 +93,6 @@
 			children = (
 				B3A8548B2908D48300F04CC1 /* LiftMeApp */,
 				B3A8549C2908D48500F04CC1 /* LiftMeAppTests */,
-				B3A854A62908D48500F04CC1 /* LiftMeAppUITests */,
 				B3A8548A2908D48300F04CC1 /* Products */,
 				B34788062908DE3400F4C2A6 /* Frameworks */,
 			);
@@ -119,7 +103,6 @@
 			children = (
 				B3A854892908D48300F04CC1 /* LiftMeApp.app */,
 				B3A854992908D48500F04CC1 /* LiftMeAppTests.xctest */,
-				B3A854A32908D48500F04CC1 /* LiftMeAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,13 +134,6 @@
 				B3A8549D2908D48500F04CC1 /* LiftMeAppTests.swift */,
 			);
 			path = LiftMeAppTests;
-			sourceTree = "<group>";
-		};
-		B3A854A62908D48500F04CC1 /* LiftMeAppUITests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = LiftMeAppUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,24 +175,6 @@
 			productReference = B3A854992908D48500F04CC1 /* LiftMeAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B3A854A22908D48500F04CC1 /* LiftMeAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B3A854B32908D48500F04CC1 /* Build configuration list for PBXNativeTarget "LiftMeAppUITests" */;
-			buildPhases = (
-				B3A8549F2908D48500F04CC1 /* Sources */,
-				B3A854A02908D48500F04CC1 /* Frameworks */,
-				B3A854A12908D48500F04CC1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B3A854A52908D48500F04CC1 /* PBXTargetDependency */,
-			);
-			name = LiftMeAppUITests;
-			productName = LiftMeAppUITests;
-			productReference = B3A854A32908D48500F04CC1 /* LiftMeAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -231,10 +189,6 @@
 						CreatedOnToolsVersion = 14.1;
 					};
 					B3A854982908D48500F04CC1 = {
-						CreatedOnToolsVersion = 14.1;
-						TestTargetID = B3A854882908D48300F04CC1;
-					};
-					B3A854A22908D48500F04CC1 = {
 						CreatedOnToolsVersion = 14.1;
 						TestTargetID = B3A854882908D48300F04CC1;
 					};
@@ -255,7 +209,6 @@
 			targets = (
 				B3A854882908D48300F04CC1 /* LiftMeApp */,
 				B3A854982908D48500F04CC1 /* LiftMeAppTests */,
-				B3A854A22908D48500F04CC1 /* LiftMeAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -271,13 +224,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		B3A854972908D48500F04CC1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B3A854A12908D48500F04CC1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -306,13 +252,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B3A8549F2908D48500F04CC1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -320,11 +259,6 @@
 			isa = PBXTargetDependency;
 			target = B3A854882908D48300F04CC1 /* LiftMeApp */;
 			targetProxy = B3A8549A2908D48500F04CC1 /* PBXContainerItemProxy */;
-		};
-		B3A854A52908D48500F04CC1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B3A854882908D48300F04CC1 /* LiftMeApp */;
-			targetProxy = B3A854A42908D48500F04CC1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -539,42 +473,6 @@
 			};
 			name = Release;
 		};
-		B3A854B42908D48500F04CC1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RXL7292WR8;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LiftMeApp;
-			};
-			name = Debug;
-		};
-		B3A854B52908D48500F04CC1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = RXL7292WR8;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.boycees.LiftMeAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = LiftMeApp;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -601,15 +499,6 @@
 			buildConfigurations = (
 				B3A854B12908D48500F04CC1 /* Debug */,
 				B3A854B22908D48500F04CC1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B3A854B32908D48500F04CC1 /* Build configuration list for PBXNativeTarget "LiftMeAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B3A854B42908D48500F04CC1 /* Debug */,
-				B3A854B52908D48500F04CC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
