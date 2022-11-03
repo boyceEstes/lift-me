@@ -25,6 +25,8 @@
 		B3454C032874875600B017BB /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
 		B3454C05287487C300B017BB /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		B368912F29145E0000E04957 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B368913229145EB800E04957 /* CreateRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineView.swift; sourceTree = "<group>"; };
+		B36891352914636A00E04957 /* UIColor+LightAndDarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+LightAndDarkMode.swift"; sourceTree = "<group>"; };
 		B3AF3F4C28FA58A000549473 /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		B3E7700D286DF4EA006122EF /* LiftMePrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMePrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMePrototypeApp.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				B3AF3F4C28FA58A000549473 /* RoutineListView.swift */,
+				B368913229145EB800E04957 /* CreateRoutineView.swift */,
 			);
 			path = Routines;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			files = (
 				B3E77013286DF4EA006122EF /* ExerciseListView.swift in Sources */,
 				B3454C06287487C300B017BB /* Exercise.swift in Sources */,
+				B368913329145EB800E04957 /* CreateRoutineView.swift in Sources */,
 				B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */,
 				B307E47A28752A2600AFD1F0 /* AddExerciseRecordView.swift in Sources */,
 				B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */,
