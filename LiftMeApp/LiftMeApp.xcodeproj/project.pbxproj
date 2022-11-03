@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B36890F62911F4B000E04957 /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; };
+		B36890F72911F4B000E04957 /* LiftMeRoutinesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B36890F82911F4B000E04957 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F52911F4B000E04957 /* RoutineRepository.framework */; };
+		B36890F92911F4B000E04957 /* RoutineRepository.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F52911F4B000E04957 /* RoutineRepository.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */; };
+		B368912B2913FBA800E04957 /* RoutineUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368912A2913FBA800E04957 /* RoutineUIComposer.swift */; };
 		B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */; };
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
@@ -31,7 +37,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B36890FA2911F4B000E04957 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B36890F72911F4B000E04957 /* LiftMeRoutinesiOS.framework in Embed Frameworks */,
+				B36890F92911F4B000E04957 /* RoutineRepository.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B36890F52911F4B000E04957 /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMainDecorator.swift; sourceTree = "<group>"; };
+		B368912A2913FBA800E04957 /* RoutineUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineUIComposer.swift; sourceTree = "<group>"; };
 		B3A854892908D48300F04CC1 /* LiftMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppApp.swift; sourceTree = "<group>"; };
 		B3A8548E2908D48300F04CC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -47,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B36890F62911F4B000E04957 /* LiftMeRoutinesiOS.framework in Frameworks */,
+				B36890F82911F4B000E04957 /* RoutineRepository.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +97,8 @@
 		B34788062908DE3400F4C2A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */,
+				B36890F52911F4B000E04957 /* RoutineRepository.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,6 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */,
+				B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */,
+				B368912A2913FBA800E04957 /* RoutineUIComposer.swift */,
 				B3A8548E2908D48300F04CC1 /* ContentView.swift */,
 				B3A854902908D48400F04CC1 /* Assets.xcassets */,
 				B3A854922908D48400F04CC1 /* Preview Content */,
@@ -139,6 +170,7 @@
 				B3A854852908D48300F04CC1 /* Sources */,
 				B3A854862908D48300F04CC1 /* Frameworks */,
 				B3A854872908D48300F04CC1 /* Resources */,
+				B36890FA2911F4B000E04957 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -261,6 +293,8 @@
 			files = (
 				B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */,
 				B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */,
+				B368912B2913FBA800E04957 /* RoutineUIComposer.swift in Sources */,
+				B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
