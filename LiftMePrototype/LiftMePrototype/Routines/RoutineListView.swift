@@ -53,18 +53,6 @@ extension Color {
 }
 
 
-struct HomeView: View {
-
-    var body: some View {
-        ZStack {
-//            LinearGradient(colors: [.white, .universeWhite], startPoint: .bottom, endPoint: .top)
-//                .edgesIgnoringSafeArea(.all)
-            RoutineListView3()
-        }
-    }
-}
-
-
 struct RoutineListView: View {
     
     var body: some View {

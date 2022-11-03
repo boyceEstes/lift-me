@@ -11,6 +11,7 @@
 		B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307E497287E78C600AFD1F0 /* AddExerciseView.swift */; };
 		B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C032874875600B017BB /* ExerciseDetailView.swift */; };
 		B3454C06287487C300B017BB /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C05287487C300B017BB /* Exercise.swift */; };
+		B368913029145E0000E04957 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368912F29145E0000E04957 /* HomeView.swift */; };
 		B3AF3F4D28FA58A000549473 /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4C28FA58A000549473 /* RoutineListView.swift */; };
 		B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */; };
 		B3E77013286DF4EA006122EF /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77012286DF4EA006122EF /* ExerciseListView.swift */; };
@@ -23,6 +24,7 @@
 		B307E497287E78C600AFD1F0 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		B3454C032874875600B017BB /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
 		B3454C05287487C300B017BB /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		B368912F29145E0000E04957 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B3AF3F4C28FA58A000549473 /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		B3E7700D286DF4EA006122EF /* LiftMePrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMePrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMePrototypeApp.swift; sourceTree = "<group>"; };
@@ -42,6 +44,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B368912E29145DF100E04957 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B368912F29145E0000E04957 /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B368913129145E1F00E04957 /* Exercises */ = {
+			isa = PBXGroup;
+			children = (
+				B3454C032874875600B017BB /* ExerciseDetailView.swift */,
+				B3454C05287487C300B017BB /* Exercise.swift */,
+				B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */,
+				B307E497287E78C600AFD1F0 /* AddExerciseView.swift */,
+				B3E77012286DF4EA006122EF /* ExerciseListView.swift */,
+			);
+			path = Exercises;
+			sourceTree = "<group>";
+		};
 		B3AF3F4B28FA586A00549473 /* Routines */ = {
 			isa = PBXGroup;
 			children = (
@@ -69,15 +91,12 @@
 		B3E7700F286DF4EA006122EF /* LiftMePrototype */ = {
 			isa = PBXGroup;
 			children = (
-				B3AF3F4B28FA586A00549473 /* Routines */,
 				B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */,
-				B3E77012286DF4EA006122EF /* ExerciseListView.swift */,
+				B368912E29145DF100E04957 /* Home */,
+				B3AF3F4B28FA586A00549473 /* Routines */,
+				B368913129145E1F00E04957 /* Exercises */,
 				B3E77014286DF4EB006122EF /* Assets.xcassets */,
 				B3E77016286DF4EB006122EF /* Preview Content */,
-				B3454C032874875600B017BB /* ExerciseDetailView.swift */,
-				B3454C05287487C300B017BB /* Exercise.swift */,
-				B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */,
-				B307E497287E78C600AFD1F0 /* AddExerciseView.swift */,
 			);
 			path = LiftMePrototype;
 			sourceTree = "<group>";
@@ -165,6 +184,7 @@
 				B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */,
 				B307E47A28752A2600AFD1F0 /* AddExerciseRecordView.swift in Sources */,
 				B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */,
+				B368913029145E0000E04957 /* HomeView.swift in Sources */,
 				B3AF3F4D28FA58A000549473 /* RoutineListView.swift in Sources */,
 				B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */,
 			);
