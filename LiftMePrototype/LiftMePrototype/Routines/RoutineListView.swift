@@ -12,6 +12,8 @@ struct RoutineListView3: View {
     let routineNames: [String] = ["Back and Biceps 1", "Chest and Triceps - Powerlifting", "Pull Day", "Push Day"]
     let error = true
     
+    @State private var showCreateRoutine = false
+
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -21,7 +23,8 @@ struct RoutineListView3: View {
                         .font(.title2)
                         
                     Button {
-                        print("hello world")
+                        showCreateRoutine = true
+                        
                     } label: {
                         HStack {
                             Text("New")
@@ -29,6 +32,10 @@ struct RoutineListView3: View {
                         }
                     }
                     .buttonStyle(HighKeyButtonStyle())
+                    .fullScreenCover(isPresented: $showCreateRoutine) {
+                        CreateRoutineView()
+                    }
+                    
                 }
                 
                 Spacer()

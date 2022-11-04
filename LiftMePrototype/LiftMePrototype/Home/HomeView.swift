@@ -11,8 +11,11 @@ import SwiftUI
 struct HomeView: View {
 
     var body: some View {
-        ZStack {
-            RoutineListView3()
+        NavigationStack {
+            ZStack {
+                RoutineListView3()
+            }
+            .navigationTitle("Home")
         }
     }
 }

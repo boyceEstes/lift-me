@@ -9,21 +9,50 @@ import SwiftUI
 
 struct CreateRoutineView: View {
     
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var routineName: String = ""
     @State private var routineDesc: String = ""
     
     var body: some View {
-        VStack {
-            Form {
-                TextField("Name", text: $routineName)
-                TextField("Description", text: $routineDesc)
-                Button("This is mine") {}.buttonStyle(.)
+        NavigationStack {
+            VStack {
+                Form {
+                    TextField("Name", text: $routineName)
+                    TextField("Description", text: $routineDesc)
+                }
+                Text("Placeholder Select ExerciseView")
+                Spacer()
             }
-            Text("Placeholder Select ExerciseView")
-            Spacer()
-        }
+            .navigationBarBackButtonHidden(true)
             .navigationTitle("Create Routine")
             .navigationBarTitleDisplayMode(.inline)
+            
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .font(.headline)
+                    }
+                    .buttonStyle(LowKeyButtonStyle())
+                    .padding(.horizontal, 8)
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        print("Save")
+                        dismiss()
+                    } label: {
+                        Text("Save")
+                            .font(.headline)
+                    }
+                    .buttonStyle(LowKeyButtonStyle())
+                    .padding(.horizontal, 8)
+                }
+            }
+        }
     }
 }
 
