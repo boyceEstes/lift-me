@@ -24,7 +24,6 @@ struct CreateRoutineView: View {
                 Text("Placeholder Select ExerciseView")
                 Spacer()
             }
-            .navigationBarBackButtonHidden(true)
             .navigationTitle("Create Routine")
             .navigationBarTitleDisplayMode(.inline)
             
