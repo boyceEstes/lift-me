@@ -14,6 +14,7 @@
 		B368913029145E0000E04957 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368912F29145E0000E04957 /* HomeView.swift */; };
 		B368913329145EB800E04957 /* CreateRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368913229145EB800E04957 /* CreateRoutineView.swift */; };
 		B36891362914636A00E04957 /* UIColor+LightAndDarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891352914636A00E04957 /* UIColor+LightAndDarkMode.swift */; };
+		B368913829146A4F00E04957 /* Color+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368913729146A4F00E04957 /* Color+CustomColors.swift */; };
 		B3AF3F4D28FA58A000549473 /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4C28FA58A000549473 /* RoutineListView.swift */; };
 		B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */; };
 		B3E77013286DF4EA006122EF /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77012286DF4EA006122EF /* ExerciseListView.swift */; };
@@ -29,6 +30,7 @@
 		B368912F29145E0000E04957 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B368913229145EB800E04957 /* CreateRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineView.swift; sourceTree = "<group>"; };
 		B36891352914636A00E04957 /* UIColor+LightAndDarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+LightAndDarkMode.swift"; sourceTree = "<group>"; };
+		B368913729146A4F00E04957 /* Color+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+CustomColors.swift"; sourceTree = "<group>"; };
 		B3AF3F4C28FA58A000549473 /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		B3E7700D286DF4EA006122EF /* LiftMePrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMePrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMePrototypeApp.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				B36891352914636A00E04957 /* UIColor+LightAndDarkMode.swift */,
+				B368913729146A4F00E04957 /* Color+CustomColors.swift */,
 			);
 			path = UIHelpers;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				B3454C06287487C300B017BB /* Exercise.swift in Sources */,
 				B368913329145EB800E04957 /* CreateRoutineView.swift in Sources */,
 				B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */,
+				B368913829146A4F00E04957 /* Color+CustomColors.swift in Sources */,
 				B307E47A28752A2600AFD1F0 /* AddExerciseRecordView.swift in Sources */,
 				B36891362914636A00E04957 /* UIColor+LightAndDarkMode.swift in Sources */,
 				B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */,
