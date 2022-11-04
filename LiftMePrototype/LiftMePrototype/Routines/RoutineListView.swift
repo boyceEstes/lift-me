@@ -27,15 +27,8 @@ struct RoutineListView3: View {
                             Text("New")
                             Image(systemName: "plus")
                         }
-                        .font(.headline)
-                        .foregroundColor(Color(uiColor: .label))
-                        .padding(4)
-                        .padding(.horizontal, 6)
-                        .background(
-                            Capsule()
-                                .fill(Color.universeRed)
-                        )
                     }
+                    .buttonStyle(HighKeyButtonStyle())
                 }
                 
                 Spacer()
@@ -46,8 +39,9 @@ struct RoutineListView3: View {
                     HStack {
                         Text("More")
                         Image(systemName: "chevron.right")
-                    }.foregroundColor(.universeRed)
+                    }
                 }
+                .buttonStyle(LowKeyButtonStyle())
             }
             .padding(.horizontal)
             
