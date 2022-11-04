@@ -14,6 +14,7 @@
 		B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */; };
 		B368912B2913FBA800E04957 /* RoutineUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368912A2913FBA800E04957 /* RoutineUIComposer.swift */; };
 		B36891582914B5E700E04957 /* LiftMeRoutinesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891572914B5E700E04957 /* LiftMeRoutinesiOSTests.swift */; };
+		B368915B2914B66100E04957 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368915A2914B66100E04957 /* SharedTestHelpers.swift */; };
 		B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */; };
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMainDecorator.swift; sourceTree = "<group>"; };
 		B368912A2913FBA800E04957 /* RoutineUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineUIComposer.swift; sourceTree = "<group>"; };
 		B36891572914B5E700E04957 /* LiftMeRoutinesiOSTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftMeRoutinesiOSTests.swift; sourceTree = "<group>"; };
+		B368915A2914B66100E04957 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		B3A854892908D48300F04CC1 /* LiftMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppApp.swift; sourceTree = "<group>"; };
 		B3A8548E2908D48300F04CC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 		B3A8549C2908D48500F04CC1 /* LiftMeAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				B368915A2914B66100E04957 /* SharedTestHelpers.swift */,
 				B36891572914B5E700E04957 /* LiftMeRoutinesiOSTests.swift */,
 			);
 			path = LiftMeAppTests;
@@ -248,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B368915B2914B66100E04957 /* SharedTestHelpers.swift in Sources */,
 				B36891582914B5E700E04957 /* LiftMeRoutinesiOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
