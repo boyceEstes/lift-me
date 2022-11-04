@@ -17,7 +17,6 @@
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
 		B3A854942908D48400F04CC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854932908D48400F04CC1 /* Preview Assets.xcassets */; };
-		B3A8549E2908D48500F04CC1 /* LiftMeAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8549D2908D48500F04CC1 /* LiftMeAppTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +55,6 @@
 		B3A854902908D48400F04CC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3A854932908D48400F04CC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B3A854992908D48500F04CC1 /* LiftMeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3A8549D2908D48500F04CC1 /* LiftMeAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +129,6 @@
 		B3A8549C2908D48500F04CC1 /* LiftMeAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				B3A8549D2908D48500F04CC1 /* LiftMeAppTests.swift */,
 			);
 			path = LiftMeAppTests;
 			sourceTree = "<group>";
@@ -248,7 +245,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3A8549E2908D48500F04CC1 /* LiftMeAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
