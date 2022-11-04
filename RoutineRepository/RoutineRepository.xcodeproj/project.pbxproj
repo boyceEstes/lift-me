@@ -15,7 +15,6 @@
 		B32CADF928FEFF2800B154BD /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */; };
 		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; };
-		B32CAE0E28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */; };
 		B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B32CAE1928FF915D00B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
 		B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588AF290617BA006ED45C /* RoutineListView.swift */; };
@@ -84,7 +83,6 @@
 		B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiftMeRoutinesiOS.h; sourceTree = "<group>"; };
 		B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LiftMeRoutinesiOS.docc; sourceTree = "<group>"; };
 		B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeRoutinesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeRoutinesiOSTests.swift; sourceTree = "<group>"; };
 		B34588AF290617BA006ED45C /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		B34588B1290617ED006ED45C /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
 		B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+LiftMeThemeColors.swift"; sourceTree = "<group>"; };
@@ -187,7 +185,6 @@
 		B32CAE0C28FF4A2F00B154BD /* LiftMeRoutinesiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				B32CAE0D28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift */,
 			);
 			path = LiftMeRoutinesiOSTests;
 			sourceTree = "<group>";
@@ -516,7 +513,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B32CAE1928FF915D00B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
-				B32CAE0E28FF4A2F00B154BD /* LiftMeRoutinesiOSTests.swift in Sources */,
 				B313A4412901805B00740E61 /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
