@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B313A4402900EDA800740E61 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B313A43F2900EDA800740E61 /* ViewInspector */; };
 		B313A4412901805B00740E61 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */; };
 		B32CADF128FEF53D00B154BD /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
@@ -140,7 +139,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */,
-				B313A4402900EDA800740E61 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +353,6 @@
 			);
 			name = LiftMeRoutinesiOSTests;
 			packageProductDependencies = (
-				B313A43F2900EDA800740E61 /* ViewInspector */,
 			);
 			productName = LiftMeRoutinesiOSTests;
 			productReference = B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */;
@@ -434,7 +431,6 @@
 			);
 			mainGroup = B3D29BD328F12746006CC77D;
 			packageReferences = (
-				B313A43E2900EDA800740E61 /* XCRemoteSwiftPackageReference "ViewInspector" */,
 			);
 			productRefGroup = B3D29BDE28F12746006CC77D /* Products */;
 			projectDirPath = "";
@@ -995,25 +991,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		B313A43E2900EDA800740E61 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nalexn/ViewInspector";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		B313A43F2900EDA800740E61 /* ViewInspector */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B313A43E2900EDA800740E61 /* XCRemoteSwiftPackageReference "ViewInspector" */;
-			productName = ViewInspector;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */ = {
