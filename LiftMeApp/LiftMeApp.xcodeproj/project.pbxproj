@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B30E83C1291EB10200A19724 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B30E83C0291EB10200A19724 /* ViewInspector */; };
+		B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */; };
 		B36890F62911F4B000E04957 /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; };
 		B36890F72911F4B000E04957 /* LiftMeRoutinesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B36890F82911F4B000E04957 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F52911F4B000E04957 /* RoutineRepository.framework */; };
@@ -48,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36890F52911F4B000E04957 /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMainDecorator.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				B368915A2914B66100E04957 /* SharedTestHelpers.swift */,
 				B36891572914B5E700E04957 /* LiftMeRoutinesiOSTests.swift */,
+				B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */,
 			);
 			path = LiftMeAppTests;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B368915B2914B66100E04957 /* SharedTestHelpers.swift in Sources */,
+				B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */,
 				B36891582914B5E700E04957 /* LiftMeRoutinesiOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
