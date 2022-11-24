@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B30E83C5291EB36B00A19724 /* CreateRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */; };
 		B313A4412901805B00740E61 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */; };
 		B32CADF128FEF53D00B154BD /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
@@ -76,6 +77,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineView.swift; sourceTree = "<group>"; };
 		B32CADED28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutineRepositoryCacheIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRepositoryCacheIntegrationTests.swift; sourceTree = "<group>"; };
 		B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -174,6 +176,7 @@
 				B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */,
 				B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */,
 				B34588AF290617BA006ED45C /* RoutineListView.swift */,
+				B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */,
 				B34588B1290617ED006ED45C /* Inspection.swift */,
 				B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */,
 				B34588B529061C2B006ED45C /* Color+LiftMeThemeColors.swift */,
@@ -503,6 +506,7 @@
 				B34588B2290617ED006ED45C /* Inspection.swift in Sources */,
 				B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */,
 				B34588B629061C2B006ED45C /* Color+LiftMeThemeColors.swift in Sources */,
+				B30E83C5291EB36B00A19724 /* CreateRoutineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
