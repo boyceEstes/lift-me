@@ -19,6 +19,8 @@ public struct CreateRoutineView: View {
 
 struct CreateRoutineView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateRoutineView()
+        NavigationStack {
+            CreateRoutineView()
+        }
     }
 }

@@ -15,7 +15,7 @@
 		B36890F92911F4B000E04957 /* RoutineRepository.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F52911F4B000E04957 /* RoutineRepository.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */; };
 		B368912B2913FBA800E04957 /* RoutineUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368912A2913FBA800E04957 /* RoutineUIComposer.swift */; };
-		B36891582914B5E700E04957 /* LiftMeRoutinesiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891572914B5E700E04957 /* LiftMeRoutinesiOSTests.swift */; };
+		B36891582914B5E700E04957 /* RoutineListUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891572914B5E700E04957 /* RoutineListUIIntegrationTests.swift */; };
 		B368915B2914B66100E04957 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368915A2914B66100E04957 /* SharedTestHelpers.swift */; };
 		B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */; };
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
@@ -54,7 +54,7 @@
 		B36890F52911F4B000E04957 /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMainDecorator.swift; sourceTree = "<group>"; };
 		B368912A2913FBA800E04957 /* RoutineUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineUIComposer.swift; sourceTree = "<group>"; };
-		B36891572914B5E700E04957 /* LiftMeRoutinesiOSTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiftMeRoutinesiOSTests.swift; sourceTree = "<group>"; };
+		B36891572914B5E700E04957 /* RoutineListUIIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineListUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B368915A2914B66100E04957 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		B3A854892908D48300F04CC1 /* LiftMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppApp.swift; sourceTree = "<group>"; };
@@ -138,7 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				B368915A2914B66100E04957 /* SharedTestHelpers.swift */,
-				B36891572914B5E700E04957 /* LiftMeRoutinesiOSTests.swift */,
+				B36891572914B5E700E04957 /* RoutineListUIIntegrationTests.swift */,
 				B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */,
 			);
 			path = LiftMeAppTests;
@@ -264,7 +264,7 @@
 			files = (
 				B368915B2914B66100E04957 /* SharedTestHelpers.swift in Sources */,
 				B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */,
-				B36891582914B5E700E04957 /* LiftMeRoutinesiOSTests.swift in Sources */,
+				B36891582914B5E700E04957 /* RoutineListUIIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

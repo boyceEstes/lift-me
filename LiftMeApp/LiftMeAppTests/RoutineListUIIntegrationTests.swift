@@ -51,7 +51,7 @@ extension ErrorRoutineCellView: Inspectable {}
 extension ScrollableRoutineListView: Inspectable {}
 extension Inspection: InspectionEmissary {}
 
-class LiftMeRoutinesiOSTests: XCTestCase {
+class RoutineListUIIntegrationTests: XCTestCase {
     
     func test_viewInspector_baseLine_succeeds() throws {
         
