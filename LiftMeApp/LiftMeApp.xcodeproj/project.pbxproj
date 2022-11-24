@@ -21,6 +21,7 @@
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
 		B3A854942908D48400F04CC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854932908D48400F04CC1 /* Preview Assets.xcassets */; };
+		B3F0E293292FCC9000A5C506 /* NavigationFlow in Frameworks */ = {isa = PBXBuildFile; productRef = B3F0E292292FCC9000A5C506 /* NavigationFlow */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3F0E293292FCC9000A5C506 /* NavigationFlow in Frameworks */,
 				B36890F62911F4B000E04957 /* LiftMeRoutinesiOS.framework in Frameworks */,
 				B36890F82911F4B000E04957 /* RoutineRepository.framework in Frameworks */,
 			);
@@ -120,8 +122,7 @@
 				B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */,
 				B368912A2913FBA800E04957 /* RoutineUIComposer.swift */,
 				B3A8548E2908D48300F04CC1 /* ContentView.swift */,
-				B3A854902908D48400F04CC1 /* Assets.xcassets */,
-				B3A854922908D48400F04CC1 /* Preview Content */,
+				B3F0E290292FCBA100A5C506 /* Supporting Files */,
 			);
 			path = LiftMeApp;
 			sourceTree = "<group>";
@@ -144,6 +145,15 @@
 			path = LiftMeAppTests;
 			sourceTree = "<group>";
 		};
+		B3F0E290292FCBA100A5C506 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B3A854902908D48400F04CC1 /* Assets.xcassets */,
+				B3A854922908D48400F04CC1 /* Preview Content */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -161,6 +171,9 @@
 			dependencies = (
 			);
 			name = LiftMeApp;
+			packageProductDependencies = (
+				B3F0E292292FCC9000A5C506 /* NavigationFlow */,
+			);
 			productName = LiftMeApp;
 			productReference = B3A854892908D48300F04CC1 /* LiftMeApp.app */;
 			productType = "com.apple.product-type.application";
@@ -216,6 +229,7 @@
 			mainGroup = B3A854802908D48300F04CC1;
 			packageReferences = (
 				B30E83BF291EB10200A19724 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+				B3F0E291292FCC9000A5C506 /* XCRemoteSwiftPackageReference "navigation-flow" */,
 			);
 			productRefGroup = B3A8548A2908D48300F04CC1 /* Products */;
 			projectDirPath = "";
@@ -530,6 +544,14 @@
 				minimumVersion = 0.9.2;
 			};
 		};
+		B3F0E291292FCC9000A5C506 /* XCRemoteSwiftPackageReference "navigation-flow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/boyceEstes/navigation-flow.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -537,6 +559,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B30E83BF291EB10200A19724 /* XCRemoteSwiftPackageReference "ViewInspector" */;
 			productName = ViewInspector;
+		};
+		B3F0E292292FCC9000A5C506 /* NavigationFlow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3F0E291292FCC9000A5C506 /* XCRemoteSwiftPackageReference "navigation-flow" */;
+			productName = NavigationFlow;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
