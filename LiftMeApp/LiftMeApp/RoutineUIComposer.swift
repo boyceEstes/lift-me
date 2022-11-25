@@ -8,17 +8,35 @@
 import Foundation
 import RoutineRepository
 import LiftMeRoutinesiOS
+import NavigationFlow
 
 
-public final class RoutineListUIComposer {
+public final class RoutineUIComposer {
+    
+    static let navigationViewModel = RoutineNavigationViewModel()
     
     private init() {}
     
     
-    public static func routineListComposedWith(routineRepository: RoutineRepository) -> RoutineListView {
+    static func makeRoutineListWithStackNavigation(routineRepository: RoutineRepository) -> StackNavigationView<RoutineListView, RoutineNavigationViewModel> {
+        
+        return StackNavigationView(stackNavigationViewModel: navigationViewModel, content: makeRoutineList(routineRepository: routineRepository))
+    }
+    
+    
+    static func makeRoutineList(routineRepository: RoutineRepository) -> RoutineListView {
         
         let viewModel = RoutineViewModel(routineRepository: routineRepository)
-        return RoutineListView(viewModel: viewModel)
+        
+        return RoutineListView(viewModel: viewModel) {
+            navigationViewModel.path.append(.createRoutine)
+        }
+    }
+    
+    
+    static func makeCreateRoutine() -> CreateRoutineView {
+        
+        return CreateRoutineView()
     }
 }
 

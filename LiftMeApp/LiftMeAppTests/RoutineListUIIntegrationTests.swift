@@ -10,6 +10,8 @@ import RoutineRepository
 import LiftMeRoutinesiOS
 import SwiftUI
 import ViewInspector
+import NavigationFlow
+@testable import LiftMeApp
 
 
 /*
@@ -49,6 +51,7 @@ extension RoutineCellView: Inspectable {}
 extension EmptyRoutineCellView: Inspectable {}
 extension ErrorRoutineCellView: Inspectable {}
 extension ScrollableRoutineListView: Inspectable {}
+extension StackNavigationView: Inspectable { }
 extension Inspection: InspectionEmissary {}
 
 class RoutineListUIIntegrationTests: XCTestCase {
@@ -65,7 +68,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_init_displaysRoutineListTitle() throws {
         
         // given
-        let (sut, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
         let expectedTitle = "Routines"
         
         // when/then
@@ -76,7 +79,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_init_displaysNewRoutineButton() throws {
         
         // given
-        let (sut, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
         let expectedButtonTitle = "New"
         
         // when/then
@@ -87,7 +90,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_init_displaysMoreRoutinesButton() throws {
         
         // given
-        let (sut, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
         let expectedButtonTitle = "More"
         
         // when/then
@@ -97,7 +100,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
 
     func test_routineListView_init_doesNotRequestRoutineRepository() {
         
-        let (_, routineRepository) = makeSUT()
+        let (_, routineRepository, _) = makeSUT()
         
         XCTAssertTrue(routineRepository.requests.isEmpty)
     }
@@ -105,7 +108,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     
     func test_routineListView_viewWillAppear_requestsToLoadRoutines() {
         
-        let (sut, routineRepository) = makeSUT()
+        let (sut, routineRepository, _) = makeSUT()
         
         let exp = sut.inspection.inspect { view in
             XCTAssertEqual(routineRepository.requests, [.loadAllRoutines])
@@ -120,7 +123,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_loadRoutineCompletionWithRoutines_willRenderRoutines() throws {
         
         // given
-        let (sut, routineRepository) = makeSUT()
+        let (sut, routineRepository, _) = makeSUT()
         let routines = [uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model]
         
         let exp = sut.inspection.inspect { sut in
@@ -149,7 +152,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_loadRoutineCompletionWithoutRoutines_willRenderNoRoutinesMessage() throws {
         
         // given
-        let (sut, routineRepository) = makeSUT()
+        let (sut, routineRepository, _) = makeSUT()
         let expectedNoRoutinesMessage = "Aww shucks. No routines yet."
         
         let exp = sut.inspection.inspect { sut in
@@ -176,7 +179,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_loadRoutineCompletionWithError_willRenderErrorRoutineCell() throws {
         
         // given
-        let (sut, routineRepository) = makeSUT()
+        let (sut, routineRepository, _) = makeSUT()
         let error = anyNSError()
         let expectedRoutineErrorMessage = "Error loading routines... dang"
         
@@ -201,53 +204,69 @@ class RoutineListUIIntegrationTests: XCTestCase {
         wait(for: [exp], timeout: 1)
     }
     
+//    TODO: Figure out how to test creating a new routine onto an empty list
+//    func test_routineListView_tapNewButton_SavesNewRoutineAndRendersRoutineCell() {
+//
+//        // given
+//        let (sut, routineRepository) = makeSUT()
+//
+//        // when
+//        let exp = sut.inspection.inspect { sut in
+//
+//            // load comes in on hosting
+//            // complete load
+//            routineRepository.completeRoutineLoading(with: [])
+//
+//            let cellsBeforeRoutineSave = sut.findAll(RoutineCellView.self)
+//            XCTAssertTrue(cellsBeforeRoutineSave.isEmpty)
+//            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines])
+//
+//            // when
+//            try sut.find(button: "New").tap()
+//
+//            // then
+//            // TODO: This should match the routine that is created from the routine view model in the future
+//
+//            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines, .saveRoutine])
+//
+//            routineRepository.completeSaveRoutineSuccessfully()
+//
+//            // to render a new cell, we would need to load again from the updated cache - Ideally we would test this was the same
+//            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines, .saveRoutine, .loadAllRoutines])
+//            routineRepository.completeRoutineLoading(with: [uniqueRoutine().model], at: 1)
+//            let cellsAfterRoutineSaveThenLoad = sut.findAll(RoutineCellView.self)
+//            XCTAssertFalse(cellsAfterRoutineSaveThenLoad.isEmpty)
+//        }
+//
+//        ViewHosting.host(view: sut)
+//
+//        wait(for: [exp], timeout: 1)
+//    }
     
-    func test_routineListView_tapNewButton_SavesNewRoutineAndRendersRoutineCell() {
-
+    
+    func test_routineListView_tapNewButton_navigatesToCreateRoutineView() throws {
+        
         // given
-        let (sut, routineRepository) = makeSUT()
-
+        let (sut, _, routineNavigationViewModel) = makeSUT()
+        let button = try sut.inspect().find(button: "New")
+        
         // when
-        let exp = sut.inspection.inspect { sut in
-
-            // load comes in on hosting
-            // complete load
-            routineRepository.completeRoutineLoading(with: [])
-
-            let cellsBeforeRoutineSave = sut.findAll(RoutineCellView.self)
-            XCTAssertTrue(cellsBeforeRoutineSave.isEmpty)
-            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines])
-
-            // when
-            try sut.find(button: "New").tap()
-
-            // then
-            // TODO: This should match the routine that is created from the routine view model in the future
-
-            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines, .saveRoutine])
-
-            routineRepository.completeSaveRoutineSuccessfully()
-
-            // to render a new cell, we would need to load again from the updated cache - Ideally we would test this was the same
-            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines, .saveRoutine, .loadAllRoutines])
-            routineRepository.completeRoutineLoading(with: [uniqueRoutine().model], at: 1)
-            let cellsAfterRoutineSaveThenLoad = sut.findAll(RoutineCellView.self)
-            XCTAssertFalse(cellsAfterRoutineSaveThenLoad.isEmpty)
-        }
-
-        ViewHosting.host(view: sut)
-
-        wait(for: [exp], timeout: 1)
+        try button.tap()
+        
+        // then
+        XCTAssertEqual(
+            routineNavigationViewModel.path.last,
+            RoutineNavigationViewModel.StackIdentifier.createRoutine)
     }
 
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy, RoutineNavigationViewModel) {
         
+        let routineNavigationViewModel = RoutineUIComposer.navigationViewModel
         let routineRepository = RoutineRepositorySpy()
-        let routineViewModel = RoutineViewModel(routineRepository: routineRepository)
-        let sut = RoutineListView(viewModel: routineViewModel)
+        let sut = RoutineUIComposer.makeRoutineList(routineRepository: routineRepository)
         
-        return (sut, routineRepository)
+        return (sut, routineRepository, routineNavigationViewModel)
     }
 }
 

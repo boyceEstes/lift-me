@@ -24,7 +24,7 @@ struct LiftMeAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RoutineListUIComposer.routineListComposedWith(routineRepository: routineRepository)
+            RoutineUIComposer.makeRoutineListWithStackNavigation(routineRepository: routineRepository)
         }
     }
 }

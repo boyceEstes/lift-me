@@ -109,16 +109,19 @@ extension View {
 public struct RoutineListView: View {
     
     public let inspection = Inspection<Self>()
-    @ObservedObject var viewModel: RoutineViewModel
     
-    public init(viewModel: RoutineViewModel) {
+    @ObservedObject var viewModel: RoutineViewModel
+    let tapNewButtonAction: (() -> Void)?
+    
+    public init(viewModel: RoutineViewModel, tapNewButtonAction: (() -> Void)?) {
         self.viewModel = viewModel
+        self.tapNewButtonAction = tapNewButtonAction
     }
     
     public var body: some View {
         VStack(alignment: .leading) {
 
-            RoutineTitleBarView(viewModel: viewModel)
+            RoutineTitleBarView(viewModel: viewModel, tapNewButtonAction: tapNewButtonAction)
             
             ScrollableRoutineListView(viewModel: viewModel)
         }
@@ -134,7 +137,9 @@ public struct RoutineListView: View {
 
 public struct RoutineTitleBarView: View {
     
+
     @ObservedObject var viewModel: RoutineViewModel
+    let tapNewButtonAction: (() -> Void)?
     
     public var body: some View {
         
@@ -143,7 +148,8 @@ public struct RoutineTitleBarView: View {
                 
                 RoutineTitleView()
                 
-                NewRoutineButtonView(viewModel: viewModel)
+                NewRoutineButtonView(viewModel: viewModel,
+                                     tapNewButtonAction: tapNewButtonAction)
             }
             
             Spacer()
@@ -167,10 +173,11 @@ public struct RoutineTitleView: View {
 public struct NewRoutineButtonView: View {
     
     @ObservedObject var viewModel: RoutineViewModel
+    let tapNewButtonAction: (() -> Void)?
     
     public var body: some View {
         Button {
-            viewModel.newRoutine()
+            tapNewButtonAction?()
         } label: {
             HStack {
                 Text("New")
@@ -269,7 +276,8 @@ struct RoutineListView_Previews: PreviewProvider {
         
         RoutineListView(
             viewModel: RoutineViewModel(
-                routineRepository: RoutineRepositoryPreview()))
+                routineRepository: RoutineRepositoryPreview()),
+            tapNewButtonAction: { print("This is a preview") })
             .preferredColorScheme(.dark)
     }
 }
