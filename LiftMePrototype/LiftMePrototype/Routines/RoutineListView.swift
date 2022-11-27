@@ -34,6 +34,7 @@ struct RoutineListView3: View {
                     .buttonStyle(HighKeyButtonStyle())
                     .fullScreenCover(isPresented: $showCreateRoutine) {
                         CreateRoutineView()
+                            .environment(\.editMode, .constant(.active))
                     }
                     
                 }
