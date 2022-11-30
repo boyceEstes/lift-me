@@ -10,12 +10,14 @@ import SwiftUI
 public struct CreateRoutineView: View {
     
     @State private var name = ""
+    @State private var routineDescription = ""
     
     public init() {}
     
     public var body: some View {
         Form {
             TextField("Name", text: $name)
+            TextField("Description", text: $routineDescription)
         }
             .navigationTitle("1")
         

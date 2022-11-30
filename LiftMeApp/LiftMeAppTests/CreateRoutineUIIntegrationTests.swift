@@ -43,6 +43,14 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
         XCTAssertNoThrow(try sut.inspect().find(text: "Name"))
     }
     
+    
+    
+    func test_createRoutineView_init_displaysDescriptionTextField() throws {
+        
+        // given/when
+        let sut = makeSUT()
+        
+        XCTAssertNoThrow(try sut.inspect().find(text: "Description"))
     }
     
     
