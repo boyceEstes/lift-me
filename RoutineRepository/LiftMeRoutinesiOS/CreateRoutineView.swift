@@ -27,6 +27,11 @@ public struct CreateRoutineView: View {
                         print("Dismiss view")
                     }
                 }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Save") {
+                        print("Save view")
+                    }
+                }
             }
     }
 }

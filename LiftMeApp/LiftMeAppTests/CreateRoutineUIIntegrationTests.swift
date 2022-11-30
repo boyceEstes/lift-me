@@ -65,6 +65,16 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     }
     
     
+    func test_createRoutineView_init_containsSaveButton() throws {
+        
+        // given/when
+        let sut = makeSUT()
+        
+        // then
+        XCTAssertNoThrow(try sut.inspect().find(button: "Save"))
+    }
+    
+    
     func makeSUT() -> CreateRoutineView {
         
         return CreateRoutineView()
