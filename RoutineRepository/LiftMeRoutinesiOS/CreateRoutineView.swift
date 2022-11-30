@@ -9,11 +9,16 @@ import SwiftUI
 
 public struct CreateRoutineView: View {
     
+    @State private var name = ""
+    
     public init() {}
     
     public var body: some View {
-        Text("Create Routine")
+        Form {
+            TextField("Name", text: $name)
+        }
             .navigationTitle("1")
+        
             .toolbar {
                 ToolbarItem {
                     Button("Cancel") {

@@ -13,7 +13,7 @@ import LiftMeRoutinesiOS
 /*
  * TODO: Create Routine displays the correct title
  * TODO: Test that we have correct text in body
- * [ ] - is there a textfield with name as the placeholder?
+ * [x] - is there a textfield with name as the placeholder?
  * [ ] - is there a textfield with desc as the placeholder
  * [x] - does cancel button exist
  * [ ] - Will save save the routine in core data?
@@ -32,16 +32,17 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
         let value = try sut.inspect().text().string()
         XCTAssertEqual(value, expected)
     }
+
     
-    
-    func test_createRoutineView_init_displaysCreateRoutine() {
+    func test_createRoutineView_init_displaysRoutineNameTextField() throws {
         
         // given/when
         let sut = makeSUT()
-        let expectedText = "Create Routine"
         
         // then
-        XCTAssertNoThrow(try sut.inspect().find(text: expectedText))
+        XCTAssertNoThrow(try sut.inspect().find(text: "Name"))
+    }
+    
     }
     
     
