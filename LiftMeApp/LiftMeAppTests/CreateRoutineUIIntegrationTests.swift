@@ -13,6 +13,10 @@ import LiftMeRoutinesiOS
 /*
  * TODO: Create Routine displays the correct title
  * TODO: Test that we have correct text in body
+ * [ ] - is there a textfield with name as the placeholder?
+ * [ ] - is there a textfield with desc as the placeholder
+ * [x] - does cancel button exist
+ * [ ] - Will save save the routine in core data?
  */
 
 extension CreateRoutineView: Inspectable {}
@@ -33,10 +37,27 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     func test_createRoutineView_init_displaysCreateRoutine() {
         
         // given/when
-        let sut = CreateRoutineView()
+        let sut = makeSUT()
         let expectedText = "Create Routine"
         
         // then
         XCTAssertNoThrow(try sut.inspect().find(text: expectedText))
+    }
+    
+    
+    // TODO: Can I test if dismiss is called?
+    func test_createRoutineView_init_containsCancelButton() throws {
+        
+        // given/when
+        let sut = makeSUT()
+        
+        // then
+        XCTAssertNoThrow(try sut.inspect().find(button: "Cancel"))
+    }
+    
+    
+    func makeSUT() -> CreateRoutineView {
+        
+        return CreateRoutineView()
     }
 }

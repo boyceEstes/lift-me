@@ -14,6 +14,13 @@ public struct CreateRoutineView: View {
     public var body: some View {
         Text("Create Routine")
             .navigationTitle("1")
+            .toolbar {
+                ToolbarItem {
+                    Button("Cancel") {
+                        print("Dismiss view")
+                    }
+                }
+            }
     }
 }
 
