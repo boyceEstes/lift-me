@@ -8,11 +8,13 @@
 import SwiftUI
 import NavigationFlow
 import LiftMeRoutinesiOS
+import RoutineRepository
+
 
 class RoutineNavigationViewModel: StackNavigationFlow {
 
     enum StackIdentifier: Hashable {
-        
+
         case createRoutine
     }
     
@@ -24,7 +26,7 @@ class RoutineNavigationViewModel: StackNavigationFlow {
         
         switch identifier {
         case .createRoutine:
-            return RoutineUIComposer.makeCreateRoutine()
+            return RoutineUIComposer().makeCreateRoutine()
         }
     }
 }

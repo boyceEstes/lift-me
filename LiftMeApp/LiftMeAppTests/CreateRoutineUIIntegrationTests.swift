@@ -9,6 +9,8 @@ import XCTest
 import SwiftUI
 import ViewInspector
 import LiftMeRoutinesiOS
+@testable import LiftMeApp
+import RoutineRepository
 
 /*
  * TODO: Create Routine displays the correct title
@@ -67,16 +69,32 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     
     func test_createRoutineView_init_containsSaveButton() throws {
         
-        // given/when
+        // given
         let sut = makeSUT()
         
+        let saveButton = try sut.inspect().find(button: "Save")
+        
+        // when
+        try saveButton.tap()
+        
         // then
-        XCTAssertNoThrow(try sut.inspect().find(button: "Save"))
+        // Save Routine object with name and description that were provided
+        
     }
     
     
     func makeSUT() -> CreateRoutineView {
         
-        return CreateRoutineView()
+        let routineUIComposer = RoutineUIComposerWithSpys()
+        
+        return routineUIComposer.makeCreateRoutine()
+    }
+}
+
+
+class RoutineUIComposerWithSpys: RoutineUIComposer {
+    
+    convenience init() {
+        self.init(routineRepository: RoutineRepositorySpy())
     }
 }

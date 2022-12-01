@@ -263,9 +263,10 @@ class RoutineListUIIntegrationTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy, RoutineNavigationViewModel) {
         
-        let routineNavigationViewModel = RoutineUIComposer.navigationViewModel
-        let routineRepository = RoutineRepositorySpy()
-        let sut = RoutineUIComposer.makeRoutineList(routineRepository: routineRepository)
+        let routineUIComposer = RoutineUIComposerWithSpys()
+        let routineNavigationViewModel = routineUIComposer.navigationViewModel
+        let sut = routineUIComposer.makeRoutineList()
+        let routineRepository: RoutineRepositorySpy = routineUIComposer.routineRepository as! RoutineRepositorySpy
         
         return (sut, routineRepository, routineNavigationViewModel)
     }

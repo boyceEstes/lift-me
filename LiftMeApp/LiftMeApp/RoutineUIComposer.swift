@@ -9,34 +9,51 @@ import Foundation
 import RoutineRepository
 import LiftMeRoutinesiOS
 import NavigationFlow
+import CoreData
 
 
-public final class RoutineUIComposer {
+// Warning: there should only be ONE usage of this implementation in the production app
+// Not static or final so that it can be sublclassed for testing
+public class RoutineUIComposer {
     
-    static let navigationViewModel = RoutineNavigationViewModel()
+    let navigationViewModel = RoutineNavigationViewModel()
+    let routineRepository: RoutineRepository
     
-    private init() {}
-    
-    
-    static func makeRoutineListWithStackNavigation(routineRepository: RoutineRepository) -> StackNavigationView<RoutineListView, RoutineNavigationViewModel> {
+    init(routineRepository: RoutineRepository) {
         
-        return StackNavigationView(stackNavigationViewModel: navigationViewModel, content: makeRoutineList(routineRepository: routineRepository))
+        self.routineRepository = routineRepository
     }
     
     
-    static func makeRoutineList(routineRepository: RoutineRepository) -> RoutineListView {
+    convenience init() {
+        
+        let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("routine-store.sqlite")
+        let bundle = Bundle(for: CoreDataRoutineStore.self)
+        let routineStore = try! CoreDataRoutineStore(storeURL: localStoreURL, bundle: bundle)
+        let routineRepository: RoutineRepository = DispatchQueueMainDecorator(decoratee: LocalRoutineRepository(routineStore: routineStore))
+        self.init(routineRepository: routineRepository)
+    }
+    
+    
+    func makeRoutineListWithStackNavigation() -> StackNavigationView<RoutineListView, RoutineNavigationViewModel> {
+        
+        return StackNavigationView(stackNavigationViewModel: navigationViewModel, content: makeRoutineList())
+    }
+    
+    
+    func makeRoutineList() -> RoutineListView {
         
         let viewModel = RoutineViewModel(routineRepository: routineRepository)
         
         return RoutineListView(viewModel: viewModel) {
-            navigationViewModel.path.append(.createRoutine)
+            self.navigationViewModel.path.append(.createRoutine)
         }
     }
+
     
-    
-    static func makeCreateRoutine() -> CreateRoutineView {
-        
-        return CreateRoutineView()
+    func makeCreateRoutine() -> CreateRoutineView {
+
+        return CreateRoutineView(routineRepository: routineRepository)
     }
 }
 
