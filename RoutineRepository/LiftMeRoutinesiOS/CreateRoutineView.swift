@@ -6,23 +6,30 @@
 //
 
 import SwiftUI
+import RoutineRepository
 
 public struct CreateRoutineView: View {
     
     @State private var name = ""
     @State private var routineDescription = ""
+    let routineRepository: RoutineRepository
     
-    public init() {}
+    
+    public init(routineRepository: RoutineRepository) {
+        
+        self.routineRepository = routineRepository
+    }
+    
     
     public var body: some View {
         Form {
             TextField("Name", text: $name)
             TextField("Description", text: $routineDescription)
         }
-            .navigationTitle("1")
-        
+            .navigationTitle("Create Routine")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem {
+                ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
                         print("Dismiss view")
                     }
@@ -39,7 +46,7 @@ public struct CreateRoutineView: View {
 struct CreateRoutineView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            CreateRoutineView()
+            CreateRoutineView(routineRepository: RoutineRepositoryPreview())
         }
     }
 }
