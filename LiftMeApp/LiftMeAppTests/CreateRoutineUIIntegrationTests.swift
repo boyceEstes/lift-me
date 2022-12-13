@@ -98,11 +98,10 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     
     func makeSUT() -> (CreateRoutineView, RoutineRepositorySpy) {
         
-        
         let routineUIComposer = RoutineUIComposerWithSpys()
         let routineRepository: RoutineRepositorySpy = routineUIComposer.routineRepository as! RoutineRepositorySpy
         
-        let sut = routineUIComposer.makeCreateRoutine()
+        let sut = routineUIComposer.makeCreateRoutineView()
         
         return (sut, routineRepository)
     }

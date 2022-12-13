@@ -43,17 +43,27 @@ public class RoutineUIComposer {
     
     func makeRoutineListWithSheetyNavigation() -> SheetyNavigationView<RoutineListView, RoutineNavigationFlow> {
         
-        return SheetyNavigationView(sheetyNavigationViewModel: navigationFlow, content: makeRoutineListView())
+        let (routineListView, routineListViewModel) = makeRoutineListView()
+        return SheetyNavigationView(
+            sheetyNavigationViewModel: navigationFlow,
+            content: routineListView,
+            onDismiss: {
+                routineListViewModel.loadRoutines()
+            }
+        )
     }
     
     
-    func makeRoutineListView() -> RoutineListView {
+    func makeRoutineListView() -> (RoutineListView, RoutineListViewModel) {
         
-        let viewModel = RoutineListViewModel(routineRepository: routineRepository) {
-            self.navigationFlow.modallyDisplayedView = .createRoutine
-        }
+        let viewModel = RoutineListViewModel(
+            routineRepository: routineRepository,
+            goToCreateRoutine: {
+                self.navigationFlow.modallyDisplayedView = .createRoutine
+            }
+        )
         
-        return RoutineListView(viewModel: viewModel)
+        return (RoutineListView(viewModel: viewModel), viewModel)
     }
     
     

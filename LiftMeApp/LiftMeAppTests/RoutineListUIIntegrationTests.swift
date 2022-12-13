@@ -248,7 +248,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_tapNewButton_navigatesToCreateRoutineView() throws {
         
         // given
-        let (sut, _, routineNavigationViewModel) = makeSUT()
+        let (sut, _, routineNavigationFlow) = makeSUT()
         let button = try sut.inspect().find(button: "New")
         
         // when
@@ -256,19 +256,19 @@ class RoutineListUIIntegrationTests: XCTestCase {
         
         // then
         XCTAssertEqual(
-            routineNavigationViewModel.path.last,
-            RoutineNavigationFlow.StackIdentifier.createRoutine)
+            routineNavigationFlow.modallyDisplayedView,
+            RoutineNavigationFlow.SheetyIdentifier.createRoutine)
     }
 
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy, RoutineNavigationFlow) {
         
         let routineUIComposer = RoutineUIComposerWithSpys()
-        let routineNavigationViewModel = routineUIComposer.navigationViewModel
-        let sut = routineUIComposer.makeRoutineList()
+        let routineNavigationFlow = routineUIComposer.navigationFlow
+        let sut = routineUIComposer.makeRoutineListView().0
         let routineRepository: RoutineRepositorySpy = routineUIComposer.routineRepository as! RoutineRepositorySpy
         
-        return (sut, routineRepository, routineNavigationViewModel)
+        return (sut, routineRepository, routineNavigationFlow)
     }
 }
 

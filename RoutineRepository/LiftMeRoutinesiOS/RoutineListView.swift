@@ -27,7 +27,7 @@ public class RoutineListViewModel: ObservableObject {
     }
     
     
-    func loadRoutines() {
+    public func loadRoutines() {
         routineRepository.loadAllRoutines { [weak self] result in
         
             if self?.firstLoadCompleted == false {
