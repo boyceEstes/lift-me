@@ -64,7 +64,7 @@ public struct CreateRoutineView: View {
     
     
     public var body: some View {
-        NavigationStack {
+        NavigationView {
             Form {
                 TextField(text: $viewModel.name) {
                     Text("Name")
