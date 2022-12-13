@@ -8,45 +8,100 @@
 import SwiftUI
 import RoutineRepository
 
-public struct CreateRoutineView: View {
+
+public class CreateRoutineViewModel: ObservableObject {
     
-    @State private var name = ""
-    @State private var routineDescription = ""
     let routineRepository: RoutineRepository
+    let dismissAction: () -> Void
     
+    @Published var name = ""
+    @Published var desc = ""
     
-    public init(routineRepository: RoutineRepository) {
+    public init(
+        routineRepository: RoutineRepository,
+        dismissAction: @escaping () -> Void
+    ) {
         
         self.routineRepository = routineRepository
+        self.dismissAction = dismissAction
+    }
+    
+    
+    func saveRoutine() {
+        
+        let routine = Routine(
+            id: UUID(),
+            name: name,
+            creationDate: Date(),
+            exercises: [],
+            routineRecords: [])
+        
+        routineRepository.save(routine: routine) { [weak self] error in
+            if error != nil {
+                print("error: \(error!)")
+            }
+            self?.dismissAction()
+        }
+    }
+    
+    
+    func cancelCreateRoutine() {
+        
+        dismissAction()
+    }
+}
+
+
+public struct CreateRoutineView: View {
+    
+    @ObservedObject var viewModel: CreateRoutineViewModel
+    
+    
+    public init(viewModel: CreateRoutineViewModel) {
+        
+        self.viewModel = viewModel
     }
     
     
     public var body: some View {
-        Form {
-            TextField("Name", text: $name)
-            TextField("Description", text: $routineDescription)
-        }
+        NavigationStack {
+            Form {
+                TextField(text: $viewModel.name) {
+                    Text("Name")
+                }
+                
+                TextField(text: $viewModel.desc) {
+                    Text("Description")
+                }
+            }
             .navigationTitle("Create Routine")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
-                        print("Dismiss view")
+                        viewModel.cancelCreateRoutine()
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
-                        print("Save view")
+                        
+                        viewModel.saveRoutine()
                     }
                 }
             }
+        }
+        
     }
 }
 
+
 struct CreateRoutineView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            CreateRoutineView(routineRepository: RoutineRepositoryPreview())
-        }
+        
+        let viewModel = CreateRoutineViewModel(
+            routineRepository: RoutineRepositoryPreview(),
+            dismissAction: { })
+        
+        CreateRoutineView(viewModel: viewModel)
     }
 }

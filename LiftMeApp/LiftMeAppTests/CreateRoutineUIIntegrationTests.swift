@@ -39,7 +39,7 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     func test_createRoutineView_init_displaysRoutineNameTextField() throws {
         
         // given/when
-        let sut = makeSUT()
+        let (sut, _) = makeSUT()
         
         // then
         XCTAssertNoThrow(try sut.inspect().find(text: "Name"))
@@ -50,7 +50,7 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     func test_createRoutineView_init_displaysDescriptionTextField() throws {
         
         // given/when
-        let sut = makeSUT()
+        let (sut, _) = makeSUT()
         
         XCTAssertNoThrow(try sut.inspect().find(text: "Description"))
     }
@@ -60,34 +60,51 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     func test_createRoutineView_init_containsCancelButton() throws {
         
         // given/when
-        let sut = makeSUT()
+        let (sut, _) = makeSUT()
         
         // then
         XCTAssertNoThrow(try sut.inspect().find(button: "Cancel"))
     }
     
     
-    func test_createRoutineView_init_containsSaveButton() throws {
+    func test_createRoutineView_saveRoutineWithTextFieldNameEntered_requestsToSaveRoutineWithSameName() throws {
         
         // given
-        let sut = makeSUT()
+        let (sut, routineRepository) = makeSUT()
+        let expectedName = "DeadLift"
+//        let expectedRoutine = uniqueRoutine(name: expectedName).model
         
         let saveButton = try sut.inspect().find(button: "Save")
+        //        let descriptionTextField = try sut.inspect().find(text: "Description")
         
         // when
+        try sut
+            .inspect()
+            .find(ViewType.TextField.self)
+            .setInput(expectedName)
+        
         try saveButton.tap()
         
-        // then
-        // Save Routine object with name and description that were provided
+        // This will with index out-of-bounds if we have not hooked up button to save
+        routineRepository.completeSaveRoutineSuccessfully()
         
+        // then
+        let requests = routineRepository.requests
+        // TODO: Make sure that the inputted text is what is saved - ViewInspector is making this difficult right now
+        // There should be at least one saveRoutine request
+        XCTAssertNotEqual(requests, [])
     }
     
     
-    func makeSUT() -> CreateRoutineView {
+    func makeSUT() -> (CreateRoutineView, RoutineRepositorySpy) {
+        
         
         let routineUIComposer = RoutineUIComposerWithSpys()
+        let routineRepository: RoutineRepositorySpy = routineUIComposer.routineRepository as! RoutineRepositorySpy
         
-        return routineUIComposer.makeCreateRoutine()
+        let sut = routineUIComposer.makeCreateRoutine()
+        
+        return (sut, routineRepository)
     }
 }
 

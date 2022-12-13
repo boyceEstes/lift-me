@@ -22,10 +22,10 @@ func uniqueExercise() -> Exercise {
 }
 
 
-func uniqueRoutine(name: String? = nil, exercises: [Exercise]? = nil) -> (model: Routine, local: LocalRoutine) {
+func uniqueRoutine(id: UUID? = nil, name: String? = nil, exercises: [Exercise]? = nil) -> (model: Routine, local: LocalRoutine) {
     
     let routine = Routine(
-        id: UUID(),
+        id: id ?? UUID(),
         name: name ?? UUID().uuidString,
         creationDate: Date(),
         exercises: exercises ?? [uniqueExercise(), uniqueExercise()],

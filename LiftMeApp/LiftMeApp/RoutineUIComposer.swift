@@ -16,10 +16,14 @@ import CoreData
 // Not static or final so that it can be sublclassed for testing
 public class RoutineUIComposer {
     
-    let navigationViewModel = RoutineNavigationViewModel()
+    static let shared = RoutineUIComposer()
+    
+    
+    let navigationFlow = RoutineNavigationFlow()
     let routineRepository: RoutineRepository
     
-    init(routineRepository: RoutineRepository) {
+    
+    private init(routineRepository: RoutineRepository) {
         
         self.routineRepository = routineRepository
     }
@@ -35,25 +39,33 @@ public class RoutineUIComposer {
     }
     
     
-    func makeRoutineListWithStackNavigation() -> StackNavigationView<RoutineListView, RoutineNavigationViewModel> {
+    func makeRoutineListWithSheetyNavigation() -> SheetyNavigationView<RoutineListView, RoutineNavigationFlow> {
         
-        return StackNavigationView(stackNavigationViewModel: navigationViewModel, content: makeRoutineList())
+        return SheetyNavigationView(sheetyNavigationViewModel: navigationFlow, content: makeRoutineListView())
     }
     
     
-    func makeRoutineList() -> RoutineListView {
+    func makeRoutineListView() -> RoutineListView {
         
-        let viewModel = RoutineViewModel(routineRepository: routineRepository)
-        
-        return RoutineListView(viewModel: viewModel) {
-            self.navigationViewModel.path.append(.createRoutine)
+        let viewModel = RoutineListViewModel(routineRepository: routineRepository) {
+            self.navigationFlow.modallyDisplayedView = .createRoutine
         }
+        
+        return RoutineListView(viewModel: viewModel)
     }
-
     
-    func makeCreateRoutine() -> CreateRoutineView {
+    
+    func makeCreateRoutineView() -> CreateRoutineView {
 
-        return CreateRoutineView(routineRepository: routineRepository)
+        let viewModel = CreateRoutineViewModel(
+            routineRepository: routineRepository,
+            dismissAction: { [weak self] in
+                print("my dismiss action")
+                self?.navigationFlow.dismiss()
+            }
+        )
+        
+        return CreateRoutineView(viewModel: viewModel)
     }
 }
 

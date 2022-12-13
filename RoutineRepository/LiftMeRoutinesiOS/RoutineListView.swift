@@ -8,17 +8,22 @@
 import RoutineRepository
 import SwiftUI
 
-public class RoutineViewModel: ObservableObject {
+public class RoutineListViewModel: ObservableObject {
     
     let routineRepository: RoutineRepository
+    let goToCreateRoutine: () -> Void
     
     // TODO: Could I make this a future instead since it should only be emitted once
     @Published var firstLoadCompleted = false
     @Published var routineLoadError = false
     @Published var routines = [Routine]()
     
-    public init(routineRepository: RoutineRepository) {
+    
+    public init(routineRepository: RoutineRepository,
+                goToCreateRoutine: @escaping () -> Void
+    ) {
         self.routineRepository = routineRepository
+        self.goToCreateRoutine = goToCreateRoutine
     }
     
     
@@ -40,18 +45,8 @@ public class RoutineViewModel: ObservableObject {
     }
     
     
-    func newRoutine() {
-        let routine = Routine(
-            id: UUID(),
-            name: "Any",
-            creationDate: Date(),
-            exercises: [],
-            routineRecords: []
-        )
-        
-        routineRepository.save(routine: routine) { [weak self] _ in
-            self?.loadRoutines()
-        }
+    func tappedNewButton() {
+        goToCreateRoutine()
     }
 }
 
@@ -110,18 +105,20 @@ public struct RoutineListView: View {
     
     public let inspection = Inspection<Self>()
     
-    @ObservedObject var viewModel: RoutineViewModel
-    let tapNewButtonAction: (() -> Void)?
+    @ObservedObject var viewModel: RoutineListViewModel
     
-    public init(viewModel: RoutineViewModel, tapNewButtonAction: (() -> Void)?) {
+    
+    public init(
+        viewModel: RoutineListViewModel) {
+            
         self.viewModel = viewModel
-        self.tapNewButtonAction = tapNewButtonAction
     }
+    
     
     public var body: some View {
         VStack(alignment: .leading) {
 
-            RoutineTitleBarView(viewModel: viewModel, tapNewButtonAction: tapNewButtonAction)
+            RoutineTitleBarView(viewModel: viewModel)
             
             ScrollableRoutineListView(viewModel: viewModel)
         }
@@ -138,8 +135,7 @@ public struct RoutineListView: View {
 public struct RoutineTitleBarView: View {
     
 
-    @ObservedObject var viewModel: RoutineViewModel
-    let tapNewButtonAction: (() -> Void)?
+    @ObservedObject var viewModel: RoutineListViewModel
     
     public var body: some View {
         
@@ -148,8 +144,9 @@ public struct RoutineTitleBarView: View {
                 
                 RoutineTitleView()
                 
-                NewRoutineButtonView(viewModel: viewModel,
-                                     tapNewButtonAction: tapNewButtonAction)
+                NewRoutineButtonView(
+                    viewModel: viewModel
+                )
             }
             
             Spacer()
@@ -172,12 +169,11 @@ public struct RoutineTitleView: View {
 
 public struct NewRoutineButtonView: View {
     
-    @ObservedObject var viewModel: RoutineViewModel
-    let tapNewButtonAction: (() -> Void)?
+    @ObservedObject var viewModel: RoutineListViewModel
     
     public var body: some View {
         Button {
-            tapNewButtonAction?()
+            viewModel.tappedNewButton()
         } label: {
             HStack {
                 Text("New")
@@ -237,7 +233,7 @@ public struct ErrorRoutineCellView: View {
 
 public struct ScrollableRoutineListView: View {
     
-    @ObservedObject var viewModel: RoutineViewModel
+    @ObservedObject var viewModel: RoutineListViewModel
     
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -275,10 +271,12 @@ struct RoutineListView_Previews: PreviewProvider {
     static var previews: some View {
         
         RoutineListView(
-            viewModel: RoutineViewModel(
-                routineRepository: RoutineRepositoryPreview()),
-            tapNewButtonAction: { print("This is a preview") })
-            .preferredColorScheme(.dark)
+            viewModel: RoutineListViewModel(
+                routineRepository: RoutineRepositoryPreview(),
+                goToCreateRoutine: { }
+            )
+        )
+        .preferredColorScheme(.dark)
     }
 }
 
@@ -288,6 +286,7 @@ class RoutineRepositoryPreview: RoutineRepository {
     func save(routine: Routine, completion: @escaping SaveRoutineCompletion) {
         completion(nil)
     }
+    
     
     func loadAllRoutines(completion: @escaping LoadAllRoutinesCompletion) {
         

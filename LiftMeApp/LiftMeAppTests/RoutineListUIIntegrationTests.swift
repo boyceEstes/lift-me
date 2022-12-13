@@ -257,11 +257,11 @@ class RoutineListUIIntegrationTests: XCTestCase {
         // then
         XCTAssertEqual(
             routineNavigationViewModel.path.last,
-            RoutineNavigationViewModel.StackIdentifier.createRoutine)
+            RoutineNavigationFlow.StackIdentifier.createRoutine)
     }
 
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy, RoutineNavigationViewModel) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy, RoutineNavigationFlow) {
         
         let routineUIComposer = RoutineUIComposerWithSpys()
         let routineNavigationViewModel = routineUIComposer.navigationViewModel
@@ -276,7 +276,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
 class RoutineRepositorySpy: RoutineRepository {
     
     enum ReceivedMessage: Equatable {
-        case saveRoutine
+        case saveRoutine(Routine)
         case loadAllRoutines
     }
     
@@ -286,7 +286,7 @@ class RoutineRepositorySpy: RoutineRepository {
     
     
     func save(routine: Routine, completion: @escaping SaveRoutineCompletion) {
-        requests.append(.saveRoutine)
+        requests.append(.saveRoutine(routine))
         saveRoutineCompletions.append(completion)
     }
     
