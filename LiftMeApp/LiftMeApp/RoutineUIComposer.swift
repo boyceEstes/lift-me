@@ -16,14 +16,16 @@ import CoreData
 // Not static or final so that it can be sublclassed for testing
 public class RoutineUIComposer {
     
-    static let shared = RoutineUIComposer()
+//    static let shared = RoutineUIComposer()
     
-    
-    let navigationFlow = RoutineNavigationFlow()
     let routineRepository: RoutineRepository
     
+    lazy var navigationFlow: RoutineNavigationFlow = {
+        return RoutineNavigationFlow(routineUIComposer: self)
+    }()
     
-    private init(routineRepository: RoutineRepository) {
+    
+    init(routineRepository: RoutineRepository) {
         
         self.routineRepository = routineRepository
     }

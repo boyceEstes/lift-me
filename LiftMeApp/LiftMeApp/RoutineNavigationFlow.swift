@@ -21,6 +21,15 @@ class RoutineNavigationFlow: SheetyNavigationFlow {
     }
     
     
+    let routineUIComposer: RoutineUIComposer
+    
+    
+    init(routineUIComposer: RoutineUIComposer) {
+        
+        self.routineUIComposer = routineUIComposer
+    }
+    
+    
     @Published var modallyDisplayedView: SheetyIdentifier? = nil {
         willSet {
             print("current: \(modallyDisplayedView), new: \(newValue)")
@@ -33,7 +42,7 @@ class RoutineNavigationFlow: SheetyNavigationFlow {
         switch identifier {
         case .createRoutine:
             print("Create routine from navigation flow")
-            return RoutineUIComposer.shared.makeCreateRoutineView()
+            return routineUIComposer.makeCreateRoutineView()
         }
     }
 }
