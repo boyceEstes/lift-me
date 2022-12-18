@@ -30,13 +30,9 @@
 		B3D29C0828F1EE92006CC77D /* ExerciseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0728F1EE92006CC77D /* ExerciseRecord.swift */; };
 		B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0928F1EEED006CC77D /* SetRecord.swift */; };
 		B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0B28F1EF4F006CC77D /* Tag.swift */; };
-		B3D29C0E28F1F077006CC77D /* RoutineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0D28F1F077006CC77D /* RoutineRepository.swift */; };
 		B3D29C2528F4FB34006CC77D /* RoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C2428F4FB34006CC77D /* RoutineStore.swift */; };
 		B3D29C3028F50236006CC77D /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
-		B3D29C3728F502C7006CC77D /* SaveRoutineUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */; };
-		B3D29C3928F503B7006CC77D /* RoutineStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */; };
 		B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
-		B3D29C6128F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6028F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift */; };
 		B3D29C6328F517EA006CC77D /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B3D29C6728F66B73006CC77D /* CoreDataRoutineStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests.swift */; };
 		B3D29C6A28F71A3F006CC77D /* RoutineStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */; };
@@ -92,13 +88,9 @@
 		B3D29C0728F1EE92006CC77D /* ExerciseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecord.swift; sourceTree = "<group>"; };
 		B3D29C0928F1EEED006CC77D /* SetRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRecord.swift; sourceTree = "<group>"; };
 		B3D29C0B28F1EF4F006CC77D /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
-		B3D29C0D28F1F077006CC77D /* RoutineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRepository.swift; sourceTree = "<group>"; };
 		B3D29C2428F4FB34006CC77D /* RoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStore.swift; sourceTree = "<group>"; };
 		B3D29C2C28F50236006CC77D /* RoutineRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutineRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoutineUseCaseTests.swift; sourceTree = "<group>"; };
-		B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStoreSpy.swift; sourceTree = "<group>"; };
 		B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+TrackForMemoryLeaks.swift"; sourceTree = "<group>"; };
-		B3D29C6028F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAllRoutinesUseCaseTests.swift; sourceTree = "<group>"; };
 		B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
 		B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRoutineStoreTests.swift; sourceTree = "<group>"; };
 		B3D29C6928F71A3F006CC77D /* RoutineStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoutineStore.xcdatamodel; sourceTree = "<group>"; };
@@ -222,7 +214,6 @@
 				B3D29C0728F1EE92006CC77D /* ExerciseRecord.swift */,
 				B3D29C0928F1EEED006CC77D /* SetRecord.swift */,
 				B3D29C0B28F1EF4F006CC77D /* Tag.swift */,
-				B3D29C0D28F1F077006CC77D /* RoutineRepository.swift */,
 			);
 			path = "Routine Repository Feature";
 			sourceTree = "<group>";
@@ -239,10 +230,7 @@
 		B3D29C2D28F50236006CC77D /* RoutineRepositoryTests */ = {
 			isa = PBXGroup;
 			children = (
-				B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */,
-				B3D29C3828F503B7006CC77D /* RoutineStoreSpy.swift */,
 				B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */,
-				B3D29C6028F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift */,
 				B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */,
 				B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests.swift */,
 			);
@@ -504,7 +492,6 @@
 			files = (
 				B3D29C7028F86C16006CC77D /* ManagedRoutine.swift in Sources */,
 				B3D29C2528F4FB34006CC77D /* RoutineStore.swift in Sources */,
-				B3D29C0E28F1F077006CC77D /* RoutineRepository.swift in Sources */,
 				B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */,
 				B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */,
 				B3D29C0628F1EE3B006CC77D /* Exercise.swift in Sources */,
@@ -522,11 +509,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3D29C3728F502C7006CC77D /* SaveRoutineUseCaseTests.swift in Sources */,
-				B3D29C3928F503B7006CC77D /* RoutineStoreSpy.swift in Sources */,
 				B3D29C6328F517EA006CC77D /* SharedTestHelpers.swift in Sources */,
 				B3D29C6728F66B73006CC77D /* CoreDataRoutineStoreTests.swift in Sources */,
-				B3D29C6128F515F7006CC77D /* LoadAllRoutinesUseCaseTests.swift in Sources */,
 				B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 				B3D29C6D28F7B787006CC77D /* RoutineStore.xcdatamodeld in Sources */,
 			);

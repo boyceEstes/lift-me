@@ -321,7 +321,7 @@ class RoutineStoreSpy: RoutineStore {
 //    }
     
     
-    func create(_ routine: Routine, completion: @escaping CreateRoutineCompletion) {
+    func createUniqueRoutine(_ routine: Routine, completion: @escaping CreateRoutineCompletion) {
         requests.append(.saveRoutine(routine))
         saveRoutineCompletions.append(completion)
     }

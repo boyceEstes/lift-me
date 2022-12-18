@@ -32,7 +32,7 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
     }
     
 
-    func test_localRoutineRepository_emptyCache_deliversNoItems() {
+    func test_localRoutineStore_emptyCache_deliversNoItems() {
         
         let sut = makeSUT()
         
@@ -40,12 +40,12 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
     }
     
     
-    func test_localRoutineRepository_saveAndLoadOnDifferentInstances_deliversSavedItems() {
+    func test_localRoutineStore_saveAndLoadOnDifferentInstances_deliversSavedItems() {
         
         let sutToPerformSave = makeSUT()
         let sutToPerformLoad = makeSUT()
         
-        let routine = uniqueRoutine(exercises: []).model // This does not take exercises in consideration
+        let routine = uniqueRoutine(exercises: []) // This does not take exercises in consideration
 
         XCTAssertNil(save(routine, on: sutToPerformSave))
         
@@ -53,29 +53,30 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
     }
     
     
-    func test_localRoutineRepository_saveAndSaveRoutineWithSameNameOnDifferentInstances_deliversSameNameError() {
+    func test_localRoutineStore_saveAndSaveRoutineWithSameNameOnDifferentInstances_deliversSameNameError() {
         
         let sutToPerformSave1 = makeSUT()
         let sutToPerformSave2 = makeSUT()
         let sutToPerformLoad = makeSUT()
         
-        let routine = uniqueRoutine(name: "AnyName", exercises: []).model
+        let routine = uniqueRoutine(name: "AnyName", exercises: [])
         
         XCTAssertNil(save(routine, on: sutToPerformSave1))
-        XCTAssertEqual(save(routine, on: sutToPerformSave2) as NSError?, LocalRoutineRepository.Error.routineWithNameAlreadyExists as NSError)
+        let saveError = save(routine, on: sutToPerformSave2)
+        XCTAssertEqual(saveError as NSError?, CoreDataRoutineStore.Error.routineWithNameAlreadyExists as NSError, "Expected same name error, but got \(String(describing: saveError)) instead")
         
         expect(sutToPerformLoad, toCompleteWith: .success([routine]))
     }
     
     
-    func test_localRoutineRepository_saveAndSaveRoutineWithNoMatchingRoutine_deliversBothSavedRoutines() {
+    func test_localRoutineStore_saveAndSaveRoutineWithNoMatchingRoutine_deliversBothSavedRoutines() {
         
         let sutToPerformSave1 = makeSUT()
         let sutToPerformSave2 = makeSUT()
         let sutToPerformLoad = makeSUT()
         
-        let routine1 = uniqueRoutine(exercises: []).model
-        let routine2 = uniqueRoutine(exercises: []).model
+        let routine1 = uniqueRoutine(exercises: [])
+        let routine2 = uniqueRoutine(exercises: [])
         
         XCTAssertNil(save(routine1, on: sutToPerformSave1))
         XCTAssertNil(save(routine2, on: sutToPerformSave2))
@@ -84,43 +85,42 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
     }
     
     
-    
     // MARK: - Helpers
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> LocalRoutineRepository {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> RoutineStore {
         
         let storeURL = specificTestStoreURL()
         let bundle = Bundle(for: CoreDataRoutineStore.self)
         let routineStore = try! CoreDataRoutineStore(storeURL: storeURL, bundle: bundle)
-        let localRoutineRepository = LocalRoutineRepository(routineStore: routineStore)
+//        let localRoutineRepository = LocalRoutineRepository(routineStore: routineStore)
         trackForMemoryLeaks(routineStore)
-        trackForMemoryLeaks(localRoutineRepository)
-        return localRoutineRepository
+//        trackForMemoryLeaks(localRoutineRepository)
+        return routineStore
     }
     
     
     @discardableResult
-    private func save(_ routine: Routine, on sut: LocalRoutineRepository, file: StaticString = #file, line: UInt = #line) -> Error? {
+    private func save(_ routine: Routine, on sut: RoutineStore, file: StaticString = #file, line: UInt = #line) -> Error? {
         
         let expSave = expectation(description: "Wait for save routine completion")
         
         var receivedError: Error?
-        sut.save(routine: routine) { error in
+        sut.createUniqueRoutine(routine) { error in
             receivedError = error
             expSave.fulfill()
         }
-        
+
         wait(for: [expSave], timeout: 1)
         
         return receivedError
     }
     
     
-    private func expect(_ sut: LocalRoutineRepository, toCompleteWith expectedResult: RoutineRepository.LoadAllRoutinesResult, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: RoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
         
         let expLoad = expectation(description: "Wait for loadAllRoutines completion")
         
-        sut.loadAllRoutines { result in
+        sut.readAllRoutines { result in
             switch (result, expectedResult) {
             case let (.success(routines), .success(expectedRoutines)):
                 XCTAssertEqual(routines, expectedRoutines, file: file, line: line)

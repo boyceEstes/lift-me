@@ -18,6 +18,12 @@ public class CoreDataRoutineStore: RoutineStore {
         context = container.newBackgroundContext()
     }
     
+    
+    public enum Error: Swift.Error {
+        case routineWithNameAlreadyExists
+    }
+    
+    
     // Any and all functions that you want
     public func readAllRoutines(completion: @escaping RoutineStore.ReadRoutinesCompletion) {
         
@@ -47,7 +53,7 @@ public class CoreDataRoutineStore: RoutineStore {
     }
     
     
-    public func create(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
+    private func create(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
         
         let context = context
         context.perform {
@@ -56,7 +62,33 @@ public class CoreDataRoutineStore: RoutineStore {
                 try context.save()
                 completion(nil)
             } catch {
+                
                 completion(error)
+            }
+        }
+    }
+    
+    
+    public func createUniqueRoutine(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
+        
+        readRoutines(with: routine.name, or: []) { [weak self] result in
+            switch result {
+            case let .success(routines):
+                
+                if !routines.isEmpty {
+                    completion(Error.routineWithNameAlreadyExists)
+                    return
+                }
+                
+                self?.create(routine) { error in
+                    // if it is successful, deliver nil - otherwise deliver error
+                    completion(error)
+                    return
+                }
+                
+            case let .failure(error):
+                completion(error)
+                return
             }
         }
     }

@@ -283,7 +283,7 @@ struct RoutineListView_Previews: PreviewProvider {
 
 class RoutineStorePreview: RoutineStore {
 
-    func create(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
+    func createUniqueRoutine(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
         completion(nil)
     }
     

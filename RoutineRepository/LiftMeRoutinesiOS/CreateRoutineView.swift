@@ -36,7 +36,7 @@ public class CreateRoutineViewModel: ObservableObject {
             exercises: [],
             routineRecords: [])
         
-        routineStore.create(routine) { [weak self] error in
+        routineStore.createUniqueRoutine(routine) { [weak self] error in
             if error != nil {
                 print("error: \(error!)")
             }

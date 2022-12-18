@@ -10,9 +10,9 @@ import RoutineRepository
 
 extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
 
-    func create(_ routine: Routine, completion: @escaping CreateRoutineCompletion) {
+    func createUniqueRoutine(_ routine: Routine, completion: @escaping CreateRoutineCompletion) {
         
-        decoratee.create(routine) { [weak self] error in
+        decoratee.createUniqueRoutine(routine) { [weak self] error in
             self?.dispatch {
                 completion(error)
             }
