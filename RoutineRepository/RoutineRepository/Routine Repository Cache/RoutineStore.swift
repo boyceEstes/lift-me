@@ -17,7 +17,5 @@ public protocol RoutineStore {
     typealias CreateRoutineCompletion = (CreateRoutineResult) -> Void
     
     func createUniqueRoutine(_ routine: Routine, completion: @escaping CreateRoutineCompletion)
-    // fetch routines with the given name or exercises
-    func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion)
     func readAllRoutines(completion: @escaping ReadRoutinesCompletion)
 }

@@ -39,7 +39,7 @@ public class CoreDataRoutineStore: RoutineStore {
     }
     
     
-    public func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
+    private func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
         
         let context = context
         context.perform {
