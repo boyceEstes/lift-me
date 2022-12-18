@@ -30,7 +30,7 @@ extension ManagedRoutine {
     }
     
     
-    public static func findRoutines(with name: String, or exercises: [LocalExercise], in context: NSManagedObjectContext) throws ->  [ManagedRoutine] {
+    public static func findRoutines(with name: String, or exercises: [Exercise], in context: NSManagedObjectContext) throws ->  [ManagedRoutine] {
         
         let request = ManagedRoutine.fetchRequest
         request.returnsObjectsAsFaults = false
@@ -42,7 +42,7 @@ extension ManagedRoutine {
     }
     
     
-    public static func create(_ routine: LocalRoutine, in context: NSManagedObjectContext) {
+    public static func create(_ routine: Routine, in context: NSManagedObjectContext) {
         
         let managedRoutine = ManagedRoutine(context: context)
         managedRoutine.id = routine.id
@@ -64,7 +64,7 @@ extension ManagedRoutine: Identifiable {}
 
 
 
-private extension Array where Element == LocalRoutineRecord {
+private extension Array where Element == RoutineRecord {
 
     func toManaged(for routine: ManagedRoutine, in context: NSManagedObjectContext) -> Set<ManagedRoutineRecord> {
         

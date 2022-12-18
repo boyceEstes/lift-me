@@ -18,6 +18,7 @@ public struct Routine: Equatable, Hashable {
     public let routineRecords: [RoutineRecord]
     
     public init(id: UUID, name: String, creationDate: Date, exercises: [Exercise], routineRecords: [RoutineRecord]) {
+        
         self.id = id
         self.name = name
         self.creationDate = creationDate

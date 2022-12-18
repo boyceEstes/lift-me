@@ -10,14 +10,14 @@ import Foundation
 
 public protocol RoutineStore {
     
-    typealias ReadRoutinesResult = Result<[LocalRoutine], Error>
+    typealias ReadRoutinesResult = Result<[Routine], Error>
     typealias CreateRoutineResult = Error?
     
     typealias ReadRoutinesCompletion = (ReadRoutinesResult) -> Void
     typealias CreateRoutineCompletion = (CreateRoutineResult) -> Void
     
-    func create(_ routine: LocalRoutine, completion: @escaping CreateRoutineCompletion)
+    func create(_ routine: Routine, completion: @escaping CreateRoutineCompletion)
     // fetch routines with the given name or exercises
-    func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutinesCompletion)
+    func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion)
     func readAllRoutines(completion: @escaping ReadRoutinesCompletion)
 }

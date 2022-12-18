@@ -96,14 +96,14 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     }
     
     
-    func makeSUT() -> (CreateRoutineView, RoutineRepositorySpy) {
+    func makeSUT() -> (CreateRoutineView, RoutineStoreSpy) {
         
         let routineUIComposer = RoutineUIComposerWithSpys()
-        let routineRepository: RoutineRepositorySpy = routineUIComposer.routineRepository as! RoutineRepositorySpy
+        let routineStore: RoutineStoreSpy = routineUIComposer.routineStore as! RoutineStoreSpy
         
         let sut = routineUIComposer.makeCreateRoutineView()
         
-        return (sut, routineRepository)
+        return (sut, routineStore)
     }
 }
 
@@ -111,6 +111,6 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
 class RoutineUIComposerWithSpys: RoutineUIComposer {
     
     convenience init() {
-        self.init(routineRepository: RoutineRepositorySpy())
+        self.init(routineStore: RoutineStoreSpy())
     }
 }

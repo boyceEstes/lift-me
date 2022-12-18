@@ -33,7 +33,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         let sut = makeSUT()
         
         // TODO: Since we have not implmented ManagedExercises, this uniqueRotuine will have to not have any for now
-        let routine = uniqueRoutine(exercises: []).local
+        let routine = uniqueRoutine(exercises: []).model
         create(routine, into: sut)
         expectReadAllRoutines(on: sut, toCompleteWith: .success([routine]))
     }
@@ -44,7 +44,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         let sut = makeSUT()
         
         // TODO: Since we have not implmented ManagedExercises, this uniqueRotuine will have to not have any for now
-        let routine = uniqueRoutine(exercises: []).local
+        let routine = uniqueRoutine(exercises: []).model
         create(routine, into: sut)
         expectReadAllRoutines(on: sut, toCompleteTwiceWith: .success([routine]))
     }
@@ -54,7 +54,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         let sut = makeSUT()
         
-        let routine = uniqueRoutine(exercises: []).local
+        let routine = uniqueRoutine(exercises: []).model
         let createError = create(routine, into: sut)
         XCTAssertNil(createError, "Creating routine in empty cache delivers error, \(createError!)")
     }
@@ -64,9 +64,9 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         let sut = makeSUT()
         
-        create(uniqueRoutine(exercises: []).local, into: sut)
+        create(uniqueRoutine(exercises: []).model, into: sut)
 
-        let createError = create(uniqueRoutine(exercises: []).local, into: sut)
+        let createError = create(uniqueRoutine(exercises: []).model, into: sut)
         
         XCTAssertNil(createError, "Creating routine in empty cache delivers error, \(createError!)")
     }
@@ -100,7 +100,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         let sut = makeSUT()
         
         let name = "AnyName"
-        let routine = uniqueRoutine(name: name, exercises: []).local
+        let routine = uniqueRoutine(name: name, exercises: []).model
         create(routine, into: sut)
         
         expectReadAllRoutines(with: name, or: [], on: sut, toCompleteWith: .success([routine]))
@@ -111,7 +111,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         let sut = makeSUT()
         
         let name = "AnyName"
-        let routine = uniqueRoutine(name: name, exercises: []).local
+        let routine = uniqueRoutine(name: name, exercises: []).model
         create(routine, into: sut)
         
         expectReadAllRoutines(with: name, or: [], on: sut, toCompleteTwiceWith: .success([routine]))
@@ -125,7 +125,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         let sut = makeSUT()
         
-        let routine = uniqueRoutine().local
+        let routine = uniqueRoutine().model
         create(routine, into: sut)
         
         expectReadAllRoutines(with: "Any", or: [], on: sut, toCompleteWith: .success([]))
@@ -136,7 +136,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         let sut = makeSUT()
         
-        let routine = uniqueRoutine().local
+        let routine = uniqueRoutine().model
         create(routine, into: sut)
         
         expectReadAllRoutines(with: "Any", or: [], on: sut, toCompleteTwiceWith: .success([]))
@@ -160,7 +160,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
      * in the test cases
      */
     @discardableResult
-    private func create(_ routine: LocalRoutine, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateRoutineResult {
+    private func create(_ routine: Routine, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateRoutineResult {
         
         let exp = expectation(description: "Wait for RoutineStore create completion")
         
@@ -206,7 +206,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
     }
     
     
-    private func expectReadAllRoutines(with name: String, or exercises: [LocalExercise], on sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
+    private func expectReadAllRoutines(with name: String, or exercises: [Exercise], on sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
         
         
         let exp = expectation(description: "Wait for RoutineStore read completion")
@@ -228,7 +228,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
     }
     
     
-    private func expectReadAllRoutines(with name: String, or exercises: [LocalExercise], on sut: CoreDataRoutineStore, toCompleteTwiceWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
+    private func expectReadAllRoutines(with name: String, or exercises: [Exercise], on sut: CoreDataRoutineStore, toCompleteTwiceWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
         
         expectReadAllRoutines(with: name, or: exercises, on: sut, toCompleteWith: expectedResult, file: file, line: line)
         expectReadAllRoutines(with: name, or: exercises, on: sut, toCompleteWith: expectedResult, file: file, line: line)

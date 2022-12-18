@@ -27,8 +27,8 @@ class CreateRoutineViewModel: ObservableObject {
     
     @Published var exerciseList = ExerciseRowViewModel.mock
     
-    var selectedExercises: [ExerciseRowViewModel] {
-        exerciseList.filter { $0.selected }
+    func moveExercise(fromOffsets source: IndexSet, toOffset destination: Int) {
+        exerciseList.move(fromOffsets: source, toOffset: destination)
     }
 }
 
@@ -53,19 +53,47 @@ struct CreateRoutineView: View {
                         TextField("Description", text: $routineDesc)
                     }
                     
-                    Section("Exercises") {
-                        ForEach(viewModel.selectedExercises, id: \.self) {
-                            Text($0.name)
+                    Section {
+                        if viewModel.exerciseList.isEmpty {
+                            Text("")
+                        } else {
+                            ForEach(viewModel.exerciseList, id: \.self) {
+                                Text($0.name)
+                            }.onDelete { index in
+                                viewModel.exerciseList.remove(atOffsets: index)
+                            }.onMove(perform: viewModel.moveExercise(fromOffsets:toOffset:))
                         }
-                    }
+                    } header: {
+                        HStack {
+                            Text("Exercises")
+                                .textCase(.uppercase)
+                                .padding(.trailing, 6)
+                            
+                            NavigationLink {
+                                ExerciseSelectionListView()
+                            } label: {
+                                HStack {
+                                    Text("Add")
+                                    Image(systemName: "plus")
+                                }
+                            }
+                            .buttonStyle(HighKeyButtonStyle())
+
+  
+                            Spacer()
+                            EditButton()
+                                .foregroundColor(.universeRed)
+                        }
+                    }.textCase(nil)
+
                     
-                    Section("Exercises Available") {
-                        ForEach($viewModel.exerciseList, id: \.self) { exercise in
-//                            Text(exercise.name)
-                            SelectableExerciseRow(exerciseName: exercise.name.wrappedValue, selected: exercise.selected)
-//                            SelectableExerciseRow(exerciseName: exercise.name, selected: exercise.$selected)
-                        }
-                    }
+//                    Section("Exercises Available") {
+//                        ForEach($viewModel.exerciseList, id: \.self) { exercise in
+////                            Text(exercise.name)
+//                            SelectableExerciseRow(exerciseName: exercise.name.wrappedValue, selected: exercise.selected)
+////                            SelectableExerciseRow(exerciseName: exercise.name, selected: exercise.$selected)
+//                        }
+//                    }
                 }
             }
             .navigationTitle("Create Routine")

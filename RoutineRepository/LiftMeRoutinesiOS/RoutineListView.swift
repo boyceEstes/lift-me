@@ -10,7 +10,7 @@ import SwiftUI
 
 public class RoutineListViewModel: ObservableObject {
     
-    let routineRepository: RoutineRepository
+    let routineStore: RoutineStore
     let goToCreateRoutine: () -> Void
     
     // TODO: Could I make this a future instead since it should only be emitted once
@@ -19,16 +19,16 @@ public class RoutineListViewModel: ObservableObject {
     @Published var routines = [Routine]()
     
     
-    public init(routineRepository: RoutineRepository,
+    public init(routineStore: RoutineStore,
                 goToCreateRoutine: @escaping () -> Void
     ) {
-        self.routineRepository = routineRepository
+        self.routineStore = routineStore
         self.goToCreateRoutine = goToCreateRoutine
     }
     
     
     public func loadRoutines() {
-        routineRepository.loadAllRoutines { [weak self] result in
+        routineStore.readAllRoutines() { [weak self] result in
         
             if self?.firstLoadCompleted == false {
                 self?.firstLoadCompleted = true
@@ -272,7 +272,7 @@ struct RoutineListView_Previews: PreviewProvider {
         
         RoutineListView(
             viewModel: RoutineListViewModel(
-                routineRepository: RoutineRepositoryPreview(),
+                routineStore: RoutineStorePreview(),
                 goToCreateRoutine: { }
             )
         )
@@ -281,14 +281,19 @@ struct RoutineListView_Previews: PreviewProvider {
 }
 
 
-class RoutineRepositoryPreview: RoutineRepository {
-    
-    func save(routine: Routine, completion: @escaping SaveRoutineCompletion) {
+class RoutineStorePreview: RoutineStore {
+
+    func create(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
         completion(nil)
     }
     
     
-    func loadAllRoutines(completion: @escaping LoadAllRoutinesCompletion) {
+    func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
+        completion(.success([]))
+    }
+    
+    
+    func readAllRoutines(completion: @escaping ReadRoutinesCompletion) {
         
         let routine = Routine(
             id: UUID(),
@@ -298,4 +303,5 @@ class RoutineRepositoryPreview: RoutineRepository {
             routineRecords: [])
         completion(.success([routine]))
     }
+
 }

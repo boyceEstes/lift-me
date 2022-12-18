@@ -24,7 +24,7 @@ public class CoreDataRoutineStore: RoutineStore {
         let context = context
         context.perform {
             do {
-                let routines = try ManagedRoutine.findRoutines(in: context).toLocal()
+                let routines = try ManagedRoutine.findRoutines(in: context).toModel()
                 completion(.success(routines))
             } catch {
                 completion(.failure(error))
@@ -33,12 +33,12 @@ public class CoreDataRoutineStore: RoutineStore {
     }
     
     
-    public func readRoutines(with name: String, or exercises: [LocalExercise], completion: @escaping ReadRoutinesCompletion) {
+    public func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
         
         let context = context
         context.perform {
             do {
-                let routines = try ManagedRoutine.findRoutines(with: name, or: exercises, in: context).toLocal()
+                let routines = try ManagedRoutine.findRoutines(with: name, or: exercises, in: context).toModel()
                 completion(.success(routines))
             } catch {
                 completion(.failure(error))
@@ -47,7 +47,7 @@ public class CoreDataRoutineStore: RoutineStore {
     }
     
     
-    public func create(_ routine: LocalRoutine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
+    public func create(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
         
         let context = context
         context.perform {
@@ -93,7 +93,6 @@ private extension NSPersistentContainer {
 
 private extension NSManagedObjectModel {
     
-    
     // Necessary for in-memory caching so that we can avoid ambiguous NSEntityDescription warning during testing
     private static var _model: NSManagedObjectModel?
     
@@ -113,29 +112,29 @@ private extension NSManagedObjectModel {
 
 
 private extension Array where Element == ManagedRoutine {
-    func toLocal() -> [LocalRoutine] {
-        map { $0.toLocal() }
+    func toModel() -> [Routine] {
+        map { $0.toModel() }
     }
 }
 
 
 private extension ManagedRoutine {
     
-    func toLocal() -> LocalRoutine {
-        LocalRoutine(
+    func toModel() -> Routine {
+        Routine(
             id: self.id,
             name: self.name,
             creationDate: self.creationDate,
             exercises: [],
-            routineRecords: self.routineRecords.toLocal())
+            routineRecords: self.routineRecords.toModel())
     }
 }
 
 
 private extension Set where Element == ManagedRoutineRecord {
-    func toLocal() -> [LocalRoutineRecord] {
+    func toModel() -> [RoutineRecord] {
         map {
-            LocalRoutineRecord(
+            RoutineRecord(
                 id: $0.id,
                 creationDate: $0.creationDate,
                 completionDate: $0.completionDate,

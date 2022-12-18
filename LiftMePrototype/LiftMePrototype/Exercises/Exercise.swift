@@ -16,7 +16,30 @@ extension DateFormatter {
     }
 }
 
-struct Exercise: Identifiable {
+
+enum TagType: String, CaseIterable, Identifiable, Equatable {
+    
+    var id: Int { self.hashValue }
+    
+    case back
+    case chest
+    case tricep
+    case bicep
+    case hamstrings
+    case quads
+    case glutes
+}
+
+
+struct Tag: Identifiable {
+    
+    let name: String
+    
+    var id: Int { self.name.hashValue }
+}
+
+
+struct Exercise: Identifiable, Hashable, Equatable {
 
     let id = UUID()
     let name: String
@@ -24,13 +47,15 @@ struct Exercise: Identifiable {
     let lastDoneDate: Date?
     let personalRecord: Int
     let records: [ExerciseRecord]
+    let tags: [TagType]
     
-    init(name: String) {
+    init(name: String, tags: [TagType] = []) {
         self.name = name
         self.description = "This is an exercise that requires dedication, pizzaz, and jazz to complete. Attempt at your own risk"
         self.lastDoneDate = Bool.random() == true ? Date() : nil
         self.personalRecord = Int.random(in: 100..<300)
         self.records = ExerciseRecord.mocks
+        self.tags = tags
     }
     
     var lastDoneDateString: String {
@@ -54,7 +79,7 @@ struct Exercise: Identifiable {
 }
 
 
-struct ExerciseRecord: Identifiable {
+struct ExerciseRecord: Identifiable, Equatable, Hashable {
     
     let id = UUID()
     let dateTime: Date
@@ -85,7 +110,7 @@ struct ExerciseRecord: Identifiable {
 }
 
 
-struct SetRecord: Identifiable {
+struct SetRecord: Identifiable, Equatable, Hashable {
     
     let id = UUID()
     let repCount: Int?

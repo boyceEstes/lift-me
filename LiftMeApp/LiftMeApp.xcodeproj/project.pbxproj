@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		B30E83C1291EB10200A19724 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B30E83C0291EB10200A19724 /* ViewInspector */; };
 		B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */; };
-		B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineRepository.swift */; };
+		B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift */; };
 		B36890F62911F4B000E04957 /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; };
 		B36890F72911F4B000E04957 /* LiftMeRoutinesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B36890F82911F4B000E04957 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F52911F4B000E04957 /* RoutineRepository.framework */; };
@@ -53,7 +53,7 @@
 
 /* Begin PBXFileReference section */
 		B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineUIIntegrationTests.swift; sourceTree = "<group>"; };
-		B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueueMainDecorator+RoutineRepository.swift"; sourceTree = "<group>"; };
+		B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueueMainDecorator+RoutineStore.swift"; sourceTree = "<group>"; };
 		B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36890F52911F4B000E04957 /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMainDecorator.swift; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 			children = (
 				B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */,
 				B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */,
-				B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineRepository.swift */,
+				B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift */,
 				B368912A2913FBA800E04957 /* RoutineUIComposer.swift */,
 				B3F0E28E292FCB9800A5C506 /* RoutineNavigationFlow.swift */,
 				B3A8548E2908D48300F04CC1 /* ContentView.swift */,
@@ -274,7 +274,7 @@
 				B3F0E28F292FCB9800A5C506 /* RoutineNavigationFlow.swift in Sources */,
 				B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */,
 				B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */,
-				B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineRepository.swift in Sources */,
+				B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */,
 				B368912B2913FBA800E04957 /* RoutineUIComposer.swift in Sources */,
 				B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */,
 			);

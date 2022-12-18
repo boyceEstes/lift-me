@@ -11,18 +11,18 @@ import RoutineRepository
 
 public class CreateRoutineViewModel: ObservableObject {
     
-    let routineRepository: RoutineRepository
+    let routineStore: RoutineStore
     let dismissAction: () -> Void
     
     @Published var name = ""
     @Published var desc = ""
     
     public init(
-        routineRepository: RoutineRepository,
+        routineStore: RoutineStore,
         dismissAction: @escaping () -> Void
     ) {
         
-        self.routineRepository = routineRepository
+        self.routineStore = routineStore
         self.dismissAction = dismissAction
     }
     
@@ -36,7 +36,7 @@ public class CreateRoutineViewModel: ObservableObject {
             exercises: [],
             routineRecords: [])
         
-        routineRepository.save(routine: routine) { [weak self] error in
+        routineStore.create(routine) { [weak self] error in
             if error != nil {
                 print("error: \(error!)")
             }
@@ -99,7 +99,7 @@ struct CreateRoutineView_Previews: PreviewProvider {
     static var previews: some View {
         
         let viewModel = CreateRoutineViewModel(
-            routineRepository: RoutineRepositoryPreview(),
+            routineStore: RoutineStorePreview(),
             dismissAction: { })
         
         CreateRoutineView(viewModel: viewModel)

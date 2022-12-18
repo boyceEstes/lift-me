@@ -37,6 +37,20 @@
             BlueprintName = "LiftMeApp"
             ReferencedContainer = "container:LiftMeApp.xcodeproj">
          </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B32CADFE28FF4A2F00B154BD"
+            BuildableName = "LiftMeRoutinesiOS.framework"
+            BlueprintName = "LiftMeRoutinesiOS"
+            ReferencedContainer = "container:../RoutineRepository/RoutineRepository.xcodeproj">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "B3D29BDC28F12746006CC77D"
+            BuildableName = "RoutineRepository.framework"
+            BlueprintName = "RoutineRepository"
+            ReferencedContainer = "container:../RoutineRepository/RoutineRepository.xcodeproj">
+         </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
          <TestableReference

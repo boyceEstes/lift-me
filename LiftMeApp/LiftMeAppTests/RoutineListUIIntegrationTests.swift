@@ -261,19 +261,23 @@ class RoutineListUIIntegrationTests: XCTestCase {
     }
 
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineRepositorySpy, RoutineNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineStoreSpy, RoutineNavigationFlow) {
         
         let routineUIComposer = RoutineUIComposerWithSpys()
         let routineNavigationFlow = routineUIComposer.navigationFlow
         let sut = routineUIComposer.makeRoutineListView().0
-        let routineRepository: RoutineRepositorySpy = routineUIComposer.routineRepository as! RoutineRepositorySpy
+        let routineRepository: RoutineStoreSpy = routineUIComposer.routineStore as! RoutineStoreSpy
         
+//        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
+//        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
+
         return (sut, routineRepository, routineNavigationFlow)
     }
 }
 
 
-class RoutineRepositorySpy: RoutineRepository {
+class RoutineStoreSpy: RoutineStore {
+
     
     enum ReceivedMessage: Equatable {
         case saveRoutine(Routine)
@@ -281,29 +285,56 @@ class RoutineRepositorySpy: RoutineRepository {
     }
     
     private(set) var requests = [ReceivedMessage]()
-    private(set) var loadAllRoutinesCompletions = [LoadAllRoutinesCompletion]()
-    private(set) var saveRoutineCompletions = [SaveRoutineCompletion]()
+    private(set) var loadAllRoutinesCompletions = [RoutineStore.ReadRoutinesCompletion]()//[LoadAllRoutinesCompletion]()
+    private(set) var saveRoutineCompletions = [RoutineStore.CreateRoutineCompletion]()//[SaveRoutineCompletion]()
+//
+//
+//    func save(routine: Routine, completion: @escaping SaveRoutineCompletion) {
+//        requests.append(.saveRoutine(routine))
+//        saveRoutineCompletions.append(completion)
+//    }
+//
+//
+//    func loadAllRoutines(completion: @escaping LoadAllRoutinesCompletion) {
+//        requests.append(.loadAllRoutines)
+//        loadAllRoutinesCompletions.append(completion)
+//    }
+//
+//
+//    func completeRoutineLoading(with routines: [Routine], at index: Int = 0) {
+//        loadAllRoutinesCompletions[index](.success(routines))
+//    }
+//
+//
+//    func completeRoutineLoadingWithNoRoutines(at index: Int = 0) {
+//        loadAllRoutinesCompletions[index](.success([]))
+//    }
+//
+//
+//    func completeRoutineLoading(with error: Error, at index: Int = 0) {
+//        loadAllRoutinesCompletions[index](.failure(error))
+//    }
+//
+//
+//    func completeSaveRoutineSuccessfully(at index: Int = 0) {
+//        saveRoutineCompletions[index](nil)
+//    }
     
     
-    func save(routine: Routine, completion: @escaping SaveRoutineCompletion) {
+    func create(_ routine: Routine, completion: @escaping CreateRoutineCompletion) {
         requests.append(.saveRoutine(routine))
         saveRoutineCompletions.append(completion)
     }
     
     
-    func loadAllRoutines(completion: @escaping LoadAllRoutinesCompletion) {
+    func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
+        // TODO: Fill in if necessary
+    }
+    
+    
+    func readAllRoutines(completion: @escaping ReadRoutinesCompletion) {
         requests.append(.loadAllRoutines)
         loadAllRoutinesCompletions.append(completion)
-    }
-    
-    
-    func completeRoutineLoading(with routines: [Routine], at index: Int = 0) {
-        loadAllRoutinesCompletions[index](.success(routines))
-    }
-    
-    
-    func completeRoutineLoadingWithNoRoutines(at index: Int = 0) {
-        loadAllRoutinesCompletions[index](.success([]))
     }
     
     
@@ -312,7 +343,26 @@ class RoutineRepositorySpy: RoutineRepository {
     }
     
     
+    func completeRoutineLoadingWithNoRoutines(at index: Int = 0) {
+        loadAllRoutinesCompletions[index](.success([]))
+    }
+    
+    
+    func completeRoutineLoading(with routines: [Routine], at index: Int = 0) {
+        loadAllRoutinesCompletions[index](.success(routines))
+    }
+    
+    
     func completeSaveRoutineSuccessfully(at index: Int = 0) {
         saveRoutineCompletions[index](nil)
+    }
+}
+
+
+extension XCTestCase {
+    func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
+        }
     }
 }

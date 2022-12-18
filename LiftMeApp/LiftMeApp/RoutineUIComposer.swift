@@ -16,18 +16,16 @@ import CoreData
 // Not static or final so that it can be sublclassed for testing
 public class RoutineUIComposer {
     
-//    static let shared = RoutineUIComposer()
+    let routineStore: RoutineStore
     
-    let routineRepository: RoutineRepository
-    
-    lazy var navigationFlow: RoutineNavigationFlow = {
+    lazy var navigationFlow: RoutineNavigationFlow = { [unowned self] in
         return RoutineNavigationFlow(routineUIComposer: self)
     }()
     
     
-    init(routineRepository: RoutineRepository) {
+    init(routineStore: RoutineStore) {
         
-        self.routineRepository = routineRepository
+        self.routineStore = routineStore
     }
     
     
@@ -36,8 +34,8 @@ public class RoutineUIComposer {
         let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("routine-store.sqlite")
         let bundle = Bundle(for: CoreDataRoutineStore.self)
         let routineStore = try! CoreDataRoutineStore(storeURL: localStoreURL, bundle: bundle)
-        let routineRepository: RoutineRepository = DispatchQueueMainDecorator(decoratee: LocalRoutineRepository(routineStore: routineStore))
-        self.init(routineRepository: routineRepository)
+        let mainQueueRoutineStore = DispatchQueueMainDecorator<RoutineStore>(decoratee: routineStore)
+        self.init(routineStore: mainQueueRoutineStore)
     }
     
     
@@ -57,7 +55,7 @@ public class RoutineUIComposer {
     func makeRoutineListView() -> (RoutineListView, RoutineListViewModel) {
         
         let viewModel = RoutineListViewModel(
-            routineRepository: routineRepository,
+            routineStore: routineStore,
             goToCreateRoutine: {
                 self.navigationFlow.modallyDisplayedView = .createRoutine
             }
@@ -70,7 +68,7 @@ public class RoutineUIComposer {
     func makeCreateRoutineView() -> CreateRoutineView {
 
         let viewModel = CreateRoutineViewModel(
-            routineRepository: routineRepository,
+            routineStore: routineStore,
             dismissAction: { [weak self] in
                 print("my dismiss action")
                 self?.navigationFlow.dismiss()
