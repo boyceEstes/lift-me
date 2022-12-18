@@ -31,13 +31,6 @@
 		B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0928F1EEED006CC77D /* SetRecord.swift */; };
 		B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0B28F1EF4F006CC77D /* Tag.swift */; };
 		B3D29C0E28F1F077006CC77D /* RoutineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0D28F1F077006CC77D /* RoutineRepository.swift */; };
-		B3D29C1728F4FA3B006CC77D /* LocalRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C1628F4FA3B006CC77D /* LocalRoutine.swift */; };
-		B3D29C1928F4FA5B006CC77D /* LocalRoutineRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C1828F4FA5B006CC77D /* LocalRoutineRecord.swift */; };
-		B3D29C1B28F4FA67006CC77D /* LocalExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C1A28F4FA67006CC77D /* LocalExercise.swift */; };
-		B3D29C1D28F4FA76006CC77D /* LocalExerciseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C1C28F4FA76006CC77D /* LocalExerciseRecord.swift */; };
-		B3D29C1F28F4FA86006CC77D /* LocalSetRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C1E28F4FA86006CC77D /* LocalSetRecord.swift */; };
-		B3D29C2128F4FA95006CC77D /* LocalTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C2028F4FA95006CC77D /* LocalTag.swift */; };
-		B3D29C2328F4FAC8006CC77D /* LocalRoutineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C2228F4FAC8006CC77D /* LocalRoutineRepository.swift */; };
 		B3D29C2528F4FB34006CC77D /* RoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C2428F4FB34006CC77D /* RoutineStore.swift */; };
 		B3D29C3028F50236006CC77D /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
 		B3D29C3728F502C7006CC77D /* SaveRoutineUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */; };
@@ -100,13 +93,6 @@
 		B3D29C0928F1EEED006CC77D /* SetRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRecord.swift; sourceTree = "<group>"; };
 		B3D29C0B28F1EF4F006CC77D /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		B3D29C0D28F1F077006CC77D /* RoutineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRepository.swift; sourceTree = "<group>"; };
-		B3D29C1628F4FA3B006CC77D /* LocalRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoutine.swift; sourceTree = "<group>"; };
-		B3D29C1828F4FA5B006CC77D /* LocalRoutineRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoutineRecord.swift; sourceTree = "<group>"; };
-		B3D29C1A28F4FA67006CC77D /* LocalExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalExercise.swift; sourceTree = "<group>"; };
-		B3D29C1C28F4FA76006CC77D /* LocalExerciseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalExerciseRecord.swift; sourceTree = "<group>"; };
-		B3D29C1E28F4FA86006CC77D /* LocalSetRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalSetRecord.swift; sourceTree = "<group>"; };
-		B3D29C2028F4FA95006CC77D /* LocalTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTag.swift; sourceTree = "<group>"; };
-		B3D29C2228F4FAC8006CC77D /* LocalRoutineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalRoutineRepository.swift; sourceTree = "<group>"; };
 		B3D29C2428F4FB34006CC77D /* RoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStore.swift; sourceTree = "<group>"; };
 		B3D29C2C28F50236006CC77D /* RoutineRepositoryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutineRepositoryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29C3628F502C7006CC77D /* SaveRoutineUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRoutineUseCaseTests.swift; sourceTree = "<group>"; };
@@ -245,13 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				B3D29C7228F8790D006CC77D /* Core Data */,
-				B3D29C1628F4FA3B006CC77D /* LocalRoutine.swift */,
-				B3D29C1828F4FA5B006CC77D /* LocalRoutineRecord.swift */,
-				B3D29C1A28F4FA67006CC77D /* LocalExercise.swift */,
-				B3D29C1C28F4FA76006CC77D /* LocalExerciseRecord.swift */,
-				B3D29C1E28F4FA86006CC77D /* LocalSetRecord.swift */,
-				B3D29C2028F4FA95006CC77D /* LocalTag.swift */,
-				B3D29C2228F4FAC8006CC77D /* LocalRoutineRepository.swift */,
 				B3D29C2428F4FB34006CC77D /* RoutineStore.swift */,
 			);
 			path = "Routine Repository Cache";
@@ -525,22 +504,15 @@
 			files = (
 				B3D29C7028F86C16006CC77D /* ManagedRoutine.swift in Sources */,
 				B3D29C2528F4FB34006CC77D /* RoutineStore.swift in Sources */,
-				B3D29C1F28F4FA86006CC77D /* LocalSetRecord.swift in Sources */,
 				B3D29C0E28F1F077006CC77D /* RoutineRepository.swift in Sources */,
-				B3D29C1928F4FA5B006CC77D /* LocalRoutineRecord.swift in Sources */,
-				B3D29C1D28F4FA76006CC77D /* LocalExerciseRecord.swift in Sources */,
-				B3D29C2328F4FAC8006CC77D /* LocalRoutineRepository.swift in Sources */,
 				B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */,
-				B3D29C2128F4FA95006CC77D /* LocalTag.swift in Sources */,
 				B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */,
 				B3D29C0628F1EE3B006CC77D /* Exercise.swift in Sources */,
 				B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */,
 				B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */,
-				B3D29C1728F4FA3B006CC77D /* LocalRoutine.swift in Sources */,
 				B3D29C7528F879DC006CC77D /* ManagedRoutineRecord.swift in Sources */,
 				B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */,
 				B3D29C0828F1EE92006CC77D /* ExerciseRecord.swift in Sources */,
-				B3D29C1B28F4FA67006CC77D /* LocalExercise.swift in Sources */,
 				B3D29C6A28F71A3F006CC77D /* RoutineStore.xcdatamodeld in Sources */,
 				B3D29C0428F1EDFA006CC77D /* RoutineRecord.swift in Sources */,
 			);

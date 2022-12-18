@@ -125,7 +125,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
         
         // given
         let (sut, routineRepository, _) = makeSUT()
-        let routines = [uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model, uniqueRoutine().model]
+        let routines = [uniqueRoutine(), uniqueRoutine(), uniqueRoutine(), uniqueRoutine()]
         
         let exp = sut.inspection.inspect { sut in
             
