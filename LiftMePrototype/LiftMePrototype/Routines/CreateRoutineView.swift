@@ -84,6 +84,7 @@ struct CreateRoutineView: View {
                             EditButton()
                                 .foregroundColor(.universeRed)
                         }
+                        .font(.headline)
                     }.textCase(nil)
 
                     
@@ -124,8 +125,6 @@ struct CreateRoutineView: View {
             }
         }
     }
-    
-    
 }
 
 

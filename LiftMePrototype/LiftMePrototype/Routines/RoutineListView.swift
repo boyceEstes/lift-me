@@ -36,7 +36,6 @@ struct RoutineListView3: View {
                         CreateRoutineView()
                             .environment(\.editMode, .constant(.active))
                     }
-                    
                 }
                 
                 Spacer()
@@ -52,6 +51,7 @@ struct RoutineListView3: View {
                 .buttonStyle(LowKeyButtonStyle())
             }
             .padding(.horizontal)
+            .padding(.top)
             
             
             ScrollView(.horizontal, showsIndicators: false) {
@@ -71,7 +71,7 @@ struct RoutineListView3: View {
                     .padding(.leading)
                     .frame(height: 160)
             }
-            .background(Color(uiColor: .secondarySystemBackground))
+            .background(Color(uiColor: .tertiarySystemBackground))
         }
     }
 }
@@ -95,7 +95,7 @@ struct RoutineErrorCellView: View {
             .padding()
             .foregroundColor(Color(uiColor: .label))
             .frame(maxWidth: 130, maxHeight: .infinity)
-            .background(Color(uiColor: .tertiarySystemBackground))
+            .background(Color(uiColor: .secondarySystemBackground))
             .cornerRadius(16)
             .shadow(radius: 4)
             .padding(.vertical)
@@ -121,7 +121,7 @@ struct RoutineEmptyCellView: View {
             .padding()
             .foregroundColor(Color(uiColor: .label))
             .frame(width: cellHeight , height: cellHeight)
-            .background(Color(uiColor: .tertiarySystemBackground))
+            .background(Color(uiColor: .secondarySystemBackground))
             .cornerRadius(16)
             .shadow(radius: 4)
             .padding(.vertical)

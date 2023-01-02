@@ -10,9 +10,11 @@ import SwiftUI
 
 struct LowKeyButtonStyle: ButtonStyle {
     
+    @Environment(\.isEnabled) private var isEnabled: Bool
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundColor(Color.universeRed)
+            .foregroundColor(isEnabled ? Color.universeRed : Color.universeRed.opacity(0.5))
     }
 }
 
@@ -61,5 +63,23 @@ struct HighKeyButtonStyle: ButtonStyle {
                 Capsule()
                     .fill(Color.universeRed)
             )
+    }
+}
+
+
+struct HomeButtonStyle: ButtonStyle {
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .fontWeight(.medium)
+            .foregroundColor(Color(uiColor: .white))
+            .padding(4)
+            .padding(.horizontal, 6)
+            .background(
+                Color.universeRed
+//                Capsule()
+//                    .fill(Color.universeRed)
+            )
+            .cornerRadius(8)
     }
 }

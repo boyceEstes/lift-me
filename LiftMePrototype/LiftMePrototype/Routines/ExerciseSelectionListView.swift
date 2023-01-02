@@ -127,14 +127,10 @@ class ExerciseSelectionListViewModel: ObservableObject {
 struct ExerciseSelectionListView: View {
     
 
-    
-    
-
-    
-
     @ObservedObject var viewModel = ExerciseSelectionListViewModel()
     @State private var multiselection = Set<UUID>()
     @State var editMode: EditMode = .active
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         
@@ -171,7 +167,6 @@ struct ExerciseSelectionListView: View {
                     
                 }
             }
-            
         }
         .onAppear() {
             viewModel.filterExercises()
@@ -187,13 +182,29 @@ struct ExerciseSelectionListView: View {
             .searchable(text: $viewModel.filterExerciseText, placement: .navigationBarDrawer(displayMode: .always))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                    AddButton(selectedExercises: multiselection, dismiss: {
+                        dismiss()
+                    })
+                        .buttonStyle(LowKeyButtonStyle())
                 }
             }
             .environment(\.editMode, $editMode)
-        
     }
-        
+}
+
+
+struct AddButton: View {
+    
+    let selectedExercises: Set<UUID>
+    let dismiss: (() -> Void)?
+    
+    var body: some View {
+        Button("Add (\(selectedExercises.count))") {
+            print("add however many")
+            dismiss?()
+        }
+        .disabled(selectedExercises.isEmpty ? true : false)
+    }
 }
 
 

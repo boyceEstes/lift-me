@@ -13,10 +13,47 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                RoutineListView3()
+                VStack(alignment: .leading, spacing: 20) {
+                    CustomRoutineContainerView()
+                        .padding(.top)
+                    
+                    VStack {
+                        RoutineListView3()
+                    }
+                    .background(Color(uiColor: .secondarySystemBackground))
+                    .cornerRadius(8)
+                    Spacer()
+                }
             }
-            .navigationTitle("Home")
+            .navigationTitle(Text("Home"))
+            .toolbarColorScheme(.dark, for: .automatic)
+            .toolbarBackground(Color(uiColor: .universeRedLight), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
+    }
+}
+
+
+struct CustomRoutineContainerView: View {
+    
+    var body: some View {
+        
+        NavigationLink {
+            CreateRoutineView()
+        } label: {
+            Text("Custom Routine")
+        }
+        .frame(maxWidth: .infinity, maxHeight: 35)
+        .padding(.horizontal, 6)
+        .padding(.vertical, 4)
+        .fontWeight(.medium)
+        .foregroundColor(Color(uiColor: .white))
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+            .fill(Color.universeRed)
+        )
+        .padding(.horizontal)
+        
     }
 }
 
