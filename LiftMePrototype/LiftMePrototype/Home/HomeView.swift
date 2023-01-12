@@ -39,7 +39,7 @@ struct CustomRoutineContainerView: View {
     var body: some View {
         
         NavigationLink {
-            CreateRoutineView()
+            WorkoutView()
         } label: {
             Text("Custom Routine")
         }
