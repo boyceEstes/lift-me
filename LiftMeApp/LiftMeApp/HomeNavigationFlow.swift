@@ -18,6 +18,7 @@ class HomeNavigationFlow: SheetyNavigationFlow {
         var id: Int { self.hashValue }
 
         case createRoutine
+        case workout
     }
     
     
@@ -39,10 +40,15 @@ class HomeNavigationFlow: SheetyNavigationFlow {
     
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
         
-        switch identifier {
-        case .createRoutine:
-            print("Create routine from navigation flow")
-            return routineUIComposer.makeCreateRoutineView()
+        Group {
+            switch identifier {
+                
+            case .createRoutine:
+                routineUIComposer.makeCreateRoutineView()
+                
+            case .workout:
+                routineUIComposer.makeWorkoutView()
+            }
         }
     }
 }

@@ -38,20 +38,31 @@ public class HomeUIComposer {
         self.init(routineStore: mainQueueRoutineStore)
     }
     
-    
-//    func makeHomeViewWithStackNavigation() -> StackNavigationView<HomeView, HomeNavigationFlow> {
-//
-//        let homeView = makeHomeView()
-//        return StackNavigationView(
-//            stackNavigationViewModel: navigationFlow,
-//            content: homeView
-//        )
-//    }
+
+    func makeHomeViewWithSheetyNavigation() -> SheetyNavigationView<HomeView, HomeNavigationFlow> {
+
+        let homeView = makeHomeView()
+        
+        return SheetyNavigationView(
+            sheetyNavigationViewModel: navigationFlow,
+            content: homeView
+        )
+    }
     
     
     func makeHomeView() -> HomeView {
         
-        return HomeView()
+        return HomeView(
+            goToWorkout: {
+                self.navigationFlow.modallyDisplayedView = .workout
+            }
+        )
+    }
+    
+    
+    func makeWorkoutView() -> WorkoutView {
+        
+        return WorkoutView()
     }
     
     

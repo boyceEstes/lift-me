@@ -27,23 +27,32 @@ final class HomeViewUIIntegrationTests: XCTestCase {
     }
     
     
-    func test_homeView_init_displaysTappableCustomRoutineButton() {
+    func test_homeView_tapNewButton_navigatesToCreateRoutineView() throws {
         
-        let sut = makeSUT().view
-        XCTAssertNoThrow(try sut.inspect().find(button: "Custom Routine"))
+        // given
+        let (sut, homeNavigationFlow) = makeSUT()
+        let button = try sut.inspect().find(button: "Custom Routine")
+        
+        // when
+        try button.tap()
+        
+        // then
+        XCTAssertEqual(
+            homeNavigationFlow.modallyDisplayedView,
+            HomeNavigationFlow.SheetyIdentifier.workout
+        )
     }
     
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: HomeView, routineStore: RoutineStoreSpy, navigationFlow: HomeNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: HomeView, navigationFlow: HomeNavigationFlow) {
         
         let homeUIComposer = HomeUIComposerWithSpys()
         let routineNavigationFlow = homeUIComposer.navigationFlow
         let sut = homeUIComposer.makeHomeView()
-        let routineRepository: RoutineStoreSpy = homeUIComposer.routineStore as! RoutineStoreSpy
         
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, routineRepository, routineNavigationFlow)
+        return (sut, routineNavigationFlow)
     }
 }

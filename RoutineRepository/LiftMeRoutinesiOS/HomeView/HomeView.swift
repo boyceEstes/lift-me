@@ -9,15 +9,21 @@ import SwiftUI
 
 public struct HomeView: View {
     
-    public init() {}
+    let goToWorkout: () -> Void
+    
+    
+    public init(goToWorkout: @escaping () -> Void) {
+        
+        self.goToWorkout = goToWorkout
+    }
+    
     
     public var body: some View {
         
         VStack {
             
             Button {
-                // go to next view
-                print("Go to custom routine")
+                goToWorkout()
             } label: {
                 Text("Custom Routine")
             }
@@ -40,6 +46,6 @@ public struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(goToWorkout: { })
     }
 }
