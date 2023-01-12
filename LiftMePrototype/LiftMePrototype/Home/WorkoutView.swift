@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WorkoutView: View {
     
-    let allExercises: [Exercise] = [
+    public let allExercises: [Exercise] = [
         Exercise(name: "Deadlift", tags: [.back]),
         Exercise(name: "Bench press", tags: [.chest])
 //        Exercise(name: "Squat", tags: [.glutes, .quads, .hamstrings]),
@@ -33,9 +33,6 @@ struct WorkoutView: View {
     
     
     var body: some View {
-        
-//        VStack(alignment: .leading) {
-            
 
             List {
                 
