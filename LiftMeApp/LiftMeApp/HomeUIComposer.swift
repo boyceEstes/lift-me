@@ -19,7 +19,7 @@ public class HomeUIComposer {
     let routineStore: RoutineStore
     
     lazy var navigationFlow: HomeNavigationFlow = { [unowned self] in
-        return HomeNavigationFlow(routineUIComposer: self)
+        return HomeNavigationFlow(homeUIComposer: self)
     }()
     
     
@@ -59,10 +59,31 @@ public class HomeUIComposer {
         )
     }
     
+    // I'm going to need a new NavigationFlow for the workout since I want it to stay up whne it presents its own sheet
+    func makeWorkoutViewWithSheetyNavigation() -> SheetyNavigationView<WorkoutView, HomeNavigationFlow> {
+        
+        let workoutView = makeWorkoutView()
+        
+        return SheetyNavigationView(
+            sheetyNavigationViewModel: navigationFlow,
+            content: workoutView
+        )
+    }
+    
     
     func makeWorkoutView() -> WorkoutView {
         
-        return WorkoutView()
+        return WorkoutView(
+            goToAddExercise: {
+                self.navigationFlow.modallyDisplayedView = .addExercise
+            }
+        )
+    }
+    
+    
+    func makeAddExerciseView() -> AddExerciseView {
+        
+        return AddExerciseView()
     }
     
     

@@ -46,6 +46,24 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
         XCTAssertNoThrow(try sut.inspect().find(text: "Try adding an exercise!"))
     }
     
+    
+    
+    func test_workoutView_tapAddButton_navigatesToAddExerciseView() throws {
+
+        // given
+        let (sut, homeNavigationFlow) = makeSUT()
+        let button = try sut.inspect().find(viewWithId: "add-exercise-button").button()
+
+        // when
+        try button.tap()
+
+        // then
+        XCTAssertEqual(
+            homeNavigationFlow.modallyDisplayedView,
+            HomeNavigationFlow.SheetyIdentifier.addExercise
+        )
+    }
+
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, navigationFlow: HomeNavigationFlow) {
 

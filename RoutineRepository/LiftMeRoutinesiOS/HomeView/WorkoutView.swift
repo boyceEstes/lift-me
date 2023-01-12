@@ -10,9 +10,12 @@ import RoutineRepository
 
 public struct WorkoutView: View {
     
-    public init() {}
+    public init(goToAddExercise: @escaping () -> Void) {
+        self.goToAddExercise = goToAddExercise
+    }
     
     let allExercises: [Exercise] = []
+    let goToAddExercise: () -> Void
     
     public var body: some View {
         List {
@@ -32,7 +35,7 @@ public struct WorkoutView: View {
                         .padding(.trailing, 6)
                     
                     Button {
-                        print("Hello world")
+                        goToAddExercise()
                     } label: {
                         HStack {
                             Text("Add")
@@ -59,6 +62,6 @@ public struct WorkoutView: View {
 
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutView()
+        WorkoutView(goToAddExercise: { })
     }
 }
