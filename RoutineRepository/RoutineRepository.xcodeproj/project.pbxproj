@@ -17,6 +17,7 @@
 		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; };
 		B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B32CAE1928FF915D00B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
+		B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA7296F80EB00C2FB1E /* HomeView.swift */; };
 		B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588AF290617BA006ED45C /* RoutineListView.swift */; };
 		B34588B2290617ED006ED45C /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B1290617ED006ED45C /* Inspection.swift */; };
 		B34588B429061BF0006ED45C /* UIColor+LiftMeThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */; };
@@ -73,6 +74,7 @@
 		B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiftMeRoutinesiOS.h; sourceTree = "<group>"; };
 		B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LiftMeRoutinesiOS.docc; sourceTree = "<group>"; };
 		B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeRoutinesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B33D0FA7296F80EB00C2FB1E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B34588AF290617BA006ED45C /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		B34588B1290617ED006ED45C /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
 		B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+LiftMeThemeColors.swift"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		B32CAE0028FF4A2F00B154BD /* LiftMeRoutinesiOS */ = {
 			isa = PBXGroup;
 			children = (
+				B33D0FA6296F80C400C2FB1E /* HomeView */,
 				B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */,
 				B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */,
 				B34588AF290617BA006ED45C /* RoutineListView.swift */,
@@ -167,6 +170,14 @@
 			children = (
 			);
 			path = LiftMeRoutinesiOSTests;
+			sourceTree = "<group>";
+		};
+		B33D0FA6296F80C400C2FB1E /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				B33D0FA7296F80EB00C2FB1E /* HomeView.swift */,
+			);
+			path = HomeView;
 			sourceTree = "<group>";
 		};
 		B3D29BD328F12746006CC77D = {
@@ -469,6 +480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B34588B429061BF0006ED45C /* UIColor+LiftMeThemeColors.swift in Sources */,
+				B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */,
 				B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */,
 				B34588B2290617ED006ED45C /* Inspection.swift in Sources */,
 				B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */,

@@ -13,6 +13,7 @@
 		B316B4A92949A36E00EB490B /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B316B4A82949A36E00EB490B /* SwiftUIView.swift */; };
 		B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C032874875600B017BB /* ExerciseDetailView.swift */; };
 		B3454C06287487C300B017BB /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C05287487C300B017BB /* Exercise.swift */; };
+		B35E3402296387AB00161DD0 /* FullRoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E3401296387AB00161DD0 /* FullRoutineListView.swift */; };
 		B368913029145E0000E04957 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368912F29145E0000E04957 /* HomeView.swift */; };
 		B368913329145EB800E04957 /* CreateRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368913229145EB800E04957 /* CreateRoutineView.swift */; };
 		B36891362914636A00E04957 /* UIColor+LightAndDarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891352914636A00E04957 /* UIColor+LightAndDarkMode.swift */; };
@@ -20,7 +21,6 @@
 		B368913A2914951300E04957 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891392914951300E04957 /* ButtonStyles.swift */; };
 		B3AF3F4D28FA58A000549473 /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4C28FA58A000549473 /* RoutineListView.swift */; };
 		B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */; };
-		B3E77013286DF4EA006122EF /* ExerciseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77012286DF4EA006122EF /* ExerciseListView.swift */; };
 		B3E77015286DF4EB006122EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3E77014286DF4EB006122EF /* Assets.xcassets */; };
 		B3E77018286DF4EB006122EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3E77017286DF4EB006122EF /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -32,6 +32,7 @@
 		B316B4A82949A36E00EB490B /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		B3454C032874875600B017BB /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
 		B3454C05287487C300B017BB /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		B35E3401296387AB00161DD0 /* FullRoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullRoutineListView.swift; sourceTree = "<group>"; };
 		B368912F29145E0000E04957 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B368913229145EB800E04957 /* CreateRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineView.swift; sourceTree = "<group>"; };
 		B36891352914636A00E04957 /* UIColor+LightAndDarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+LightAndDarkMode.swift"; sourceTree = "<group>"; };
@@ -40,7 +41,6 @@
 		B3AF3F4C28FA58A000549473 /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		B3E7700D286DF4EA006122EF /* LiftMePrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMePrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMePrototypeApp.swift; sourceTree = "<group>"; };
-		B3E77012286DF4EA006122EF /* ExerciseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseListView.swift; sourceTree = "<group>"; };
 		B3E77014286DF4EB006122EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3E77017286DF4EB006122EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,7 +71,6 @@
 				B3454C05287487C300B017BB /* Exercise.swift */,
 				B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */,
 				B307E497287E78C600AFD1F0 /* AddExerciseView.swift */,
-				B3E77012286DF4EA006122EF /* ExerciseListView.swift */,
 			);
 			path = Exercises;
 			sourceTree = "<group>";
@@ -92,6 +91,7 @@
 				B3AF3F4C28FA58A000549473 /* RoutineListView.swift */,
 				B368913229145EB800E04957 /* CreateRoutineView.swift */,
 				B316B4A229494A5000EB490B /* ExerciseSelectionListView.swift */,
+				B35E3401296387AB00161DD0 /* FullRoutineListView.swift */,
 				B316B4A82949A36E00EB490B /* SwiftUIView.swift */,
 			);
 			path = Routines;
@@ -205,7 +205,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E77013286DF4EA006122EF /* ExerciseListView.swift in Sources */,
 				B368913A2914951300E04957 /* ButtonStyles.swift in Sources */,
 				B3454C06287487C300B017BB /* Exercise.swift in Sources */,
 				B368913329145EB800E04957 /* CreateRoutineView.swift in Sources */,
@@ -218,6 +217,7 @@
 				B316B4A329494A5000EB490B /* ExerciseSelectionListView.swift in Sources */,
 				B368913029145E0000E04957 /* HomeView.swift in Sources */,
 				B3AF3F4D28FA58A000549473 /* RoutineListView.swift in Sources */,
+				B35E3402296387AB00161DD0 /* FullRoutineListView.swift in Sources */,
 				B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,8 +13,6 @@ struct Contact: Identifiable {
 
 struct SwiftUIView: View {
     // 1
-
-
         let contacts = [
             Contact(name: "John"),
             Contact(name: "Alice"),

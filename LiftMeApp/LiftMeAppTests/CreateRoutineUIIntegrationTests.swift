@@ -36,7 +36,7 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     }
 
     
-    func test_createRoutineView_init_displaysRoutineNameTextField() throws {
+    func test_createRoutineView_init_displaysRoutineNameTextField() {
         
         // given/when
         let (sut, _) = makeSUT()
@@ -98,17 +98,17 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     
     func makeSUT() -> (CreateRoutineView, RoutineStoreSpy) {
         
-        let routineUIComposer = RoutineUIComposerWithSpys()
-        let routineStore: RoutineStoreSpy = routineUIComposer.routineStore as! RoutineStoreSpy
+        let homeUIComposer = HomeUIComposerWithSpys()
+        let routineStore: RoutineStoreSpy = homeUIComposer.routineStore as! RoutineStoreSpy
         
-        let sut = routineUIComposer.makeCreateRoutineView()
+        let sut = homeUIComposer.makeCreateRoutineView()
         
         return (sut, routineStore)
     }
 }
 
 
-class RoutineUIComposerWithSpys: RoutineUIComposer {
+class HomeUIComposerWithSpys: HomeUIComposer {
     
     convenience init() {
         self.init(routineStore: RoutineStoreSpy())

@@ -257,16 +257,16 @@ class RoutineListUIIntegrationTests: XCTestCase {
         // then
         XCTAssertEqual(
             routineNavigationFlow.modallyDisplayedView,
-            RoutineNavigationFlow.SheetyIdentifier.createRoutine)
+            HomeNavigationFlow.SheetyIdentifier.createRoutine)
     }
 
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineStoreSpy, RoutineNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineStoreSpy, HomeNavigationFlow) {
         
-        let routineUIComposer = RoutineUIComposerWithSpys()
-        let routineNavigationFlow = routineUIComposer.navigationFlow
-        let sut = routineUIComposer.makeRoutineListView().0
-        let routineRepository: RoutineStoreSpy = routineUIComposer.routineStore as! RoutineStoreSpy
+        let homeUIComposer = HomeUIComposerWithSpys()
+        let routineNavigationFlow = homeUIComposer.navigationFlow
+        let sut = homeUIComposer.makeRoutineListView().0
+        let routineRepository: RoutineStoreSpy = homeUIComposer.routineStore as! RoutineStoreSpy
         
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
@@ -278,7 +278,6 @@ class RoutineListUIIntegrationTests: XCTestCase {
 
 class RoutineStoreSpy: RoutineStore {
 
-    
     enum ReceivedMessage: Equatable {
         case saveRoutine(Routine)
         case loadAllRoutines

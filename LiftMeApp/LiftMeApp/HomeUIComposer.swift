@@ -14,12 +14,12 @@ import CoreData
 
 // Warning: there should only be ONE usage of this implementation in the production app
 // Not static or final so that it can be sublclassed for testing
-public class RoutineUIComposer {
+public class HomeUIComposer {
     
     let routineStore: RoutineStore
     
-    lazy var navigationFlow: RoutineNavigationFlow = { [unowned self] in
-        return RoutineNavigationFlow(routineUIComposer: self)
+    lazy var navigationFlow: HomeNavigationFlow = { [unowned self] in
+        return HomeNavigationFlow(routineUIComposer: self)
     }()
     
     
@@ -39,7 +39,23 @@ public class RoutineUIComposer {
     }
     
     
-    func makeRoutineListWithSheetyNavigation() -> SheetyNavigationView<RoutineListView, RoutineNavigationFlow> {
+//    func makeHomeViewWithStackNavigation() -> StackNavigationView<HomeView, HomeNavigationFlow> {
+//
+//        let homeView = makeHomeView()
+//        return StackNavigationView(
+//            stackNavigationViewModel: navigationFlow,
+//            content: homeView
+//        )
+//    }
+    
+    
+    func makeHomeView() -> HomeView {
+        
+        return HomeView()
+    }
+    
+    
+    func makeRoutineListWithSheetyNavigation() -> SheetyNavigationView<RoutineListView, HomeNavigationFlow> {
         
         let (routineListView, routineListViewModel) = makeRoutineListView()
         return SheetyNavigationView(

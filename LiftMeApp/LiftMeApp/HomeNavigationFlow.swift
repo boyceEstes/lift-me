@@ -11,7 +11,7 @@ import LiftMeRoutinesiOS
 import RoutineRepository
 
 
-class RoutineNavigationFlow: SheetyNavigationFlow {
+class HomeNavigationFlow: SheetyNavigationFlow {
     
     enum SheetyIdentifier: Identifiable {
         
@@ -21,10 +21,10 @@ class RoutineNavigationFlow: SheetyNavigationFlow {
     }
     
     
-    let routineUIComposer: RoutineUIComposer
+    let routineUIComposer: HomeUIComposer
     
     
-    init(routineUIComposer: RoutineUIComposer) {
+    init(routineUIComposer: HomeUIComposer) {
         
         self.routineUIComposer = routineUIComposer
     }
