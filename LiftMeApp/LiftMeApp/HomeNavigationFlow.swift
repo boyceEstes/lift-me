@@ -19,16 +19,18 @@ class HomeNavigationFlow: SheetyNavigationFlow {
 
         case createRoutine
         case workout
-        case addExercise
     }
     
     
     let homeUIComposer: HomeUIComposer
+    let workoutUIComposer: WorkoutUIComposer
     
     
-    init(homeUIComposer: HomeUIComposer) {
+    init(homeUIComposer: HomeUIComposer,
+         workoutUIComposer: WorkoutUIComposer) {
         
         self.homeUIComposer = homeUIComposer
+        self.workoutUIComposer = workoutUIComposer
     }
     
     
@@ -48,10 +50,7 @@ class HomeNavigationFlow: SheetyNavigationFlow {
                 homeUIComposer.makeCreateRoutineView()
                 
             case .workout:
-                homeUIComposer.makeWorkoutView()
-                
-            case .addExercise:
-                homeUIComposer.makeAddExerciseView()
+                workoutUIComposer.makeWorkoutViewWithSheetyNavigation()
             }
         }
     }

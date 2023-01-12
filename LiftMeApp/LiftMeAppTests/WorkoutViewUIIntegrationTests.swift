@@ -51,7 +51,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     func test_workoutView_tapAddButton_navigatesToAddExerciseView() throws {
 
         // given
-        let (sut, homeNavigationFlow) = makeSUT()
+        let (sut, workoutNavigationFlow) = makeSUT()
         let button = try sut.inspect().find(viewWithId: "add-exercise-button").button()
 
         // when
@@ -59,22 +59,22 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
 
         // then
         XCTAssertEqual(
-            homeNavigationFlow.modallyDisplayedView,
-            HomeNavigationFlow.SheetyIdentifier.addExercise
+            workoutNavigationFlow.modallyDisplayedView,
+            WorkoutNavigationFlow.SheetyIdentifier.addExercise
         )
     }
 
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, navigationFlow: HomeNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, navigationFlow: WorkoutNavigationFlow) {
 
-        let homeUIComposer = HomeUIComposerWithSpys()
-        let homeNavigationFlow = homeUIComposer.navigationFlow
-        let sut = homeUIComposer.makeWorkoutView()
+        let workoutUIComposer = WorkoutUIComposer()
+        let workoutNavigationFlow = workoutUIComposer.navigationFlow
+        let sut = workoutUIComposer.makeWorkoutView()
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, homeNavigationFlow)
+        return (sut, workoutNavigationFlow)
     }
     
 }
