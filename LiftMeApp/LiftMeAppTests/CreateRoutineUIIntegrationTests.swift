@@ -107,11 +107,3 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     }
 }
 
-
-// TODO: Extract into its own file
-class HomeUIComposerWithSpys: HomeUIComposer {
-    
-    convenience init() {
-        self.init(routineStore: RoutineStoreSpy())
-    }
-}

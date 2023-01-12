@@ -14,6 +14,7 @@
 		B33D0FB0296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAF296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift */; };
 		B33D0FB42970643E00C2FB1E /* WorkoutUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */; };
 		B33D0FB82970647500C2FB1E /* WorkoutNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB72970647500C2FB1E /* WorkoutNavigationFlow.swift */; };
+		B33D0FBA29706CB100C2FB1E /* HomeUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */; };
 		B36890F62911F4B000E04957 /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; };
 		B36890F72911F4B000E04957 /* LiftMeRoutinesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B36890F82911F4B000E04957 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F52911F4B000E04957 /* RoutineRepository.framework */; };
@@ -62,6 +63,7 @@
 		B33D0FAF296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutUIComposer.swift; sourceTree = "<group>"; };
 		B33D0FB72970647500C2FB1E /* WorkoutNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutNavigationFlow.swift; sourceTree = "<group>"; };
+		B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUIComposerWithSpys.swift; sourceTree = "<group>"; };
 		B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36890F52911F4B000E04957 /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMainDecorator.swift; sourceTree = "<group>"; };
@@ -118,6 +120,14 @@
 			name = Workout;
 			sourceTree = "<group>";
 		};
+		B33D0FBB29706CE400C2FB1E /* ComposersWithSpys */ = {
+			isa = PBXGroup;
+			children = (
+				B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */,
+			);
+			path = ComposersWithSpys;
+			sourceTree = "<group>";
+		};
 		B34788062908DE3400F4C2A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +180,7 @@
 		B3A8549C2908D48500F04CC1 /* LiftMeAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				B33D0FBB29706CE400C2FB1E /* ComposersWithSpys */,
 				B368915A2914B66100E04957 /* SharedTestHelpers.swift */,
 				B36891572914B5E700E04957 /* RoutineListUIIntegrationTests.swift */,
 				B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */,
@@ -319,6 +330,7 @@
 				B33D0FB0296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift in Sources */,
 				B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */,
 				B36891582914B5E700E04957 /* RoutineListUIIntegrationTests.swift in Sources */,
+				B33D0FBA29706CB100C2FB1E /* HomeUIComposerWithSpys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

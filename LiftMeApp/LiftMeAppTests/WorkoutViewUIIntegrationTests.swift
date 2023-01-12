@@ -47,7 +47,6 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     }
     
     
-    
     func test_workoutView_tapAddButton_navigatesToAddExerciseView() throws {
 
         // given
