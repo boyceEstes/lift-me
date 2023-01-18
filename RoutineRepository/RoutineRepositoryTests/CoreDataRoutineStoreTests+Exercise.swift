@@ -17,11 +17,19 @@ extension CoreDataRoutineStoreTests {
     // read all exercises in nonempty cache
     // read all exercises twice in nonempty cache
     
-    func test_coreDataRoutineStore_readExercisesOnEmptyCache_deliversNoSideEffects() {
+    func test_coreDataRoutineStore_readExercisesOnEmptyCache_deliversNoResults() {
         
         let sut = makeSUT()
         
         expectReadAllExercises(on: sut, toCompleteWith: .success([]))
+    }
+    
+    
+    func test_coreDataRoutineStore_readExercisesTwiceOnEmptyCache_deliversNoSideEffects() {
+        
+        let sut = makeSUT()
+        
+        expectReadAllExercises(on: sut, toCompleteTwiceWith: .success([]))
     }
     
     
@@ -42,5 +50,12 @@ extension CoreDataRoutineStoreTests {
         }
         
         wait(for: [exp], timeout: 1)
+    }
+    
+    
+    private func expectReadAllExercises(on sut: CoreDataRoutineStore, toCompleteTwiceWith expectedResult: RoutineStore.ReadExercisesResult, file: StaticString = #file, line: UInt = #line) {
+        
+        expectReadAllExercises(on: sut, toCompleteWith: expectedResult, file: file, line: line)
+        expectReadAllExercises(on: sut, toCompleteWith: expectedResult, file: file, line: line)
     }
 }
