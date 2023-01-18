@@ -44,6 +44,19 @@ extension CoreDataRoutineStoreTests {
     }
     
     
+    
+    func test_coreDataRoutineStore_readExercisesTwiceOnNonEmptyCache_deliversCachedExercises() {
+        
+        let sut = makeSUT()
+        
+        let exercise = uniqueExercise()
+        create(exercise, into: sut)
+        
+        expectReadAllExercises(on: sut, toCompleteTwiceWith: .success([exercise]))
+    }
+    
+    
+    
     @discardableResult
     private func create(_ exercise: Exercise, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateExerciseResult {
         
