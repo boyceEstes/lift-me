@@ -63,7 +63,6 @@ extension ManagedRoutine {
 extension ManagedRoutine: Identifiable {}
 
 
-
 private extension Array where Element == RoutineRecord {
 
     func toManaged(for routine: ManagedRoutine, in context: NSManagedObjectContext) -> Set<ManagedRoutineRecord> {

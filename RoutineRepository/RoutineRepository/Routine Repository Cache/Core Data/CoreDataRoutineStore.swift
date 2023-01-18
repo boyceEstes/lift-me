@@ -22,13 +22,8 @@ public class CoreDataRoutineStore: RoutineStore {
         print("Create routine record")
     }
     
-    public func readAllExercises(completion: @escaping ReadExercisesCompletion) {
-        print("Read all exercises")
-    }
-    
-    
     private let container: NSPersistentContainer
-    private let context: NSManagedObjectContext
+    let context: NSManagedObjectContext
     
     public init(storeURL: URL, bundle: Bundle = .main) throws {
         container = try NSPersistentContainer.load(name: "RoutineStore", url: storeURL, in: bundle)
