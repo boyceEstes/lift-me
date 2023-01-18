@@ -68,7 +68,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
 
         let createError = create(uniqueRoutine(exercises: []), into: sut)
         
-        XCTAssertNil(createError, "Creating routine in empty cache delivers error, \(createError!)")
+        XCTAssertNil(createError, "Creating routine in nonempty cache delivers error, \(createError!)")
     }
     
     

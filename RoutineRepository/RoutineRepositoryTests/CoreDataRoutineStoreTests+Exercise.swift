@@ -63,13 +63,27 @@ extension CoreDataRoutineStoreTests {
     // create exercise in nonempty cache
     // TODO: create unique exercise with matching name in cache
     
-    func test_coreDataRoutineStore_createExercise_deliversNoError() {
+    func test_coreDataRoutineStore_createExerciseOnEmptyCache_deliversNoError() {
         
         let sut = makeSUT()
         
         let exercise = uniqueExercise()
+        let createError = create(exercise, into: sut)
         
-        XCTAssertNil(create(exercise, into: sut))
+        XCTAssertNil(createError, "Creating exercise in empty cache delivers error, \(createError!)")
+    }
+    
+    
+    func test_coreDataRoutineStore_createExerciseOnNonEmptyCache_deliversNoError() {
+        
+        let sut = makeSUT()
+        
+        create(uniqueExercise(), into: sut)
+        
+        let exercise = uniqueExercise()
+        let createError = create(exercise, into: sut)
+        
+        XCTAssertNil(createError, "Creating exercise in nonempty cache delivers error, \(createError!)")
     }
     
     
