@@ -3,7 +3,7 @@
     <entity name="ManagedExercise" representedClassName="ManagedExercise" syncable="YES">
         <attribute name="creationDate" attributeType="Date" defaultDateTimeInterval="695341620" usesScalarValueType="NO"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="Untitled Exercise"/>
         <relationship name="exerciseRecords" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedExerciseRecord" inverseName="exercise" inverseEntity="ManagedExerciseRecord"/>
         <relationship name="routines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedRoutine" inverseName="exercises" inverseEntity="ManagedRoutine"/>

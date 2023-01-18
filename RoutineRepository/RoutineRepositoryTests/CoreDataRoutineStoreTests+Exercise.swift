@@ -33,6 +33,35 @@ extension CoreDataRoutineStoreTests {
     }
     
     
+    func test_coreDataRoutineStore_readExercisesOnNonEmptyCache_deliversCachedExercises() {
+        
+        let sut = makeSUT()
+        
+        let exercise = uniqueExercise()
+        create(exercise, into: sut)
+        
+        expectReadAllExercises(on: sut, toCompleteWith: .success([exercise]))
+    }
+    
+    
+    @discardableResult
+    private func create(_ exercise: Exercise, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateExerciseResult {
+        
+        let exp = expectation(description: "Wait for RoutineStore create completion")
+        
+        var receivedResult: RoutineStore.CreateExerciseResult = nil
+        
+        sut.createExercise(exercise) { result in
+            receivedResult = result
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
+        return receivedResult
+    }
+    
+    
     private func expectReadAllExercises(on sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadExercisesResult, file: StaticString = #file, line: UInt = #line) {
         
         let exp = expectation(description: "Wait for RoutineStore read exercises completion")

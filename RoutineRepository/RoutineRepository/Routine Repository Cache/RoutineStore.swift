@@ -19,6 +19,7 @@ public protocol RoutineStore {
     typealias DeleteRoutineRecordResult = Error?
     
     typealias ReadExercisesResult = Result<[Exercise], Error>
+    typealias CreateExerciseResult = Error?
     
     
     // Completion Types
@@ -29,7 +30,9 @@ public protocol RoutineStore {
     typealias UpdateRoutineRecordCompletion = (UpdateRoutineRecordResult) -> Void
     typealias DeleteRoutineRecordCompletion = (DeleteRoutineRecordResult) -> Void
     
+    typealias CreateExerciseCompletion = (CreateExerciseResult) -> Void
     typealias ReadExercisesCompletion = (ReadExercisesResult) -> Void
+
     
     
     // Public methods
@@ -44,4 +47,5 @@ public protocol RoutineStore {
     func deleteRoutineRecord(routineRecord: RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion)
     
     func readAllExercises(completion: @escaping ReadExercisesCompletion)
+    func createExercise(_ exercise: Exercise, completion: @escaping CreateExerciseCompletion)
 }

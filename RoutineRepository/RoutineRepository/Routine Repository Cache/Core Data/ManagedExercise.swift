@@ -13,8 +13,8 @@ import CoreData
 @objc(ManagedExercise)
 public class ManagedExercise: NSManagedObject {
 
-    @NSManaged public var name: String?
-    @NSManaged public var id: UUID?
+    @NSManaged public var name: String
+    @NSManaged public var id: UUID
     @NSManaged public var desc: String?
     @NSManaged public var creationDate: Date
     

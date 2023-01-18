@@ -11,32 +11,35 @@ import Foundation
 extension CoreDataRoutineStore {
     
     
+    public func createExercise(_ exercise: Exercise, completion: @escaping CreateExerciseCompletion) {
+
+        let context = context
+        context.perform {
+            do {
+                ManagedExercise.create(exercise, in: context)
+                try context.save()
+                completion(nil)
+            } catch {
+                
+                completion(error)
+            }
+        }
+    }
+    
+    
     public func readAllExercises(completion: @escaping ReadExercisesCompletion) {
 
         let context = context
         context.perform {
-//            do {
-//                let exercises = try ManagedExercise.findExercises(in: context)
-                completion(.success([]))
-//            } catch {
-//                completion(.failure(error))
-//            }
-        }
-    }
-    
-    
-    private func createExercises(exercises: [Exercise]) {
-        
-        let context = context
-        context.perform {
             do {
-                exercises.forEach { ManagedExercise.create($0, in: context) }
-                try context.save()
+                let exercises = try ManagedExercise.findExercises(in: context).toModel()
+                completion(.success(exercises))
             } catch {
-                fatalError("Some error \(error)")
+                completion(.failure(error))
             }
         }
     }
+    
     
 
     var seedExercises: [Exercise] {
@@ -69,15 +72,25 @@ extension CoreDataRoutineStore {
 
 private extension ManagedExercise {
     
-//    func toModel() -> Exercise {
-//        
-//        Exercise(
-//            id: self.id,
-//            name: self.name,
-//            creationDate: self.creationDate,
-//            exerciseRecords: [],
-//            tags: [])
-//    }
+    func toModel() -> Exercise {
+
+        Exercise(
+            id: self.id,
+            name: self.name,
+            creationDate: self.creationDate,
+            exerciseRecords: [],
+            tags: [])
+    }
+}
+
+
+private extension Array where Element == ManagedExercise {
+    
+    func toModel() -> [Exercise] {
+        map {
+            $0.toModel()
+        }
+    }
 }
 
 
