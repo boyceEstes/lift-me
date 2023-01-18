@@ -40,7 +40,6 @@ extension CoreDataRoutineStore {
         }
     }
     
-    
 
     var seedExercises: [Exercise] {
         return [

@@ -12,6 +12,7 @@ import XCTest
 
 extension CoreDataRoutineStoreTests {
 
+    // MARK: - Read exercises
     // read all exercises in empty cache
     // read all exercises twice in empty cache
     // read all exercises in nonempty cache
@@ -55,6 +56,21 @@ extension CoreDataRoutineStoreTests {
         expectReadAllExercises(on: sut, toCompleteTwiceWith: .success([exercise]))
     }
     
+    
+    
+    // MARK: - Create Exercises
+    // create exercise in empty cache
+    // create exercise in nonempty cache
+    // TODO: create unique exercise with matching name in cache
+    
+    func test_coreDataRoutineStore_createExercise_deliversNoError() {
+        
+        let sut = makeSUT()
+        
+        let exercise = uniqueExercise()
+        
+        XCTAssertNil(create(exercise, into: sut))
+    }
     
     
     @discardableResult
