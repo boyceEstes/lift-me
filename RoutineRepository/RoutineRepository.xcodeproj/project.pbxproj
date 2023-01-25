@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B30E83C5291EB36B00A19724 /* CreateRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */; };
 		B313A4412901805B00740E61 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
+		B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3290870298196DC008350B1 /* RoutineStorePreview.swift */; };
 		B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */; };
 		B32CADF128FEF53D00B154BD /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
 		B32CADF728FEFC6100B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
@@ -74,6 +75,7 @@
 
 /* Begin PBXFileReference section */
 		B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineView.swift; sourceTree = "<group>"; };
+		B3290870298196DC008350B1 /* RoutineStorePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStorePreview.swift; sourceTree = "<group>"; };
 		B32CADED28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutineRepositoryCacheIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRepositoryCacheIntegrationTests.swift; sourceTree = "<group>"; };
 		B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +175,7 @@
 				B34588B1290617ED006ED45C /* Inspection.swift */,
 				B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */,
 				B34588B529061C2B006ED45C /* Color+LiftMeThemeColors.swift */,
+				B3290870298196DC008350B1 /* RoutineStorePreview.swift */,
 			);
 			path = LiftMeRoutinesiOS;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */,
 				B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */,
 				B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */,
+				B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */,
 				B34588B2290617ED006ED45C /* Inspection.swift in Sources */,
 				B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */,
 				B34588B629061C2B006ED45C /* Color+LiftMeThemeColors.swift in Sources */,
