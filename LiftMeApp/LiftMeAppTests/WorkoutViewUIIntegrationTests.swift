@@ -66,7 +66,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, navigationFlow: WorkoutNavigationFlow) {
 
-        let workoutUIComposer = WorkoutUIComposer()
+        let workoutUIComposer = WorkoutUIComposerWithSpys()
         let workoutNavigationFlow = workoutUIComposer.navigationFlow
         let sut = workoutUIComposer.makeWorkoutView()
 

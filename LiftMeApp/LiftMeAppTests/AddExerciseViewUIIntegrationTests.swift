@@ -11,6 +11,8 @@ import SwiftUI
 import LiftMeRoutinesiOS
 @testable import LiftMeApp
 
+extension AddExerciseView: Inspectable { }
+
 
 final class AddExerciseViewUIIntegrationTests: XCTestCase {
 
@@ -23,25 +25,43 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     }
     
     
-    func test_addExerciseView_init_loadsAllExercises() {
+    func test_addExerciseView_init_doesNotRequestAllExerciseLoad() {
         
         // given/when
-        let sut = makeSUT()
+        let (_, routineStore, _) = makeSUT()
         
         // then
-        // display x many cells
+        XCTAssertTrue(routineStore.requests.isEmpty)
     }
     
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, navigationFlow: WorkoutNavigationFlow) {
+    func test_addExerciseView_viewWillAppear_requestsAllExerciseLoad() {
+        
+        // given
+        let (sut, routineStore, _) = makeSUT()
+        
+        let exp = sut.inspection.inspect { view in
+            // then
+            XCTAssertEqual(routineStore.requests, [.loadAllExercises])
+        }
+        
+        // when
+        ViewHosting.host(view: sut)
 
-        let workoutUIComposer = WorkoutUIComposer()
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
+
+        let workoutUIComposer = WorkoutUIComposerWithSpys()
         let workoutNavigationFlow = workoutUIComposer.navigationFlow
         let sut = workoutUIComposer.makeAddExerciseView()
+        let routineStore: RoutineStoreSpy = workoutUIComposer.routineStore as! RoutineStoreSpy
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, workoutNavigationFlow)
+        return (sut, routineStore, workoutNavigationFlow)
     }
 }

@@ -15,24 +15,23 @@ class RoutineStoreSpy: RoutineStore {
     enum ReceivedMessage: Equatable {
         case saveRoutine(Routine)
         case loadAllRoutines
+        case loadAllExercises
     }
     
     private(set) var requests = [ReceivedMessage]()
-    private(set) var loadAllRoutinesCompletions = [RoutineStore.ReadRoutinesCompletion]()//[LoadAllRoutinesCompletion]()
-    private(set) var saveRoutineCompletions = [RoutineStore.CreateRoutineCompletion]()//[SaveRoutineCompletion]()
 
     
     // MARK: - Routines
+    
+    private(set) var loadAllRoutinesCompletions = [RoutineStore.ReadRoutinesCompletion]()
+    private(set) var saveRoutineCompletions = [RoutineStore.CreateRoutineCompletion]()
+    
+    
     func createUniqueRoutine(_ routine: Routine, completion: @escaping CreateRoutineCompletion) {
         requests.append(.saveRoutine(routine))
         saveRoutineCompletions.append(completion)
     }
-    
-    
-    func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
-        // TODO: Fill in if necessary
-    }
-    
+
     
     func readAllRoutines(completion: @escaping ReadRoutinesCompletion) {
         requests.append(.loadAllRoutines)
@@ -75,9 +74,16 @@ class RoutineStoreSpy: RoutineStore {
     
     
     // MARK: - Exercises
+    
+//    private(set) var loadAllExercisesCompletions = [RoutineStore.ReadExercisesCompletion]()
+    
+    
     func readAllExercises(completion: @escaping ReadExercisesCompletion) {
         
+        requests.append(.loadAllExercises)
+//        loadAllExercisesCompletions.append(completion)
     }
+    
     
     func createExercise(_ exercise: RoutineRepository.Exercise, completion: @escaping CreateExerciseCompletion) {
         

@@ -49,7 +49,7 @@ public class WorkoutUIComposer {
     
     func makeAddExerciseView() -> AddExerciseView {
         
-        
-        return AddExerciseView()
+        let viewModel = AddExerciseViewModel(routineStore: routineStore)
+        return AddExerciseView(viewModel: viewModel)
     }
 }

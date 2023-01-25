@@ -51,7 +51,7 @@ extension RoutineCellView: Inspectable {}
 extension EmptyRoutineCellView: Inspectable {}
 extension ErrorRoutineCellView: Inspectable {}
 extension ScrollableRoutineListView: Inspectable {}
-extension StackNavigationView: Inspectable { }
+extension StackNavigationView: Inspectable {}
 
 extension Inspection: InspectionEmissary {}
 
