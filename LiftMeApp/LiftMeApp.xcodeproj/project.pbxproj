@@ -10,6 +10,7 @@
 		B30E83C1291EB10200A19724 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B30E83C0291EB10200A19724 /* ViewInspector */; };
 		B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */; };
 		B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift */; };
+		B329086A297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3290869297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift */; };
 		B33D0FA5296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA4296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift */; };
 		B33D0FB0296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAF296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift */; };
 		B33D0FB42970643E00C2FB1E /* WorkoutUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */; };
@@ -59,6 +60,7 @@
 /* Begin PBXFileReference section */
 		B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueueMainDecorator+RoutineStore.swift"; sourceTree = "<group>"; };
+		B3290869297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseViewUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B33D0FA4296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B33D0FAF296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutUIComposer.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */,
 				B33D0FA4296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift */,
 				B33D0FAF296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift */,
+				B3290869297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift */,
 			);
 			path = LiftMeAppTests;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				B33D0FB0296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift in Sources */,
 				B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */,
 				B36891582914B5E700E04957 /* RoutineListUIIntegrationTests.swift in Sources */,
+				B329086A297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift in Sources */,
 				B33D0FBA29706CB100C2FB1E /* HomeUIComposerWithSpys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

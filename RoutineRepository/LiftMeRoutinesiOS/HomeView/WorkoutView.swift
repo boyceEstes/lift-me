@@ -16,7 +16,7 @@ public struct WorkoutView: View {
     
     let allExercises: [Exercise] = []
     let goToAddExercise: () -> Void
-    
+
     public var body: some View {
         List {
             Section {
@@ -45,7 +45,6 @@ public struct WorkoutView: View {
                     .buttonStyle(HighKeyButtonStyle())
                     .id("add-exercise-button")
 
-
                     Spacer()
                     EditButton()
                         .foregroundColor(.universeRed)
@@ -53,10 +52,9 @@ public struct WorkoutView: View {
                 .font(.headline)
             }.textCase(nil)
         }
+        .navigationTitle("Custom Workout")
     }
 }
-
-
 
 
 

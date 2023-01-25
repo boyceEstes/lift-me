@@ -28,6 +28,38 @@ public class CoreDataRoutineStore: RoutineStore {
     public init(storeURL: URL, bundle: Bundle = .main) throws {
         container = try NSPersistentContainer.load(name: "RoutineStore", url: storeURL, in: bundle)
         context = container.newBackgroundContext()
+        
+        if !exercisesExistInCache() {
+            seedBasicExercises()
+        }
+    }
+    
+    
+    private func exercisesExistInCache() -> Bool {
+        
+        var exercisesExist = false
+        
+        readAllExercises { result in
+            guard let exercises = try? result.get(),
+                  exercises.isEmpty else {
+                return
+            }
+            
+            exercisesExist = true
+        }
+        
+        return exercisesExist
+    }
+    
+    
+    private func seedBasicExercises() {
+        seedExercises.forEach { exercise in
+            createExercise(exercise) { error in
+                if error != nil {
+                    fatalError("seeding didn't work \(exercise), \(error!)")
+                }
+            }
+        }
     }
     
     

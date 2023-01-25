@@ -6,18 +6,26 @@
 //
 
 import Foundation
+import RoutineRepository
 import LiftMeRoutinesiOS
 import NavigationFlow
 
 
 public class WorkoutUIComposer {
     
+    let routineStore: RoutineStore
+    
     lazy var navigationFlow: WorkoutNavigationFlow = { [unowned self] in
         return WorkoutNavigationFlow(workoutUIComposer: self)
     }()
     
     
-    // I'm going to need a new NavigationFlow for the workout since I want it to stay up whne it presents its own sheet
+    init(routineStore: RoutineStore) {
+        
+        self.routineStore = routineStore
+    }
+
+    // WorkoutNavigationFlow for the workout since I want it to stay up whne it presents its own sheet
     func makeWorkoutViewWithSheetyNavigation() -> SheetyNavigationView<WorkoutView, WorkoutNavigationFlow> {
         
         let workoutView = makeWorkoutView()
@@ -40,6 +48,7 @@ public class WorkoutUIComposer {
     
     
     func makeAddExerciseView() -> AddExerciseView {
+        
         
         return AddExerciseView()
     }

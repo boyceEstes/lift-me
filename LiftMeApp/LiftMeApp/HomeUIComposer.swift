@@ -21,7 +21,7 @@ public class HomeUIComposer {
     lazy var navigationFlow: HomeNavigationFlow = { [unowned self] in
         return HomeNavigationFlow(
             homeUIComposer: self,
-            workoutUIComposer: WorkoutUIComposer()
+            workoutUIComposer: WorkoutUIComposer(routineStore: routineStore)
         )
     }()
     

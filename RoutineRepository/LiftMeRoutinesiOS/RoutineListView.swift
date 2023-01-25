@@ -304,4 +304,28 @@ class RoutineStorePreview: RoutineStore {
         completion(.success([routine]))
     }
 
+    
+    func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
+        print("")
+    }
+    
+    
+    func updateRoutineRecord(newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
+        print("")
+    }
+    
+    
+    func deleteRoutineRecord(routineRecord: RoutineRepository.RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
+        print("")
+    }
+    
+    
+    func readAllExercises(completion: @escaping ReadExercisesCompletion) {
+        print("")
+    }
+    
+    
+    func createExercise(_ exercise: RoutineRepository.Exercise, completion: @escaping CreateExerciseCompletion) {
+        print("")
+    }
 }
