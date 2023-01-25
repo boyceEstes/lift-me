@@ -29,26 +29,27 @@ public class CoreDataRoutineStore: RoutineStore {
         container = try NSPersistentContainer.load(name: "RoutineStore", url: storeURL, in: bundle)
         context = container.newBackgroundContext()
         
-        if !exercisesExistInCache() {
-            seedBasicExercises()
+        exercisesExistInCache { [weak self] exist in
+            
+            if !exist {
+                self?.seedBasicExercises()
+            }
         }
     }
     
     
-    private func exercisesExistInCache() -> Bool {
-        
-        var exercisesExist = false
-        
+    private func exercisesExistInCache(completion: @escaping (Bool) -> Void) {
+
         readAllExercises { result in
-            guard let exercises = try? result.get(),
-                  exercises.isEmpty else {
+            guard let exercises = try? result.get() else {
+                completion(false)
                 return
             }
             
-            exercisesExist = true
+            if !exercises.isEmpty {
+                completion(true)
+            }
         }
-        
-        return exercisesExist
     }
     
     
