@@ -103,6 +103,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B329086B298189A7008350B1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B33D0FBB29706CE400C2FB1E /* ComposersWithSpys */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		B33D0FB52970644400C2FB1E /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,7 +190,7 @@
 		B3A8549C2908D48500F04CC1 /* LiftMeAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				B33D0FBB29706CE400C2FB1E /* ComposersWithSpys */,
+				B329086B298189A7008350B1 /* Helpers */,
 				B368915A2914B66100E04957 /* SharedTestHelpers.swift */,
 				B36891572914B5E700E04957 /* RoutineListUIIntegrationTests.swift */,
 				B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */,
