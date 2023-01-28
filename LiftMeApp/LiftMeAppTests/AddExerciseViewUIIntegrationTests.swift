@@ -13,6 +13,7 @@ import RoutineRepository
 @testable import LiftMeApp
 
 extension AddExerciseView: Inspectable { }
+extension SelectableBasicExerciseRowView: Inspectable { }
 extension BasicExerciseRowView: Inspectable { }
 
 
@@ -87,14 +88,43 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
             try searchTextField.setInput("Bench")
             
             // then
-            let exerciseRowsAfterFilter = sut.findAll(BasicExerciseRowView.self)
+            let exerciseRowsAfterFilter = self.findAllWhereParentViewHas(accessibilityIdentifier: "filtered_exercise_list", for: sut)
             XCTAssertEqual(exerciseRowsAfterFilter.count, expectedNumberOfFilteredExercises)
         }
 
         wait(for: [exp], timeout: 1)
-        
     }
     
+    
+    func test_addExerciseView_selectExercisesByTappingRows_rendersSelectedExercises() {
+        
+        let (sut, routineStore, _) = makeSUT()
+        
+        let exercises = [
+            uniqueExercise(name: "Bench"),
+            uniqueExercise(name: "Deadlift"),
+            uniqueExercise(name: "Squat")]
+        let expectedNumberOfSelectedExercises = 1
+
+        assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
+        
+        let exp = sut.inspection.inspect { sut in
+            
+            // when
+            // Tap a "bench" exercise row
+            let selectableFilteredRow = try sut.find(viewWithAccessibilityIdentifier: "selectable_filtered_row_Bench")
+            try selectableFilteredRow.callOnTapGesture()
+            
+            // then
+            // Bench exercise row shows up as a selected Exercise Row
+            let selectedRowsAfterSelection = self.findAllWhereParentViewHas(accessibilityIdentifier: "selected_exercise_list", for: sut)
+            XCTAssertEqual(selectedRowsAfterSelection.count, expectedNumberOfSelectedExercises)
+        }
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    // Test that there is a single row in selected rows that will say to add some exercises
 
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
@@ -118,20 +148,30 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         file: StaticString = #file,
         line: UInt = #line) {
         
-        let exp = sut.inspection.inspect { sut in
+        let exp = sut.inspection.inspect { [weak self] sut in
+            
+            guard let self = self else { return }
 
-            let exerciseRowsBeforeRead = sut.findAll(BasicExerciseRowView.self)
+            let exerciseRowsBeforeRead = self.findAllWhereParentViewHas(accessibilityIdentifier: "filtered_exercise_list", for: sut)
             XCTAssertTrue(exerciseRowsBeforeRead.isEmpty, file: file, line: line)
 
             // when 2
             routineStore.completeReadAllExercises(with: expectedExercises)
 
-            let exerciseRowsAfterRead = sut.findAll(BasicExerciseRowView.self)
+            let exerciseRowsAfterRead = self.findAllWhereParentViewHas(accessibilityIdentifier: "filtered_exercise_list", for: sut)
             XCTAssertEqual(exerciseRowsAfterRead.count, expectedExercises.count, file: file, line: line)
         }
 
         // when 1
         ViewHosting.host(view: sut)
         wait(for: [exp], timeout: 1)
+    }
+    
+    
+    private func findAllWhereParentViewHas(accessibilityIdentifier: String, for childView: InspectableView<ViewType.View<AddExerciseView>>) -> [InspectableView<ViewType.ClassifiedView>] {
+        
+        childView.findAll(where: { view in
+            return try view.parent().accessibilityIdentifier() == accessibilityIdentifier
+        })
     }
 }
