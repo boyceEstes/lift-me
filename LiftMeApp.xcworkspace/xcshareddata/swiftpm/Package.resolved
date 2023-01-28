@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "navigation-flow",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/boyceEstes/navigation-flow.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "fd9f2447f1d8bdba04f81aa0116116a0c0bfde40"
+      }
+    },
+    {
+      "identity" : "viewinspector",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nalexn/ViewInspector",
+      "state" : {
+        "revision" : "ac7df67c4e0593470eda90a550f8493a81609745",
+        "version" : "0.9.2"
+      }
+    }
+  ],
+  "version" : 2
+}

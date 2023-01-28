@@ -9,10 +9,19 @@
 /* Begin PBXBuildFile section */
 		B307E47A28752A2600AFD1F0 /* AddExerciseRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */; };
 		B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307E497287E78C600AFD1F0 /* AddExerciseView.swift */; };
+		B316B4A329494A5000EB490B /* ExerciseSelectionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B316B4A229494A5000EB490B /* ExerciseSelectionListView.swift */; };
+		B316B4A92949A36E00EB490B /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B316B4A82949A36E00EB490B /* SwiftUIView.swift */; };
+		B33D0FAE296FBAE300C2FB1E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAD296FBAE300C2FB1E /* WorkoutView.swift */; };
 		B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C032874875600B017BB /* ExerciseDetailView.swift */; };
 		B3454C06287487C300B017BB /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C05287487C300B017BB /* Exercise.swift */; };
+		B35E3402296387AB00161DD0 /* FullRoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E3401296387AB00161DD0 /* FullRoutineListView.swift */; };
+		B368913029145E0000E04957 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368912F29145E0000E04957 /* HomeView.swift */; };
+		B368913329145EB800E04957 /* CreateRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368913229145EB800E04957 /* CreateRoutineView.swift */; };
+		B36891362914636A00E04957 /* UIColor+LightAndDarkMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891352914636A00E04957 /* UIColor+LightAndDarkMode.swift */; };
+		B368913829146A4F00E04957 /* Color+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368913729146A4F00E04957 /* Color+CustomColors.swift */; };
+		B368913A2914951300E04957 /* ButtonStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891392914951300E04957 /* ButtonStyles.swift */; };
+		B3AF3F4D28FA58A000549473 /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4C28FA58A000549473 /* RoutineListView.swift */; };
 		B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */; };
-		B3E77013286DF4EA006122EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E77012286DF4EA006122EF /* ContentView.swift */; };
 		B3E77015286DF4EB006122EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3E77014286DF4EB006122EF /* Assets.xcassets */; };
 		B3E77018286DF4EB006122EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3E77017286DF4EB006122EF /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -20,11 +29,20 @@
 /* Begin PBXFileReference section */
 		B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseRecordView.swift; sourceTree = "<group>"; };
 		B307E497287E78C600AFD1F0 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
+		B316B4A229494A5000EB490B /* ExerciseSelectionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSelectionListView.swift; sourceTree = "<group>"; };
+		B316B4A82949A36E00EB490B /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		B33D0FAD296FBAE300C2FB1E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		B3454C032874875600B017BB /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
 		B3454C05287487C300B017BB /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		B35E3401296387AB00161DD0 /* FullRoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullRoutineListView.swift; sourceTree = "<group>"; };
+		B368912F29145E0000E04957 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B368913229145EB800E04957 /* CreateRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineView.swift; sourceTree = "<group>"; };
+		B36891352914636A00E04957 /* UIColor+LightAndDarkMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+LightAndDarkMode.swift"; sourceTree = "<group>"; };
+		B368913729146A4F00E04957 /* Color+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+CustomColors.swift"; sourceTree = "<group>"; };
+		B36891392914951300E04957 /* ButtonStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyles.swift; sourceTree = "<group>"; };
+		B3AF3F4C28FA58A000549473 /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		B3E7700D286DF4EA006122EF /* LiftMePrototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMePrototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMePrototypeApp.swift; sourceTree = "<group>"; };
-		B3E77012286DF4EA006122EF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B3E77014286DF4EB006122EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3E77017286DF4EB006122EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -40,6 +58,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B368912E29145DF100E04957 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B368912F29145E0000E04957 /* HomeView.swift */,
+				B33D0FAD296FBAE300C2FB1E /* WorkoutView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B368913129145E1F00E04957 /* Exercises */ = {
+			isa = PBXGroup;
+			children = (
+				B3454C032874875600B017BB /* ExerciseDetailView.swift */,
+				B3454C05287487C300B017BB /* Exercise.swift */,
+				B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */,
+				B307E497287E78C600AFD1F0 /* AddExerciseView.swift */,
+			);
+			path = Exercises;
+			sourceTree = "<group>";
+		};
+		B36891342914632300E04957 /* UIHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				B36891352914636A00E04957 /* UIColor+LightAndDarkMode.swift */,
+				B368913729146A4F00E04957 /* Color+CustomColors.swift */,
+				B36891392914951300E04957 /* ButtonStyles.swift */,
+			);
+			path = UIHelpers;
+			sourceTree = "<group>";
+		};
+		B3AF3F4B28FA586A00549473 /* Routines */ = {
+			isa = PBXGroup;
+			children = (
+				B3AF3F4C28FA58A000549473 /* RoutineListView.swift */,
+				B368913229145EB800E04957 /* CreateRoutineView.swift */,
+				B316B4A229494A5000EB490B /* ExerciseSelectionListView.swift */,
+				B35E3401296387AB00161DD0 /* FullRoutineListView.swift */,
+				B316B4A82949A36E00EB490B /* SwiftUIView.swift */,
+			);
+			path = Routines;
+			sourceTree = "<group>";
+		};
 		B3E77004286DF4EA006122EF = {
 			isa = PBXGroup;
 			children = (
@@ -59,14 +119,13 @@
 		B3E7700F286DF4EA006122EF /* LiftMePrototype */ = {
 			isa = PBXGroup;
 			children = (
+				B36891342914632300E04957 /* UIHelpers */,
 				B3E77010286DF4EA006122EF /* LiftMePrototypeApp.swift */,
-				B3E77012286DF4EA006122EF /* ContentView.swift */,
+				B368912E29145DF100E04957 /* Home */,
+				B3AF3F4B28FA586A00549473 /* Routines */,
+				B368913129145E1F00E04957 /* Exercises */,
 				B3E77014286DF4EB006122EF /* Assets.xcassets */,
 				B3E77016286DF4EB006122EF /* Preview Content */,
-				B3454C032874875600B017BB /* ExerciseDetailView.swift */,
-				B3454C05287487C300B017BB /* Exercise.swift */,
-				B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */,
-				B307E497287E78C600AFD1F0 /* AddExerciseView.swift */,
 			);
 			path = LiftMePrototype;
 			sourceTree = "<group>";
@@ -149,11 +208,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3E77013286DF4EA006122EF /* ContentView.swift in Sources */,
+				B368913A2914951300E04957 /* ButtonStyles.swift in Sources */,
 				B3454C06287487C300B017BB /* Exercise.swift in Sources */,
+				B368913329145EB800E04957 /* CreateRoutineView.swift in Sources */,
 				B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */,
+				B33D0FAE296FBAE300C2FB1E /* WorkoutView.swift in Sources */,
+				B368913829146A4F00E04957 /* Color+CustomColors.swift in Sources */,
 				B307E47A28752A2600AFD1F0 /* AddExerciseRecordView.swift in Sources */,
+				B36891362914636A00E04957 /* UIColor+LightAndDarkMode.swift in Sources */,
+				B316B4A92949A36E00EB490B /* SwiftUIView.swift in Sources */,
 				B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */,
+				B316B4A329494A5000EB490B /* ExerciseSelectionListView.swift in Sources */,
+				B368913029145E0000E04957 /* HomeView.swift in Sources */,
+				B3AF3F4D28FA58A000549473 /* RoutineListView.swift in Sources */,
+				B35E3402296387AB00161DD0 /* FullRoutineListView.swift in Sources */,
 				B3E77011286DF4EA006122EF /* LiftMePrototypeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,6 +361,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -322,6 +391,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -11,7 +11,8 @@ import SwiftUI
 struct LiftMePrototypeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+//            SwiftUIView()
+            HomeView()
         }
     }
 }

@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ManagedExercise" representedClassName="ManagedExercise" syncable="YES">
+        <attribute name="creationDate" attributeType="Date" defaultDateTimeInterval="695341620" usesScalarValueType="NO"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String" defaultValueString="Untitled Exercise"/>
+        <relationship name="exerciseRecords" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedExerciseRecord" inverseName="exercise" inverseEntity="ManagedExerciseRecord"/>
+        <relationship name="routines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedRoutine" inverseName="exercises" inverseEntity="ManagedRoutine"/>
+    </entity>
+    <entity name="ManagedExerciseRecord" representedClassName="ManagedExerciseRecord" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedExercise" inverseName="exerciseRecords" inverseEntity="ManagedExercise"/>
+    </entity>
     <entity name="ManagedRoutine" representedClassName="ManagedRoutine" syncable="YES">
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
+        <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedExercise" inverseName="routines" inverseEntity="ManagedExercise"/>
         <relationship name="routineRecords" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedRoutineRecord" inverseName="routine" inverseEntity="ManagedRoutineRecord"/>
     </entity>
     <entity name="ManagedRoutineRecord" representedClassName="ManagedRoutineRecord" syncable="YES">
@@ -12,8 +25,4 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="routine" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRoutine" inverseName="routineRecords" inverseEntity="ManagedRoutine"/>
     </entity>
-    <elements>
-        <element name="ManagedRoutine" positionX="-63" positionY="-18" width="128" height="89"/>
-        <element name="ManagedRoutineRecord" positionX="-54" positionY="18" width="128" height="89"/>
-    </elements>
 </model>

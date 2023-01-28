@@ -30,7 +30,19 @@ extension ManagedRoutine {
     }
     
     
-    public static func create(_ routine: LocalRoutine, in context: NSManagedObjectContext) {
+    public static func findRoutines(with name: String, or exercises: [Exercise], in context: NSManagedObjectContext) throws ->  [ManagedRoutine] {
+        
+        let request = ManagedRoutine.fetchRequest
+        request.returnsObjectsAsFaults = false
+        
+        let predicate = NSPredicate(format: "%K == %@", #keyPath(ManagedRoutine.name), name)
+        request.predicate = predicate
+        
+        return try context.fetch(request)
+    }
+    
+    
+    public static func create(_ routine: Routine, in context: NSManagedObjectContext) {
         
         let managedRoutine = ManagedRoutine(context: context)
         managedRoutine.id = routine.id
@@ -51,8 +63,7 @@ extension ManagedRoutine {
 extension ManagedRoutine: Identifiable {}
 
 
-
-private extension Array where Element == LocalRoutineRecord {
+private extension Array where Element == RoutineRecord {
 
     func toManaged(for routine: ManagedRoutine, in context: NSManagedObjectContext) -> Set<ManagedRoutineRecord> {
         
