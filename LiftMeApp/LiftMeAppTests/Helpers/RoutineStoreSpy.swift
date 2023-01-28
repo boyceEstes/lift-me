@@ -75,17 +75,22 @@ class RoutineStoreSpy: RoutineStore {
     
     // MARK: - Exercises
     
-//    private(set) var loadAllExercisesCompletions = [RoutineStore.ReadExercisesCompletion]()
+    private(set) var readAllExercisesCompletions = [RoutineStore.ReadExercisesCompletion]()
     
     
     func readAllExercises(completion: @escaping ReadExercisesCompletion) {
         
         requests.append(.loadAllExercises)
-//        loadAllExercisesCompletions.append(completion)
+        readAllExercisesCompletions.append(completion)
     }
     
     
     func createExercise(_ exercise: RoutineRepository.Exercise, completion: @escaping CreateExerciseCompletion) {
         
+    }
+    
+    
+    func completeReadAllExercises(with exercises: [Exercise], at index: Int = 0) {
+        readAllExercisesCompletions[index](.success(exercises))
     }
 }

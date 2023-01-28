@@ -46,7 +46,13 @@ class RoutineStorePreview: RoutineStore {
     
     // MARK: - Exercises
     func readAllExercises(completion: @escaping ReadExercisesCompletion) {
-        print("")
+        
+        let exercise = Exercise(
+            id: UUID(),
+            name: "Dumbbell Press",
+            creationDate: Date(),
+            exerciseRecords: [],
+            tags: [])
     }
     
     

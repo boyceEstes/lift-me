@@ -12,6 +12,7 @@ import LiftMeRoutinesiOS
 @testable import LiftMeApp
 
 extension AddExerciseView: Inspectable { }
+extension BasicExerciseRowView: Inspectable { }
 
 
 final class AddExerciseViewUIIntegrationTests: XCTestCase {
@@ -51,6 +52,34 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         wait(for: [exp], timeout: 1)
     }
     
+
+    func test_addExerciseView_readAllExercisesCompletionWithExercises_willRenderExercises() throws {
+
+        // given
+        let (sut, routineStore, _) = makeSUT()
+        let exercises = [uniqueExercise(), uniqueExercise(), uniqueExercise()]
+
+        let exp = sut.inspection.inspect { sut in
+
+//            sut.findAll(BasicExerciseRowView.self)
+            let exerciseRowsBeforeRead = sut.findAll(BasicExerciseRowView.self)
+            XCTAssertTrue(exerciseRowsBeforeRead.isEmpty)
+
+            // when 2
+            routineStore.completeReadAllExercises(with: exercises)
+
+            let exerciseRowsAfterRead = sut.findAll(BasicExerciseRowView.self)
+            XCTAssertEqual(exerciseRowsAfterRead.count, exercises.count)
+        }
+
+        // when 1
+        ViewHosting.host(view: sut)
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    
+
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
 
