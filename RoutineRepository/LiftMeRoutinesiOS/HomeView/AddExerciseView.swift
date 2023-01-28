@@ -7,24 +7,37 @@
 
 import SwiftUI
 import RoutineRepository
+import Combine
 
 public class AddExerciseViewModel: ObservableObject {
     
     let routineStore: RoutineStore
+    
+    // Does not get set
+    var allExercises = [Exercise]()
     @Published var filteredExercises = [Exercise]()
+    @Published var searchTextField = ""
+    
+    var cancellables = Set<AnyCancellable>()
     
     public init(routineStore: RoutineStore) {
         
         self.routineStore = routineStore
+        
+        bindSearchTextFieldChange()
     }
     
     
     func loadAllExercises() {
         routineStore.readAllExercises() { [weak self] result in
             
+            guard let self = self else { return }
+            
             switch result {
             case let .success(exercises):
-                self?.filteredExercises = exercises
+                // We are doing this first - If we delete an exercise `loadAllExercises`
+                self.allExercises = exercises
+                self.filteredExercises = exercises //self.filterExercises(by: self.searchTextField)
                 
             case let .failure(_):
                 break
@@ -48,12 +61,39 @@ public class AddExerciseViewModel: ObservableObject {
             }
         }
     }
+    
+    
+    private func bindSearchTextFieldChange() {
+        
+        print("Bind search text field change")
+        
+        $searchTextField
+            .dropFirst()
+//            .debounce(for: 0.5, scheduler: DispatchQueue.main)
+            .sink { [weak self] searchTextFieldValue in
+                guard let self = self else { return }
+                
+                print("text field change \(searchTextFieldValue)")
+                self.filteredExercises = searchTextFieldValue.isEmpty ? self.allExercises : self.filterExercises(by: searchTextFieldValue)
+                
+            }.store(in: &cancellables)
+    }
+    
+    
+    private func filterExercises(by searchTextFieldValue: String) -> [Exercise] {
+        
+        let exercisesFilteredBySearchTextField = allExercises.filter { exercise in
+            return exercise.name.localizedCaseInsensitiveContains(searchTextFieldValue)
+        }
+        
+        return exercisesFilteredBySearchTextField
+    }
 }
 
 
 public struct AddExerciseView: View {
     
-    @ObservedObject var viewModel: AddExerciseViewModel
+    @ObservedObject public var viewModel: AddExerciseViewModel
     public let inspection = Inspection<Self>()
     
     
@@ -69,6 +109,8 @@ public struct AddExerciseView: View {
                 viewModel.createExercise()
                 viewModel.loadAllExercises()
             }
+            
+            TextField("Hello world", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
             
             List {
                 ForEach(viewModel.filteredExercises, id: \.self) { exercise in

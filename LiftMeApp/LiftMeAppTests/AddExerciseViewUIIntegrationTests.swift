@@ -9,6 +9,7 @@ import XCTest
 import ViewInspector
 import SwiftUI
 import LiftMeRoutinesiOS
+import RoutineRepository
 @testable import LiftMeApp
 
 extension AddExerciseView: Inspectable { }
@@ -59,25 +60,40 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         let (sut, routineStore, _) = makeSUT()
         let exercises = [uniqueExercise(), uniqueExercise(), uniqueExercise()]
 
-        let exp = sut.inspection.inspect { sut in
-
-//            sut.findAll(BasicExerciseRowView.self)
-            let exerciseRowsBeforeRead = sut.findAll(BasicExerciseRowView.self)
-            XCTAssertTrue(exerciseRowsBeforeRead.isEmpty)
-
-            // when 2
-            routineStore.completeReadAllExercises(with: exercises)
-
-            let exerciseRowsAfterRead = sut.findAll(BasicExerciseRowView.self)
-            XCTAssertEqual(exerciseRowsAfterRead.count, exercises.count)
-        }
-
-        // when 1
-        ViewHosting.host(view: sut)
-        wait(for: [exp], timeout: 1)
+        // when/then
+        assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
     }
     
     
+    func test_addExerciseView_filterExerisesByString_rendersOnlyMatchingExercises() {
+        
+        let (sut, routineStore, _) = makeSUT()
+        
+        let exercises = [
+            uniqueExercise(name: "Bench"),
+            uniqueExercise(name: "Deadlift"),
+            uniqueExercise(name: "Squat")]
+        let expectedNumberOfFilteredExercises = 1
+
+        assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
+        
+        // then
+        // Check the items rendered
+        
+        let exp = sut.inspection.inspect { sut in
+            
+            // when
+            let searchTextField = try sut.find(ViewType.TextField.self)
+            try searchTextField.setInput("Bench")
+            
+            // then
+            let exerciseRowsAfterFilter = sut.findAll(BasicExerciseRowView.self)
+            XCTAssertEqual(exerciseRowsAfterFilter.count, expectedNumberOfFilteredExercises)
+        }
+
+        wait(for: [exp], timeout: 1)
+        
+    }
     
 
     
@@ -92,5 +108,30 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
         return (sut, routineStore, workoutNavigationFlow)
+    }
+    
+    
+    private func assertReadAllExercisesRenders(
+        in sut: AddExerciseView,
+        routineStore: RoutineStoreSpy,
+        with expectedExercises: [Exercise],
+        file: StaticString = #file,
+        line: UInt = #line) {
+        
+        let exp = sut.inspection.inspect { sut in
+
+            let exerciseRowsBeforeRead = sut.findAll(BasicExerciseRowView.self)
+            XCTAssertTrue(exerciseRowsBeforeRead.isEmpty, file: file, line: line)
+
+            // when 2
+            routineStore.completeReadAllExercises(with: expectedExercises)
+
+            let exerciseRowsAfterRead = sut.findAll(BasicExerciseRowView.self)
+            XCTAssertEqual(exerciseRowsAfterRead.count, expectedExercises.count, file: file, line: line)
+        }
+
+        // when 1
+        ViewHosting.host(view: sut)
+        wait(for: [exp], timeout: 1)
     }
 }
