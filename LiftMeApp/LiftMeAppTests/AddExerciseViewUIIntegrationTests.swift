@@ -13,6 +13,8 @@ import RoutineRepository
 @testable import LiftMeApp
 
 extension AddExerciseView: Inspectable { }
+extension SelectedExercisesList: Inspectable { }
+extension FilteredAllExercisesList: Inspectable { }
 extension SelectableBasicExerciseRowView: Inspectable { }
 extension BasicExerciseRowView: Inspectable { }
 
@@ -104,21 +106,64 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
             uniqueExercise(name: "Bench"),
             uniqueExercise(name: "Deadlift"),
             uniqueExercise(name: "Squat")]
-        let expectedNumberOfSelectedExercises = 1
 
         assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
         
         let exp = sut.inspection.inspect { sut in
             
-            // when
-            // Tap a "bench" exercise row
-            let selectableFilteredRow = try sut.find(viewWithAccessibilityIdentifier: "selectable_filtered_row_Bench")
-            try selectableFilteredRow.callOnTapGesture()
+            // GIVEN two exercises
+            let filteredSelectableList = try sut.find(FilteredAllExercisesList.self)
+            let selectableFilteredExercise1 = try filteredSelectableList.find(SelectableBasicExerciseRowView.self, containing: "Bench")
+            let selectableFilteredExercise2 = try filteredSelectableList.find(SelectableBasicExerciseRowView.self, containing: "Deadlift")
             
-            // then
-            // Bench exercise row shows up as a selected Exercise Row
-            let selectedRowsAfterSelection = self.findAllWhereParentViewHas(accessibilityIdentifier: "selected_exercise_list", for: sut)
-            XCTAssertEqual(selectedRowsAfterSelection.count, expectedNumberOfSelectedExercises)
+            // WHEN both exercises from filtered exercises list are tapped
+            try selectableFilteredExercise1.button().tap()
+            try selectableFilteredExercise2.button().tap()
+            
+            // THEN two exercises are in selected list
+            let selectedExerciseListAfterExercisesTapped = try sut.find(SelectedExercisesList.self)
+            let selectedExercisesInListAfterExercisesTapped = selectedExerciseListAfterExercisesTapped.findAll(SelectableBasicExerciseRowView.self)
+            
+            XCTAssertEqual(selectedExercisesInListAfterExercisesTapped.count, 2)
+            
+            // AND 4 exercises are selected in total (2 exercises in each list)
+            XCTAssertEqual(sut.findAll(SelectableBasicExerciseRowView.self, where: { view in
+                try view.actualView().selectableExercise.isSelected == true
+            }).count, 4)
+            
+            
+            // GIVEN an exercise is selected in the exerciseList
+            // WHEN an exercise is deselected from filtered exercise list
+            try selectableFilteredExercise1.button().tap()
+            // THEN it is removed from the selected exercise list
+            let selectedExercisesListAfterDeselectionFromFilteredList = try sut.find(SelectedExercisesList.self)
+            let selectedExercisesInListAfterDeselectionFromFilteredList = selectedExercisesListAfterDeselectionFromFilteredList.findAll(SelectableBasicExerciseRowView.self)
+            
+            XCTAssertEqual(selectedExercisesInListAfterDeselectionFromFilteredList.count, 1)
+            
+            // AND it is unselected in the filtered exercise list
+            XCTAssertEqual(sut.findAll(SelectableBasicExerciseRowView.self, where: { view in
+                try view.actualView().selectableExercise.isSelected == true
+            }).count, 2)
+            
+            
+            // TODO: Can I consolidate all of these to one List shortcut?
+            // GIVEN an exercise is selected
+            let selectedExercisesList = try sut.find(SelectedExercisesList.self)
+            let selectedExercise = try selectedExercisesList.find(SelectableBasicExerciseRowView.self)
+
+            // WHEN an exercise is deselected from selected exercise list
+            try selectedExercise.button().tap()
+            
+            // THEN it is removed from the selected exercise list
+            let selectedExercisesListAfterDeselectionFromSelectedList = try sut.find(SelectedExercisesList.self)
+            let selectedExercisesInListAfterDeselectionFromSelectedList = selectedExercisesListAfterDeselectionFromSelectedList.findAll(SelectableBasicExerciseRowView.self)
+            
+            XCTAssertEqual(selectedExercisesInListAfterDeselectionFromSelectedList.count, 0)
+            // AND it is deselected in the filtered exercise list
+            XCTAssertEqual(sut.findAll(SelectableBasicExerciseRowView.self, where: { view in
+                try view.actualView().selectableExercise.isSelected == true
+            }).count, 0)
         }
         
         wait(for: [exp], timeout: 1)
@@ -171,6 +216,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     private func findAllWhereParentViewHas(accessibilityIdentifier: String, for childView: InspectableView<ViewType.View<AddExerciseView>>) -> [InspectableView<ViewType.ClassifiedView>] {
         
         childView.findAll(where: { view in
+            
             return try view.parent().accessibilityIdentifier() == accessibilityIdentifier
         })
     }

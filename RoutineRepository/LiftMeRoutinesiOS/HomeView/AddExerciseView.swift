@@ -11,10 +11,33 @@ import Combine
 
 public class AddExerciseViewModel: ObservableObject {
     
-    struct SelectableExercise: Hashable {
+    public struct SelectableExercise2: Hashable {
         
-        var isSelected: Bool
+        public var isSelected: Bool
         let exercise: Exercise
+    }
+    
+    
+    public class SelectableExercise: Hashable, ObservableObject {
+        
+        public var isSelected: Bool
+        let exercise: Exercise
+        
+        
+        public init(isSelected: Bool, exercise: Exercise) {
+            self.isSelected = isSelected
+            self.exercise = exercise
+        }
+        
+        
+        public func hash(into hasher: inout Hasher) {
+            return hasher.combine(ObjectIdentifier(self))
+        }
+        
+        
+        public static func == (lhs: AddExerciseViewModel.SelectableExercise, rhs: AddExerciseViewModel.SelectableExercise) -> Bool {
+            return lhs.isSelected == rhs.isSelected && lhs.exercise == rhs.exercise
+        }
     }
     
     
@@ -44,7 +67,7 @@ public class AddExerciseViewModel: ObservableObject {
         self.routineStore = routineStore
         
         bindSearchTextFieldChange()
-        bindChangesToSelectableFilteredExercises()
+//        bindChangesToSelectableFilteredExercises()
 //        bindChangesToSelectableSelectedExercises()
     }
     
@@ -109,16 +132,25 @@ public class AddExerciseViewModel: ObservableObject {
     }
     
     
-    private func bindChangesToSelectableFilteredExercises() {
+    func addSelectableExerciseToSelectedList(selectableExercise: SelectableExercise) {
+        if !selectableSelectedExercises.contains(selectableExercise) {
+            
+            selectableExercise.isSelected = true
+            selectableSelectedExercises.append(selectableExercise)
+        }
+    }
+    
+    
+    func removeSelectableExerciseFromSelectedList(selectableExercise: SelectableExercise) {
         
-        $selectableFilteredExercises
-            .dropFirst()
-            .sink { [weak self] selectableFilteredExercises in
-                
-                guard let self = self else { return }
-                
-                self.selectableSelectedExercises = selectableFilteredExercises.filter { $0.isSelected }
-            }.store(in: &cancellables)
+        if selectableSelectedExercises.contains(selectableExercise) {
+            
+            selectableExercise.isSelected = false
+            
+            selectableSelectedExercises.removeAll { listCar in
+                listCar == selectableExercise
+            }
+        }
     }
 }
 
@@ -137,15 +169,8 @@ public struct AddExerciseView: View {
     
     public var body: some View {
         VStack {
-            
-            List {
-                ForEach($viewModel.selectableSelectedExercises, id: \.self) { selectableExercise in
-                    
-                    SelectableBasicExerciseRowView(selectableExercise: selectableExercise)
-                }
-                .accessibilityIdentifier("selected_exercise_list")
-            }
-            
+
+            SelectedExercisesList(viewModel: viewModel)
             
             Button("Create") {
                 viewModel.createExercise()
@@ -154,13 +179,7 @@ public struct AddExerciseView: View {
             
             TextField("Hello world", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
             
-            List {
-                ForEach($viewModel.selectableFilteredExercises, id: \.self) { selectableExercise in
-//                    BasicExerciseRowView(exercise: selectableExercise)
-                    SelectableBasicExerciseRowView(selectableExercise: selectableExercise)
-                }
-                .accessibilityIdentifier("filtered_exercise_list")
-            }
+            FilteredAllExercisesList(viewModel: viewModel)
         }
             .onAppear {
                 // Do whatever
@@ -174,23 +193,74 @@ public struct AddExerciseView: View {
 }
 
 
-public struct SelectableBasicExerciseRowView: View {
+public struct SelectedExercisesList: View {
     
-    @Binding var selectableExercise: AddExerciseViewModel.SelectableExercise
+//    @Binding var selectedSelectableExercises: [AddExerciseViewModel.SelectableExercise]
+    @ObservedObject var viewModel: AddExerciseViewModel
     
     public var body: some View {
         
-        HStack {
-            selectableExercise.isSelected ? Image(systemName: "circle.fill") : Image(systemName: "circle")
-            BasicExerciseRowView(exercise: selectableExercise.exercise)
+        List {
+            ForEach($viewModel.selectableSelectedExercises, id: \.self) { selectableExercise in
+                
+                SelectableBasicExerciseRowView(selectableExercise: selectableExercise) {
+                    print("Remove to \(selectableExercise.wrappedValue.exercise.name) from selected list")
+                    viewModel.removeSelectableExerciseFromSelectedList(selectableExercise: selectableExercise.wrappedValue)
+                }
+            }
         }
-        .accessibilityIdentifier("selectable_filtered_row_\(selectableExercise.exercise.name)")
-        .onTapGesture {
-            print("tapped selectable row")
-            selectableExercise.isSelected.toggle()
-        }
+        .accessibilityIdentifier("selected_exercise_list")
     }
 }
+
+
+public struct FilteredAllExercisesList: View {
+    
+//    @Binding var filteredAllExercises: [AddExerciseViewModel.SelectableExercise]
+    @ObservedObject var viewModel: AddExerciseViewModel
+    
+    public var body: some View {
+        
+        List {
+            ForEach($viewModel.selectableFilteredExercises, id: \.self) { selectableExercise in
+                
+                SelectableBasicExerciseRowView(selectableExercise: selectableExercise) {
+                    print("Add to \(selectableExercise.wrappedValue.exercise.name) to selected list")
+                    if selectableExercise.wrappedValue.isSelected {
+                        viewModel.removeSelectableExerciseFromSelectedList(selectableExercise: selectableExercise.wrappedValue)
+                    } else {
+                        viewModel.addSelectableExerciseToSelectedList(selectableExercise: selectableExercise.wrappedValue)
+                    }
+                }
+            }
+        }
+        .accessibilityIdentifier("filtered_exercise_list")
+    }
+}
+
+
+public struct SelectableBasicExerciseRowView: View {
+    
+    @Binding public var selectableExercise: AddExerciseViewModel.SelectableExercise
+    let tapAction: () -> Void
+    
+    public var body: some View {
+        
+        Button {
+            tapAction()
+        } label: {
+            HStack {
+                selectableExercise.isSelected ? Image(systemName: "circle.fill") : Image(systemName: "circle")
+                
+                BasicExerciseRowView(exercise: selectableExercise.exercise)
+            }
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PlainButtonStyle())
+        .accessibilityIdentifier("selectable_row_\(selectableExercise.exercise.name)_\(selectableExercise.isSelected ? "selected" : "unselected")")
+    }
+}
+
 
 
 public struct BasicExerciseRowView: View {
@@ -198,7 +268,10 @@ public struct BasicExerciseRowView: View {
     let exercise: Exercise
     
     public var body: some View {
-        Text(exercise.name)
+        HStack {
+            Text(exercise.name)
+            Spacer()
+        }
     }
 }
 
