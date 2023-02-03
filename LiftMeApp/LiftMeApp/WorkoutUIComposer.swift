@@ -40,6 +40,7 @@ public class WorkoutUIComposer {
     func makeWorkoutView() -> WorkoutView {
         
         return WorkoutView(
+            routineStore: routineStore,
             goToAddExercise: {
                 self.navigationFlow.modallyDisplayedView = .addExercise
             }

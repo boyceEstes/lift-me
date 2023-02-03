@@ -50,7 +50,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     func test_workoutView_tapAddButton_navigatesToAddExerciseView() throws {
 
         // given
-        let (sut, workoutNavigationFlow) = makeSUT()
+        let (sut, _, workoutNavigationFlow) = makeSUT()
         let button = try sut.inspect().find(viewWithId: "add-exercise-button").button()
 
         // when
@@ -62,18 +62,36 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
             WorkoutNavigationFlow.SheetyIdentifier.addExercise
         )
     }
+    
+    
+    func test_workoutView_viewWillAppear_createsRoutineRecord() {
+        
+        // given
+        let (sut, routineStore, _) = makeSUT()
+        
+        let exp = sut.inspection.inspect { view in
+            // then
+            XCTAssertEqual(routineStore.requests, [.createRoutineRecord])
+        }
+        
+        // when
+        ViewHosting.host(view: sut)
+
+        wait(for: [exp], timeout: 1)
+    }
 
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, navigationFlow: WorkoutNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
 
         let workoutUIComposer = WorkoutUIComposerWithSpys()
         let workoutNavigationFlow = workoutUIComposer.navigationFlow
         let sut = workoutUIComposer.makeWorkoutView()
+        let routineStore: RoutineStoreSpy = workoutUIComposer.routineStore as! RoutineStoreSpy
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, workoutNavigationFlow)
+        return (sut, routineStore, workoutNavigationFlow)
     }
     
 }

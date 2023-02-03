@@ -16,6 +16,7 @@ class RoutineStoreSpy: RoutineStore {
         case saveRoutine(Routine)
         case loadAllRoutines
         case loadAllExercises
+        case createRoutineRecord
     }
     
     private(set) var requests = [ReceivedMessage]()
@@ -61,7 +62,7 @@ class RoutineStoreSpy: RoutineStore {
     
     // MARK: - Routine Records
     func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
-        print("placeholder")
+        requests.append(.createRoutineRecord)
     }
     
     func updateRoutineRecord(newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {

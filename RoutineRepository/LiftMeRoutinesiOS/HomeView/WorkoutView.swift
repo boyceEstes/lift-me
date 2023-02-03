@@ -10,13 +10,21 @@ import RoutineRepository
 
 public struct WorkoutView: View {
     
-    public init(goToAddExercise: @escaping () -> Void) {
+    public let inspection = Inspection<Self>()
+    
+    let allExercises: [Exercise] = []
+    
+    let routineStore: RoutineStore
+    let goToAddExercise: () -> Void
+
+
+    public init(routineStore: RoutineStore, goToAddExercise: @escaping () -> Void) {
+        
+        self.routineStore = routineStore
         self.goToAddExercise = goToAddExercise
     }
     
-    let allExercises: [Exercise] = []
-    let goToAddExercise: () -> Void
-
+    
     public var body: some View {
         List {
             Section {
@@ -27,7 +35,6 @@ public struct WorkoutView: View {
                         Text(exercise.name)
                     }
                 }
-
             } header: {
                 HStack {
                     Text("Exercises")
@@ -53,6 +60,21 @@ public struct WorkoutView: View {
             }.textCase(nil)
         }
         .navigationTitle("Custom Workout")
+        .onAppear {
+            // we need to store the reference in-memory so that we can update this record whenever
+            // are adding exercises or updating the routine in any way
+            routineStore.createRoutineRecord { result in
+                switch result {
+                case .success:
+                    print("Successfully created routine record")
+                case let .failure(error):
+                    print("Failure to create routine record, \(error.localizedDescription)")
+                }
+            }
+        }
+        .onReceive(inspection.notice) {
+            self.inspection.visit(self, $0)
+        }
     }
 }
 
@@ -60,6 +82,9 @@ public struct WorkoutView: View {
 
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutView(goToAddExercise: { })
+        WorkoutView(
+            routineStore: RoutineStorePreview(),
+            goToAddExercise: { }
+        )
     }
 }
