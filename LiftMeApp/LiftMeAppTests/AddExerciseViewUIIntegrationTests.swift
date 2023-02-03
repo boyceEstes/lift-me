@@ -40,6 +40,16 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     }
     
     
+    func test_addExerciseView_init_rendersAddExerciseButton() {
+        
+        // given/when
+        let (sut, _, _) = makeSUT()
+        
+        // then
+        XCTAssertNoThrow(try sut.inspect().find(viewWithAccessibilityIdentifier: "add-selected-exercises"))
+    }
+    
+    
     func test_addExerciseView_viewWillAppear_requestsAllExerciseLoad() {
         
         // given
@@ -169,14 +179,12 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         wait(for: [exp], timeout: 1)
     }
     
-    // Test that there is a single row in selected rows that will say to add some exercises
-
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
 
         let workoutUIComposer = WorkoutUIComposerWithSpys()
         let workoutNavigationFlow = workoutUIComposer.navigationFlow
-        let sut = workoutUIComposer.makeAddExerciseView()
+        let sut = workoutUIComposer.makeAddExerciseView(addExerciseCompletion: { _ in })
         let routineStore: RoutineStoreSpy = workoutUIComposer.routineStore as! RoutineStoreSpy
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)

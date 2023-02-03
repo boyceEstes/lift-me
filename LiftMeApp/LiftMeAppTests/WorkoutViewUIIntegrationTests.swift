@@ -59,7 +59,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
         // then
         XCTAssertEqual(
             workoutNavigationFlow.modallyDisplayedView,
-            WorkoutNavigationFlow.SheetyIdentifier.addExercise
+            WorkoutNavigationFlow.SheetyIdentifier.addExercise(addExercisesCompletion: sut.viewModel.addExercisesCompletion)
         )
     }
     
@@ -78,6 +78,19 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
         ViewHosting.host(view: sut)
 
         wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_workoutView_addingExercisesToRoutineRecordWithEmptyExerciseList_displaysExercises() {
+        
+        // given
+        // A routine record with no exercises
+        
+        // when
+        // Exercise(s) is added from add exercise screen
+        
+        // then
+        // the routine record will append the new added exercises and display them
     }
 
 

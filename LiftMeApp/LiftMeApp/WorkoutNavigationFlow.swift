@@ -8,16 +8,33 @@
 import Foundation
 import NavigationFlow
 import SwiftUI
+import RoutineRepository
 
 
 class WorkoutNavigationFlow: SheetyNavigationFlow {
     
     
-    enum SheetyIdentifier: Identifiable {
+    enum SheetyIdentifier: Identifiable, Hashable {
         
         var id: Int { self.hashValue }
         
-        case addExercise
+        case addExercise(addExercisesCompletion: ([Exercise]) -> Void)
+        
+        func hash(into hasher: inout Hasher) {
+            
+            switch self {
+            case .addExercise:
+                hasher.combine(0)
+            }
+        }
+        
+        
+        static func == (lhs: WorkoutNavigationFlow.SheetyIdentifier, rhs: WorkoutNavigationFlow.SheetyIdentifier) -> Bool {
+            
+            switch (lhs, rhs) {
+            case (.addExercise, .addExercise): return true
+            }
+        }
     }
     
     
@@ -40,8 +57,8 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
         
         switch identifier {
             
-        case .addExercise:
-            return workoutUIComposer.makeAddExerciseView()
+        case let .addExercise(addExerciseCompletion):
+            return workoutUIComposer.makeAddExerciseView(addExerciseCompletion: addExerciseCompletion)
         }
     }
 }

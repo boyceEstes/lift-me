@@ -42,6 +42,7 @@ public class AddExerciseViewModel: ObservableObject {
     
     
     let routineStore: RoutineStore
+    let addExerciseCompletion: ([Exercise]) -> Void
     
     // Does not get set
     var allSelectableExercises = [SelectableExercise]()
@@ -62,9 +63,10 @@ public class AddExerciseViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    public init(routineStore: RoutineStore) {
+    public init(routineStore: RoutineStore, addExerciseCompletion: @escaping ([Exercise]) -> Void) {
         
         self.routineStore = routineStore
+        self.addExerciseCompletion = addExerciseCompletion
         
         bindSearchTextFieldChange()
 //        bindChangesToSelectableFilteredExercises()
@@ -169,6 +171,14 @@ public struct AddExerciseView: View {
     
     public var body: some View {
         VStack {
+            
+            Button("Add \(viewModel.selectableSelectedExercises.count)") {
+                print("Add")
+                viewModel.addExerciseCompletion(
+                    viewModel.selectableSelectedExercises.map { $0.exercise}
+                )
+            }
+            .accessibilityIdentifier("add-selected-exercises")
 
             SelectedExercisesList(viewModel: viewModel)
             
@@ -280,7 +290,8 @@ struct AddExerciseView_Previews: PreviewProvider {
     static var previews: some View {
         AddExerciseView(
             viewModel: AddExerciseViewModel(
-                routineStore: RoutineStorePreview()
+                routineStore: RoutineStorePreview(),
+                addExerciseCompletion: { _ in }
             )
         )
     }

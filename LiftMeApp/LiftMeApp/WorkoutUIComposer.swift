@@ -43,15 +43,21 @@ public class WorkoutUIComposer {
         return WorkoutView(
             viewModel: viewModel,
             goToAddExercise: {
-                self.navigationFlow.modallyDisplayedView = .addExercise
+                self.navigationFlow.modallyDisplayedView = .addExercise(
+                    addExercisesCompletion: viewModel.addExercisesCompletion
+                )
             }
         )
     }
     
     
-    func makeAddExerciseView() -> AddExerciseView {
+    func makeAddExerciseView(addExerciseCompletion: @escaping ([Exercise]) -> Void) -> AddExerciseView {
         
-        let viewModel = AddExerciseViewModel(routineStore: routineStore)
+        // what if I just post a notification and observe it in the workout view?
+        // can I post with a routine record and an array of exercises?
+        let viewModel = AddExerciseViewModel(
+            routineStore: routineStore,
+            addExerciseCompletion: addExerciseCompletion)
         return AddExerciseView(viewModel: viewModel)
     }
 }

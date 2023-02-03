@@ -32,6 +32,12 @@ public class WorkoutViewModel {
             }
         }
     }
+    
+    
+    // Passed to AddExerciseViewModel for logic after Add button is tapped
+    public func addExercisesCompletion(exercises: [Exercise]) {
+        print("We have added an exercise")
+    }
 }
 
 
@@ -41,7 +47,7 @@ public struct WorkoutView: View {
     
     let allExercises: [Exercise] = []
     
-    let viewModel: WorkoutViewModel
+    public let viewModel: WorkoutViewModel
     let goToAddExercise: () -> Void
 
 
