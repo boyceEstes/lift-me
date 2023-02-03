@@ -8,19 +8,46 @@
 import SwiftUI
 import RoutineRepository
 
+
+public class WorkoutViewModel {
+    
+    let routineStore: RoutineStore
+    
+    public init(routineStore: RoutineStore) {
+        
+        self.routineStore = routineStore
+    }
+    
+    
+    // we need to store the reference in-memory so that we can update this record whenever
+    // are adding exercises or updating the routine in any way
+    func createNewRoutineRecord() {
+        
+        routineStore.createRoutineRecord { result in
+            switch result {
+            case .success:
+                print("Successfully created routine record")
+            case let .failure(error):
+                print("Failure to create routine record, \(error.localizedDescription)")
+            }
+        }
+    }
+}
+
+
 public struct WorkoutView: View {
     
     public let inspection = Inspection<Self>()
     
     let allExercises: [Exercise] = []
     
-    let routineStore: RoutineStore
+    let viewModel: WorkoutViewModel
     let goToAddExercise: () -> Void
 
 
-    public init(routineStore: RoutineStore, goToAddExercise: @escaping () -> Void) {
+    public init(viewModel: WorkoutViewModel, goToAddExercise: @escaping () -> Void) {
         
-        self.routineStore = routineStore
+        self.viewModel = viewModel
         self.goToAddExercise = goToAddExercise
     }
     
@@ -61,16 +88,8 @@ public struct WorkoutView: View {
         }
         .navigationTitle("Custom Workout")
         .onAppear {
-            // we need to store the reference in-memory so that we can update this record whenever
-            // are adding exercises or updating the routine in any way
-            routineStore.createRoutineRecord { result in
-                switch result {
-                case .success:
-                    print("Successfully created routine record")
-                case let .failure(error):
-                    print("Failure to create routine record, \(error.localizedDescription)")
-                }
-            }
+
+            viewModel.createNewRoutineRecord()
         }
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
@@ -82,8 +101,9 @@ public struct WorkoutView: View {
 
 struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
+        let viewModel = WorkoutViewModel(routineStore: RoutineStorePreview())
         WorkoutView(
-            routineStore: RoutineStorePreview(),
+            viewModel: viewModel,
             goToAddExercise: { }
         )
     }

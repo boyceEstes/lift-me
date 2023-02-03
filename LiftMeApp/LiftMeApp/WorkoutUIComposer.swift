@@ -39,8 +39,9 @@ public class WorkoutUIComposer {
     
     func makeWorkoutView() -> WorkoutView {
         
+        let viewModel = WorkoutViewModel(routineStore: routineStore)
         return WorkoutView(
-            routineStore: routineStore,
+            viewModel: viewModel,
             goToAddExercise: {
                 self.navigationFlow.modallyDisplayedView = .addExercise
             }
