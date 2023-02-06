@@ -11,7 +11,6 @@ import RoutineRepository
 
 class RoutineStoreSpy: RoutineStore {
 
-
     enum ReceivedMessage: Equatable {
         case saveRoutine(Routine)
         case loadAllRoutines
@@ -65,7 +64,13 @@ class RoutineStoreSpy: RoutineStore {
         requests.append(.createRoutineRecord)
     }
     
-    func updateRoutineRecord(newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
+    
+    func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
+        print("placeholder")
+    }
+
+    
+    func updateRoutineRecord(with id: UUID, newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
         print("placeholder")
     }
     

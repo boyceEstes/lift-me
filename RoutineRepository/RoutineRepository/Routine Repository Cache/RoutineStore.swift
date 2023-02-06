@@ -15,6 +15,7 @@ public protocol RoutineStore {
     typealias CreateRoutineResult = Error?
     
     typealias CreateRoutineRecordResult = Result<RoutineRecord, Error>
+    typealias ReadRoutineRecordResult = Result<RoutineRecord, Error>
     typealias UpdateRoutineRecordResult = Error?
     typealias DeleteRoutineRecordResult = Error?
     
@@ -27,6 +28,7 @@ public protocol RoutineStore {
     typealias CreateRoutineCompletion = (CreateRoutineResult) -> Void
     
     typealias CreateRoutineRecordCompletion = (CreateRoutineRecordResult) -> Void
+    typealias ReadRoutineRecordCompletion = (ReadRoutineRecordResult) -> Void
     typealias UpdateRoutineRecordCompletion = (UpdateRoutineRecordResult) -> Void
     typealias DeleteRoutineRecordCompletion = (DeleteRoutineRecordResult) -> Void
     
@@ -41,9 +43,10 @@ public protocol RoutineStore {
     func createUniqueRoutine(_ routine: Routine, completion: @escaping CreateRoutineCompletion)
     func readAllRoutines(completion: @escaping ReadRoutinesCompletion)
     
+    func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion)
     func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion)
     // Assuming that the ID will be the same as a currently existing routine record
-    func updateRoutineRecord(newRoutineRecord: RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion)
+    func updateRoutineRecord(with id: UUID, newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion)
     func deleteRoutineRecord(routineRecord: RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion)
     
     func readAllExercises(completion: @escaping ReadExercisesCompletion)

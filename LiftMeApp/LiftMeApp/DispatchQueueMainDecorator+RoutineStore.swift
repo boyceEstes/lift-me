@@ -40,7 +40,11 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
         print("")
     }
     
-    func updateRoutineRecord(newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
+    func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
+        print("")
+    }
+    
+    func updateRoutineRecord(with id: UUID, newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
         print("")
     }
     

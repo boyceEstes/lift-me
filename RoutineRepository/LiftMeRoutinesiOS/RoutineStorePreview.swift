@@ -34,7 +34,12 @@ class RoutineStorePreview: RoutineStore {
     }
     
     
-    func updateRoutineRecord(newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
+    public func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
+        print("")
+    }
+    
+    
+    func updateRoutineRecord(with id: UUID, newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
         print("")
     }
     

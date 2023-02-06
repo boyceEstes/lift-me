@@ -13,6 +13,8 @@ public class WorkoutViewModel {
     
     let routineStore: RoutineStore
     
+    @Published var routineRecord: RoutineRecord?
+    
     public init(routineStore: RoutineStore) {
         
         self.routineStore = routineStore
@@ -23,12 +25,44 @@ public class WorkoutViewModel {
     // are adding exercises or updating the routine in any way
     func createNewRoutineRecord() {
         
-        routineStore.createRoutineRecord { result in
+        routineStore.createRoutineRecord { [weak self] result in
             switch result {
-            case .success:
+            case let .success(routineRecord):
+                
                 print("Successfully created routine record")
+                self?.routineRecord = routineRecord
+
             case let .failure(error):
                 print("Failure to create routine record, \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // To be more performant, we could just deal with all of this in memory and
+    // try to implement core data saving logic whenever we are backgrounding the app or closing it?
+    
+    // Or we can just do this as we go?
+    // 1. So whenever we come here for the first time. Create a RoutineRecord
+    // 2. Whenever we add exercises, update that routine record and load current from core data
+    // 3. Whenever we add to a set, save to core data as well and then load from core data
+    
+    // Whenever we are opening this up, we should do a query for any routine records that do not
+    // have a completion date - If there is, get that instead of making a new routine record
+    func readLatestRoutineRecord() {
+        
+        // We need an ID that we can use to fetch the latest information
+        guard let routineRecord = routineRecord else { return }
+        
+        routineStore.readRoutineRecord(with: routineRecord.id) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
+            case let .success(routineRecord):
+                self.routineRecord = routineRecord
+                
+            case let .failure(error):
+                fatalError("Need to deal with error for reading routine record with id, \(error)")
             }
         }
     }
@@ -37,6 +71,10 @@ public class WorkoutViewModel {
     // Passed to AddExerciseViewModel for logic after Add button is tapped
     public func addExercisesCompletion(exercises: [Exercise]) {
         print("We have added an exercise")
+        
+        // We need to update Core Data with the new exercises
+        // Then load the routine record from what is in Core Data
+        
     }
 }
 
@@ -65,7 +103,7 @@ public struct WorkoutView: View {
                     Text("Try adding an exercise!")
                 } else {
                     ForEach(allExercises, id: \.self) { exercise in
-                        Text(exercise.name)
+                        ExerciseWithSetsView(exercise: exercise)
                     }
                 }
             } header: {
@@ -103,6 +141,15 @@ public struct WorkoutView: View {
     }
 }
 
+
+public struct ExerciseWithSetsView: View {
+
+    let exercise: Exercise
+
+    public var body: some View {
+        Text(exercise.name)
+    }
+}
 
 
 struct WorkoutView_Previews: PreviewProvider {
