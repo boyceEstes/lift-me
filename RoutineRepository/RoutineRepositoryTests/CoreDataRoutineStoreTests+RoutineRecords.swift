@@ -10,23 +10,26 @@ import RoutineRepository
 
 extension CoreDataRoutineStoreTests {
     
-    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInEmptyCache_createsNewRoutineRecord() {
-        
-    }
-    
-    
-    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButNoIncompleteRoutineRecords_createsNewRoutineRecord() {
-        
-    }
-    
-    
-    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButOneIncompleteRoutineRecords_updateCompletionDateOfExistingIncompleteRoutineRecordAndcreatesNewRoutineRecord() {
-        
-    }
- 
     
     func test_coreDataRoutineStore_readAllRoutineRecordsWithEmptyCache_deliversNoResults() {
         
+        // given
+        let sut = makeSUT()
+        
+        let exp = expectation(description: "Wait for read all routine records completion")
+        
+        sut.readAllRoutineRecords { result in
+            switch result {
+            case let .success(routineRecords):
+                XCTAssertEqual(routineRecords, [])
+            case let .failure(error):
+                XCTFail("Failed with error, \(error)")
+            }
+            
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
     }
     
     
@@ -44,6 +47,21 @@ extension CoreDataRoutineStoreTests {
         
     }
     
+    
+    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInEmptyCache_createsNewRoutineRecord() {
+        
+    }
+    
+    
+    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButNoIncompleteRoutineRecords_createsNewRoutineRecord() {
+        
+    }
+    
+    
+    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButOneIncompleteRoutineRecords_updateCompletionDateOfExistingIncompleteRoutineRecordAndcreatesNewRoutineRecord() {
+        
+    }
+
     
     private func update(
         _ routineRecord: RoutineRecord,
@@ -67,31 +85,55 @@ extension CoreDataRoutineStoreTests {
     }
     
     
+    private func expectReadAllRoutineRecords(
+        on sut: CoreDataRoutineStore,
+        toCompleteWith expectedResult: RoutineStore.ReadAllRoutineRecordsResult,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        
+        let exp = expectation(description: "Wait for read all routine records completion")
+        
+        sut.readAllRoutineRecords { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedRoutineRecords), .success(expectedRoutineRecords)):
+                XCTAssertEqual(receivedRoutineRecords, expectedRoutineRecords)
+            default:
+                XCTFail("Something happened. Expected \(expectedResult), but got \(receivedResult)")
+            }
+            
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    
 //    private func expectGetIncompleteRoutineRecord(
 //        on sut: CoreDataRoutineStore,
 //        with creationDate: @escaping () -> Date = Date.init,
 //        toCompleteWith expectedResult: RoutineStore.,
 //        file: StaticString = #file,
 //        line: UInt = #line) {
-//        
+//
 //        let exp = expectation(description: "Wait for RoutineStore read completion")
-//            
+//
 //
 //            sut.getIncompleteRoutineRecord(creationDate: creationDate) { result in
-//            
+//
 //            switch (result, expectedResult) {
 //            case let (.success(routineRecord), .success(expectedRoutineRecord)):
 //                XCTAssertEqual(routineRecord.creationDate, expectedRoutineRecord.creationDate, file: file, line: line)
 //                XCTAssertEqual(routineRecord.completionDate, expectedRoutineRecord.completionDate, file: file, line: line)
 //                XCTAssertEqual(routineRecord.exerciseRecords, expectedRoutineRecord.exerciseRecords, file: file, line: line)
-//                
+//
 //            default:
 //                XCTFail("Expected \(expectedResult), got \(result) instead", file: file, line: line)
 //            }
-//            
+//
 //            exp.fulfill()
 //        }
-//        
+//
 //        wait(for: [exp], timeout: 1)
 //    }
 }
