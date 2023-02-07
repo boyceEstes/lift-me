@@ -14,8 +14,11 @@ public class CoreDataRoutineStore: RoutineStore {
     let context: NSManagedObjectContext
     
     public init(storeURL: URL, bundle: Bundle = .main) throws {
+        
         container = try NSPersistentContainer.load(name: "RoutineStore", url: storeURL, in: bundle)
         context = container.newBackgroundContext()
+        
+        printCoreDataStoreURLLocation()
         
         exercisesExistInCache { [weak self] exist in
             
@@ -23,6 +26,14 @@ public class CoreDataRoutineStore: RoutineStore {
                 self?.seedBasicExercises()
             }
         }
+    }
+    
+    
+    private func printCoreDataStoreURLLocation() {
+        
+        guard let sqliteURL = container.persistentStoreCoordinator.persistentStores.first?.url else { return }
+        
+        print("--> Core Data database location: \(sqliteURL.absoluteString)")
     }
     
     
@@ -54,6 +65,7 @@ public class CoreDataRoutineStore: RoutineStore {
     
     public enum Error: Swift.Error {
         case routineWithNameAlreadyExists
+        case cannotUpdateRoutineRecordThatDoesNotExist
     }
     
     

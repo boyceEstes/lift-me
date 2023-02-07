@@ -42,4 +42,53 @@ extension ManagedRoutineRecord {
         managedRoutineRecord.completionDate = routineRecord.completionDate
         managedRoutineRecord.routine = nil
     }
+    
+    
+    public static func findRoutineRecord(withID id: UUID, in context: NSManagedObjectContext) throws -> ManagedRoutineRecord? {
+        
+        let request = ManagedRoutineRecord.fetchRequest
+        request.returnsObjectsAsFaults = false
+        
+        let predicate = NSPredicate(
+            format: "%K == %@",
+            "id",
+            id as CVarArg
+        )
+        
+        request.predicate = predicate
+        
+        return try context.fetch(request).first
+    }
+    
+    
+    public static func findAllRoutineRecords(in context: NSManagedObjectContext) throws -> [ManagedRoutineRecord] {
+        
+        let request = ManagedRoutineRecord.fetchRequest
+        request.returnsObjectsAsFaults = false
+
+        return try context.fetch(request)
+    }
+}
+
+
+public extension Array where Element == ManagedRoutineRecord {
+
+    func toModel() -> [RoutineRecord] {
+        self.map {
+            RoutineRecord(
+                id: $0.id,
+                creationDate: $0.creationDate,
+                completionDate: $0.completionDate,
+                exerciseRecords: []
+            )
+        }
+    }
+}
+
+
+public extension ManagedRoutineRecord {
+    
+    func toModel() -> RoutineRecord {
+        RoutineRecord(id: self.id, creationDate: self.creationDate, completionDate: self.completionDate, exerciseRecords: [])
+    }
 }

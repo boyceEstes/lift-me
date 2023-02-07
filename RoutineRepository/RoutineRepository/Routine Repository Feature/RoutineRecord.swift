@@ -11,7 +11,7 @@ public struct RoutineRecord: Equatable, Hashable {
     
     public let id: UUID
     public let creationDate: Date
-    public let completionDate: Date?
+    public var completionDate: Date?
     
     // relationships
     public let exerciseRecords: [ExerciseRecord]

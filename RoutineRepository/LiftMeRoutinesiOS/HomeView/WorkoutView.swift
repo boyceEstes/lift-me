@@ -28,7 +28,7 @@ public class WorkoutViewModel {
         routineStore.createRoutineRecord { [weak self] result in
             switch result {
             case let .success(routineRecord):
-                
+
                 print("Successfully created routine record")
                 self?.routineRecord = routineRecord
 

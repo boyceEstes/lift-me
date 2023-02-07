@@ -10,64 +10,88 @@ import RoutineRepository
 
 extension CoreDataRoutineStoreTests {
     
-    func test_coreDataRoutineStore_getIncompleteRoutineRecordWithEmptyCache_createsNewRoutineRecord() {
-        
-        let sut = makeSUT()
-        let creationDate = Date()
-        // The reason that we are putting this as a function is so that we will return the same value whenever this method is called
-        // This prevents small differences in dates
-        let expectedCreationDate: () -> Date = { creationDate }
-        let expectedCompletionDate: Date? = nil
-        // Not testing ID as that is going to be randomly generated in creation, but we can test the other values that we are expecting
-        let expectedRoutineRecord = uniqueRoutineRecord(creationDate: expectedCreationDate(), completionDate: expectedCompletionDate)
-
-        expectGetIncompleteRoutineRecord(
-            on: sut,
-            with: expectedCreationDate,
-            toCompleteWith: .success(expectedRoutineRecord))
-    }
-    
-    
-    func test_coreDataRoutineStore_getIncompleteRoutineRecordWithNonEmptyCacheButNoIncompleteRoutineRecords_createsNewRoutineRecord() {
+    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInEmptyCache_createsNewRoutineRecord() {
         
     }
     
     
-    func test_coreDataRoutineStore_getIncompleteRoutineRecordWithNonEmptyCacheAndAnIncompleteRoutineRecord_deliversIncompleteRoutineRecord() {
+    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButNoIncompleteRoutineRecords_createsNewRoutineRecord() {
         
     }
     
     
-    func test_coreDataRoutineStore_getIncompleteRoutineRecordTwiceWithNonEmptyCacheAndAnIncompleteRoutineRecord_deliversNoSideEffects() {
+    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButOneIncompleteRoutineRecords_updateCompletionDateOfExistingIncompleteRoutineRecordAndcreatesNewRoutineRecord() {
+        
+    }
+ 
+    
+    func test_coreDataRoutineStore_readAllRoutineRecordsWithEmptyCache_deliversNoResults() {
         
     }
     
     
-    private func expectGetIncompleteRoutineRecord(
+    func test_coreDataRoutineStore_readAllRoutineRecordsWithEmptyCacheTwice_hasNoSideEffects() {
+        
+    }
+    
+    
+    func test_coreDataRoutineStore_readAllRoutineRecordsWithNonEmptyCache_deliversAllRoutineRecords() {
+        
+    }
+    
+    
+    func test_coreDataRoutineStore_readAllRoutineRecordsWithNonEmptyCacheTwice_deliversAllRoutineRecords() {
+        
+    }
+    
+    
+    private func update(
+        _ routineRecord: RoutineRecord,
+        with updatedRoutineRecord: RoutineRecord,
         on sut: CoreDataRoutineStore,
-        with creationDate: @escaping () -> Date = Date.init,
-        toCompleteWith expectedResult: RoutineStore.GetIncompleteRoutineRecordResult,
         file: StaticString = #file,
         line: UInt = #line) {
-        
-        let exp = expectation(description: "Wait for RoutineStore read completion")
-            
+    
+        let exp = expectation(description: "Wait for RoutineStore update completion")
 
-            sut.getIncompleteRoutineRecord(creationDate: creationDate) { result in
-            
-            switch (result, expectedResult) {
-            case let (.success(routineRecord), .success(expectedRoutineRecord)):
-                XCTAssertEqual(routineRecord.creationDate, expectedRoutineRecord.creationDate, file: file, line: line)
-                XCTAssertEqual(routineRecord.completionDate, expectedRoutineRecord.completionDate, file: file, line: line)
-                XCTAssertEqual(routineRecord.exerciseRecords, expectedRoutineRecord.exerciseRecords, file: file, line: line)
+        sut.updateRoutineRecord(
+            id: routineRecord.id,
+            with: updatedRoutineRecord.completionDate,
+            and: updatedRoutineRecord.exerciseRecords) { receivedError in
                 
-            default:
-                XCTFail("Expected \(expectedResult), got \(result) instead", file: file, line: line)
-            }
-            
+            XCTAssertNil(receivedError)
             exp.fulfill()
         }
         
         wait(for: [exp], timeout: 1)
     }
+    
+    
+//    private func expectGetIncompleteRoutineRecord(
+//        on sut: CoreDataRoutineStore,
+//        with creationDate: @escaping () -> Date = Date.init,
+//        toCompleteWith expectedResult: RoutineStore.,
+//        file: StaticString = #file,
+//        line: UInt = #line) {
+//        
+//        let exp = expectation(description: "Wait for RoutineStore read completion")
+//            
+//
+//            sut.getIncompleteRoutineRecord(creationDate: creationDate) { result in
+//            
+//            switch (result, expectedResult) {
+//            case let (.success(routineRecord), .success(expectedRoutineRecord)):
+//                XCTAssertEqual(routineRecord.creationDate, expectedRoutineRecord.creationDate, file: file, line: line)
+//                XCTAssertEqual(routineRecord.completionDate, expectedRoutineRecord.completionDate, file: file, line: line)
+//                XCTAssertEqual(routineRecord.exerciseRecords, expectedRoutineRecord.exerciseRecords, file: file, line: line)
+//                
+//            default:
+//                XCTFail("Expected \(expectedResult), got \(result) instead", file: file, line: line)
+//            }
+//            
+//            exp.fulfill()
+//        }
+//        
+//        wait(for: [exp], timeout: 1)
+//    }
 }

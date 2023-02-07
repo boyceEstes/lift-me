@@ -9,7 +9,14 @@ import Foundation
 import RoutineRepository
 
 class RoutineStorePreview: RoutineStore {
-    func getIncompleteRoutineRecord(creationDate: () -> Date, completion: @escaping GetIncompleteRoutineRecordCompletion) {
+    
+    func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
+        print("")
+    }
+    
+    
+    func updateRoutineRecord(id: UUID, with updatedCompletionDate: Date?, and updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
+        
         print("")
     }
     
@@ -39,11 +46,6 @@ class RoutineStorePreview: RoutineStore {
     
     
     public func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
-        print("")
-    }
-    
-    
-    func updateRoutineRecord(with id: UUID, newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
         print("")
     }
     

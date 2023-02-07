@@ -68,19 +68,21 @@ class RoutineStoreSpy: RoutineStore {
     func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
         print("placeholder")
     }
-
     
-    func updateRoutineRecord(with id: UUID, newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
+    
+    func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
         print("placeholder")
     }
+    
+    
+    func updateRoutineRecord(id: UUID, with updatedCompletionDate: Date?, and updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
+        
+        print("placeholder")
+    }
+    
     
     
     func deleteRoutineRecord(routineRecord: RoutineRepository.RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
-        print("placeholder")
-    }
-    
-    
-    func getIncompleteRoutineRecord(creationDate: () -> Date, completion: @escaping GetIncompleteRoutineRecordCompletion) {
         print("placeholder")
     }
     
