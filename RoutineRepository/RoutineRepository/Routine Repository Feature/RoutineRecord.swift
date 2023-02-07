@@ -15,4 +15,13 @@ public struct RoutineRecord: Equatable, Hashable {
     
     // relationships
     public let exerciseRecords: [ExerciseRecord]
+    
+    
+    public init(id: UUID, creationDate: Date, completionDate: Date?, exerciseRecords: [ExerciseRecord]) {
+        
+        self.id = id
+        self.creationDate = creationDate
+        self.completionDate = completionDate
+        self.exerciseRecords = exerciseRecords
+    }
 }

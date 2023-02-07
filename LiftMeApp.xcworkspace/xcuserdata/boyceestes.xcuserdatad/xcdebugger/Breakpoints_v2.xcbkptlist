@@ -14,8 +14,8 @@
             filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/CoreDataRoutineStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "seedBasicExercises()"
             landmarkType = "7">
             <Locations>
@@ -64,6 +64,66 @@
                   endingLineNumber = "57"
                   offsetFromSymbolStart = "87">
                </Location>
+               <Location
+                  uuid = "FEBEE836-0D8E-4EA6-B609-61BA7F643DFA - a42d4c55b7c76bd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RoutineRepository.CoreDataRoutineStore.seedBasicExercises() -&gt; ()"
+                  moduleName = "RoutineRepository"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "51">
+               </Location>
+               <Location
+                  uuid = "FEBEE836-0D8E-4EA6-B609-61BA7F643DFA - a304d55287cf551b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (RoutineRepository.Exercise) -&gt; () in RoutineRepository.CoreDataRoutineStore.seedBasicExercises() -&gt; ()"
+                  moduleName = "RoutineRepository"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "87">
+               </Location>
+               <Location
+                  uuid = "FEBEE836-0D8E-4EA6-B609-61BA7F643DFA - a42d4c55b7c71eb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RoutineRepository.CoreDataRoutineStore.seedBasicExercises() -&gt; ()"
+                  moduleName = "RoutineRepository"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "51">
+               </Location>
+               <Location
+                  uuid = "FEBEE836-0D8E-4EA6-B609-61BA7F643DFA - a304d55287cf524d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (RoutineRepository.Exercise) -&gt; () in RoutineRepository.CoreDataRoutineStore.seedBasicExercises() -&gt; ()"
+                  moduleName = "RoutineRepository"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "87">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -77,10 +137,42 @@
             filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/CoreDataRoutineStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "init(storeURL:bundle:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F96361C5-8644-4C59-86BA-6142B95A4DC7 - fee07d72f1e3b828"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool) -&gt; () in RoutineRepository.CoreDataRoutineStore.init(storeURL: Foundation.URL, bundle: __C.NSBundle) throws -&gt; RoutineRepository.CoreDataRoutineStore"
+                  moduleName = "RoutineRepository"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "130">
+               </Location>
+               <Location
+                  uuid = "F96361C5-8644-4C59-86BA-6142B95A4DC7 - fee07d72f1e38502"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool) -&gt; () in RoutineRepository.CoreDataRoutineStore.init(storeURL: Foundation.URL, bundle: __C.NSBundle) throws -&gt; RoutineRepository.CoreDataRoutineStore"
+                  moduleName = "RoutineRepository"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "130">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

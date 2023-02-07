@@ -10,23 +10,6 @@ import CoreData
 
 public class CoreDataRoutineStore: RoutineStore {
     
-    public func updateRoutineRecord(with id: UUID, newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
-        print("Update routine record with some new routine record")
-    }
-    
-    public func deleteRoutineRecord(routineRecord: RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
-        print("delete routine record (maybe for the ")
-    }
-    
-    public func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
-        print("Create routine record")
-    }
-    
-    public func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
-        print("Read routine record with \(id)")
-    }
-    
-    
     private let container: NSPersistentContainer
     let context: NSManagedObjectContext
     

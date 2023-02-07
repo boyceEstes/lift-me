@@ -53,6 +53,12 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
     }
     
     
+    func getIncompleteRoutineRecord(creationDate: @escaping () -> Date, completion: @escaping GetIncompleteRoutineRecordCompletion) {
+        print("")
+    }
+    
+    
+    
     // MARK: Exercises
     func readAllExercises(completion: @escaping ReadExercisesCompletion) {
         decoratee.readAllExercises { [weak self] result in

@@ -9,6 +9,10 @@ import Foundation
 import RoutineRepository
 
 class RoutineStorePreview: RoutineStore {
+    func getIncompleteRoutineRecord(creationDate: () -> Date, completion: @escaping GetIncompleteRoutineRecordCompletion) {
+        print("")
+    }
+    
 
     // MARK: - Routines
     func createUniqueRoutine(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {

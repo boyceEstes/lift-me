@@ -25,6 +25,8 @@
 		B34588B2290617ED006ED45C /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B1290617ED006ED45C /* Inspection.swift */; };
 		B34588B429061BF0006ED45C /* UIColor+LiftMeThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */; };
 		B34588B629061C2B006ED45C /* Color+LiftMeThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B529061C2B006ED45C /* Color+LiftMeThemeColors.swift */; };
+		B357C4D2299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357C4D1299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift */; };
+		B357C4D42991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357C4D32991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift */; };
 		B3A74CD12970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */; };
 		B3A74CD829720D6A00A376AC /* ManagedExerciseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */; };
 		B3A74CD929720D6A00A376AC /* ManagedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD329720D6A00A376AC /* ManagedExercise.swift */; };
@@ -89,6 +91,8 @@
 		B34588B1290617ED006ED45C /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
 		B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+LiftMeThemeColors.swift"; sourceTree = "<group>"; };
 		B34588B529061C2B006ED45C /* Color+LiftMeThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+LiftMeThemeColors.swift"; sourceTree = "<group>"; };
+		B357C4D1299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStoreTests+RoutineRecords.swift"; sourceTree = "<group>"; };
+		B357C4D32991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStore+RoutineRecord.swift"; sourceTree = "<group>"; };
 		B36891592914B65E00E04957 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedTestHelpers.swift; path = ../LiftMeApp/LiftMeAppTests/SharedTestHelpers.swift; sourceTree = "<group>"; };
 		B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStoreTests+Exercise.swift"; sourceTree = "<group>"; };
 		B3A74CD329720D6A00A376AC /* ManagedExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ManagedExercise.swift; path = "/Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/ManagedExercise.swift"; sourceTree = "<absolute>"; };
@@ -262,6 +266,7 @@
 				B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */,
 				B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests+Routines.swift */,
 				B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */,
+				B357C4D1299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift */,
 			);
 			path = RoutineRepositoryTests;
 			sourceTree = "<group>";
@@ -276,6 +281,7 @@
 				B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */,
 				B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */,
 				B3A74CDA2972141500A376AC /* CoreDataRoutineStore+Exercise.swift */,
+				B357C4D32991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift */,
 			);
 			path = "Core Data";
 			sourceTree = "<group>";
@@ -535,6 +541,7 @@
 				B3A74CDB2972141500A376AC /* CoreDataRoutineStore+Exercise.swift in Sources */,
 				B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */,
 				B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */,
+				B357C4D42991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift in Sources */,
 				B3D29C7528F879DC006CC77D /* ManagedRoutineRecord.swift in Sources */,
 				B3A74CD829720D6A00A376AC /* ManagedExerciseRecord.swift in Sources */,
 				B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */,
@@ -553,6 +560,7 @@
 				B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 				B3D29C6D28F7B787006CC77D /* RoutineStore.xcdatamodeld in Sources */,
 				B3A74CD12970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift in Sources */,
+				B357C4D2299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

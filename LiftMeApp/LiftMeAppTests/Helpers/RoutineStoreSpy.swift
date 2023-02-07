@@ -74,7 +74,13 @@ class RoutineStoreSpy: RoutineStore {
         print("placeholder")
     }
     
+    
     func deleteRoutineRecord(routineRecord: RoutineRepository.RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
+        print("placeholder")
+    }
+    
+    
+    func getIncompleteRoutineRecord(creationDate: () -> Date, completion: @escaping GetIncompleteRoutineRecordCompletion) {
         print("placeholder")
     }
     
