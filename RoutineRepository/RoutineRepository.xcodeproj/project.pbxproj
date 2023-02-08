@@ -25,6 +25,8 @@
 		B34588B2290617ED006ED45C /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B1290617ED006ED45C /* Inspection.swift */; };
 		B34588B429061BF0006ED45C /* UIColor+LiftMeThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */; };
 		B34588B629061C2B006ED45C /* Color+LiftMeThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B529061C2B006ED45C /* Color+LiftMeThemeColors.swift */; };
+		B366D9D1299463C900083DF4 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; platformFilter = ios; };
+		B366D9D2299463C900083DF4 /* RoutineRepository.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3A74CD12970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */; };
 		B3A74CD829720D6A00A376AC /* ManagedExerciseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */; };
 		B3A74CD929720D6A00A376AC /* ManagedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD329720D6A00A376AC /* ManagedExercise.swift */; };
@@ -64,6 +66,13 @@
 			remoteGlobalIDString = B32CADFE28FF4A2F00B154BD;
 			remoteInfo = LiftMeRoutinesiOS;
 		};
+		B366D9D3299463C900083DF4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3D29BD428F12746006CC77D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3D29BDC28F12746006CC77D;
+			remoteInfo = RoutineRepository;
+		};
 		B3D29C3128F50236006CC77D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B3D29BD428F12746006CC77D /* Project object */;
@@ -72,6 +81,20 @@
 			remoteInfo = RoutineRepository;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B366D9D5299463C900083DF4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B366D9D2299463C900083DF4 /* RoutineRepository.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineView.swift; sourceTree = "<group>"; };
@@ -127,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B366D9D1299463C900083DF4 /* RoutineRepository.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +221,13 @@
 			path = HomeView;
 			sourceTree = "<group>";
 		};
+		B366D9D0299463C900083DF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B3D29BD328F12746006CC77D = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +238,7 @@
 				B32CAE0028FF4A2F00B154BD /* LiftMeRoutinesiOS */,
 				B32CAE0C28FF4A2F00B154BD /* LiftMeRoutinesiOSTests */,
 				B3D29BDE28F12746006CC77D /* Products */,
+				B366D9D0299463C900083DF4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -328,10 +360,12 @@
 				B32CADFB28FF4A2F00B154BD /* Sources */,
 				B32CADFC28FF4A2F00B154BD /* Frameworks */,
 				B32CADFD28FF4A2F00B154BD /* Resources */,
+				B366D9D5299463C900083DF4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B366D9D4299463C900083DF4 /* PBXTargetDependency */,
 			);
 			name = LiftMeRoutinesiOS;
 			packageProductDependencies = (
@@ -568,6 +602,12 @@
 			isa = PBXTargetDependency;
 			target = B32CADFE28FF4A2F00B154BD /* LiftMeRoutinesiOS */;
 			targetProxy = B32CAE0A28FF4A2F00B154BD /* PBXContainerItemProxy */;
+		};
+		B366D9D4299463C900083DF4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = B3D29BDC28F12746006CC77D /* RoutineRepository */;
+			targetProxy = B366D9D3299463C900083DF4 /* PBXContainerItemProxy */;
 		};
 		B3D29C3228F50236006CC77D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
