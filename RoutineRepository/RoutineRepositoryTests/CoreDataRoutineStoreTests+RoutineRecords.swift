@@ -16,72 +16,128 @@ extension CoreDataRoutineStoreTests {
         // given
         let sut = makeSUT()
         
+        // when/then
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([]))
+    }
+    
+    
+    func test_coreDataRoutineStore_readAllRoutineRecordsWithEmptyCacheTwice_hasNoSideEffects() {
+        
+        // given
+        let sut = makeSUT()
+        
+        // when/then
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([]))
+    }
+    
+    
+    func test_coreDataRoutineStore_readAllRoutineRecordsWithNonEmptyCache_deliversAllRoutineRecords() {
+        
+        // given
+        let sut = makeSUT()
+        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+
+        createRoutineRecord(routineRecord, on: sut)
+        
+        // when/then
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecord]))
+    }
+    
+    
+    func test_coreDataRoutineStore_readAllRoutineRecordsWithNonEmptyCacheTwice_hasNoSideEffects() {
+        
+        // given
+        let sut = makeSUT()
+        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+
+        createRoutineRecord(routineRecord, on: sut)
+        
+        // when/then
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecord]))
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecord]))
+    }
+    
+    
+    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInEmptyCache_createsNewRoutineRecord() {
+
+        // given
+        let sut = makeSUT()
+        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+
+        // when/then
+        XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
+    }
+    
+    
+    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButNoIncompleteRoutineRecords_createsNewRoutineRecord() {
+        
+        // given
+        let sut = makeSUT()
+        let routineRecordCompleted = RoutineRecord(id: UUID(), creationDate: Date().adding(days: -1), completionDate: Date(), exerciseRecords: [])
+        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+        
+        createRoutineRecord(routineRecordCompleted, on: sut)
+        
+        // when/then
+        XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
+    }
+    
+    
+    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButOneIncompleteRoutineRecords_updateCompletionDateOfExistingIncompleteRoutineRecordAndcreatesNewRoutineRecord() {
+        
+        // given
+        let sut = makeSUT()
+        let routineRecordIncompleted = RoutineRecord(id: UUID(), creationDate: Date().adding(days: -1), completionDate: nil, exerciseRecords: [])
+        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+
+        createRoutineRecord(routineRecordIncompleted, on: sut)
+        
+        // when/then
+        XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
+    }
+    
+    
+    // MARK: - Helpers
+    
+    @discardableResult
+    private func createRoutineRecord(_ routineRecord: RoutineRecord, on sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> Error? {
+        
+        let exp = expectation(description: "Wait for create routine record completion")
+        
+        var receivedError: Error?
+        
+        sut.createRoutineRecord(routineRecord) { error in
+            
+            receivedError = error
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1)
+        
+        return receivedError
+    }
+    
+    
+    private func expectReadAllRoutineRecords(
+        on sut: CoreDataRoutineStore,
+        toCompleteWith expectedResult: RoutineStore.ReadAllRoutineRecordsResult,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        
         let exp = expectation(description: "Wait for read all routine records completion")
         
-        sut.readAllRoutineRecords { result in
-            switch result {
-            case let .success(routineRecords):
-                XCTAssertEqual(routineRecords, [])
-            case let .failure(error):
-                XCTFail("Failed with error, \(error)")
+        sut.readAllRoutineRecords { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedRoutineRecords), .success(expectedRoutineRecords)):
+                XCTAssertEqual(receivedRoutineRecords, expectedRoutineRecords, file: file, line: line)
+            default:
+                XCTFail("Something happened. Expected \(expectedResult), but got \(receivedResult)", file: file, line: line)
             }
             
             exp.fulfill()
         }
         
         wait(for: [exp], timeout: 1.0)
-    }
-    
-    
-    func test_coreDataRoutineStore_readAllRoutineRecordsWithEmptyCacheTwice_hasNoSideEffects() {
-        
-    }
-    
-    
-    func test_coreDataRoutineStore_readAllRoutineRecordsWithNonEmptyCache_deliversAllRoutineRecords() {
-        
-    }
-    
-    
-    func test_coreDataRoutineStore_readAllRoutineRecordsWithNonEmptyCacheTwice_deliversAllRoutineRecords() {
-        
-    }
-    
-    
-    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInEmptyCache_createsNewRoutineRecord() {
-        
-        // given
-        let sut = makeSUT()
-
-        let exp = expectation(description: "Wait for create routine record completion")
-        
-        sut.createRoutineRecord { _ in
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1)
-        
-        
-        let exp2 = expectation(description: "Wait for read all routine records completion")
-        
-        sut.readAllRoutineRecords { result in
-            let records = try! result.get()
-            
-            XCTAssertEqual(records.count, 1)
-            exp2.fulfill()
-        }
-        
-        wait(for: [exp2], timeout: 1)
-    }
-    
-    
-    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButNoIncompleteRoutineRecords_createsNewRoutineRecord() {
-        
-    }
-    
-    
-    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButOneIncompleteRoutineRecords_updateCompletionDateOfExistingIncompleteRoutineRecordAndcreatesNewRoutineRecord() {
-        
     }
 
     
@@ -106,29 +162,6 @@ extension CoreDataRoutineStoreTests {
         wait(for: [exp], timeout: 1)
     }
     
-    
-    private func expectReadAllRoutineRecords(
-        on sut: CoreDataRoutineStore,
-        toCompleteWith expectedResult: RoutineStore.ReadAllRoutineRecordsResult,
-        file: StaticString = #file,
-        line: UInt = #line
-    ) {
-        
-        let exp = expectation(description: "Wait for read all routine records completion")
-        
-        sut.readAllRoutineRecords { receivedResult in
-            switch (receivedResult, expectedResult) {
-            case let (.success(receivedRoutineRecords), .success(expectedRoutineRecords)):
-                XCTAssertEqual(receivedRoutineRecords, expectedRoutineRecords)
-            default:
-                XCTFail("Something happened. Expected \(expectedResult), but got \(receivedResult)")
-            }
-            
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1.0)
-    }
     
     
 //    private func expectGetIncompleteRoutineRecord(

@@ -14,7 +14,7 @@ public protocol RoutineStore {
     typealias ReadRoutinesResult = Result<[Routine], Error>
     typealias CreateRoutineResult = Error?
     
-    typealias CreateRoutineRecordResult = Result<RoutineRecord, Error>
+    typealias CreateRoutineRecordResult = Error?
     typealias ReadRoutineRecordResult = Result<RoutineRecord, Error>
     typealias ReadAllRoutineRecordsResult = Result<[RoutineRecord], Error>
     typealias UpdateRoutineRecordResult = Error?
@@ -40,22 +40,24 @@ public protocol RoutineStore {
     typealias ReadExercisesCompletion = (ReadExercisesResult) -> Void
 
     
-    
-    // Public methods
     // These are not guaranteed to be returned on the main thread so the client will need to make sure
     // they have accounted for that
+    
+    // Public methods
+    
+    // Routines
     func createUniqueRoutine(_ routine: Routine, completion: @escaping CreateRoutineCompletion)
     func readAllRoutines(completion: @escaping ReadRoutinesCompletion)
     
-    
-    func updateRoutineRecord(id: UUID, with updatedCompletionDate: Date?, and updatedExerciseRecords: [ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion)
+    // Routine Records
+    func createRoutineRecord(_ routineRecord: RoutineRecord, completion: @escaping CreateRoutineRecordCompletion)
     func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion)
-    
     func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion)
-    func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion)
+    func updateRoutineRecord(id: UUID, with updatedCompletionDate: Date?, and updatedExerciseRecords: [ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion)
     // Assuming that the ID will be the same as a currently existing routine record
     func deleteRoutineRecord(routineRecord: RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion)
     
+    // Exercises
     func readAllExercises(completion: @escaping ReadExercisesCompletion)
     func createExercise(_ exercise: Exercise, completion: @escaping CreateExerciseCompletion)
 }

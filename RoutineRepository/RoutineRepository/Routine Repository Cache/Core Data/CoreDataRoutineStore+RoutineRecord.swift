@@ -75,19 +75,9 @@ extension CoreDataRoutineStore {
         let context = context
         context.perform {
             do {
-//                let managedRoutineRecords = try ManagedRoutineRecord.findAllRoutineRecords(in: context)
-//
-//                completion(.success(managedRoutineRecords.toModel()))
-//
+                let records = try ManagedRoutineRecord.findAllRoutineRecords(in: context)
 
-                let request: NSFetchRequest<ManagedRoutineRecord> = NSFetchRequest<ManagedRoutineRecord>(entityName: "ManagedRoutineRecord")
-                request.returnsObjectsAsFaults = false
-
-                let records = try context.fetch(request).map({ _ in
-                    RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
-                })
-
-                completion(.success(records))
+                completion(.success(records.toModel()))
 //
             } catch {
                 completion(.failure(error))
@@ -101,7 +91,7 @@ extension CoreDataRoutineStore {
         print("delete routine record (maybe for the ")
     }
     
-    public func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
+    public func createRoutineRecord(_ routineRecord: RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
         print("Create routine record")
         
         let context = context
@@ -109,33 +99,22 @@ extension CoreDataRoutineStore {
         context.perform {
             do {
                 
-//                let managedRoutineRecord = ManagedRoutineRecord(context: context)
-//                managedRoutineRecord.id = UUID()
-//                managedRoutineRecord.creationDate = Date()
-//                managedRoutineRecord.completionDate = Date()
-//                managedRoutineRecord.routine = nil
-//
-//                try context.save()
+                try ManagedRoutineRecord.updateIncompleteRoutineRecordsWithCurrentDate(in: context)
                 
-                let dummy = ManagedRoutineRecord(context: context)
-                dummy.id = UUID()
-                dummy.creationDate = Date()
-                dummy.completionDate = nil
-                dummy.routine = nil
+                ManagedRoutineRecord.createRoutineRecord(routineRecord, in: context)
 
                 try context.save()
                 
-                completion(.success(RoutineRecord(id: UUID(), creationDate: Date(), completionDate: Date(), exerciseRecords: [])))
+                completion(nil)
                 
             } catch {
-                completion(.failure(error))
+                completion(error)
             }
         }
-        
     }
     
     public func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
         print("Read routine record with \(id)")
     }
-    
+
 }
