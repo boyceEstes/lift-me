@@ -51,6 +51,18 @@ extension ManagedRoutineRecord {
         return records
     }
     
+    
+    static func findRoutineRecord(with id: UUID, in context: NSManagedObjectContext) throws -> ManagedRoutineRecord? {
+        
+        
+        let request = ManagedRoutineRecord.fetchRequest
+        request.predicate = NSPredicate(format: "%K == %@", "id", id as CVarArg)
+        request.returnsObjectsAsFaults = false
+
+        let record = try context.fetch(request).first
+        return record
+    }
+    
 
     // TODO: Test this by rewriting with TDD
     static func findIncompleteRoutineRecords(in context: NSManagedObjectContext) throws -> [ManagedRoutineRecord] {

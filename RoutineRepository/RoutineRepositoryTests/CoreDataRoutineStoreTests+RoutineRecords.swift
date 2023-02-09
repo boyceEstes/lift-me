@@ -83,6 +83,7 @@ extension CoreDataRoutineStoreTests {
     }
     
     
+    // TODO: Complete this test by creating a way to test that the completion Date for the incompleted exercise is the same as we expect it to be
     func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButOneIncompleteRoutineRecords_updateCompletionDateOfExistingIncompleteRoutineRecordAndcreatesNewRoutineRecord() {
         
         // given
@@ -95,6 +96,61 @@ extension CoreDataRoutineStoreTests {
         // when/then
         XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
     }
+    
+            
+    func test_coreDataRoutineStore_updateRoutineRecordWithCompletionDate_updatesRoutineRecordsCompletionDate() {
+        
+        // given
+        let sut = makeSUT()
+        
+        let uuid = UUID()
+        let creationDate = Date()
+        let completionDate = Date()
+        
+        let routineRecordBefore = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [])
+        let routineRecordAfter = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: completionDate, exerciseRecords: [])
+        
+        createRoutineRecord(routineRecordBefore, on: sut)
+
+        // when
+        XCTAssertNil(updateRoutineRecord(routineRecordBefore.id, completionDate: completionDate, on: sut))
+        
+        // then
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecordAfter]))
+    }
+    
+    
+     func test_coreDataRoutineStore_updateRoutineRecordOnEmptyCache_deliverscannotUpdateRoutineRecordThatDoesNotExistError() {
+         
+         // given
+         let sut = makeSUT()
+         
+         let uuid = UUID()
+         let creationDate = Date()
+         let completionDate = Date()
+         
+         let routineRecordBefore = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [])
+         let routineRecordAfter = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: completionDate, exerciseRecords: [])
+
+         // when
+         let error = updateRoutineRecord(routineRecordBefore.id, completionDate: completionDate, on: sut)
+         
+         // then
+         XCTAssertEqual(error as? NSError, CoreDataRoutineStore.Error.cannotUpdateRoutineRecordThatDoesNotExist as NSError)
+     }
+    
+//
+//    func test_coreDataRoutineStore_updateRoutineRecordWithNewExerciseRecords_updatesRoutineRecordsExerciseRecords() {
+//
+//        // given
+//        let sut = makeSUT()
+//        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+//
+////        let exerciseRecords = unique
+//
+//        // when/then
+//        updateRoutineRecord(routineRecord.id, with: exerciseRecords)
+//    }
     
     
     // MARK: - Helpers
@@ -141,25 +197,31 @@ extension CoreDataRoutineStoreTests {
     }
 
     
-    private func update(
-        _ routineRecord: RoutineRecord,
-        with updatedRoutineRecord: RoutineRecord,
+    @discardableResult
+    private func updateRoutineRecord(
+        _ routineRecordID: UUID,
+        completionDate: Date?,
         on sut: CoreDataRoutineStore,
         file: StaticString = #file,
-        line: UInt = #line) {
-    
+        line: UInt = #line
+    ) -> Error? {
+        
         let exp = expectation(description: "Wait for RoutineStore update completion")
-
+        
+        var receivedError: Error?
+        
         sut.updateRoutineRecord(
-            id: routineRecord.id,
-            with: updatedRoutineRecord.completionDate,
-            and: updatedRoutineRecord.exerciseRecords) { receivedError in
-                
-            XCTAssertNil(receivedError)
+            id: routineRecordID,
+            updatedCompletionDate: completionDate,
+            updatedExerciseRecords: []
+        ) { error in
+            
+            receivedError = error
             exp.fulfill()
         }
         
         wait(for: [exp], timeout: 1)
+        return receivedError
     }
     
     

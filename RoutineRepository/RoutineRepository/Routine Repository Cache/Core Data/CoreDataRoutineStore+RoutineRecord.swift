@@ -48,21 +48,26 @@ extension CoreDataRoutineStore {
 //    }
     
     // TODO: Make sure that we can update routine record exercises
-    public func updateRoutineRecord(id: UUID, with updatedCompletionDate: Date?, and updatedExerciseRecords: [ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
+    public func updateRoutineRecord(
+        id: UUID,
+        updatedCompletionDate: Date?,
+        updatedExerciseRecords: [ExerciseRecord],
+        completion: @escaping UpdateRoutineRecordCompletion) {
+            
         print("Update routine record with some new routine record")
         
         let context = context
         context.perform {
             do {
-//                guard let routineRecordCurrent = try ManagedRoutineRecord.findRoutineRecord(withID: id, in: context) else {
-//                    
-//                    throw Error.cannotUpdateRoutineRecordThatDoesNotExist
-//                }
-//                
-//                routineRecordCurrent.completionDate = updatedCompletionDate
-//                
-//                try context.save()
-//                completion(nil)
+                guard let routineRecordCurrent = try ManagedRoutineRecord.findRoutineRecord(with: id, in: context) else {
+                    
+                    throw Error.cannotUpdateRoutineRecordThatDoesNotExist
+                }
+                
+                routineRecordCurrent.completionDate = updatedCompletionDate
+                
+                try context.save()
+                completion(nil)
             } catch {
                 completion(error)
             }

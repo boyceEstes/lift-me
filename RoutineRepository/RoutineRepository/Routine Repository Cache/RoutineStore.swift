@@ -53,7 +53,7 @@ public protocol RoutineStore {
     func createRoutineRecord(_ routineRecord: RoutineRecord, completion: @escaping CreateRoutineRecordCompletion)
     func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion)
     func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion)
-    func updateRoutineRecord(id: UUID, with updatedCompletionDate: Date?, and updatedExerciseRecords: [ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion)
+    func updateRoutineRecord(id: UUID, updatedCompletionDate: Date?, updatedExerciseRecords: [ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion)
     // Assuming that the ID will be the same as a currently existing routine record
     func deleteRoutineRecord(routineRecord: RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion)
     
