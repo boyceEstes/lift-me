@@ -206,17 +206,3 @@ private extension ManagedRoutine {
             routineRecords: self.routineRecords.toModel())
     }
 }
-
-
-private extension Set where Element == ManagedRoutineRecord {
-    func toModel() -> [RoutineRecord] {
-        map {
-            RoutineRecord(
-                id: $0.id,
-                creationDate: $0.creationDate,
-                completionDate: $0.completionDate,
-                exerciseRecords: [])
-        }
-    }
-}
-

@@ -50,6 +50,28 @@ extension CoreDataRoutineStoreTests {
     
     func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInEmptyCache_createsNewRoutineRecord() {
         
+        // given
+        let sut = makeSUT()
+
+        let exp = expectation(description: "Wait for create routine record completion")
+        
+        sut.createRoutineRecord { _ in
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
+        
+        let exp2 = expectation(description: "Wait for read all routine records completion")
+        
+        sut.readAllRoutineRecords { result in
+            let records = try! result.get()
+            
+            XCTAssertEqual(records.count, 1)
+            exp2.fulfill()
+        }
+        
+        wait(for: [exp2], timeout: 1)
     }
     
     

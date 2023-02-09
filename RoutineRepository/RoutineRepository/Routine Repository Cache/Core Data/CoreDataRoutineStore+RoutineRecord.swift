@@ -5,7 +5,7 @@
 //  Created by Boyce Estes on 2/6/23.
 //
 
-import Foundation
+import CoreData
 
 
 extension CoreDataRoutineStore {
@@ -54,15 +54,15 @@ extension CoreDataRoutineStore {
         let context = context
         context.perform {
             do {
-                guard let routineRecordCurrent = try ManagedRoutineRecord.findRoutineRecord(withID: id, in: context) else {
-                    
-                    throw Error.cannotUpdateRoutineRecordThatDoesNotExist
-                }
-                
-                routineRecordCurrent.completionDate = updatedCompletionDate
-                
-                try context.save()
-                completion(nil)
+//                guard let routineRecordCurrent = try ManagedRoutineRecord.findRoutineRecord(withID: id, in: context) else {
+//                    
+//                    throw Error.cannotUpdateRoutineRecordThatDoesNotExist
+//                }
+//                
+//                routineRecordCurrent.completionDate = updatedCompletionDate
+//                
+//                try context.save()
+//                completion(nil)
             } catch {
                 completion(error)
             }
@@ -75,10 +75,20 @@ extension CoreDataRoutineStore {
         let context = context
         context.perform {
             do {
-                
-                let managedRoutineRecords = try ManagedRoutineRecord.findAllRoutineRecords(in: context)
-                
-                completion(.success(managedRoutineRecords.toModel()))
+//                let managedRoutineRecords = try ManagedRoutineRecord.findAllRoutineRecords(in: context)
+//
+//                completion(.success(managedRoutineRecords.toModel()))
+//
+
+                let request: NSFetchRequest<ManagedRoutineRecord> = NSFetchRequest<ManagedRoutineRecord>(entityName: "ManagedRoutineRecord")
+                request.returnsObjectsAsFaults = false
+
+                let records = try context.fetch(request).map({ _ in
+                    RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+                })
+
+                completion(.success(records))
+//
             } catch {
                 completion(.failure(error))
             }
@@ -93,6 +103,34 @@ extension CoreDataRoutineStore {
     
     public func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
         print("Create routine record")
+        
+        let context = context
+        
+        context.perform {
+            do {
+                
+//                let managedRoutineRecord = ManagedRoutineRecord(context: context)
+//                managedRoutineRecord.id = UUID()
+//                managedRoutineRecord.creationDate = Date()
+//                managedRoutineRecord.completionDate = Date()
+//                managedRoutineRecord.routine = nil
+//
+//                try context.save()
+                
+                let dummy = ManagedRoutineRecord(context: context)
+                dummy.id = UUID()
+                dummy.creationDate = Date()
+                dummy.completionDate = nil
+                dummy.routine = nil
+
+                try context.save()
+                
+                completion(.success(RoutineRecord(id: UUID(), creationDate: Date(), completionDate: Date(), exerciseRecords: [])))
+                
+            } catch {
+                completion(.failure(error))
+            }
+        }
         
     }
     
