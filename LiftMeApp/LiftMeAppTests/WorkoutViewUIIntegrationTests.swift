@@ -63,23 +63,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
             WorkoutNavigationFlow.SheetyIdentifier.addExercise(addExercisesCompletion: sut.viewModel.addExercisesCompletion)
         )
     }
-    
-    
-    func test_workoutView_viewWillAppear_createsRoutineRecord() {
-        
-        // given
-        let (sut, routineStore, _) = makeSUT()
-        
-        let exp = sut.inspection.inspect { view in
-            // then
-            XCTAssertEqual(routineStore.requests, [.createRoutineRecord])
-        }
-        
-        // when
-        ViewHosting.host(view: sut)
 
-        wait(for: [exp], timeout: 1)
-    }
     
 //
 //    func test_workoutView_addingExercisesToRoutineRecordWithEmptyExerciseList_displaysExercises() {

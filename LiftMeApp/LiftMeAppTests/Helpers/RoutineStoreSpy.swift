@@ -60,7 +60,8 @@ class RoutineStoreSpy: RoutineStore {
     
     
     // MARK: - Routine Records
-    func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
+    
+    func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
         requests.append(.createRoutineRecord)
     }
     
@@ -75,11 +76,10 @@ class RoutineStoreSpy: RoutineStore {
     }
     
     
-    func updateRoutineRecord(id: UUID, with updatedCompletionDate: Date?, and updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
+    func updateRoutineRecord(id: UUID, updatedCompletionDate: Date?, updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
         
         print("placeholder")
     }
-    
     
     
     func deleteRoutineRecord(routineRecord: RoutineRepository.RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {

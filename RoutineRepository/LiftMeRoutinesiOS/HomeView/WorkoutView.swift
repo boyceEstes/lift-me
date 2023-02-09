@@ -25,17 +25,17 @@ public class WorkoutViewModel {
     // are adding exercises or updating the routine in any way
     func createNewRoutineRecord() {
         
-        routineStore.createRoutineRecord { [weak self] result in
-            switch result {
-            case let .success(routineRecord):
-
-                print("Successfully created routine record")
-                self?.routineRecord = routineRecord
-
-            case let .failure(error):
-                print("Failure to create routine record, \(error.localizedDescription)")
-            }
-        }
+//        routineStore.createRoutineRecord { [weak self] result in
+//            switch result {
+//            case let .success(routineRecord):
+//
+//                print("Successfully created routine record")
+//                self?.routineRecord = routineRecord
+//
+//            case let .failure(error):
+//                print("Failure to create routine record, \(error.localizedDescription)")
+//            }
+//        }
     }
     
     // To be more performant, we could just deal with all of this in memory and
@@ -50,21 +50,21 @@ public class WorkoutViewModel {
     // have a completion date - If there is, get that instead of making a new routine record
     func readLatestRoutineRecord() {
         
-        // We need an ID that we can use to fetch the latest information
-        guard let routineRecord = routineRecord else { return }
-        
-        routineStore.readRoutineRecord(with: routineRecord.id) { [weak self] result in
-            
-            guard let self = self else { return }
-            
-            switch result {
-            case let .success(routineRecord):
-                self.routineRecord = routineRecord
-                
-            case let .failure(error):
-                fatalError("Need to deal with error for reading routine record with id, \(error)")
-            }
-        }
+//        // We need an ID that we can use to fetch the latest information
+//        guard let routineRecord = routineRecord else { return }
+//
+//        routineStore.readRoutineRecord(with: routineRecord.id) { [weak self] result in
+//
+//            guard let self = self else { return }
+//
+//            switch result {
+//            case let .success(routineRecord):
+//                self.routineRecord = routineRecord
+//
+//            case let .failure(error):
+//                fatalError("Need to deal with error for reading routine record with id, \(error)")
+//            }
+//        }
     }
     
     

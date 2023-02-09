@@ -9,9 +9,6 @@ import RoutineRepository
 
 
 extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
-    
-
-    
 
     // MARK: Routine
     func createUniqueRoutine(_ routine: Routine, completion: @escaping CreateRoutineCompletion) {
@@ -39,7 +36,7 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
     
     
     // MARK: Routine Record
-    func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
+    func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
         print("")
     }
     
@@ -53,10 +50,11 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
     }
     
     
-    func updateRoutineRecord(id: UUID, with updatedCompletionDate: Date?, and updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
+    func updateRoutineRecord(id: UUID, updatedCompletionDate: Date?, updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
         
         print("")
     }
+    
     
     func deleteRoutineRecord(routineRecord: RoutineRepository.RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
         print("")

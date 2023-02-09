@@ -98,7 +98,6 @@ public class AddExerciseViewModel: ObservableObject {
             id: UUID(),
             name: "Bench Press",
             creationDate: Date(),
-            exerciseRecords: [],
             tags: [])
         
         routineStore.createExercise(exercise) { error in

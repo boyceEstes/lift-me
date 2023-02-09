@@ -17,7 +17,6 @@ func uniqueExercise(name: String? = nil) -> Exercise {
         id: UUID(),
         name: name ?? UUID().uuidString,
         creationDate: Date(),
-        exerciseRecords: [],
         tags: [])
 }
 

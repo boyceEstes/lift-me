@@ -9,13 +9,13 @@ import Foundation
 import RoutineRepository
 
 class RoutineStorePreview: RoutineStore {
-    
+
     func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
         print("")
     }
     
     
-    func updateRoutineRecord(id: UUID, with updatedCompletionDate: Date?, and updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
+    func updateRoutineRecord(id: UUID, updatedCompletionDate: Date?, updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
         
         print("")
     }
@@ -40,10 +40,10 @@ class RoutineStorePreview: RoutineStore {
 
     
     // MARK: - Routine Records
-    func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
+    func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
         print("")
     }
-    
+
     
     public func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
         print("")
@@ -62,7 +62,6 @@ class RoutineStorePreview: RoutineStore {
             id: UUID(),
             name: "Dumbbell Press",
             creationDate: Date(),
-            exerciseRecords: [],
             tags: [])
     }
     
