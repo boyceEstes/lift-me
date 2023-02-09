@@ -106,25 +106,15 @@ extension CoreDataRoutineStore {
                 }
                 
                 managedRoutineRecord.completionDate = updatedCompletionDate
-//
-//                try updatedExerciseRecords.enumerated().forEach({ (index, exerciseRecord) in
-//
-//                    // TODO: Create some way to sort the exercise records by passing the index to the object
-//                    try ManagedExerciseRecord.createManagedExerciseRecord(
-//                        exerciseRecord,
-//                        for: managedRoutineRecord,
-//                        in: context)
-//
-//
-//                })
-                
-                try updatedExerciseRecords.forEach { exerciseRecord in
-                    
-                    let managedExerciseRecord = ManagedExerciseRecord(context: context)
-                    managedExerciseRecord.id = exerciseRecord.id
-                    managedExerciseRecord.routineRecord = managedRoutineRecord
-                    managedExerciseRecord.exercise = try ManagedExercise.findExercise(with: exerciseRecord.exercise.id, in: context)
-                }
+
+                try updatedExerciseRecords.enumerated().forEach({ (index, exerciseRecord) in
+
+                    // TODO: Create some way to sort the exercise records by passing the index to the object
+                    try ManagedExerciseRecord.createManagedExerciseRecord(
+                        exerciseRecord,
+                        for: managedRoutineRecord,
+                        in: context)
+                })
                 
                 try context.save()
                 completion(nil)

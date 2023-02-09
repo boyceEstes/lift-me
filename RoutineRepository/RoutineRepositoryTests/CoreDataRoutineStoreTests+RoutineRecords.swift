@@ -57,29 +57,29 @@ extension CoreDataRoutineStoreTests {
         expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecord]))
     }
     
-//    
-//    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithCompletionDateAndExerciseRecord_createsNewRoutineRecord() {
-//
-//        // given
-//        let sut = makeSUT()
-//        let exercise = uniqueExercise()
-//        let exerciseRecord = uniqueExerciseRecord(exercise: exercise)
-//        
-//        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [exerciseRecord])
-//
-//        // when/then
-//        XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
-//        
-//        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecord]))
-//    }
-//    
-//    
-//    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithNoCompletionDateAndExerciseRecord_createsNewRoutineRecord() { }
-//    
-//    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithCompletionDateAndNoExerciseRecords_deliversCannotCreateRecordWithoutExercisesError() {}
-//
-//
-//    
+
+    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithCompletionDateAndExerciseRecord_createsNewRoutineRecord() {
+
+        // given
+        let sut = makeSUT()
+        let exercise = uniqueExercise()
+        let exerciseRecord = uniqueExerciseRecord(exercise: exercise)
+
+        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [exerciseRecord])
+
+        // when/then
+        XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
+        
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecord]))
+    }
+
+
+    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithNoCompletionDateAndExerciseRecord_createsNewRoutineRecord() { }
+
+    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithCompletionDateAndNoExerciseRecords_deliversCannotCreateRecordWithoutExercisesError() {}
+
+
+
     
     func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButNoIncompleteRoutineRecords_createsNewRoutineRecord() {
         

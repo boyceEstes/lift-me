@@ -27,16 +27,16 @@ public class ManagedExerciseRecord: NSManagedObject {
 // MARK: - Core Data Helpers
 
 // TODO: Test that this will give the correct error if managed exercise cannot be found
-//extension ManagedExerciseRecord {
-//
-//    static func createManagedExerciseRecord(_ exerciseRecord: ExerciseRecord, for managedRoutineRecord: ManagedRoutineRecord, in context: NSManagedObjectContext) throws {
-//
-//        let managedExerciseRecord = ManagedExerciseRecord(context: context)
-//        managedExerciseRecord.id = exerciseRecord.id
-//        managedExerciseRecord.routineRecord = managedRoutineRecord
-////        managedExerciseRecord.exercise = try ManagedExercise.findExercise(with: exerciseRecord.exercise.id, in: context)
-//    }
-//}
+extension ManagedExerciseRecord {
+
+    static func createManagedExerciseRecord(_ exerciseRecord: ExerciseRecord, for managedRoutineRecord: ManagedRoutineRecord, in context: NSManagedObjectContext) throws {
+
+        let managedExerciseRecord = ManagedExerciseRecord(context: context)
+        managedExerciseRecord.id = exerciseRecord.id
+        managedExerciseRecord.routineRecord = managedRoutineRecord
+        managedExerciseRecord.exercise = try ManagedExercise.findExercise(with: exerciseRecord.exercise.id, in: context)
+    }
+}
 
 
 extension Set where Element == ManagedExerciseRecord {

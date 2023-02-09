@@ -40,7 +40,9 @@ extension ManagedRoutineRecord {
         managedRoutineRecord.creationDate = routineRecord.creationDate
         managedRoutineRecord.completionDate = routineRecord.completionDate
         managedRoutineRecord.routine = nil
-//        managedRoutineRecord.exerciseRecords = 
+        
+        // Create a managed exercise record with this record
+//        ManagedExerciseRecord.
     }
     
     
