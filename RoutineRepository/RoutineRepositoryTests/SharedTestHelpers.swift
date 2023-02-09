@@ -36,13 +36,15 @@ func uniqueRoutine(name: String? = nil, exercises: [Exercise]? = nil) -> Routine
 }
 
 
-func uniqueRoutineRecord(id: UUID? = nil, creationDate: Date? = nil, completionDate: Date? = nil) -> RoutineRecord {
+func uniqueRoutineRecord(id: UUID? = nil, creationDate: Date? = nil, completionDate: Date? = nil, exerciseRecords: [ExerciseRecord]? = nil, exercise: Exercise? = nil) -> RoutineRecord {
+    
+    let exerciseRecord = uniqueExerciseRecord(exercise: exercise ?? uniqueExercise())
     
     let routineRecord = RoutineRecord(
         id: id ?? UUID(),
         creationDate: creationDate ?? Date(),
         completionDate: completionDate ?? nil,
-        exerciseRecords: [])
+        exerciseRecords: exerciseRecords ?? [exerciseRecord])
     
     return routineRecord
 }

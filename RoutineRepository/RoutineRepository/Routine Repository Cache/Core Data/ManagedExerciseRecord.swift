@@ -43,9 +43,7 @@ extension Set where Element == ManagedExerciseRecord {
 
     func toModel() -> [ExerciseRecord] {
 
-        let managedExerciseRecordArray = Array(self)
-
-        return managedExerciseRecordArray.map {
+        map {
             ExerciseRecord(
                 id: $0.id,
                 setRecords: [],

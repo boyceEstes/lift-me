@@ -59,7 +59,7 @@ extension CoreDataRoutineStore {
                 
                 try ManagedRoutineRecord.updateIncompleteRoutineRecordsWithCurrentDate(in: context)
                 
-                ManagedRoutineRecord.createRoutineRecord(routineRecord, in: context)
+                try ManagedRoutineRecord.createRoutineRecord(routineRecord, in: context)
 
                 try context.save()
                 
@@ -106,14 +106,21 @@ extension CoreDataRoutineStore {
                 }
                 
                 managedRoutineRecord.completionDate = updatedCompletionDate
+                
+                // Remove current associated exercise records
+                managedRoutineRecord.exerciseRecords?.forEach {
+                    context.delete($0)
+                }
 
+                // Replace with new associated exercise records
                 try updatedExerciseRecords.enumerated().forEach({ (index, exerciseRecord) in
-
+                    
                     // TODO: Create some way to sort the exercise records by passing the index to the object
                     try ManagedExerciseRecord.createManagedExerciseRecord(
                         exerciseRecord,
                         for: managedRoutineRecord,
-                        in: context)
+                        in: context
+                    )
                 })
                 
                 try context.save()

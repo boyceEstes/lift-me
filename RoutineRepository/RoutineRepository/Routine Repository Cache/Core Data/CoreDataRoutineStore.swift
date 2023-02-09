@@ -67,6 +67,7 @@ public class CoreDataRoutineStore: RoutineStore {
         case routineWithNameAlreadyExists
         case cannotUpdateRoutineRecordThatDoesNotExist
         case cannotFindExercise
+        case cannotCreateRoutineRecordWithNoExerciseRecords
     }
     
     

@@ -35,8 +35,12 @@ extension CoreDataRoutineStoreTests {
         
         // given
         let sut = makeSUT()
-        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
-
+        
+        let exercise = uniqueExercise()
+        let routineRecord = uniqueRoutineRecord(exercise: exercise)
+        
+        create(exercise, into: sut)
+        
         createRoutineRecord(routineRecord, on: sut)
         
         // when/then
@@ -48,7 +52,11 @@ extension CoreDataRoutineStoreTests {
         
         // given
         let sut = makeSUT()
-        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+        
+        let exercise = uniqueExercise()
+        let routineRecord = uniqueRoutineRecord(exercise: exercise)
+        
+        create(exercise, into: sut)
 
         createRoutineRecord(routineRecord, on: sut)
         
@@ -58,14 +66,29 @@ extension CoreDataRoutineStoreTests {
     }
     
 
+    func test_coreDataRoutineStore_createRoutineRecordCompletionDateAndExerciseRecordWithoutExerciseSaved_deliversErrorCannotFindExercise() {
+
+        // given
+        let sut = makeSUT()
+        
+        let routineRecord = uniqueRoutineRecord()
+        
+        let error = CoreDataRoutineStore.Error.cannotFindExercise
+        
+        // when/then
+        XCTAssertEqual(createRoutineRecord(routineRecord, on: sut) as? NSError, error as NSError)
+    }
+    
+    
     func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithCompletionDateAndExerciseRecord_createsNewRoutineRecord() {
 
         // given
         let sut = makeSUT()
         let exercise = uniqueExercise()
-        let exerciseRecord = uniqueExerciseRecord(exercise: exercise)
-
-        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [exerciseRecord])
+        let routineRecord = uniqueRoutineRecord(exercise: exercise)
+        
+        // exercise record has a non-optional relationship for exercise to exist first
+        create(exercise, into: sut)
 
         // when/then
         XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
@@ -74,9 +97,35 @@ extension CoreDataRoutineStoreTests {
     }
 
 
-    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithNoCompletionDateAndExerciseRecord_createsNewRoutineRecord() { }
+    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithExerciseRecordButNoCompletionDate_createsNewRoutineRecord() {
+        
+        // given
+        let sut = makeSUT()
+        let exercise = uniqueExercise()
+        let routineRecord = uniqueRoutineRecord(exercise: exercise)
+        
+        // exercise record has a non-optional relationship for exercise to exist first
+        create(exercise, into: sut)
 
-    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithCompletionDateAndNoExerciseRecords_deliversCannotCreateRecordWithoutExercisesError() {}
+        // when/then
+        XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
+        
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecord]))
+    }
+    
+
+    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithCompletionDateAndNoExerciseRecords_deliverscannotCreateRoutineRecordWithNoExerciseRecordsError() {
+        
+        
+        // given
+        let sut = makeSUT()
+        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date().adding(days: -1), completionDate: nil, exerciseRecords: [])
+        
+        let error = CoreDataRoutineStore.Error.cannotCreateRoutineRecordWithNoExerciseRecords
+        
+        // when/then
+        XCTAssertEqual(createRoutineRecord(routineRecord, on: sut) as? NSError, error as NSError)
+    }
 
 
 
@@ -85,8 +134,12 @@ extension CoreDataRoutineStoreTests {
         
         // given
         let sut = makeSUT()
-        let routineRecordCompleted = RoutineRecord(id: UUID(), creationDate: Date().adding(days: -1), completionDate: Date(), exerciseRecords: [])
-        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+        let exercise = uniqueExercise()
+        
+        let routineRecordCompleted = uniqueRoutineRecord(creationDate: Date().adding(days: -1), completionDate: Date(), exercise: exercise)
+        let routineRecord = uniqueRoutineRecord(exercise: exercise)
+        
+        create(exercise, into: sut)
         
         createRoutineRecord(routineRecordCompleted, on: sut)
         
@@ -100,9 +153,13 @@ extension CoreDataRoutineStoreTests {
         
         // given
         let sut = makeSUT()
-        let routineRecordIncompleted = RoutineRecord(id: UUID(), creationDate: Date().adding(days: -1), completionDate: nil, exerciseRecords: [])
-        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+        let exercise = uniqueExercise()
+        
+        let routineRecordIncompleted = uniqueRoutineRecord(completionDate: nil, exercise: exercise)
+        let routineRecord = uniqueRoutineRecord(creationDate: Date().adding(days: -1), completionDate: Date(), exercise: exercise)
 
+        create(exercise, into: sut)
+        
         createRoutineRecord(routineRecordIncompleted, on: sut)
         
         // when/then
@@ -118,14 +175,18 @@ extension CoreDataRoutineStoreTests {
         let uuid = UUID()
         let creationDate = Date()
         let completionDate = Date()
+        let exercise = uniqueExercise()
+        let exerciseRecord = uniqueExerciseRecord(exercise: exercise)
         
-        let routineRecordBefore = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [])
-        let routineRecordAfter = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: completionDate, exerciseRecords: [])
+        let routineRecordBefore = uniqueRoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [exerciseRecord])
+        let routineRecordAfter = uniqueRoutineRecord(id: uuid, creationDate: creationDate, completionDate: completionDate, exerciseRecords: [exerciseRecord])
+        
+        create(exercise, into: sut)
         
         createRoutineRecord(routineRecordBefore, on: sut)
 
         // when
-        XCTAssertNil(updateRoutineRecord(routineRecordBefore.id, completionDate: completionDate, on: sut))
+        XCTAssertNil(updateRoutineRecord(routineRecordBefore.id, completionDate: completionDate, exerciseRecords: [exerciseRecord], on: sut))
         
         // then
         expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecordAfter]))
@@ -142,7 +203,6 @@ extension CoreDataRoutineStoreTests {
          let completionDate = Date()
          
          let routineRecordBefore = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [])
-         let routineRecordAfter = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: completionDate, exerciseRecords: [])
 
          // when
          let error = updateRoutineRecord(routineRecordBefore.id, completionDate: completionDate, on: sut)
@@ -152,7 +212,7 @@ extension CoreDataRoutineStoreTests {
      }
     
 
-    // TODO: Figure out why we are not getting ManagedExerciseRecord data whenever we are deciphering ManagedRoutineRecord
+    // TODO:
     func test_coreDataRoutineStore_updateRoutineRecordWithNewExerciseRecordsAndNoCompletionDate_updatesRoutineRecordsExerciseRecords() {
 
         // given
@@ -161,17 +221,22 @@ extension CoreDataRoutineStoreTests {
         let uuid = UUID()
         let creationDate = Date()
 //        let completionDate = Date()
-        let exercise = uniqueExercise()
-        let exerciseRecord = uniqueExerciseRecord(exercise: exercise)
         
-        let routineRecordBefore = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [])
-        let routineRecordAfter = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [exerciseRecord])
+        let exerciseBefore = uniqueExercise()
+        let exerciseRecordBefore = uniqueExerciseRecord(exercise: exerciseBefore)
+        let routineRecordBefore = uniqueRoutineRecord(id: uuid, creationDate: creationDate, exerciseRecords: [exerciseRecordBefore])
+        
+        let exerciseAfter = uniqueExercise()
+        let exerciseRecordAfter = uniqueExerciseRecord(exercise: exerciseAfter)
+        let routineRecordAfter = uniqueRoutineRecord(id: uuid, creationDate: creationDate, exerciseRecords: [exerciseRecordAfter])
 
-        create(exercise, into: sut)
+        create(exerciseBefore, into: sut)
+        create(exerciseAfter, into: sut)
+        
         createRoutineRecord(routineRecordBefore, on: sut)
 
         // when
-        XCTAssertNil(updateRoutineRecord(routineRecordBefore.id, completionDate: nil, exerciseRecords: [exerciseRecord], on: sut))
+        XCTAssertNil(updateRoutineRecord(routineRecordBefore.id, completionDate: nil, exerciseRecords: [exerciseRecordAfter], on: sut))
         
         // then
         expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecordAfter]))
