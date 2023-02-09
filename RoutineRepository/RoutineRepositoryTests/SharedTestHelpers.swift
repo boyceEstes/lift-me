@@ -19,7 +19,6 @@ func uniqueExercise() -> Exercise {
         id: UUID(),
         name: UUID().uuidString,
         creationDate: Date(),
-        exerciseRecords: [],
         tags: [])
 }
 
@@ -46,6 +45,17 @@ func uniqueRoutineRecord(id: UUID? = nil, creationDate: Date? = nil, completionD
         exerciseRecords: [])
     
     return routineRecord
+}
+
+
+func uniqueExerciseRecord(id: UUID? = nil, setRecords: [SetRecord]? = nil, exercise: Exercise? = nil) -> ExerciseRecord {
+    
+    let exerciseRecord = ExerciseRecord(
+        id: id ?? UUID(),
+        setRecords: setRecords ?? [],
+        exercise: exercise ?? uniqueExercise())
+    
+    return exerciseRecord
 }
 
 

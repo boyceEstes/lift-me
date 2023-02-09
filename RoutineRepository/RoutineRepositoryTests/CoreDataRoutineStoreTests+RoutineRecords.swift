@@ -57,17 +57,29 @@ extension CoreDataRoutineStoreTests {
         expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecord]))
     }
     
-    
-    func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInEmptyCache_createsNewRoutineRecord() {
-
-        // given
-        let sut = makeSUT()
-        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
-
-        // when/then
-        XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
-    }
-    
+//    
+//    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithCompletionDateAndExerciseRecord_createsNewRoutineRecord() {
+//
+//        // given
+//        let sut = makeSUT()
+//        let exercise = uniqueExercise()
+//        let exerciseRecord = uniqueExerciseRecord(exercise: exercise)
+//        
+//        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [exerciseRecord])
+//
+//        // when/then
+//        XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
+//        
+//        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecord]))
+//    }
+//    
+//    
+//    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithNoCompletionDateAndExerciseRecord_createsNewRoutineRecord() { }
+//    
+//    func test_coreDataRoutineStore_createRoutineRecordInEmptyCacheWithCompletionDateAndNoExerciseRecords_deliversCannotCreateRecordWithoutExercisesError() {}
+//
+//
+//    
     
     func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButNoIncompleteRoutineRecords_createsNewRoutineRecord() {
         
@@ -120,7 +132,7 @@ extension CoreDataRoutineStoreTests {
     }
     
     
-     func test_coreDataRoutineStore_updateRoutineRecordOnEmptyCache_deliverscannotUpdateRoutineRecordThatDoesNotExistError() {
+     func test_coreDataRoutineStore_updateRoutineRecordOnEmptyCache_deliversCannotUpdateRoutineRecordThatDoesNotExistError() {
          
          // given
          let sut = makeSUT()
@@ -139,18 +151,31 @@ extension CoreDataRoutineStoreTests {
          XCTAssertEqual(error as? NSError, CoreDataRoutineStore.Error.cannotUpdateRoutineRecordThatDoesNotExist as NSError)
      }
     
-//
-//    func test_coreDataRoutineStore_updateRoutineRecordWithNewExerciseRecords_updatesRoutineRecordsExerciseRecords() {
-//
-//        // given
-//        let sut = makeSUT()
-//        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
-//
-////        let exerciseRecords = unique
-//
-//        // when/then
-//        updateRoutineRecord(routineRecord.id, with: exerciseRecords)
-//    }
+
+    // TODO: Figure out why we are not getting ManagedExerciseRecord data whenever we are deciphering ManagedRoutineRecord
+    func test_coreDataRoutineStore_updateRoutineRecordWithNewExerciseRecordsAndNoCompletionDate_updatesRoutineRecordsExerciseRecords() {
+
+        // given
+        let sut = makeSUT()
+        
+        let uuid = UUID()
+        let creationDate = Date()
+//        let completionDate = Date()
+        let exercise = uniqueExercise()
+        let exerciseRecord = uniqueExerciseRecord(exercise: exercise)
+        
+        let routineRecordBefore = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [])
+        let routineRecordAfter = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [exerciseRecord])
+
+        create(exercise, into: sut)
+        createRoutineRecord(routineRecordBefore, on: sut)
+
+        // when
+        XCTAssertNil(updateRoutineRecord(routineRecordBefore.id, completionDate: nil, exerciseRecords: [exerciseRecord], on: sut))
+        
+        // then
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecordAfter]))
+    }
     
     
     // MARK: - Helpers
@@ -201,6 +226,7 @@ extension CoreDataRoutineStoreTests {
     private func updateRoutineRecord(
         _ routineRecordID: UUID,
         completionDate: Date?,
+        exerciseRecords: [ExerciseRecord] = [],
         on sut: CoreDataRoutineStore,
         file: StaticString = #file,
         line: UInt = #line
@@ -213,7 +239,7 @@ extension CoreDataRoutineStoreTests {
         sut.updateRoutineRecord(
             id: routineRecordID,
             updatedCompletionDate: completionDate,
-            updatedExerciseRecords: []
+            updatedExerciseRecords: exerciseRecords
         ) { error in
             
             receivedError = error

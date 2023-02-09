@@ -47,54 +47,7 @@ extension CoreDataRoutineStore {
 //        }
 //    }
     
-    // TODO: Make sure that we can update routine record exercises
-    public func updateRoutineRecord(
-        id: UUID,
-        updatedCompletionDate: Date?,
-        updatedExerciseRecords: [ExerciseRecord],
-        completion: @escaping UpdateRoutineRecordCompletion) {
-            
-        print("Update routine record with some new routine record")
-        
-        let context = context
-        context.perform {
-            do {
-                guard let routineRecordCurrent = try ManagedRoutineRecord.findRoutineRecord(with: id, in: context) else {
-                    
-                    throw Error.cannotUpdateRoutineRecordThatDoesNotExist
-                }
-                
-                routineRecordCurrent.completionDate = updatedCompletionDate
-                
-                try context.save()
-                completion(nil)
-            } catch {
-                completion(error)
-            }
-        }
-    }
-    
-    
-    public func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
-        
-        let context = context
-        context.perform {
-            do {
-                let records = try ManagedRoutineRecord.findAllRoutineRecords(in: context)
 
-                completion(.success(records.toModel()))
-//
-            } catch {
-                completion(.failure(error))
-            }
-        }
-    }
-    
-    
-    
-    public func deleteRoutineRecord(routineRecord: RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
-        print("delete routine record (maybe for the ")
-    }
     
     public func createRoutineRecord(_ routineRecord: RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
         print("Create routine record")
@@ -118,8 +71,108 @@ extension CoreDataRoutineStore {
         }
     }
     
-    public func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
-        print("Read routine record with \(id)")
-    }
+    
+    public func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
+        
+        let context = context
+        context.perform {
+            do {
+                let managedRoutineRecords = try ManagedRoutineRecord.findAllRoutineRecords(in: context)
 
+                completion(.success(managedRoutineRecords.toModel()))
+//
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    
+    // TODO: Make sure that we can update routine record exercises
+    public func updateRoutineRecord(
+        id: UUID,
+        updatedCompletionDate: Date?,
+        updatedExerciseRecords: [ExerciseRecord],
+        completion: @escaping UpdateRoutineRecordCompletion) {
+            
+        print("Update routine record with some new routine record")
+        
+        let context = context
+        context.perform {
+            do {
+                guard let managedRoutineRecord = try ManagedRoutineRecord.findRoutineRecord(with: id, in: context) else {
+                    
+                    throw Error.cannotUpdateRoutineRecordThatDoesNotExist
+                }
+                
+                managedRoutineRecord.completionDate = updatedCompletionDate
+//
+//                try updatedExerciseRecords.enumerated().forEach({ (index, exerciseRecord) in
+//
+//                    // TODO: Create some way to sort the exercise records by passing the index to the object
+//                    try ManagedExerciseRecord.createManagedExerciseRecord(
+//                        exerciseRecord,
+//                        for: managedRoutineRecord,
+//                        in: context)
+//
+//
+//                })
+                
+                try updatedExerciseRecords.forEach { exerciseRecord in
+                    
+                    let managedExerciseRecord = ManagedExerciseRecord(context: context)
+                    managedExerciseRecord.id = exerciseRecord.id
+                    managedExerciseRecord.routineRecord = managedRoutineRecord
+                    managedExerciseRecord.exercise = try ManagedExercise.findExercise(with: exerciseRecord.exercise.id, in: context)
+                }
+                
+                try context.save()
+                completion(nil)
+                
+            } catch {
+                completion(error)
+            }
+        }
+    }
+    
+    
+    public func deleteRoutineRecord(routineRecord: RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
+        print("delete routine record (maybe for the ")
+    }
+    
+//
+//    public func createExerciseRecord(_ exerciseRecord: ExerciseRecord, routineRecord: RoutineRecord, completion: @escaping (Swift.Error?) -> Void) {
+//
+//        let context = context
+//        do {
+//            let managedRoutineRecord = ManagedRecord(context: context)
+//            managedRoutineRecord.id = routineRecord.id
+//            managedRoutineRecord.creationDate = routineRecord.creationDate
+//            managedRoutineRecord.completionDate = routineRecord.completionDate
+//
+//            try ManagedExerciseRecord.createManagedExerciseRecord(exerciseRecord, for: managedRoutineRecord, in: context)
+//
+//            try context.save()
+//            completion(nil)
+//        } catch {
+//            completion(error)
+//        }
+//    }
+    
+    
+//    public func readAllExerciseRecords(completion: @escaping (Result<[ExerciseRecord], Swift.Error>) -> Void) {
+//
+//        let context = context
+//        do {
+//            let request: NSFetchRequest<ManagedExerciseRecord> = ManagedExerciseRecord.fetchRequest()
+//            request.returnsObjectsAsFaults = false
+//
+//            let managedExerciseRecords = try context.fetch(request)
+//            let exerciseRecords = managedExerciseRecords.map { ExerciseRecord(id: $0.id, setRecords: [], exercise: Exercise(id: UUID(), name: "blah", creationDate: Date(), tags: [])) }
+//
+//            completion(.success(exerciseRecords))
+//        } catch {
+//            completion(.failure(error))
+//        }
+//    }
 }

@@ -43,8 +43,8 @@ extension CoreDataRoutineStore {
 
     var seedExercises: [Exercise] {
         return [
-            Exercise(id: UUID(), name: "Deadlift", creationDate: Date(), exerciseRecords: [], tags: []),
-            Exercise(id: UUID(), name: "Bench Press", creationDate: Date(), exerciseRecords: [], tags: [])
+            Exercise(id: UUID(), name: "Deadlift", creationDate: Date(), tags: []),
+            Exercise(id: UUID(), name: "Bench Press", creationDate: Date(), tags: [])
 //            Exercise(name: "Deadlift", tags: [.back]),
 //            Exercise(name: "Bench press", tags: [.chest]),
 //            Exercise(name: "Squat", tags: [.glutes, .quads, .hamstrings]),
@@ -67,29 +67,3 @@ extension CoreDataRoutineStore {
         ]
     }
 }
-
-
-private extension ManagedExercise {
-    
-    func toModel() -> Exercise {
-
-        Exercise(
-            id: self.id,
-            name: self.name,
-            creationDate: self.creationDate,
-            exerciseRecords: [],
-            tags: [])
-    }
-}
-
-
-private extension Array where Element == ManagedExercise {
-    
-    func toModel() -> [Exercise] {
-        map {
-            $0.toModel()
-        }
-    }
-}
-
-

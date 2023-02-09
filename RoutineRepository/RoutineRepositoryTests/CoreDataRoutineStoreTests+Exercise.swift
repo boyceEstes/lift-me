@@ -88,7 +88,7 @@ extension CoreDataRoutineStoreTests {
     
     
     @discardableResult
-    private func create(_ exercise: Exercise, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateExerciseResult {
+    func create(_ exercise: Exercise, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateExerciseResult {
         
         let exp = expectation(description: "Wait for RoutineStore create completion")
         

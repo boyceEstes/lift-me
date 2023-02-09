@@ -13,4 +13,13 @@ public struct ExerciseRecord: Equatable, Hashable {
     
     // relationships
     public let setRecords: [SetRecord]
+    public let exercise: Exercise
+    
+    
+    public init(id: UUID, setRecords: [SetRecord], exercise: Exercise) {
+        
+        self.id = id
+        self.setRecords = setRecords
+        self.exercise = exercise
+    }
 }

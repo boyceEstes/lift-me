@@ -65,7 +65,23 @@ extension ManagedExercise {
 }
 
 
+// MARK: - Core Data Helpers
+
 extension ManagedExercise {
+    
+    static func findExercise(with id: UUID, in context: NSManagedObjectContext) throws -> ManagedExercise {
+        
+        
+        let request = ManagedExercise.fetchRequest
+        request.predicate = NSPredicate(format: "%K == %@", "id", id as CVarArg)
+        request.returnsObjectsAsFaults = false
+
+        guard let exercise = try context.fetch(request).first else {
+            throw CoreDataRoutineStore.Error.cannotFindExercise
+        }
+        
+        return exercise
+    }
     
     
     public static func findExercises(in context: NSManagedObjectContext) throws -> [ManagedExercise] {
@@ -85,3 +101,30 @@ extension ManagedExercise {
         managedExercise.creationDate = exercise.creationDate
     }
 }
+
+
+// MARK: - Mapping
+
+extension ManagedExercise {
+    
+    func toModel() -> Exercise {
+
+        Exercise(
+            id: self.id,
+            name: self.name,
+            creationDate: self.creationDate,
+            tags: [])
+    }
+}
+
+
+extension Array where Element == ManagedExercise {
+    
+    func toModel() -> [Exercise] {
+        map {
+            $0.toModel()
+        }
+    }
+}
+
+

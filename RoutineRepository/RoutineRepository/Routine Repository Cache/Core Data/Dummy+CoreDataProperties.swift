@@ -21,8 +21,9 @@ public class ManagedRoutineRecord: NSManagedObject {
     @NSManaged public var creationDate: Date
     @NSManaged public var id: UUID
     @NSManaged public var routine: ManagedRoutine?
-
+    @NSManaged public var exerciseRecords: Set<ManagedExerciseRecord>?
 }
+
 
 extension ManagedRoutineRecord : Identifiable {}
 
@@ -39,6 +40,7 @@ extension ManagedRoutineRecord {
         managedRoutineRecord.creationDate = routineRecord.creationDate
         managedRoutineRecord.completionDate = routineRecord.completionDate
         managedRoutineRecord.routine = nil
+//        managedRoutineRecord.exerciseRecords = 
     }
     
     
@@ -77,6 +79,8 @@ extension ManagedRoutineRecord {
     
     
     // TODO: Test this by rewriting with TDD
+    // For when we are creating a routine record and there is currently an incomplete in the cache, we want to set that completion
+    // to ensure that there is only one incomplete at a time
     static func updateIncompleteRoutineRecordsWithCurrentDate(in context: NSManagedObjectContext) throws {
         
         let incompleteRecords = try ManagedRoutineRecord.findIncompleteRoutineRecords(in: context)
@@ -97,12 +101,14 @@ extension ManagedRoutineRecord {
 extension Array where Element == ManagedRoutineRecord {
     
     func toModel() -> [RoutineRecord] {
-        map {
-            RoutineRecord(
-                id: $0.id,
-                creationDate: $0.creationDate,
-                completionDate: $0.completionDate,
-                exerciseRecords: [])
+        
+        map { managedRoutineRecord in
+            
+            return RoutineRecord(
+                id: managedRoutineRecord.id,
+                creationDate: managedRoutineRecord.creationDate,
+                completionDate: managedRoutineRecord.completionDate,
+                exerciseRecords: managedRoutineRecord.exerciseRecords?.toModel() ?? [])
         }
     }
 }

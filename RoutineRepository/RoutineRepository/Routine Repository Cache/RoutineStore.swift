@@ -52,7 +52,7 @@ public protocol RoutineStore {
     // Routine Records
     func createRoutineRecord(_ routineRecord: RoutineRecord, completion: @escaping CreateRoutineRecordCompletion)
     func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion)
-    func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion)
+//    func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion)
     func updateRoutineRecord(id: UUID, updatedCompletionDate: Date?, updatedExerciseRecords: [ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion)
     // Assuming that the ID will be the same as a currently existing routine record
     func deleteRoutineRecord(routineRecord: RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion)
@@ -60,4 +60,6 @@ public protocol RoutineStore {
     // Exercises
     func readAllExercises(completion: @escaping ReadExercisesCompletion)
     func createExercise(_ exercise: Exercise, completion: @escaping CreateExerciseCompletion)
+    
+    
 }

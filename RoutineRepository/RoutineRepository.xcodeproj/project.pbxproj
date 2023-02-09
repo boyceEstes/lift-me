@@ -51,7 +51,6 @@
 		B3D29C6A28F71A3F006CC77D /* RoutineStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */; };
 		B3D29C6D28F7B787006CC77D /* RoutineStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */; };
 		B3D29C7028F86C16006CC77D /* ManagedRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */; };
-		B3D29C7528F879DC006CC77D /* ManagedRoutineRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C7328F879DC006CC77D /* ManagedRoutineRecord.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,7 +139,6 @@
 		B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests+Routines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStoreTests+Routines.swift"; sourceTree = "<group>"; };
 		B3D29C6928F71A3F006CC77D /* RoutineStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoutineStore.xcdatamodel; sourceTree = "<group>"; };
 		B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedRoutine.swift; sourceTree = "<group>"; };
-		B3D29C7328F879DC006CC77D /* ManagedRoutineRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedRoutineRecord.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,7 +309,6 @@
 				B3679FC929949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift */,
 				B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */,
 				B3A74CD329720D6A00A376AC /* ManagedExercise.swift */,
-				B3D29C7328F879DC006CC77D /* ManagedRoutineRecord.swift */,
 				B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */,
 				B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */,
 				B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */,
@@ -579,7 +576,6 @@
 				B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */,
 				B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */,
 				B357C4D42991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift in Sources */,
-				B3D29C7528F879DC006CC77D /* ManagedRoutineRecord.swift in Sources */,
 				B3A74CD829720D6A00A376AC /* ManagedExerciseRecord.swift in Sources */,
 				B3679FCB29949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift in Sources */,
 				B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */,
