@@ -167,6 +167,11 @@ public struct ExerciseRecordView: View {
             HStack {
                 Text(exerciseRecord.exercise.name)
                 Spacer()
+                Button("Add Set") {
+                    
+                    $exerciseRecord.wrappedValue.setRecords.append(SetRecord(id: UUID(), duration: nil, repCount: 0, weight: 0, difficulty: 0))
+                    
+                }.buttonStyle(HighKeyButtonStyle())
             }
         }
     }

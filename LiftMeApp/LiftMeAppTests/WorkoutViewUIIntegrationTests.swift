@@ -122,6 +122,41 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
 
         wait(for: [exp], timeout: 1)
     }
+    
+    
+    func test_exerciseRecordView_didTapAddSetRecordButton_displayAnAdditionalSetRecordView() {
+        
+        // GIVEN
+        // A routine record with no exercises
+        let (sut, _, _) = makeSUT()
+        let addedExercise = [uniqueExercise()]
+
+        let exp = sut.inspection.inspect { sut in
+
+            let setRecordsBefore = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsBefore.count, 0)
+
+            // Exercise(s) is added from add exercise screen
+            try sut.actualView().viewModel.addExercisesCompletion(exercises: addedExercise)
+
+            // the routine record will append the new added exercises and display them
+            let setRecordsAfter = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsAfter.count, 1)
+            
+            
+            // WHEN
+            let addSetButton = try sut.find(button: "Add Set")
+            try addSetButton.tap()
+            
+            // THEN
+            let setRecordsAfter2 = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsAfter2.count, 2)
+        }
+
+        ViewHosting.host(view: sut)
+
+        wait(for: [exp], timeout: 1)
+    }
 
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
