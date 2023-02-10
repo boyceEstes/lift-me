@@ -18,7 +18,10 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
         
         var id: Int { self.hashValue }
         
-        case addExercise(addExercisesCompletion: ([Exercise]) -> Void)
+        case addExercise(
+            addExercisesCompletion: ([Exercise]) -> Void,
+            dismiss: () -> Void
+        )
         
         func hash(into hasher: inout Hasher) {
             
@@ -57,8 +60,11 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
         
         switch identifier {
             
-        case let .addExercise(addExerciseCompletion):
-            return workoutUIComposer.makeAddExerciseView(addExerciseCompletion: addExerciseCompletion)
+        case let .addExercise(addExerciseCompletion, dismiss):
+            return workoutUIComposer.makeAddExerciseView(
+                addExerciseCompletion: addExerciseCompletion,
+                dismiss: dismiss
+            )
         }
     }
 }

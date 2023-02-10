@@ -12,7 +12,7 @@ public struct ExerciseRecord: Equatable, Hashable {
     public let id: UUID
     
     // relationships
-    public let setRecords: [SetRecord]
+    public var setRecords: [SetRecord]
     public let exercise: Exercise
     
     

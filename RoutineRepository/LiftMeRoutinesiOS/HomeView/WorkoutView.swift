@@ -9,11 +9,12 @@ import SwiftUI
 import RoutineRepository
 
 
-public class WorkoutViewModel {
+public class WorkoutViewModel: ObservableObject {
     
     let routineStore: RoutineStore
     
-    @Published var routineRecord: RoutineRecord?
+    @Published var routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+    
     
     public init(routineStore: RoutineStore) {
         
@@ -70,11 +71,19 @@ public class WorkoutViewModel {
     
     // Passed to AddExerciseViewModel for logic after Add button is tapped
     public func addExercisesCompletion(exercises: [Exercise]) {
-        print("We have added an exercise")
+        print("add exercises completion in workout view: received: \(exercises)")
         
         // We need to update Core Data with the new exercises
         // Then load the routine record from what is in Core Data
         
+        // create an exercise record
+        
+        for exercise in exercises {
+            let setRecord = SetRecord(id: UUID(), duration: nil, repCount: 12, weight: 120, difficulty: 4)
+            
+            let exerciseRecord = ExerciseRecord(id: UUID(), setRecords: [setRecord], exercise: exercise)
+            routineRecord.exerciseRecords.append(exerciseRecord)
+        }
     }
 }
 
@@ -83,9 +92,7 @@ public struct WorkoutView: View {
     
     public let inspection = Inspection<Self>()
     
-    let allExercises: [Exercise] = []
-    
-    public let viewModel: WorkoutViewModel
+    @ObservedObject public var viewModel: WorkoutViewModel
     let goToAddExercise: () -> Void
 
 
@@ -97,38 +104,40 @@ public struct WorkoutView: View {
     
     
     public var body: some View {
-        List {
-            Section {
-                if allExercises.isEmpty {
+        VStack {
+            HStack {
+                Text("Exercises")
+                    .textCase(.uppercase)
+                    .padding(.trailing, 6)
+                
+                Button {
+                    goToAddExercise()
+                } label: {
+                    HStack {
+                        Text("Add")
+                        Image(systemName: "plus")
+                    }
+                }
+                .buttonStyle(HighKeyButtonStyle())
+                .id("add-exercise-button")
+
+                Spacer()
+                EditButton()
+                    .foregroundColor(.universeRed)
+            }
+            .font(.headline)
+            
+            
+            List {
+                if viewModel.routineRecord.exerciseRecords.isEmpty {
                     Text("Try adding an exercise!")
                 } else {
-                    ForEach(allExercises, id: \.self) { exercise in
-                        ExerciseWithSetsView(exercise: exercise)
-                    }
-                }
-            } header: {
-                HStack {
-                    Text("Exercises")
-                        .textCase(.uppercase)
-                        .padding(.trailing, 6)
                     
-                    Button {
-                        goToAddExercise()
-                    } label: {
-                        HStack {
-                            Text("Add")
-                            Image(systemName: "plus")
-                        }
+                    ForEach($viewModel.routineRecord.exerciseRecords, id: \.self) { exerciseRecord in
+                        ExerciseRecordView(exerciseRecord: exerciseRecord)
                     }
-                    .buttonStyle(HighKeyButtonStyle())
-                    .id("add-exercise-button")
-
-                    Spacer()
-                    EditButton()
-                        .foregroundColor(.universeRed)
                 }
-                .font(.headline)
-            }.textCase(nil)
+            }
         }
         .navigationTitle("Custom Workout")
         .onAppear {
@@ -142,22 +151,67 @@ public struct WorkoutView: View {
 }
 
 
-public struct ExerciseWithSetsView: View {
+public struct ExerciseRecordView: View {
 
-    let exercise: Exercise
+    @Binding var exerciseRecord: ExerciseRecord
+    
 
     public var body: some View {
-        Text(exercise.name)
+        
+        Section {
+            ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
+                
+                SetRecordView(setRecord: $exerciseRecord.setRecords[index], rowNumber: index + 1)
+            }
+        } header: {
+            HStack {
+                Text(exerciseRecord.exercise.name)
+                Spacer()
+            }
+        }
+    }
+}
+
+
+public struct SetRecordView: View {
+    
+    @Binding var setRecord: SetRecord
+    let rowNumber: Int
+    
+    public var body: some View {
+        
+        HStack {
+            Text("Set \(rowNumber)")
+            
+            Spacer()
+            
+            HStack {
+                TextField("120", value: $setRecord.weight, formatter: NumberFormatter())
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(width: 50)
+                
+                Text("x")
+                TextField("10", value: $setRecord.repCount, formatter: NumberFormatter())
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(width: 50)
+            }
+        }
     }
 }
 
 
 struct WorkoutView_Previews: PreviewProvider {
+    
+    @State static var setRecord = SetRecord(id: UUID(), duration: nil, repCount: 0, weight: 0, difficulty: 0)
+    
     static var previews: some View {
         let viewModel = WorkoutViewModel(routineStore: RoutineStorePreview())
         WorkoutView(
             viewModel: viewModel,
             goToAddExercise: { }
         )
+        
+        
+        SetRecordView(setRecord: $setRecord, rowNumber: 1)
     }
 }

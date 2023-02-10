@@ -43,6 +43,7 @@ public class AddExerciseViewModel: ObservableObject {
     
     let routineStore: RoutineStore
     let addExerciseCompletion: ([Exercise]) -> Void
+    let dismiss: () -> Void
     
     // Does not get set
     var allSelectableExercises = [SelectableExercise]()
@@ -63,14 +64,17 @@ public class AddExerciseViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    public init(routineStore: RoutineStore, addExerciseCompletion: @escaping ([Exercise]) -> Void) {
+    public init(
+        routineStore: RoutineStore,
+        addExerciseCompletion: @escaping ([Exercise]) -> Void,
+        dismiss: @escaping () -> Void
+    ) {
         
         self.routineStore = routineStore
         self.addExerciseCompletion = addExerciseCompletion
+        self.dismiss = dismiss
         
         bindSearchTextFieldChange()
-//        bindChangesToSelectableFilteredExercises()
-//        bindChangesToSelectableSelectedExercises()
     }
     
     
@@ -172,10 +176,15 @@ public struct AddExerciseView: View {
         VStack {
             
             Button("Add \(viewModel.selectableSelectedExercises.count)") {
-                print("Add")
+
                 viewModel.addExerciseCompletion(
-                    viewModel.selectableSelectedExercises.map { $0.exercise}
+                    viewModel.selectableSelectedExercises.map {
+                        print("Tapped add in AddExerciseView for \($0.exercise.name)")
+                        return $0.exercise
+                    }
                 )
+                
+                viewModel.dismiss()
             }
             .accessibilityIdentifier("add-selected-exercises")
 
@@ -290,7 +299,8 @@ struct AddExerciseView_Previews: PreviewProvider {
         AddExerciseView(
             viewModel: AddExerciseViewModel(
                 routineStore: RoutineStorePreview(),
-                addExerciseCompletion: { _ in }
+                addExerciseCompletion: { _ in },
+                dismiss: { }
             )
         )
     }

@@ -13,7 +13,8 @@ import LiftMeRoutinesiOS
 
 
 extension WorkoutView: Inspectable { }
-extension ExerciseWithSetsView: Inspectable { }
+extension ExerciseRecordView: Inspectable { }
+extension SetRecordView: Inspectable { }
 
 
 final class WorkoutViewUIIntegrationTests: XCTestCase {
@@ -60,40 +61,67 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
         // then
         XCTAssertEqual(
             workoutNavigationFlow.modallyDisplayedView,
-            WorkoutNavigationFlow.SheetyIdentifier.addExercise(addExercisesCompletion: sut.viewModel.addExercisesCompletion)
+            WorkoutNavigationFlow.SheetyIdentifier.addExercise(
+                addExercisesCompletion: sut.viewModel.addExercisesCompletion,
+                dismiss: workoutNavigationFlow.dismiss)
         )
     }
 
     
-//
-//    func test_workoutView_addingExercisesToRoutineRecordWithEmptyExerciseList_displaysExercises() {
-//
-//        // given
-//        // A routine record with no exercises
-//        let (sut, _, _) = makeSUT()
-//        let addedExercises = [uniqueExercise(), uniqueExercise()]
-//
-//
-//        let exp = sut.inspection.inspect { sut in
-//
-//            let exercisesWithSetsBefore = sut.findAll(ExerciseWithSetsView.self)
-//            XCTAssertEqual(exercisesWithSetsBefore.count, 0)
-//
-//            // when
-//            // Exercise(s) is added from add exercise screen
-//            try sut.actualView().viewModel.addExercisesCompletion(exercises: addedExercises)
-//
-//            // then
-//            // the routine record will append the new added exercises and display them
-//            let exercisesWithSetsAfter = sut.findAll(ExerciseWithSetsView.self)
-//            XCTAssertEqual(exercisesWithSetsAfter.count, 2)
-//        }
-//
-//        ViewHosting.host(view: sut)
-//
-//        wait(for: [exp], timeout: 1)
-//
-//    }
+    func test_workoutView_addingExercisesToRoutineRecordWithEmptyExerciseList_displaysExercises() {
+
+        // given
+        // A routine record with no exercises
+        let (sut, _, _) = makeSUT()
+        let addedExercises = [uniqueExercise(), uniqueExercise()]
+
+        let exp = sut.inspection.inspect { sut in
+
+            let exercisesWithSetsBefore = sut.findAll(ExerciseRecordView.self)
+            XCTAssertEqual(exercisesWithSetsBefore.count, 0)
+
+            // when
+            // Exercise(s) is added from add exercise screen
+            try sut.actualView().viewModel.addExercisesCompletion(exercises: addedExercises)
+
+            // then
+            // the routine record will append the new added exercises and display them
+            let exerciseRecordViewAfter = sut.findAll(ExerciseRecordView.self)
+            XCTAssertEqual(exerciseRecordViewAfter.count, 2)
+        }
+
+        ViewHosting.host(view: sut)
+
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_workoutView_addingExercisesToRoutineRecord_displaysOneSetRecordViewByDefault() {
+        
+        // given
+        // A routine record with no exercises
+        let (sut, _, _) = makeSUT()
+        let addedExercise = [uniqueExercise()]
+
+        let exp = sut.inspection.inspect { sut in
+
+            let setRecordsBefore = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsBefore.count, 0)
+
+            // when
+            // Exercise(s) is added from add exercise screen
+            try sut.actualView().viewModel.addExercisesCompletion(exercises: addedExercise)
+
+            // then
+            // the routine record will append the new added exercises and display them
+            let setRecordsAfter = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsAfter.count, 1)
+        }
+
+        ViewHosting.host(view: sut)
+
+        wait(for: [exp], timeout: 1)
+    }
 
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {

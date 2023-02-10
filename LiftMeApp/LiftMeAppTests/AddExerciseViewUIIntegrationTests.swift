@@ -184,7 +184,10 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
 
         let workoutUIComposer = WorkoutUIComposerWithSpys()
         let workoutNavigationFlow = workoutUIComposer.navigationFlow
-        let sut = workoutUIComposer.makeAddExerciseView(addExerciseCompletion: { _ in })
+        let sut = workoutUIComposer.makeAddExerciseView(
+            addExerciseCompletion: { _ in },
+            dismiss: workoutNavigationFlow.dismiss
+        )
         let routineStore: RoutineStoreSpy = workoutUIComposer.routineStore as! RoutineStoreSpy
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
