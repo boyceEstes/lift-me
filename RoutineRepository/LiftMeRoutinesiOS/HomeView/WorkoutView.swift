@@ -14,7 +14,7 @@ public class WorkoutViewModel: ObservableObject {
     let routineStore: RoutineStore
     
     @Published var routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
-    
+    @Published var displaySaveError = false
     
     public init(routineStore: RoutineStore) {
         
@@ -79,11 +79,45 @@ public class WorkoutViewModel: ObservableObject {
         // create an exercise record
         
         for exercise in exercises {
-            let setRecord = SetRecord(id: UUID(), duration: nil, repCount: 12, weight: 120, difficulty: 4)
+            let setRecord = SetRecord(id: UUID(), duration: nil, repCount: nil, weight: nil, difficulty: nil)
             
             let exerciseRecord = ExerciseRecord(id: UUID(), setRecords: [setRecord], exercise: exercise)
             routineRecord.exerciseRecords.append(exerciseRecord)
         }
+    }
+    
+    
+    func didTapSaveButton() {
+        
+        saveRoutineRecord()
+    }
+    
+    func saveRoutineRecord() {
+        
+        print("validate all fields are entered")
+        
+        guard allSetRecordsHaveValues() else {
+            displaySaveError = true
+            return
+        }
+        
+        print("saaving routine record")
+    }
+    
+    
+    private func allSetRecordsHaveValues() -> Bool {
+        
+        var foundMissing = true
+        
+        routineRecord.exerciseRecords.forEach {
+            $0.setRecords.forEach {
+                if $0.repCount == nil || $0.weight == nil {
+                    foundMissing = false
+                }
+            }
+        }
+        
+        return foundMissing
     }
 }
 
@@ -105,6 +139,15 @@ public struct WorkoutView: View {
     
     public var body: some View {
         VStack {
+            
+            HStack {
+                Button("Save") {
+                    
+                    viewModel.didTapSaveButton()
+                    
+                }.buttonStyle(LowKeyButtonStyle())
+            }
+            
             HStack {
                 Text("Exercises")
                     .textCase(.uppercase)
@@ -147,6 +190,11 @@ public struct WorkoutView: View {
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
         }
+        .alert("Not Yet", isPresented: $viewModel.displaySaveError, actions: {
+            Button("OK", role: .cancel) { }
+        }, message: {
+            Text("Make sure you fill out all of your sets")
+        })
     }
 }
 
@@ -169,7 +217,7 @@ public struct ExerciseRecordView: View {
                 Spacer()
                 Button("Add Set") {
                     
-                    $exerciseRecord.wrappedValue.setRecords.append(SetRecord(id: UUID(), duration: nil, repCount: 0, weight: 0, difficulty: 0))
+                    $exerciseRecord.wrappedValue.setRecords.append(SetRecord(id: UUID(), duration: nil, repCount: nil, weight: nil, difficulty: 0))
                     
                 }.buttonStyle(HighKeyButtonStyle())
             }

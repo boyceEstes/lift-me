@@ -16,7 +16,6 @@ extension WorkoutView: Inspectable { }
 extension ExerciseRecordView: Inspectable { }
 extension SetRecordView: Inspectable { }
 
-
 final class WorkoutViewUIIntegrationTests: XCTestCase {
 
     func test_viewInspector_baseLine_succeeds() throws {
@@ -157,6 +156,36 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
 
         wait(for: [exp], timeout: 1)
     }
+    
+    // TODO: Figure out how to test alerts correctly
+//    func test_workoutView_didTapSaveButtonWithEmptySetRecords_willNotAllowSaveToProceed() throws {
+//        
+//        // given
+//        // A routine record with no exercises
+//        let (sut, _, _) = makeSUT()
+//        let addedExercise = [uniqueExercise()]
+//
+//        let exp = sut.inspection.inspect { sut in
+//
+//            // Exercise(s) is added from add exercise screen
+//            try sut.actualView().viewModel.addExercisesCompletion(exercises: addedExercise)
+//
+//            // The routine record will append the new added exercises and display them
+//            let saveButton = try sut.find(button: "Save")
+//            
+//            // WHEN
+//            try saveButton.tap()
+//            
+//            let alert = try sut.alert()
+//            XCTAssertEqual(try alert.title().string(), "Not Yet")
+//            XCTAssertEqual(try alert.message().text().string(), "Make sure you fill out all of your sets")
+//        }
+//
+//        ViewHosting.host(view: sut)
+//
+//        wait(for: [exp], timeout: 1)
+//        
+//    }
 
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
