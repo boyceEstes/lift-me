@@ -159,7 +159,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     
     // TODO: Figure out how to test alerts correctly
 //    func test_workoutView_didTapSaveButtonWithEmptySetRecords_willNotAllowSaveToProceed() throws {
-//        
+//
 //        // given
 //        // A routine record with no exercises
 //        let (sut, _, _) = makeSUT()
@@ -172,10 +172,10 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
 //
 //            // The routine record will append the new added exercises and display them
 //            let saveButton = try sut.find(button: "Save")
-//            
+//
 //            // WHEN
 //            try saveButton.tap()
-//            
+//
 //            let alert = try sut.alert()
 //            XCTAssertEqual(try alert.title().string(), "Not Yet")
 //            XCTAssertEqual(try alert.message().text().string(), "Make sure you fill out all of your sets")
@@ -184,8 +184,20 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
 //        ViewHosting.host(view: sut)
 //
 //        wait(for: [exp], timeout: 1)
-//        
+//
 //    }
+    
+    func test_workoutView_noExerciseRecords_willKeepTheButtonDisabled() throws {
+        
+        // given
+        let (sut, _, _) = makeSUT()
+        
+        // when
+        let saveButton = try sut.inspect().find(button: "Save")
+        
+        // then
+        XCTAssertTrue(saveButton.isDisabled())
+    }
 
 
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {

@@ -16,6 +16,10 @@ public class WorkoutViewModel: ObservableObject {
     @Published var routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
     @Published var displaySaveError = false
     
+    var isSaveDisabled: Bool {
+        routineRecord.exerciseRecords.isEmpty
+    }
+    
     public init(routineStore: RoutineStore) {
         
         self.routineStore = routineStore
@@ -90,7 +94,10 @@ public class WorkoutViewModel: ObservableObject {
     func didTapSaveButton() {
         
         saveRoutineRecord()
+        // ask if you want the routine
+        // dismiss the view
     }
+    
     
     func saveRoutineRecord() {
         
@@ -145,7 +152,9 @@ public struct WorkoutView: View {
                     
                     viewModel.didTapSaveButton()
                     
-                }.buttonStyle(LowKeyButtonStyle())
+                }
+                .buttonStyle(LowKeyButtonStyle())
+                .disabled(viewModel.isSaveDisabled)
             }
             
             HStack {
