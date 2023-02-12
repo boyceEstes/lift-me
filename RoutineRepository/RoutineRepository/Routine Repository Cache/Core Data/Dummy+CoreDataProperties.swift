@@ -32,7 +32,6 @@ extension ManagedRoutineRecord : Identifiable {}
 
 extension ManagedRoutineRecord {
     
-    
     static func createRoutineRecord(_ routineRecord: RoutineRecord, in context: NSManagedObjectContext) throws {
         
         guard !routineRecord.exerciseRecords.isEmpty else {

@@ -54,10 +54,22 @@ func uniqueExerciseRecord(id: UUID? = nil, setRecords: [SetRecord]? = nil, exerc
     
     let exerciseRecord = ExerciseRecord(
         id: id ?? UUID(),
-        setRecords: setRecords ?? [],
+        setRecords: setRecords ?? [uniqueSetRecord()],
         exercise: exercise ?? uniqueExercise())
     
     return exerciseRecord
+}
+
+
+func uniqueSetRecord() -> SetRecord {
+    
+    return SetRecord(
+        id: UUID(),
+        duration: nil,
+        repCount: 0,
+        weight: 0,
+        difficulty: nil
+    )
 }
 
 

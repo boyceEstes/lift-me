@@ -127,8 +127,6 @@ extension CoreDataRoutineStoreTests {
         XCTAssertEqual(createRoutineRecord(routineRecord, on: sut) as? NSError, error as NSError)
     }
 
-
-
     
     func test_coreDataRoutineStore_createRoutineRecordWithCreationDateInNonEmptyCacheButNoIncompleteRoutineRecords_createsNewRoutineRecord() {
         
@@ -145,6 +143,27 @@ extension CoreDataRoutineStoreTests {
         
         // when/then
         XCTAssertNil(createRoutineRecord(routineRecord, on: sut))
+    }
+    
+    
+    func test_coreDataRoutineStore_createRoutineRecordWithNoSetRecords_deliversCannotCreateRoutineRecordWithNoSetRecordsError() {
+        
+        // given
+        let sut = makeSUT()
+        let exercise = uniqueExercise()
+        
+        let exerciseRecord = uniqueExerciseRecord(setRecords: [], exercise: exercise) // Exercise record has no sets
+        let routineRecordCompleted = uniqueRoutineRecord(creationDate: Date().adding(days: -1), completionDate: Date(), exerciseRecords: [exerciseRecord])
+        
+        create(exercise, into: sut)
+        
+        // when
+        let error = createRoutineRecord(routineRecordCompleted, on: sut)
+        
+        // then
+        XCTAssertEqual(error as? NSError, CoreDataRoutineStore.Error.cannotCreateRoutineRecordWithNoSetRecords as NSError)
+        
+        expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([]))
     }
     
     

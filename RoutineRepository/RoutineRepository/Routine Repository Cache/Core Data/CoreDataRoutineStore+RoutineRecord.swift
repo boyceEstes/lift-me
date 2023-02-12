@@ -66,6 +66,9 @@ extension CoreDataRoutineStore {
                 completion(nil)
                 
             } catch {
+                
+                context.rollback()
+                
                 completion(error)
             }
         }
@@ -107,8 +110,13 @@ extension CoreDataRoutineStore {
                 
                 managedRoutineRecord.completionDate = updatedCompletionDate
                 
-                // Remove current associated exercise records
+                // Remove current associated exercise records and their set records
                 managedRoutineRecord.exerciseRecords?.forEach {
+                    
+                    $0.setRecords?.forEach {
+                        context.delete($0)
+                    }
+                    
                     context.delete($0)
                 }
 
@@ -127,6 +135,8 @@ extension CoreDataRoutineStore {
                 completion(nil)
                 
             } catch {
+                
+                context.rollback()
                 completion(error)
             }
         }

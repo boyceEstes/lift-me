@@ -71,7 +71,6 @@ extension ManagedExercise {
     
     static func findExercise(with id: UUID, in context: NSManagedObjectContext) throws -> ManagedExercise {
         
-        
         let request = ManagedExercise.fetchRequest
         request.predicate = NSPredicate(format: "%K == %@", "id", id as CVarArg)
         request.returnsObjectsAsFaults = false

@@ -18,7 +18,7 @@ public struct RoutineRecordViewModel: Hashable {
         RoutineRecord(
             id: UUID(),
             creationDate: creationDate,
-            completionDate: nil,
+            completionDate: completionDate,
             exerciseRecords: exerciseRecordViewModels.map {
                 ExerciseRecord(
                     id: UUID(),
@@ -26,8 +26,8 @@ public struct RoutineRecordViewModel: Hashable {
                         SetRecord(
                             id: UUID(),
                             duration: nil,
-                            repCount: $0.repCount.isEmpty ? nil : Int($0.repCount),
-                            weight: $0.weight.isEmpty ? nil : Int($0.weight),
+                            repCount: ($0.repCount.isEmpty ? nil : Double($0.repCount))!,
+                            weight: ($0.weight.isEmpty ? nil : Double($0.weight))!,
                             difficulty: nil)
                     },
                     exercise: $0.exercise

@@ -30,6 +30,7 @@
 		B366D9D7299464D500083DF4 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; platformFilter = ios; };
 		B366D9D8299464D500083DF4 /* RoutineRepository.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3679FCB29949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3679FC929949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift */; };
+		B3692CB5299950CA00D9BD05 /* ManagedSetRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CB4299950CA00D9BD05 /* ManagedSetRecord.swift */; };
 		B3A74CD12970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */; };
 		B3A74CD829720D6A00A376AC /* ManagedExerciseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */; };
 		B3A74CD929720D6A00A376AC /* ManagedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD329720D6A00A376AC /* ManagedExercise.swift */; };
@@ -118,6 +119,7 @@
 		B357C4D32991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStore+RoutineRecord.swift"; sourceTree = "<group>"; };
 		B3679FC929949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dummy+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B36891592914B65E00E04957 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedTestHelpers.swift; path = ../LiftMeApp/LiftMeAppTests/SharedTestHelpers.swift; sourceTree = "<group>"; };
+		B3692CB4299950CA00D9BD05 /* ManagedSetRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedSetRecord.swift; sourceTree = "<group>"; };
 		B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStoreTests+Exercise.swift"; sourceTree = "<group>"; };
 		B3A74CD329720D6A00A376AC /* ManagedExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ManagedExercise.swift; path = "/Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/ManagedExercise.swift"; sourceTree = "<absolute>"; };
 		B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ManagedExerciseRecord.swift; path = "/Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/ManagedExerciseRecord.swift"; sourceTree = "<absolute>"; };
@@ -307,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				B3679FC929949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift */,
+				B3692CB4299950CA00D9BD05 /* ManagedSetRecord.swift */,
 				B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */,
 				B3A74CD329720D6A00A376AC /* ManagedExercise.swift */,
 				B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */,
@@ -579,6 +582,7 @@
 				B3A74CD829720D6A00A376AC /* ManagedExerciseRecord.swift in Sources */,
 				B3679FCB29949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift in Sources */,
 				B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */,
+				B3692CB5299950CA00D9BD05 /* ManagedSetRecord.swift in Sources */,
 				B3D29C0828F1EE92006CC77D /* ExerciseRecord.swift in Sources */,
 				B3D29C6A28F71A3F006CC77D /* RoutineStore.xcdatamodeld in Sources */,
 				B3D29C0428F1EDFA006CC77D /* RoutineRecord.swift in Sources */,

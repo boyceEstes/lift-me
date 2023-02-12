@@ -21,6 +21,7 @@ public class ManagedExerciseRecord: NSManagedObject {
     
     @NSManaged public var exercise: ManagedExercise // Non-optional
     @NSManaged public var routineRecord: ManagedRoutineRecord // Non-optional
+    @NSManaged public var setRecords: Set<ManagedSetRecord>? // Non-optional in cd
 }
 
 
@@ -30,11 +31,21 @@ public class ManagedExerciseRecord: NSManagedObject {
 extension ManagedExerciseRecord {
 
     static func createManagedExerciseRecord(_ exerciseRecord: ExerciseRecord, for managedRoutineRecord: ManagedRoutineRecord, in context: NSManagedObjectContext) throws {
+        
+        guard !exerciseRecord.setRecords.isEmpty else {
+            throw CoreDataRoutineStore.Error.cannotCreateRoutineRecordWithNoSetRecords
+        }
 
         let managedExerciseRecord = ManagedExerciseRecord(context: context)
         managedExerciseRecord.id = exerciseRecord.id
         managedExerciseRecord.routineRecord = managedRoutineRecord
         managedExerciseRecord.exercise = try ManagedExercise.findExercise(with: exerciseRecord.exercise.id, in: context)
+        
+        // Create a managed exercise record with this record
+        exerciseRecord.setRecords.forEach { setRecord in
+            
+            ManagedSetRecord.createManagedSetRecord(setRecord, for: managedExerciseRecord, in: context)
+        }
     }
 }
 
@@ -46,7 +57,7 @@ extension Set where Element == ManagedExerciseRecord {
         map {
             ExerciseRecord(
                 id: $0.id,
-                setRecords: [],
+                setRecords: $0.setRecords?.toModel() ?? [],
                 exercise: $0.exercise.toModel()
             )
         }
