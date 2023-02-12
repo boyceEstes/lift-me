@@ -62,6 +62,8 @@ class RoutineStoreSpy: RoutineStore {
     
     // MARK: - Routine Records
     
+    private(set) var readAllRoutineRecordsCompletions = [RoutineStore.ReadAllRoutineRecordsCompletion]()
+    
     func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
         requests.append(.createRoutineRecord)
     }
@@ -74,6 +76,7 @@ class RoutineStoreSpy: RoutineStore {
     
     func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
         requests.append(.readAllRoutineRecords)
+        readAllRoutineRecordsCompletions.append(completion)
     }
     
     
@@ -85,6 +88,12 @@ class RoutineStoreSpy: RoutineStore {
     
     func deleteRoutineRecord(routineRecord: RoutineRepository.RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
         print("placeholder")
+    }
+    
+    
+    // Completions
+    func completeReadRoutineRecords(with routineRecords: [RoutineRecord], at index: Int = 0) {
+        readAllRoutineRecordsCompletions[index](.success(routineRecords))
     }
     
     

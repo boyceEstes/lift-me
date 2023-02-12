@@ -12,6 +12,7 @@ import LiftMeRoutinesiOS
 @testable import LiftMeApp
 
 extension HistoryView: Inspectable { }
+extension RoutineRecordCellView: Inspectable { }
 
 final class HistoryUIIntegrationTests: XCTestCase {
     
@@ -26,18 +27,66 @@ final class HistoryUIIntegrationTests: XCTestCase {
     
     func test_historyView_viewAppears_willRequestRoutineRecordsFromRoutineStore() {
         
+        // GIVEN
         let (sut, routineStore, _) = makeSUT()
         
         let exp = sut.inspection.inspect { sut in
             
+            // THEN
             // assert that the routine store has been requested for .readAllRoutineRecords
             XCTAssertEqual(routineStore.requests, [.readAllRoutineRecords])
+        }
+        
+        // WHEN
+        ViewHosting.host(view: sut)
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_historyView_readRoutineRecordsWithNonEmptyCache_rendersRowsForEachRoutineRecordSaved() {
+        
+        // GIVEN
+        let (sut, routineStore, _) = makeSUT()
+        
+        let exercise = uniqueExercise()
+        let routineRecords = [uniqueRoutineRecord(exercise: exercise), uniqueRoutineRecord(exercise: exercise)]
+        
+        let exp = sut.inspection.inspect { sut in
+            
+            let cellsBeforeRoutineRecordLoad = sut.findAll(RoutineRecordCellView.self)
+            XCTAssertEqual(cellsBeforeRoutineRecordLoad.count, 0)
+            
+            // WHEN
+            // load the routine records
+            routineStore.completeReadRoutineRecords(with: routineRecords)
+            
+            // THEN
+            let cellsAfterRoutineRecordLoad = sut.findAll(RoutineRecordCellView.self)
+            XCTAssertEqual(cellsAfterRoutineRecordLoad.count, 2)
         }
         
         ViewHosting.host(view: sut)
         
         wait(for: [exp], timeout: 1)
     }
+    
+    
+    // TODO:
+    //    func test_historyView_readRoutineRecordsWithEmptyCache_rendersNoRowsForRoutineRecord() {
+    //
+    //    }
+    
+    
+    // TODO:
+    //    func test_historyView_readRoutineRecordsWithError_rendersError() {
+    //
+    //    }
+    
+    
+    // TODO:
+    //    func test_historyView_routineRecordCellViewTapped_callsGoToRoutineRecordDetailView() {
+    //    }
     
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: HistoryView, routineStore: RoutineStoreSpy, navigationFlow: HistoryNavigationFlow) {

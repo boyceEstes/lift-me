@@ -44,13 +44,19 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
         }
     }
     
+    
     func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
         print("")
     }
     
     
     func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
-        print("")
+
+        decoratee.readAllRoutineRecords { [weak self] result in
+            self?.dispatch {
+                completion(result)
+            }
+        }
     }
     
     

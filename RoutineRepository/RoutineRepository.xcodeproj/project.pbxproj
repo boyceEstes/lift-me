@@ -32,6 +32,7 @@
 		B3679FCB29949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3679FC929949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift */; };
 		B3692CB5299950CA00D9BD05 /* ManagedSetRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CB4299950CA00D9BD05 /* ManagedSetRecord.swift */; };
 		B3692CC12999898100D9BD05 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CC02999898100D9BD05 /* HistoryView.swift */; };
+		B3692CCF2999A20A00D9BD05 /* RoutineRecordDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CCE2999A20A00D9BD05 /* RoutineRecordDetailView.swift */; };
 		B3A74CD12970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */; };
 		B3A74CD829720D6A00A376AC /* ManagedExerciseRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */; };
 		B3A74CD929720D6A00A376AC /* ManagedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD329720D6A00A376AC /* ManagedExercise.swift */; };
@@ -122,6 +123,7 @@
 		B36891592914B65E00E04957 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SharedTestHelpers.swift; path = ../LiftMeApp/LiftMeAppTests/SharedTestHelpers.swift; sourceTree = "<group>"; };
 		B3692CB4299950CA00D9BD05 /* ManagedSetRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedSetRecord.swift; sourceTree = "<group>"; };
 		B3692CC02999898100D9BD05 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		B3692CCE2999A20A00D9BD05 /* RoutineRecordDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRecordDetailView.swift; sourceTree = "<group>"; };
 		B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStoreTests+Exercise.swift"; sourceTree = "<group>"; };
 		B3A74CD329720D6A00A376AC /* ManagedExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ManagedExercise.swift; path = "/Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/ManagedExercise.swift"; sourceTree = "<absolute>"; };
 		B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ManagedExerciseRecord.swift; path = "/Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/ManagedExerciseRecord.swift"; sourceTree = "<absolute>"; };
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				B3692CC02999898100D9BD05 /* HistoryView.swift */,
+				B3692CCE2999A20A00D9BD05 /* RoutineRecordDetailView.swift */,
 			);
 			path = HistoryView;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */,
 				B3692CC12999898100D9BD05 /* HistoryView.swift in Sources */,
 				B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */,
+				B3692CCF2999A20A00D9BD05 /* RoutineRecordDetailView.swift in Sources */,
 				B34588B2290617ED006ED45C /* Inspection.swift in Sources */,
 				B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */,
 				B34588B629061C2B006ED45C /* Color+LiftMeThemeColors.swift in Sources */,

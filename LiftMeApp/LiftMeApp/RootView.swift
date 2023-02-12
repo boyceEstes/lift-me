@@ -14,6 +14,7 @@ struct RootView: View {
     let homeUIComposer: HomeUIComposer
     let historyUIComposer: HistoryUIComposer
     
+    
     init(routineStore: RoutineStore) {
         
         self.homeUIComposer = HomeUIComposer(routineStore: routineStore)
@@ -27,7 +28,7 @@ struct RootView: View {
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
-            historyUIComposer.makeHistoryView()
+            historyUIComposer.makeHistoryViewWithStackNavigation()
                 .tabItem {
                     Label("History", systemImage: "book.closed")
                 }
@@ -38,6 +39,6 @@ struct RootView: View {
 
 //struct RootView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        RootView(routineStore: RoutineStorePreview)
+//        RootView(routineStore: RoutineStorePreview.self as! RoutineStore)
 //    }
 //}

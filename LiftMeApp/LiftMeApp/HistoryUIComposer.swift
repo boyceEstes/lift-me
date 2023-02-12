@@ -8,6 +8,7 @@
 import Foundation
 import RoutineRepository
 import LiftMeRoutinesiOS
+import NavigationFlow
 
 
 public class HistoryUIComposer {
@@ -20,15 +21,36 @@ public class HistoryUIComposer {
     }()
     
     
-    public init(routineStore: RoutineStore) {
+    init(routineStore: RoutineStore) {
 
         self.routineStore = routineStore
     }
     
     
-    public func makeHistoryView() -> HistoryView {
+    func makeHistoryViewWithStackNavigation() -> StackNavigationView<HistoryView, HistoryNavigationFlow> {
         
-        let historyViewModel = HistoryViewModel(routineStore: routineStore)
+        let historyView = makeHistoryView()
+        
+        return StackNavigationView(stackNavigationViewModel: self.navigationFlow, content: historyView)
+    }
+    
+    
+    func makeHistoryView() -> HistoryView {
+        
+        let historyViewModel = HistoryViewModel(
+            routineStore: routineStore,
+            goToRoutineRecordDetailView: { [weak self] routineRecord in
+                
+                self?.navigationFlow.path.append(.routineRecordDetailView(routineRecord: routineRecord))
+            }
+        )
         return HistoryView(viewModel: historyViewModel)
+    }
+    
+    
+    func makeRoutineRecordDetailView(routineRecord: RoutineRecord) -> RoutineRecordDetailView {
+        
+        let routineRecordDetailViewModel = RoutineRecordDetailViewModel(routineRecord: routineRecord)
+        return RoutineRecordDetailView(viewModel: routineRecordDetailViewModel)
     }
 }

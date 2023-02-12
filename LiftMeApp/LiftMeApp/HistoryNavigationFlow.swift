@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationFlow
+import RoutineRepository
 
 
 
@@ -16,12 +17,12 @@ class HistoryNavigationFlow: StackNavigationFlow {
     enum StackIdentifier: Hashable {
         
         case historyView
+        case routineRecordDetailView(routineRecord: RoutineRecord)
     }
     
     let historyUIComposer: HistoryUIComposer
     
     @Published var path = [StackIdentifier]()
-    
     
     init(historyUIComposer: HistoryUIComposer) {
         
@@ -31,9 +32,14 @@ class HistoryNavigationFlow: StackNavigationFlow {
     
     func pushToStack(_ identifier: StackIdentifier) -> some View {
         
-        switch identifier {
-        case .historyView:
-            return historyUIComposer.makeHistoryView()
+        Group {
+            switch identifier {
+            case .historyView:
+                historyUIComposer.makeHistoryView()
+                
+            case let .routineRecordDetailView(routineRecord):
+                historyUIComposer.makeRoutineRecordDetailView(routineRecord: routineRecord)
+            }
         }
     }
 }
