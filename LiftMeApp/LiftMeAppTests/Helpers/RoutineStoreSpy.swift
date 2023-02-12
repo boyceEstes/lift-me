@@ -16,6 +16,7 @@ class RoutineStoreSpy: RoutineStore {
         case loadAllRoutines
         case loadAllExercises
         case createRoutineRecord
+        case readAllRoutineRecords
     }
     
     private(set) var requests = [ReceivedMessage]()
@@ -72,7 +73,7 @@ class RoutineStoreSpy: RoutineStore {
     
     
     func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
-        print("placeholder")
+        requests.append(.readAllRoutineRecords)
     }
     
     

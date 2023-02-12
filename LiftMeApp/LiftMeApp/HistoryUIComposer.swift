@@ -12,7 +12,7 @@ import LiftMeRoutinesiOS
 
 public class HistoryUIComposer {
     
-//    let routineStore: RoutineStore
+    let routineStore: RoutineStore
     
     lazy var navigationFlow: HistoryNavigationFlow = { [unowned self] in
         
@@ -20,14 +20,15 @@ public class HistoryUIComposer {
     }()
     
     
-//    init(routineStore: RoutineStore) {
-//
-//        self.routineStore = routineStore
-//    }
+    public init(routineStore: RoutineStore) {
+
+        self.routineStore = routineStore
+    }
     
     
-    func makeHistoryView() -> HistoryView {
+    public func makeHistoryView() -> HistoryView {
         
-        return HistoryView()
+        let historyViewModel = HistoryViewModel(routineStore: routineStore)
+        return HistoryView(viewModel: historyViewModel)
     }
 }

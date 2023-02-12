@@ -30,17 +30,7 @@ public class HomeUIComposer {
         
         self.routineStore = routineStore
     }
-    
-    
-    convenience init() {
-        
-        let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("routine-store.sqlite")
-        let bundle = Bundle(for: CoreDataRoutineStore.self)
-        let routineStore = try! CoreDataRoutineStore(storeURL: localStoreURL, bundle: bundle)
-        let mainQueueRoutineStore = DispatchQueueMainDecorator<RoutineStore>(decoratee: routineStore)
-        self.init(routineStore: mainQueueRoutineStore)
-    }
-    
+
 
     func makeHomeViewWithSheetyNavigation() -> SheetyNavigationView<HomeView, HomeNavigationFlow> {
 

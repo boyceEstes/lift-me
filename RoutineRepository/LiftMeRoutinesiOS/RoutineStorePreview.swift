@@ -8,26 +8,27 @@
 import Foundation
 import RoutineRepository
 
-class RoutineStorePreview: RoutineStore {
+// TODO: Figure out a way to make the RootView unnecessary so that we can keep this internal for the LiftMeiOS
+public class RoutineStorePreview: RoutineStore {
 
-    func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
+    public func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
         print("")
     }
     
     
-    func updateRoutineRecord(id: UUID, updatedCompletionDate: Date?, updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
+    public func updateRoutineRecord(id: UUID, updatedCompletionDate: Date?, updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
         
         print("")
     }
     
 
     // MARK: - Routines
-    func createUniqueRoutine(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
+    public func createUniqueRoutine(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
         completion(nil)
     }
     
     
-    func readAllRoutines(completion: @escaping ReadRoutinesCompletion) {
+    public func readAllRoutines(completion: @escaping ReadRoutinesCompletion) {
         
         let routine = Routine(
             id: UUID(),
@@ -40,7 +41,7 @@ class RoutineStorePreview: RoutineStore {
 
     
     // MARK: - Routine Records
-    func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
+    public func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
         print("")
     }
 
@@ -50,13 +51,13 @@ class RoutineStorePreview: RoutineStore {
     }
     
     
-    func deleteRoutineRecord(routineRecord: RoutineRepository.RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
+    public func deleteRoutineRecord(routineRecord: RoutineRepository.RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
         print("")
     }
     
     
     // MARK: - Exercises
-    func readAllExercises(completion: @escaping ReadExercisesCompletion) {
+    public func readAllExercises(completion: @escaping ReadExercisesCompletion) {
         
         let exercise = Exercise(
             id: UUID(),
@@ -66,7 +67,7 @@ class RoutineStorePreview: RoutineStore {
     }
     
     
-    func createExercise(_ exercise: RoutineRepository.Exercise, completion: @escaping CreateExerciseCompletion) {
+    public func createExercise(_ exercise: RoutineRepository.Exercise, completion: @escaping CreateExerciseCompletion) {
         print("")
     }
 }
