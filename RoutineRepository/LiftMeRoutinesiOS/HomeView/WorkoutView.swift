@@ -9,15 +9,63 @@ import SwiftUI
 import RoutineRepository
 
 
+public struct RoutineRecordViewModel: Hashable {
+
+    public let creationDate: Date
+    public var exerciseRecordViewModels: [ExerciseRecordViewModel]
+    
+    public func mapToRoutineRecord(completionDate: Date) -> RoutineRecord {
+        RoutineRecord(
+            id: UUID(),
+            creationDate: creationDate,
+            completionDate: nil,
+            exerciseRecords: exerciseRecordViewModels.map {
+                ExerciseRecord(
+                    id: UUID(),
+                    setRecords: $0.setRecordViewModels.map {
+                        SetRecord(
+                            id: UUID(),
+                            duration: nil,
+                            repCount: $0.repCount.isEmpty ? nil : Int($0.repCount),
+                            weight: $0.weight.isEmpty ? nil : Int($0.weight),
+                            difficulty: nil)
+                    },
+                    exercise: $0.exercise
+                )
+            }
+        )
+    }
+}
+
+
+public struct ExerciseRecordViewModel: Hashable {
+    
+    public var setRecordViewModels: [SetRecordViewModel]
+    public let exercise: Exercise
+    
+    
+    mutating func addNewSetRecordViewModel() {
+        setRecordViewModels.append(SetRecordViewModel(weight: "", repCount: ""))
+    }
+}
+
+
+public struct SetRecordViewModel: Hashable {
+    
+    public var weight: String
+    public var repCount: String
+}
+
+
 public class WorkoutViewModel: ObservableObject {
     
     let routineStore: RoutineStore
     
-    @Published var routineRecord = RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: [])
+    @Published var routineRecordViewModel: RoutineRecordViewModel = RoutineRecordViewModel(creationDate: Date(), exerciseRecordViewModels: [])
     @Published var displaySaveError = false
     
     var isSaveDisabled: Bool {
-        routineRecord.exerciseRecords.isEmpty
+        routineRecordViewModel.exerciseRecordViewModels.isEmpty
     }
     
     public init(routineStore: RoutineStore) {
@@ -83,10 +131,10 @@ public class WorkoutViewModel: ObservableObject {
         // create an exercise record
         
         for exercise in exercises {
-            let setRecord = SetRecord(id: UUID(), duration: nil, repCount: nil, weight: nil, difficulty: nil)
+            let setRecordViewModel = SetRecordViewModel( weight: "", repCount: "")
+            let exerciseRecordViewModel = ExerciseRecordViewModel(setRecordViewModels: [setRecordViewModel], exercise: exercise)
             
-            let exerciseRecord = ExerciseRecord(id: UUID(), setRecords: [setRecord], exercise: exercise)
-            routineRecord.exerciseRecords.append(exerciseRecord)
+            routineRecordViewModel.exerciseRecordViewModels.append(exerciseRecordViewModel)
         }
     }
     
@@ -102,17 +150,26 @@ public class WorkoutViewModel: ObservableObject {
     func saveRoutineRecord() {
         
         print("validate all fields are entered")
+        let routineRecord = routineRecordViewModel.mapToRoutineRecord(completionDate: Date())
         
-        guard allSetRecordsHaveValues() else {
+        guard allSetRecordsHaveValues(routineRecord: routineRecord) else {
             displaySaveError = true
             return
         }
         
         print("saaving routine record")
+
+        routineStore.createRoutineRecord(routineRecord) { error in
+            
+            if error != nil {
+                // There was an issue
+                fatalError("error: \(error?.localizedDescription)")
+            }
+        }
     }
     
     
-    private func allSetRecordsHaveValues() -> Bool {
+    private func allSetRecordsHaveValues(routineRecord: RoutineRecord) -> Bool {
         
         var foundMissing = true
         
@@ -181,12 +238,12 @@ public struct WorkoutView: View {
             
             
             List {
-                if viewModel.routineRecord.exerciseRecords.isEmpty {
+                if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
                     Text("Try adding an exercise!")
                 } else {
                     
-                    ForEach($viewModel.routineRecord.exerciseRecords, id: \.self) { exerciseRecord in
-                        ExerciseRecordView(exerciseRecord: exerciseRecord)
+                    ForEach(0..<viewModel.routineRecordViewModel.exerciseRecordViewModels.count, id: \.self) { index in
+                        ExerciseRecordView(exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index])
                     }
                 }
             }
@@ -210,24 +267,23 @@ public struct WorkoutView: View {
 
 public struct ExerciseRecordView: View {
 
-    @Binding var exerciseRecord: ExerciseRecord
+    @Binding var exerciseRecordViewModel: ExerciseRecordViewModel
     
 
     public var body: some View {
         
         Section {
-            ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
+            ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
                 
-                SetRecordView(setRecord: $exerciseRecord.setRecords[index], rowNumber: index + 1)
+                SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
             }
         } header: {
             HStack {
-                Text(exerciseRecord.exercise.name)
+                Text(exerciseRecordViewModel.exercise.name)
                 Spacer()
                 Button("Add Set") {
                     
-                    $exerciseRecord.wrappedValue.setRecords.append(SetRecord(id: UUID(), duration: nil, repCount: nil, weight: nil, difficulty: 0))
-                    
+                    $exerciseRecordViewModel.wrappedValue.addNewSetRecordViewModel()
                 }.buttonStyle(HighKeyButtonStyle())
             }
         }
@@ -237,7 +293,14 @@ public struct ExerciseRecordView: View {
 
 public struct SetRecordView: View {
     
-    @Binding var setRecord: SetRecord
+    private enum Field: Int, CaseIterable {
+        case repCountValue
+        case weightValue
+    }
+    
+    @Binding var setRecordViewModel: SetRecordViewModel
+    @FocusState private var focusedField: Field?
+    
     let rowNumber: Int
     
     public var body: some View {
@@ -248,14 +311,19 @@ public struct SetRecordView: View {
             Spacer()
             
             HStack {
-                TextField("120", value: $setRecord.weight, formatter: NumberFormatter())
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+
+                TextField("100", text: $setRecordViewModel.weight)
+//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.numberPad)
                     .frame(width: 50)
+                    .focused($focusedField, equals: .weightValue)
                 
                 Text("x")
-                TextField("10", value: $setRecord.repCount, formatter: NumberFormatter())
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                TextField("10", text: $setRecordViewModel.repCount)
+//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.numberPad)
                     .frame(width: 50)
+                    .focused($focusedField, equals: .repCountValue)
             }
         }
     }
@@ -264,7 +332,7 @@ public struct SetRecordView: View {
 
 struct WorkoutView_Previews: PreviewProvider {
     
-    @State static var setRecord = SetRecord(id: UUID(), duration: nil, repCount: 0, weight: 0, difficulty: 0)
+    @State static var setRecord = SetRecordViewModel(weight: "", repCount: "")
     
     static var previews: some View {
         let viewModel = WorkoutViewModel(routineStore: RoutineStorePreview())
@@ -273,7 +341,6 @@ struct WorkoutView_Previews: PreviewProvider {
             goToAddExercise: { }
         )
         
-        
-        SetRecordView(setRecord: $setRecord, rowNumber: 1)
+        SetRecordView(setRecordViewModel: $setRecord, rowNumber: 1)
     }
 }

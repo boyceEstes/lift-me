@@ -184,8 +184,10 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
 //        ViewHosting.host(view: sut)
 //
 //        wait(for: [exp], timeout: 1)
-//
 //    }
+    
+    
+    // TODO: Make a shortcut helper method to call to get save button
     
     func test_workoutView_noExerciseRecords_willKeepTheButtonDisabled() throws {
         
@@ -197,6 +199,22 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
         
         // then
         XCTAssertTrue(saveButton.isDisabled())
+    }
+    
+    
+    func test_workoutView_withExerciseRecords_saveButtonisEnabled() throws {
+        
+        // given
+        let (sut, _, _) = makeSUT()
+        
+        let exercise = uniqueExercise()
+        sut.viewModel.addExercisesCompletion(exercises: [exercise])
+        
+        // when
+        let saveButton = try sut.inspect().find(button: "Save")
+        
+        // then
+        XCTAssertFalse(saveButton.isDisabled())
     }
 
 
