@@ -26,6 +26,8 @@
 		B368912B2913FBA800E04957 /* HomeUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368912A2913FBA800E04957 /* HomeUIComposer.swift */; };
 		B36891582914B5E700E04957 /* RoutineListUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891572914B5E700E04957 /* RoutineListUIIntegrationTests.swift */; };
 		B368915B2914B66100E04957 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368915A2914B66100E04957 /* SharedTestHelpers.swift */; };
+		B3692CBC2999803400D9BD05 /* HistoryUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CBB2999803400D9BD05 /* HistoryUIComposer.swift */; };
+		B3692CBE2999805B00D9BD05 /* HistoryNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CBD2999805B00D9BD05 /* HistoryNavigationFlow.swift */; };
 		B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */; };
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
@@ -76,6 +78,8 @@
 		B368912A2913FBA800E04957 /* HomeUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUIComposer.swift; sourceTree = "<group>"; };
 		B36891572914B5E700E04957 /* RoutineListUIIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineListUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B368915A2914B66100E04957 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
+		B3692CBB2999803400D9BD05 /* HistoryUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUIComposer.swift; sourceTree = "<group>"; };
+		B3692CBD2999805B00D9BD05 /* HistoryNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryNavigationFlow.swift; sourceTree = "<group>"; };
 		B3A854892908D48300F04CC1 /* LiftMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppApp.swift; sourceTree = "<group>"; };
 		B3A8548E2908D48300F04CC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -153,6 +157,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B3692CBA2999801700D9BD05 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				B3692CBB2999803400D9BD05 /* HistoryUIComposer.swift */,
+				B3692CBD2999805B00D9BD05 /* HistoryNavigationFlow.swift */,
+			);
+			name = History;
+			sourceTree = "<group>";
+		};
 		B3A854802908D48300F04CC1 = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +188,7 @@
 		B3A8548B2908D48300F04CC1 /* LiftMeApp */ = {
 			isa = PBXGroup;
 			children = (
+				B3692CBA2999801700D9BD05 /* History */,
 				B33D0FB52970644400C2FB1E /* Home */,
 				B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */,
 				B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */,
@@ -331,9 +345,11 @@
 				B33D0FB82970647500C2FB1E /* WorkoutNavigationFlow.swift in Sources */,
 				B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */,
 				B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */,
+				B3692CBC2999803400D9BD05 /* HistoryUIComposer.swift in Sources */,
 				B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */,
 				B33D0FB42970643E00C2FB1E /* WorkoutUIComposer.swift in Sources */,
 				B368912B2913FBA800E04957 /* HomeUIComposer.swift in Sources */,
+				B3692CBE2999805B00D9BD05 /* HistoryNavigationFlow.swift in Sources */,
 				B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

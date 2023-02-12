@@ -12,11 +12,23 @@ import CoreData
 @main
 struct LiftMeAppApp: App {
     
-    let routineUIComposer = HomeUIComposer()
+    
+    let homeUIComposer = HomeUIComposer()
+    let historyUIComposer = HistoryUIComposer()
+    
     // TODO: Is there a way to prevent this from being initialized as an instance (Or limit to one instance) while still being testable
     var body: some Scene {
         WindowGroup {
-            routineUIComposer.makeHomeViewWithSheetyNavigation()
+            TabView {
+                homeUIComposer.makeHomeViewWithSheetyNavigation()
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
+                historyUIComposer.makeHistoryView()
+                    .tabItem {
+                        Label("History", systemImage: "book.closed")
+                    }
+            }
         }
     }
 }
