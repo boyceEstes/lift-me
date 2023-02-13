@@ -13,7 +13,7 @@ import CoreData
 @objc(ManagedExerciseRecord)
 public class ManagedExerciseRecord: NSManagedObject {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedExerciseRecord> {
+    @nonobjc public var fetchRequest: NSFetchRequest<ManagedExerciseRecord> {
         return NSFetchRequest<ManagedExerciseRecord>(entityName: "ManagedExerciseRecord")
     }
 
@@ -63,3 +63,18 @@ extension Set where Element == ManagedExerciseRecord {
         }
     }
 }
+
+
+extension Array where Element == ManagedExerciseRecord {
+
+    func toModel() -> [ExerciseRecord] {
+        map {
+            ExerciseRecord(
+                id: $0.id,
+                setRecords: $0.setRecords?.toModel() ?? [],
+                exercise: $0.exercise.toModel()
+            )
+        }
+    }
+}
+

@@ -17,14 +17,45 @@ extension CoreDataRoutineStoreTests {
         let sut = makeSUT()
         let exercise = uniqueExercise()
         
+        create(exercise, into: sut)
+        
         // when/then
         expectReadExerciseRecords(for: exercise, on: sut, toCompleteWith: .success([]))
     }
 
     
+    func test_coreDataRoutineStore_readExerciseRecordsForExerciseThatDoesNotExist_deliversCannotFindExerciseRecordsForExerciseThatDoesNotExistError() {
+        
+        // given
+        let sut = makeSUT()
+        let exercise = uniqueExercise()
+        let error = CoreDataRoutineStore.Error.cannotFindExerciseRoutinesForExerciseThatDoesNotExist
+        
+        // when/then
+        expectReadExerciseRecords(
+            for: exercise,
+            on: sut,
+            toCompleteWith: .failure(error)
+        )
+    }
+    
+    
+    // TODO: Do multiple so that order can be tested
     func test_coreDataRoutineStore_readExerciseRecordsForExerciseThatExistsInNonEmptyCache_deliversAllExerciseRecordsForExercise() {
         
+        // given
+        let sut = makeSUT()
+        let exercise = uniqueExercise()
+        let exerciseRecords = [uniqueExerciseRecord(exercise: exercise)]
+        let routineRecord = uniqueRoutineRecord(exerciseRecords: exerciseRecords)
+        
+        create(exercise, into: sut)
+        createRoutineRecord(routineRecord, on: sut)
+        
+        // when/then
+        expectReadExerciseRecords(for: exercise, on: sut, toCompleteWith: .success(exerciseRecords))
     }
+    
     
     // MARK: - Helpers
 
@@ -40,8 +71,10 @@ extension CoreDataRoutineStoreTests {
         
         sut.readExerciseRecords(for: exercise) { receivedResult in
             switch (receivedResult, expectedResult) {
-            case let (.success(receivedRoutineRecords), .success(expectedRoutineRecords)):
-                XCTAssertEqual(receivedRoutineRecords, expectedRoutineRecords, file: file, line: line)
+            case let (.success(receivedExerciseRecords), .success(expectedExerciseRecords)):
+                XCTAssertEqual(receivedExerciseRecords, expectedExerciseRecords, file: file, line: line)
+            case let (.failure(receivedError), .failure(expectedError)):
+                XCTAssertEqual(receivedError as NSError, expectedError as NSError, file: file, line: line)
             default:
                 XCTFail("Something happened. Expected \(expectedResult), but got \(receivedResult)", file: file, line: line)
             }

@@ -99,6 +99,24 @@ extension ManagedExercise {
         managedExercise.name = exercise.name
         managedExercise.creationDate = exercise.creationDate
     }
+    
+    
+    public static func findExerciseRecords(for exercise: Exercise, in context: NSManagedObjectContext) throws -> [ManagedExerciseRecord] {
+        
+        let request = ManagedExercise.fetchRequest
+        request.predicate = NSPredicate(format: "%K == %@", "id", exercise.id as CVarArg)
+        request.returnsObjectsAsFaults = false
+        
+        guard let exercise = try context.fetch(request).first else {
+            throw CoreDataRoutineStore.Error.cannotFindExerciseRoutinesForExerciseThatDoesNotExist
+        }
+        
+        let exerciseRecords = exercise.exerciseRecords.compactMap { $0 as? ManagedExerciseRecord }
+        // TODO: Add sorting to sort by date
+//        let sortedExerciseRecords = exerciseRecords.sorted(by: { $0 compare($1) == .orderedDescending })
+
+        return exerciseRecords
+    }
 }
 
 

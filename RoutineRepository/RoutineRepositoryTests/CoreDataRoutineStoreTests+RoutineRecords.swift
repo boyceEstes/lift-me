@@ -265,7 +265,7 @@ extension CoreDataRoutineStoreTests {
     // MARK: - Helpers
     
     @discardableResult
-    private func createRoutineRecord(_ routineRecord: RoutineRecord, on sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> Error? {
+    func createRoutineRecord(_ routineRecord: RoutineRecord, on sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> Error? {
         
         let exp = expectation(description: "Wait for create routine record completion")
         
