@@ -11,6 +11,6 @@ extension CoreDataRoutineStore {
     
     public func readExerciseRecords(for exercise: Exercise, completion: @escaping ReadExerciseRecordsCompletion) {
         
-        
+        completion(.success([]))
     }
 }
