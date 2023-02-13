@@ -98,6 +98,8 @@ extension ManagedExercise {
         managedExercise.id = exercise.id
         managedExercise.name = exercise.name
         managedExercise.creationDate = exercise.creationDate
+        
+        
     }
     
     
@@ -113,7 +115,7 @@ extension ManagedExercise {
         
         let exerciseRecords = exercise.exerciseRecords.compactMap { $0 as? ManagedExerciseRecord }
         // TODO: Add sorting to sort by date
-//        let sortedExerciseRecords = exerciseRecords.sorted(by: { $0 compare($1) == .orderedDescending })
+//        let sortedExerciseRecords = exerciseRecords.sorted(by: { $0.exercise.creationDate.compare($1.exercise.creationDate) == .orderedDescending })
 
         return exerciseRecords
     }
@@ -132,10 +134,21 @@ extension ManagedExercise {
             creationDate: self.creationDate,
             tags: [])
     }
+    
 }
 
 
 extension Array where Element == ManagedExercise {
+    
+    func toModel() -> [Exercise] {
+        map {
+            $0.toModel()
+        }
+    }
+}
+
+
+extension Set where Element == ManagedExercise {
     
     func toModel() -> [Exercise] {
         map {

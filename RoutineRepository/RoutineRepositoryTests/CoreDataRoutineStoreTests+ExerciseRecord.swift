@@ -40,13 +40,13 @@ extension CoreDataRoutineStoreTests {
     }
     
     
-    // TODO: Do multiple so that order can be tested
     func test_coreDataRoutineStore_readExerciseRecordsForExerciseThatExistsInNonEmptyCache_deliversAllExerciseRecordsForExercise() {
         
         // given
         let sut = makeSUT()
         let exercise = uniqueExercise()
         let exerciseRecords = [uniqueExerciseRecord(exercise: exercise)]
+        
         let routineRecord = uniqueRoutineRecord(exerciseRecords: exerciseRecords)
         
         create(exercise, into: sut)

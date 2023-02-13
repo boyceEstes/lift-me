@@ -88,5 +88,16 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
             }
         }
     }
+    
+    
+    // MARK: - Exercise Records
+    func readExerciseRecords(for exercise: RoutineRepository.Exercise, completion: @escaping ReadExerciseRecordsCompletion) {
+        decoratee.readExerciseRecords(for: exercise) { [weak self] result in
+            self?.dispatch {
+                completion(result)
+            }
+        }
+    }
+    
 }
 

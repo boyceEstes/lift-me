@@ -3,4 +3,54 @@
    uuid = "5229A74B-BC38-4A96-820E-9153FACE20AD"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1555CFCD-E070-4217-8023-2C53A0ADCB2A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/CoreDataRoutineStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "create(_:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1555CFCD-E070-4217-8023-2C53A0ADCB2A - 1192edf96e9fda35"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in RoutineRepository.CoreDataRoutineStore.create(_: RoutineRepository.Routine, completion: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RoutineRepository"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "115"
+                  endingLineNumber = "115"
+                  offsetFromSymbolStart = "403">
+               </Location>
+               <Location
+                  uuid = "1555CFCD-E070-4217-8023-2C53A0ADCB2A - 1192edf96e9fda56"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in RoutineRepository.CoreDataRoutineStore.create(_: RoutineRepository.Routine, completion: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "RoutineRepository"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "370">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

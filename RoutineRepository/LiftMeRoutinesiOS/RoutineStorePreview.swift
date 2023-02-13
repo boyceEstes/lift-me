@@ -10,6 +10,10 @@ import RoutineRepository
 
 // TODO: Figure out a way to make the RootView unnecessary so that we can keep this internal for the LiftMeiOS
 public class RoutineStorePreview: RoutineStore {
+    public func readExerciseRecords(for exercise: RoutineRepository.Exercise, completion: @escaping ReadExerciseRecordsCompletion) {
+        print("")
+    }
+    
 
     public func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
         print("")

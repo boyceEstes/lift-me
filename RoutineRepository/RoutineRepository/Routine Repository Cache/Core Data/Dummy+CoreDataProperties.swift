@@ -32,7 +32,7 @@ extension ManagedRoutineRecord : Identifiable {}
 
 extension ManagedRoutineRecord {
     
-    static func createRoutineRecord(_ routineRecord: RoutineRecord, in context: NSManagedObjectContext) throws {
+    static func createRoutineRecord(_ routineRecord: RoutineRecord, managedRoutine: ManagedRoutine? = nil, in context: NSManagedObjectContext) throws {
         
         guard !routineRecord.exerciseRecords.isEmpty else {
             throw CoreDataRoutineStore.Error.cannotCreateRoutineRecordWithNoExerciseRecords
@@ -42,7 +42,7 @@ extension ManagedRoutineRecord {
         managedRoutineRecord.id = routineRecord.id
         managedRoutineRecord.creationDate = routineRecord.creationDate
         managedRoutineRecord.completionDate = routineRecord.completionDate
-        managedRoutineRecord.routine = nil
+        managedRoutineRecord.routine = managedRoutine
         
         // Create a managed exercise record with this record
         try routineRecord.exerciseRecords.forEach { exerciseRecord in
@@ -129,7 +129,7 @@ extension Set where Element == ManagedRoutineRecord {
                 id: $0.id,
                 creationDate: $0.creationDate,
                 completionDate: $0.completionDate,
-                exerciseRecords: []
+                exerciseRecords: $0.exerciseRecords?.toModel() ?? []
             )
         }
     }

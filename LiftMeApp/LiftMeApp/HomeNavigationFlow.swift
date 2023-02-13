@@ -50,7 +50,9 @@ class HomeNavigationFlow: SheetyNavigationFlow {
                 homeUIComposer.makeCreateRoutineView()
                 
             case .workout:
-                workoutUIComposer.makeWorkoutViewWithSheetyNavigation()
+                workoutUIComposer.makeWorkoutViewWithSheetyNavigation {
+                    self.dismiss()
+                }
             }
         }
     }

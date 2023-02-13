@@ -107,11 +107,11 @@ public class CoreDataRoutineStore: RoutineStore {
         let context = context
         context.perform {
             do {
-                ManagedRoutine.create(routine, in: context)
+                try ManagedRoutine.create(routine, in: context)
                 try context.save()
                 completion(nil)
             } catch {
-                
+                context.rollback()
                 completion(error)
             }
         }
@@ -206,7 +206,7 @@ private extension ManagedRoutine {
             id: self.id,
             name: self.name,
             creationDate: self.creationDate,
-            exercises: [],
-            routineRecords: self.routineRecords.toModel())
+            exercises: self.exercises?.toModel() ?? [],
+            routineRecords: self.routineRecords?.toModel() ?? [])
     }
 }

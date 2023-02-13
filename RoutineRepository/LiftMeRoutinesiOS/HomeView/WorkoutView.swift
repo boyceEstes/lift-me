@@ -60,75 +60,38 @@ public struct SetRecordViewModel: Hashable {
 public class WorkoutViewModel: ObservableObject {
     
     let routineStore: RoutineStore
+    let routine: Routine?
+    let dismiss: () -> Void
+    let goToCreateRoutineView: (RoutineRecord) -> Void
     
     @Published var routineRecordViewModel: RoutineRecordViewModel = RoutineRecordViewModel(creationDate: Date(), exerciseRecordViewModels: [])
     @Published var displaySaveError = false
+    @Published var displaySaveCreateRoutine = false
     
     var isSaveDisabled: Bool {
         routineRecordViewModel.exerciseRecordViewModels.isEmpty
     }
     
-    public init(routineStore: RoutineStore) {
+    public init(routineStore: RoutineStore, routine: Routine? = nil, goToCreateRoutineView: @escaping (RoutineRecord) -> Void, dismiss: @escaping () -> Void) {
         
         self.routineStore = routineStore
+        self.routine = routine
+        self.goToCreateRoutineView = goToCreateRoutineView
+        self.dismiss = dismiss
     }
     
     
-    // we need to store the reference in-memory so that we can update this record whenever
-    // are adding exercises or updating the routine in any way
     func createNewRoutineRecord() {
-        
-//        routineStore.createRoutineRecord { [weak self] result in
-//            switch result {
-//            case let .success(routineRecord):
-//
-//                print("Successfully created routine record")
-//                self?.routineRecord = routineRecord
-//
-//            case let .failure(error):
-//                print("Failure to create routine record, \(error.localizedDescription)")
-//            }
-//        }
     }
     
-    // To be more performant, we could just deal with all of this in memory and
-    // try to implement core data saving logic whenever we are backgrounding the app or closing it?
     
-    // Or we can just do this as we go?
-    // 1. So whenever we come here for the first time. Create a RoutineRecord
-    // 2. Whenever we add exercises, update that routine record and load current from core data
-    // 3. Whenever we add to a set, save to core data as well and then load from core data
-    
-    // Whenever we are opening this up, we should do a query for any routine records that do not
-    // have a completion date - If there is, get that instead of making a new routine record
     func readLatestRoutineRecord() {
-        
-//        // We need an ID that we can use to fetch the latest information
-//        guard let routineRecord = routineRecord else { return }
-//
-//        routineStore.readRoutineRecord(with: routineRecord.id) { [weak self] result in
-//
-//            guard let self = self else { return }
-//
-//            switch result {
-//            case let .success(routineRecord):
-//                self.routineRecord = routineRecord
-//
-//            case let .failure(error):
-//                fatalError("Need to deal with error for reading routine record with id, \(error)")
-//            }
-//        }
     }
     
     
     // Passed to AddExerciseViewModel for logic after Add button is tapped
     public func addExercisesCompletion(exercises: [Exercise]) {
         print("add exercises completion in workout view: received: \(exercises)")
-        
-        // We need to update Core Data with the new exercises
-        // Then load the routine record from what is in Core Data
-        
-        // create an exercise record
         
         for exercise in exercises {
             let setRecordViewModel = SetRecordViewModel( weight: "", repCount: "")
@@ -141,13 +104,50 @@ public class WorkoutViewModel: ObservableObject {
     
     func didTapSaveButton() {
         
-        saveRoutineRecord()
-        // ask if you want the routine
-        // dismiss the view
+        if routine == nil {
+            // There is no associated routine, do you want to create one?
+            displaySaveCreateRoutine = true
+            
+        } else {
+            // TODO: Will need to edit the method for createRoutineRecord to include routine
+//            saveRoutineRecord(for: routine)
+            fatalError("Not implemented for saving an already made routine")
+        }
     }
     
     
-    func saveRoutineRecord() {
+    func saveRoutineRecordWithoutSavingRoutineAndDismiss() {
+        
+
+        print("validate all fields are entered")
+        let routineRecord = routineRecordViewModel.mapToRoutineRecord(completionDate: Date())
+        
+        guard allSetRecordsHaveValues(routineRecord: routineRecord) else {
+            displaySaveError = true
+            return
+        }
+        print("Going through next logic steps for save...")
+        
+        saveRoutineRecord(routineRecord: routineRecord)
+    }
+    
+    
+    func saveRoutineRecord(routineRecord: RoutineRecord) {
+        
+        routineStore.createRoutineRecord(routineRecord) { [weak self] error in
+            
+            if error != nil {
+                // There was an issue
+                fatalError("error: \(error?.localizedDescription)")
+            }
+            
+            self?.dismiss()
+        }
+    }
+    
+    
+    func createRoutineAndSaveRoutineRecord() {
+        
         
         print("validate all fields are entered")
         let routineRecord = routineRecordViewModel.mapToRoutineRecord(completionDate: Date())
@@ -157,15 +157,10 @@ public class WorkoutViewModel: ObservableObject {
             return
         }
         
-        print("saaving routine record")
-
-        routineStore.createRoutineRecord(routineRecord) { error in
-            
-            if error != nil {
-                // There was an issue
-                fatalError("error: \(error?.localizedDescription)")
-            }
-        }
+        // Send the routine record to the new view, set up the name and any other information and then save it all on that view
+        // dismiss all of the modals from there.
+        print("Going to make the create routine appear")
+        goToCreateRoutineView(routineRecord)
     }
     
     
@@ -261,6 +256,16 @@ public struct WorkoutView: View {
         }, message: {
             Text("Make sure you fill out all of your sets")
         })
+        .alert("Create Routine?", isPresented: $viewModel.displaySaveCreateRoutine, actions: {
+            Button("Sounds Good", role: .cancel) {
+                viewModel.createRoutineAndSaveRoutineRecord()
+            }
+            Button("Nah", role: .destructive) {
+                viewModel.saveRoutineRecordWithoutSavingRoutineAndDismiss()
+            }
+        }, message: {
+            Text("Would you like to create a routine based on this workout?")
+        })
     }
 }
 
@@ -335,7 +340,7 @@ struct WorkoutView_Previews: PreviewProvider {
     @State static var setRecord = SetRecordViewModel(weight: "", repCount: "")
     
     static var previews: some View {
-        let viewModel = WorkoutViewModel(routineStore: RoutineStorePreview())
+        let viewModel = WorkoutViewModel(routineStore: RoutineStorePreview(), goToCreateRoutineView: { _ in }, dismiss: { })
         WorkoutView(
             viewModel: viewModel,
             goToAddExercise: { }

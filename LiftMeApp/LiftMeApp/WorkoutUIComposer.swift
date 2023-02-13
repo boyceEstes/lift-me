@@ -26,9 +26,9 @@ public class WorkoutUIComposer {
     }
 
     // WorkoutNavigationFlow for the workout since I want it to stay up whne it presents its own sheet
-    func makeWorkoutViewWithSheetyNavigation() -> SheetyNavigationView<WorkoutView, WorkoutNavigationFlow> {
+    func makeWorkoutViewWithSheetyNavigation(dismiss: @escaping () -> Void) -> SheetyNavigationView<WorkoutView, WorkoutNavigationFlow> {
         
-        let workoutView = makeWorkoutView()
+        let workoutView = makeWorkoutView(dismiss: dismiss)
         
         return SheetyNavigationView(
             sheetyNavigationViewModel: navigationFlow,
@@ -37,9 +37,16 @@ public class WorkoutUIComposer {
     }
     
     
-    func makeWorkoutView() -> WorkoutView {
+    func makeWorkoutView(dismiss: @escaping () -> Void) -> WorkoutView {
         
-        let viewModel = WorkoutViewModel(routineStore: routineStore)
+        let viewModel = WorkoutViewModel(
+            routineStore: routineStore,
+            goToCreateRoutineView: { routineRecord in
+                self.navigationFlow.modallyDisplayedView = .createRoutineView(routineRecord)
+            },
+            dismiss: dismiss
+        )
+        
         return WorkoutView(
             viewModel: viewModel,
             goToAddExercise: {
@@ -67,5 +74,19 @@ public class WorkoutUIComposer {
             dismiss: dismiss
         )
         return AddExerciseView(viewModel: viewModel)
+    }
+    
+    
+    func makeCreateRoutineView(routineRecord: RoutineRecord) -> CreateRoutineView {
+
+        let viewModel = CreateRoutineViewModel(
+            routineStore: routineStore,
+            dismissAction: { [weak self] in
+                print("my dismiss action")
+                self?.navigationFlow.dismiss()
+            }
+        )
+        
+        return CreateRoutineView(viewModel: viewModel)
     }
 }

@@ -23,11 +23,15 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
             dismiss: () -> Void
         )
         
+        case createRoutineView(RoutineRecord)
+        
         func hash(into hasher: inout Hasher) {
             
             switch self {
             case .addExercise:
                 hasher.combine(0)
+            case .createRoutineView(_):
+                hasher.combine(1)
             }
         }
         
@@ -36,6 +40,8 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
             
             switch (lhs, rhs) {
             case (.addExercise, .addExercise): return true
+            case (.createRoutineView, .createRoutineView): return true
+            default: return false
             }
         }
     }
@@ -58,13 +64,19 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
     
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
         
-        switch identifier {
-            
-        case let .addExercise(addExerciseCompletion, dismiss):
-            return workoutUIComposer.makeAddExerciseView(
-                addExerciseCompletion: addExerciseCompletion,
-                dismiss: dismiss
-            )
+        return Group {
+            switch identifier {
+                
+            case let .addExercise(addExerciseCompletion, dismiss):
+                workoutUIComposer.makeAddExerciseView(
+                    addExerciseCompletion: addExerciseCompletion,
+                    dismiss: dismiss
+                )
+            case let .createRoutineView(routineRecord):
+                workoutUIComposer.makeCreateRoutineView(
+                    routineRecord: routineRecord
+                )
+            }
         }
     }
 }
