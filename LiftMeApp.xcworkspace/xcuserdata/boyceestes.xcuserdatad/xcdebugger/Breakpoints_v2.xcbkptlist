@@ -14,40 +14,119 @@
             filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/CoreDataRoutineStore.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "create(_:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5BBFB4B0-41EF-419E-BFF3-34C4FED6D4AF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RoutineRepository/LiftMeRoutinesiOS/RoutineListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "loadRoutines()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "1555CFCD-E070-4217-8023-2C53A0ADCB2A - 1192edf96e9fda35"
+                  uuid = "5BBFB4B0-41EF-419E-BFF3-34C4FED6D4AF - a550a153c3d0c9f3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in RoutineRepository.CoreDataRoutineStore.create(_: RoutineRepository.Routine, completion: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "RoutineRepository"
+                  symbolName = "LiftMeRoutinesiOS.RoutineListViewModel.loadRoutines() -&gt; ()"
+                  moduleName = "LiftMeRoutinesiOS"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/LiftMeRoutinesiOS/RoutineListView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "115"
-                  endingLineNumber = "115"
-                  offsetFromSymbolStart = "403">
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "47">
                </Location>
                <Location
-                  uuid = "1555CFCD-E070-4217-8023-2C53A0ADCB2A - 1192edf96e9fda56"
+                  uuid = "5BBFB4B0-41EF-419E-BFF3-34C4FED6D4AF - 97aafb002282983c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in RoutineRepository.CoreDataRoutineStore.create(_: RoutineRepository.Routine, completion: (Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "RoutineRepository"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Array&lt;RoutineRepository.Routine&gt;, Swift.Error&gt;) -&gt; () in LiftMeRoutinesiOS.RoutineListViewModel.loadRoutines() -&gt; ()"
+                  moduleName = "LiftMeRoutinesiOS"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/RoutineRepository/Routine%20Repository%20Cache/Core%20Data/CoreDataRoutineStore.swift"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/LiftMeRoutinesiOS/RoutineListView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "114"
-                  endingLineNumber = "114"
-                  offsetFromSymbolStart = "370">
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "104">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C3D53C2-E380-4FDE-8E02-1CF5150D0A2C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RoutineRepository/LiftMeRoutinesiOS/RoutineListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "0C3D53C2-E380-4FDE-8E02-1CF5150D0A2C - 27f17b61f5167545"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LiftMeRoutinesiOS.RoutineListView.body.getter : some"
+                  moduleName = "LiftMeRoutinesiOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/LiftMeRoutinesiOS/RoutineListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "475">
+               </Location>
+               <Location
+                  uuid = "0C3D53C2-E380-4FDE-8E02-1CF5150D0A2C - 86919293103c5356"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in LiftMeRoutinesiOS.RoutineListView.body.getter : some"
+                  moduleName = "LiftMeRoutinesiOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/LiftMeRoutinesiOS/RoutineListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "25">
+               </Location>
+               <Location
+                  uuid = "0C3D53C2-E380-4FDE-8E02-1CF5150D0A2C - 86919293103c5356"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in LiftMeRoutinesiOS.RoutineListView.body.getter : some"
+                  moduleName = "LiftMeRoutinesiOS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/boyceestes/Development/ios/personal/lift-me/RoutineRepository/LiftMeRoutinesiOS/RoutineListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "129"
+                  endingLineNumber = "129"
+                  offsetFromSymbolStart = "55">
                </Location>
             </Locations>
          </BreakpointContent>

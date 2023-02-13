@@ -7,23 +7,24 @@
 
 import SwiftUI
 
+
 public struct HomeView: View {
     
-    let goToWorkout: () -> Void
+    let routineListView: RoutineListView
+    let goToWorkoutViewWithNoRoutine: () -> Void
     
-    
-    public init(goToWorkout: @escaping () -> Void) {
+    public init(routineListView: RoutineListView, goToWorkoutViewWithNoRoutine: @escaping () -> Void) {
         
-        self.goToWorkout = goToWorkout
+        self.routineListView = routineListView
+        self.goToWorkoutViewWithNoRoutine = goToWorkoutViewWithNoRoutine
     }
     
     
     public var body: some View {
         
         VStack {
-            
             Button {
-                goToWorkout()
+                goToWorkoutViewWithNoRoutine()
             } label: {
                 Text("Custom Routine")
             }
@@ -38,15 +39,28 @@ public struct HomeView: View {
             )
             .padding(.horizontal)
             
+            routineListView
+            
             Spacer()
         }
         .navigationTitle("Home")
+        .onAppear {
+            routineListView.viewModel.loadRoutines()
+        }
     }
 }
 
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(goToWorkout: { })
+        HomeView(
+            routineListView: RoutineListView(
+                viewModel: RoutineListViewModel(
+                    routineStore: RoutineStorePreview(),
+                    goToCreateRoutine: { },
+                    goToWorkoutView: { _ in }
+                )
+            ), goToWorkoutViewWithNoRoutine: { }
+        )
     }
 }

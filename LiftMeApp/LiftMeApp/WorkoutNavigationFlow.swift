@@ -23,14 +23,17 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
             dismiss: () -> Void
         )
         
-        case createRoutineView(RoutineRecord)
+        case createRoutineView(
+            routineRecord: RoutineRecord,
+            superDismiss: () -> Void
+        )
         
         func hash(into hasher: inout Hasher) {
             
             switch self {
             case .addExercise:
                 hasher.combine(0)
-            case .createRoutineView(_):
+            case .createRoutineView:
                 hasher.combine(1)
             }
         }
@@ -72,9 +75,10 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
                     addExerciseCompletion: addExerciseCompletion,
                     dismiss: dismiss
                 )
-            case let .createRoutineView(routineRecord):
+            case let .createRoutineView(routineRecord, superDismiss):
                 workoutUIComposer.makeCreateRoutineView(
-                    routineRecord: routineRecord
+                    routineRecord: routineRecord,
+                    superDismiss: superDismiss
                 )
             }
         }

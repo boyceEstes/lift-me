@@ -49,7 +49,7 @@ extension CoreDataRoutineStore {
     
 
     
-    public func createRoutineRecord(_ routineRecord: RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
+    public func createRoutineRecord(_ routineRecord: RoutineRecord, routine: Routine? = nil, completion: @escaping CreateRoutineRecordCompletion) {
         print("Create routine record")
         
         let context = context
@@ -59,7 +59,13 @@ extension CoreDataRoutineStore {
                 
                 try ManagedRoutineRecord.updateIncompleteRoutineRecordsWithCurrentDate(in: context)
                 
-                try ManagedRoutineRecord.createRoutineRecord(routineRecord, in: context)
+                var managedRoutine: ManagedRoutine?
+                
+                if let routine = routine {
+                    managedRoutine = try ManagedRoutine.findRoutine(withID: routine.id, in: context)
+                }
+                
+                try ManagedRoutineRecord.createRoutineRecord(routineRecord, managedRoutine: managedRoutine, in: context)
 
                 try context.save()
                 

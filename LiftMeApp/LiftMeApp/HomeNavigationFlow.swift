@@ -15,10 +15,10 @@ class HomeNavigationFlow: SheetyNavigationFlow {
     
     enum SheetyIdentifier: Identifiable {
         
-        var id: Int { self.hashValue }
+        var id: Int { UUID().hashValue }
 
         case createRoutine
-        case workout
+        case workout(Routine?)
     }
     
     
@@ -49,10 +49,13 @@ class HomeNavigationFlow: SheetyNavigationFlow {
             case .createRoutine:
                 homeUIComposer.makeCreateRoutineView()
                 
-            case .workout:
-                workoutUIComposer.makeWorkoutViewWithSheetyNavigation {
+            case let .workout(routine):
+                workoutUIComposer.makeWorkoutViewWithSheetyNavigation(
+                    routine: routine,
+                    dismiss: {
+                    print("HomeNavigationFlow is called")
                     self.dismiss()
-                }
+                })
             }
         }
     }

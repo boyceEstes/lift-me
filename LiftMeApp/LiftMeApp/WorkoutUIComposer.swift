@@ -26,9 +26,9 @@ public class WorkoutUIComposer {
     }
 
     // WorkoutNavigationFlow for the workout since I want it to stay up whne it presents its own sheet
-    func makeWorkoutViewWithSheetyNavigation(dismiss: @escaping () -> Void) -> SheetyNavigationView<WorkoutView, WorkoutNavigationFlow> {
+    func makeWorkoutViewWithSheetyNavigation(routine: Routine?, dismiss: @escaping () -> Void) -> SheetyNavigationView<WorkoutView, WorkoutNavigationFlow> {
         
-        let workoutView = makeWorkoutView(dismiss: dismiss)
+        let workoutView = makeWorkoutView(routine: routine, dismiss: dismiss)
         
         return SheetyNavigationView(
             sheetyNavigationViewModel: navigationFlow,
@@ -37,12 +37,16 @@ public class WorkoutUIComposer {
     }
     
     
-    func makeWorkoutView(dismiss: @escaping () -> Void) -> WorkoutView {
+    func makeWorkoutView(routine: Routine?, dismiss: @escaping () -> Void) -> WorkoutView {
         
         let viewModel = WorkoutViewModel(
             routineStore: routineStore,
+            routine: routine,
             goToCreateRoutineView: { routineRecord in
-                self.navigationFlow.modallyDisplayedView = .createRoutineView(routineRecord)
+                self.navigationFlow.modallyDisplayedView = .createRoutineView(
+                    routineRecord: routineRecord,
+                    superDismiss: dismiss
+                )
             },
             dismiss: dismiss
         )
@@ -77,14 +81,21 @@ public class WorkoutUIComposer {
     }
     
     
-    func makeCreateRoutineView(routineRecord: RoutineRecord) -> CreateRoutineView {
+    // super dismiss will dismiss from home composer (thus clearing out the entire workout modal)
+    // dismiss will just dismiss from the workout composer (thus going back to the original workout view)
+    func makeCreateRoutineView(
+        routineRecord: RoutineRecord,
+        superDismiss: @escaping () -> Void
+    ) -> CreateRoutineView {
 
         let viewModel = CreateRoutineViewModel(
             routineStore: routineStore,
-            dismissAction: { [weak self] in
-                print("my dismiss action")
+            routineRecord: routineRecord,
+            dismiss: { [weak self] in
+                print("workout view dismiss")
                 self?.navigationFlow.dismiss()
-            }
+            },
+            superDismiss: superDismiss
         )
         
         return CreateRoutineView(viewModel: viewModel)

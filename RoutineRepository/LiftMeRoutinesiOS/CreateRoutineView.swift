@@ -12,42 +12,103 @@ import RoutineRepository
 public class CreateRoutineViewModel: ObservableObject {
     
     let routineStore: RoutineStore
-    let dismissAction: () -> Void
+    let routineRecord: RoutineRecord?
+    let dismiss: () -> Void
+    let superDismiss: (() -> Void)?
     
     @Published var name = ""
     @Published var desc = ""
+    @Published var exercises = [Exercise]()
     
     public init(
         routineStore: RoutineStore,
-        dismissAction: @escaping () -> Void
+        routineRecord: RoutineRecord? = nil,
+        dismiss: @escaping () -> Void,
+        superDismiss: (() -> Void)? = nil
     ) {
         
         self.routineStore = routineStore
-        self.dismissAction = dismissAction
+        self.routineRecord = routineRecord
+        self.dismiss = dismiss
+        self.superDismiss = superDismiss
+        
+        populateExercisesFromRoutineRecordIfPossible()
     }
     
     
-    func saveRoutine() {
+    private func populateExercisesFromRoutineRecordIfPossible() {
+        
+        guard let routineRecord = routineRecord else { return }
+        self.exercises = routineRecord.exerciseRecords.map { $0.exercise }
+    }
+    
+    
+    func saveButtonTapped() {
+        
+        var routine: Routine
+        
+        if let routineRecord = routineRecord {
+            
+            routine = createRoutine(with: routineRecord)
+        } else {
+            routine = createRoutine()
+        }
+        
+        saveRoutine(routine: routine)
+    }
+    
+    
+    func createRoutine(with routineRecord: RoutineRecord) -> Routine {
         
         let routine = Routine(
             id: UUID(),
             name: name,
             creationDate: Date(),
-            exercises: [],
+            exercises: exercises,
+            routineRecords: [routineRecord])
+
+        return routine
+    }
+    
+    
+    func createRoutine() -> Routine {
+        
+        let routine = Routine(
+            id: UUID(),
+            name: name,
+            creationDate: Date(),
+            exercises: exercises,
             routineRecords: [])
+
+        return routine
+    }
+    
+    
+    func saveRoutine(routine: Routine) {
         
         routineStore.createUniqueRoutine(routine) { [weak self] error in
+            
+            guard let self = self else { return }
+            
             if error != nil {
-                print("error: \(error!)")
+                fatalError("Idk, handle it \(error?.localizedDescription)")
             }
-            self?.dismissAction()
+            
+            // Dismiss all the way to the root because we have done everything successfully
+            if let superDismiss = self.superDismiss {
+                
+                self.dismiss()
+                superDismiss()
+            } else {
+                self.dismiss()
+            }
         }
     }
     
     
     func cancelCreateRoutine() {
         
-        dismissAction()
+        dismiss()
     }
 }
 
@@ -73,6 +134,14 @@ public struct CreateRoutineView: View {
                 TextField(text: $viewModel.desc) {
                     Text("Description")
                 }
+                
+                Section("Exercises") {
+                    ForEach(viewModel.exercises, id: \.self) { exercise in
+                        HStack {
+                            Text(exercise.name)
+                        }
+                    }
+                }
             }
             .navigationTitle("Create Routine")
             .navigationBarTitleDisplayMode(.inline)
@@ -85,7 +154,7 @@ public struct CreateRoutineView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
                         
-                        viewModel.saveRoutine()
+                        viewModel.saveButtonTapped()
                     }
                 }
             }
@@ -100,7 +169,7 @@ struct CreateRoutineView_Previews: PreviewProvider {
         
         let viewModel = CreateRoutineViewModel(
             routineStore: RoutineStorePreview(),
-            dismissAction: { })
+            dismiss: { })
         
         CreateRoutineView(viewModel: viewModel)
     }

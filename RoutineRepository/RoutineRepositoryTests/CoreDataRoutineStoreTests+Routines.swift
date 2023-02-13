@@ -221,32 +221,32 @@ class CoreDataRoutineStoreTests: XCTestCase {
         return receivedResult
     }
     
-    
-    @discardableResult
-    private func createRoutineAndRoutineRecord(
-        name: String,
-        routineRecord: RoutineRecord,
-        into sut: CoreDataRoutineStore,
-        file: StaticString = #file,
-        line: UInt = #line) -> RoutineStore.CreateRoutineResult {
-        
-        let exp = expectation(description: "Wait for RoutineStore create completion")
-        
-        var receivedResult: RoutineStore.CreateRoutineResult = nil
-        
-        sut.createRoutineAndRoutineRecord(
-            name: name,
-            routineRecord
-        ) { result in
-            
-            receivedResult = result
-            exp.fulfill()
-        }
-        
-        wait(for: [exp], timeout: 1)
-        
-        return receivedResult
-    }
+//
+//    @discardableResult
+//    private func createRoutineAndRoutineRecord(
+//        name: String,
+//        routineRecord: RoutineRecord,
+//        into sut: CoreDataRoutineStore,
+//        file: StaticString = #file,
+//        line: UInt = #line) -> RoutineStore.CreateRoutineResult {
+//
+//        let exp = expectation(description: "Wait for RoutineStore create completion")
+//
+//        var receivedResult: RoutineStore.CreateRoutineResult = nil
+//
+//        sut.createRoutineAndRoutineRecord(
+//            name: name,
+//            routineRecord
+//        ) { result in
+//
+//            receivedResult = result
+//            exp.fulfill()
+//        }
+//
+//        wait(for: [exp], timeout: 1)
+//
+//        return receivedResult
+//    }
     
     
     private func expectReadAllRoutines(on sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {

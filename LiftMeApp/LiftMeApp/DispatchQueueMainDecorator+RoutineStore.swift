@@ -36,8 +36,8 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
     
     
     // MARK: Routine Record
-    func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
-        decoratee.createRoutineRecord(routineRecord) { [weak self] error in
+    func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, routine: RoutineRepository.Routine?, completion: @escaping CreateRoutineRecordCompletion) {
+        decoratee.createRoutineRecord(routineRecord, routine: routine) { [weak self] error in
             self?.dispatch {
                 completion(error)
             }

@@ -12,6 +12,7 @@ public class RoutineListViewModel: ObservableObject {
     
     let routineStore: RoutineStore
     let goToCreateRoutine: () -> Void
+    let goToWorkoutView: (Routine) -> Void
     
     // TODO: Could I make this a future instead since it should only be emitted once
     @Published var firstLoadCompleted = false
@@ -20,10 +21,12 @@ public class RoutineListViewModel: ObservableObject {
     
     
     public init(routineStore: RoutineStore,
-                goToCreateRoutine: @escaping () -> Void
+                goToCreateRoutine: @escaping () -> Void,
+                goToWorkoutView: @escaping (Routine) -> Void
     ) {
         self.routineStore = routineStore
         self.goToCreateRoutine = goToCreateRoutine
+        self.goToWorkoutView = goToWorkoutView
     }
     
     
@@ -204,10 +207,14 @@ public struct MoreRoutinesButtonView: View {
 public struct RoutineCellView: View {
     
     let routine: Routine
+    let goToWorkoutView: (Routine) -> Void
     
     public var body: some View {
         Text("\(routine.name)")
             .routineCell()
+            .onTapGesture {
+                goToWorkoutView(routine)
+            }
     }
 }
 
@@ -252,7 +259,9 @@ public struct ScrollableRoutineListView: View {
                         } else {
                             
                             ForEach(viewModel.routines, id: \.self) { routine in
-                                RoutineCellView(routine: routine)
+                                RoutineCellView(
+                                    routine: routine,
+                                    goToWorkoutView: viewModel.goToWorkoutView)
                             }
                         }
                     }
@@ -273,7 +282,8 @@ struct RoutineListView_Previews: PreviewProvider {
         RoutineListView(
             viewModel: RoutineListViewModel(
                 routineStore: RoutineStorePreview(),
-                goToCreateRoutine: { }
+                goToCreateRoutine: { },
+                goToWorkoutView: { _ in }
             )
         )
         .preferredColorScheme(.dark)

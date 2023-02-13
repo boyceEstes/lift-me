@@ -26,8 +26,8 @@ public struct RoutineRecordViewModel: Hashable {
                         SetRecord(
                             id: UUID(),
                             duration: nil,
-                            repCount: ($0.repCount.isEmpty ? nil : Double($0.repCount))!,
-                            weight: ($0.weight.isEmpty ? nil : Double($0.weight))!,
+                            repCount: ($0.repCount.isEmpty ? 0 : Double($0.repCount)) ?? -1,
+                            weight: ($0.weight.isEmpty ? 0 : Double($0.weight)) ?? -1,
                             difficulty: nil)
                     },
                     exercise: $0.exercise
@@ -63,6 +63,7 @@ public class WorkoutViewModel: ObservableObject {
     let routine: Routine?
     let dismiss: () -> Void
     let goToCreateRoutineView: (RoutineRecord) -> Void
+
     
     @Published var routineRecordViewModel: RoutineRecordViewModel = RoutineRecordViewModel(creationDate: Date(), exerciseRecordViewModels: [])
     @Published var displaySaveError = false
@@ -78,6 +79,8 @@ public class WorkoutViewModel: ObservableObject {
         self.routine = routine
         self.goToCreateRoutineView = goToCreateRoutineView
         self.dismiss = dismiss
+        
+        populateRoutineRecordFromRoutineIfPossible()
     }
     
     
@@ -86,6 +89,21 @@ public class WorkoutViewModel: ObservableObject {
     
     
     func readLatestRoutineRecord() {
+    }
+    
+    
+    private func populateRoutineRecordFromRoutineIfPossible() {
+
+        guard let routine = routine else { return }
+        
+        routineRecordViewModel.exerciseRecordViewModels = routine.exercises.map { exercise in
+            ExerciseRecordViewModel(
+                setRecordViewModels: [
+                    SetRecordViewModel(weight: "", repCount: "")
+                ],
+                exercise: exercise
+            )
+        }
     }
     
     
@@ -104,37 +122,46 @@ public class WorkoutViewModel: ObservableObject {
     
     func didTapSaveButton() {
         
+        guard let routineRecord = getRoutineRecordFromCurrentState() else { return }
+        
         if routine == nil {
             // There is no associated routine, do you want to create one?
             displaySaveCreateRoutine = true
             
         } else {
-            // TODO: Will need to edit the method for createRoutineRecord to include routine
-//            saveRoutineRecord(for: routine)
-            fatalError("Not implemented for saving an already made routine")
+            
+            saveRoutineRecord(routineRecord: routineRecord, routine: routine)
         }
     }
     
     
-    func saveRoutineRecordWithoutSavingRoutineAndDismiss() {
+    func getRoutineRecordFromCurrentState() -> RoutineRecord? {
         
-
         print("validate all fields are entered")
         let routineRecord = routineRecordViewModel.mapToRoutineRecord(completionDate: Date())
         
         guard allSetRecordsHaveValues(routineRecord: routineRecord) else {
             displaySaveError = true
-            return
+            return nil
         }
-        print("Going through next logic steps for save...")
         
-        saveRoutineRecord(routineRecord: routineRecord)
+        print("Going through next logic steps for save...")
+        return routineRecord
     }
     
     
-    func saveRoutineRecord(routineRecord: RoutineRecord) {
+    func saveRoutineRecordWithoutSavingRoutineAndDismiss() {
         
-        routineStore.createRoutineRecord(routineRecord) { [weak self] error in
+        guard let routineRecord = getRoutineRecordFromCurrentState() else { return }
+
+        saveRoutineRecord(routineRecord: routineRecord, routine: nil)
+    }
+    
+    
+    
+    func saveRoutineRecord(routineRecord: RoutineRecord, routine: Routine?) {
+        
+        routineStore.createRoutineRecord(routineRecord, routine: routine) { [weak self] error in
             
             if error != nil {
                 // There was an issue

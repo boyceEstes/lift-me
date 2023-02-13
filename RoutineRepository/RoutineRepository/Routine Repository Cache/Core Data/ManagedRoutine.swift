@@ -22,6 +22,22 @@ public class ManagedRoutine: NSManagedObject {
 
 extension ManagedRoutine {
     
+    
+    public static func findRoutine(withID id: UUID, in context: NSManagedObjectContext) throws -> ManagedRoutine {
+        
+        let request = ManagedRoutine.fetchRequest
+        request.predicate = NSPredicate(format: "%K == %@", "id", id as CVarArg)
+        request.returnsObjectsAsFaults = false
+        
+        guard let routine = try context.fetch(request).first else {
+            
+            throw CoreDataRoutineStore.Error.cannotFindRoutineWithID
+        }
+        
+        return routine
+    }
+    
+    
     public static func findRoutines(in context: NSManagedObjectContext) throws -> [ManagedRoutine] {
         
         let request = ManagedRoutine.fetchRequest

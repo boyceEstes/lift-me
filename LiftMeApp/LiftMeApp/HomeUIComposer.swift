@@ -46,8 +46,9 @@ public class HomeUIComposer {
     func makeHomeView() -> HomeView {
         
         return HomeView(
-            goToWorkout: {
-                self.navigationFlow.modallyDisplayedView = .workout
+            routineListView: makeRoutineListView().view,
+            goToWorkoutViewWithNoRoutine: {
+                self.navigationFlow.modallyDisplayedView = .workout(nil)
             }
         )
     }
@@ -66,12 +67,15 @@ public class HomeUIComposer {
     }
     
     
-    func makeRoutineListView() -> (RoutineListView, RoutineListViewModel) {
+    func makeRoutineListView() -> (view: RoutineListView, viewModel: RoutineListViewModel) {
         
         let viewModel = RoutineListViewModel(
             routineStore: routineStore,
             goToCreateRoutine: {
                 self.navigationFlow.modallyDisplayedView = .createRoutine
+            },
+            goToWorkoutView: { routine in
+                self.navigationFlow.modallyDisplayedView = .workout(routine)
             }
         )
         
@@ -83,7 +87,7 @@ public class HomeUIComposer {
 
         let viewModel = CreateRoutineViewModel(
             routineStore: routineStore,
-            dismissAction: { [weak self] in
+            dismiss: { [weak self] in
                 print("my dismiss action")
                 self?.navigationFlow.dismiss()
             }

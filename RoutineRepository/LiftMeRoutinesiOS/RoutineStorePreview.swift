@@ -45,7 +45,7 @@ public class RoutineStorePreview: RoutineStore {
 
     
     // MARK: - Routine Records
-    public func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
+    public func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, routine: Routine? = nil, completion: @escaping CreateRoutineRecordCompletion) {
         print("")
     }
 
