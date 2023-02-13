@@ -36,7 +36,23 @@ class ExerciseUIComposer {
     
     func makeExercisesView() -> ExercisesView {
         
-        let viewModel = ExercisesViewModel(routineStore: routineStore)
+        let viewModel = ExercisesViewModel(routineStore: routineStore) { exercise in
+            self.navigationFlow.path.append(.exerciseDetailView(exercise: exercise))
+        }
         return ExercisesView(viewModel: viewModel)
+    }
+    
+    
+    func makeExerciseDetailViewWithStackNavigation(exercise: Exercise) -> StackNavigationView<ExerciseDetailView, ExerciseNavigationFlow> {
+        
+        let exerciseDetailView = makeExerciseDetailView(exercise: exercise)
+        return StackNavigationView(stackNavigationViewModel: self.navigationFlow, content: exerciseDetailView)
+    }
+    
+    
+    func makeExerciseDetailView(exercise: Exercise) -> ExerciseDetailView {
+        
+        let viewModel = ExerciseDetailViewModel(routineStore: routineStore, exercise: exercise)
+        return ExerciseDetailView(viewModel: viewModel)
     }
 }

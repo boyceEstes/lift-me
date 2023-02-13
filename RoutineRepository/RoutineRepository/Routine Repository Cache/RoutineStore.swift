@@ -23,6 +23,8 @@ public protocol RoutineStore {
     typealias ReadExercisesResult = Result<[Exercise], Error>
     typealias CreateExerciseResult = Error?
     
+    typealias ReadExerciseRecordsResult = Result<[ExerciseRecord], Error>
+    
     
     // Completion Types
     typealias ReadRoutinesCompletion = (ReadRoutinesResult) -> Void
@@ -38,6 +40,8 @@ public protocol RoutineStore {
     
     typealias CreateExerciseCompletion = (CreateExerciseResult) -> Void
     typealias ReadExercisesCompletion = (ReadExercisesResult) -> Void
+    
+    typealias ReadExerciseRecordsCompletion = (ReadExerciseRecordsResult) -> Void
 
     
     // These are not guaranteed to be returned on the main thread so the client will need to make sure
@@ -61,5 +65,7 @@ public protocol RoutineStore {
     func readAllExercises(completion: @escaping ReadExercisesCompletion)
     func createExercise(_ exercise: Exercise, completion: @escaping CreateExerciseCompletion)
     
+    // ExerciseRecords
+    func readExerciseRecords(for exercise: Exercise, completion: @escaping ReadExerciseRecordsCompletion)
     
 }

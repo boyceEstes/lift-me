@@ -14,10 +14,14 @@ public class ExercisesViewModel: ObservableObject {
     @Published var exercises = [Exercise]()
     
     let routineStore: RoutineStore
+    let goToExerciseDetailView: (Exercise) -> Void
     
-    public init(routineStore: RoutineStore) {
+    public init(routineStore: RoutineStore, goToExerciseDetailView: @escaping (Exercise) -> Void) {
+        
         self.routineStore = routineStore
+        self.goToExerciseDetailView = goToExerciseDetailView
     }
+    
     
     func readAllExercises() {
         
@@ -52,6 +56,10 @@ public struct ExercisesView: View {
                 ForEach(viewModel.exercises, id: \.self) { exercise in
                     
                     BasicExerciseRowView(exercise: exercise)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            viewModel.goToExerciseDetailView(exercise)
+                        }
                 }
             }
             Spacer()
@@ -69,6 +77,6 @@ public struct ExercisesView: View {
 
 struct ExercisesView_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisesView(viewModel: ExercisesViewModel(routineStore: RoutineStorePreview()))
+        ExercisesView(viewModel: ExercisesViewModel(routineStore: RoutineStorePreview(), goToExerciseDetailView: { _ in }))
     }
 }

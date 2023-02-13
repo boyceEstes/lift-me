@@ -7,6 +7,7 @@
 
 import Foundation
 import NavigationFlow
+import RoutineRepository
 import SwiftUI
 
 
@@ -14,6 +15,7 @@ class ExerciseNavigationFlow: StackNavigationFlow {
     
     enum StackIdentifier: Hashable {
         case exerciseListView
+        case exerciseDetailView(exercise: Exercise)
     }
     
     let exerciseUIComposer: ExerciseUIComposer
@@ -28,9 +30,15 @@ class ExerciseNavigationFlow: StackNavigationFlow {
     
     func pushToStack(_ identifier: StackIdentifier) -> some View {
         
-        switch identifier {
-        case .exerciseListView:
-            return exerciseUIComposer.makeExercisesViewWithStackNavigation()
+        return Group {
+            switch identifier {
+            case .exerciseListView:
+                exerciseUIComposer.makeExercisesViewWithStackNavigation()
+                
+            case let .exerciseDetailView(exercise):
+                exerciseUIComposer.makeExerciseDetailViewWithStackNavigation(exercise: exercise)
+            }
         }
+
     }
 }

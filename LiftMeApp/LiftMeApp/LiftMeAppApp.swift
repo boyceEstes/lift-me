@@ -25,7 +25,6 @@ struct LiftMeAppApp: App {
     }
 
     
-    // TODO: Is there a way to prevent this from being initialized as an instance (Or limit to one instance) while still being testable
     var body: some Scene {
         WindowGroup {
             RootView(routineStore: routineStore)
