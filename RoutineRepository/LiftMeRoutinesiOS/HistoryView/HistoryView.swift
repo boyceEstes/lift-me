@@ -113,11 +113,6 @@ struct RoutineRecordCellViewModel {
 public struct RoutineRecordCellView: View {
     
     let viewModel: RoutineRecordCellViewModel
-
-//
-//    public init(routineRecord: RoutineRecord) {
-//        self.routineRecord = routineRecord
-//    }
     
     public var body: some View {
         

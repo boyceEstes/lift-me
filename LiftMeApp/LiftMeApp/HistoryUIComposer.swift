@@ -48,6 +48,14 @@ public class HistoryUIComposer {
     }
     
     
+    func makeRoutineRecordDetailViewWithStackNavigation(routineRecord: RoutineRecord) -> StackNavigationView<RoutineRecordDetailView, HistoryNavigationFlow> {
+        
+        let routineRecordDetailView = makeRoutineRecordDetailView(routineRecord: routineRecord)
+        
+        return StackNavigationView(stackNavigationViewModel: self.navigationFlow, content: routineRecordDetailView)
+    }
+    
+    
     func makeRoutineRecordDetailView(routineRecord: RoutineRecord) -> RoutineRecordDetailView {
         
         let routineRecordDetailViewModel = RoutineRecordDetailViewModel(routineRecord: routineRecord)

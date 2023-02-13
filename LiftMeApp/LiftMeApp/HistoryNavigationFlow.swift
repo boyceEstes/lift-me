@@ -38,7 +38,7 @@ class HistoryNavigationFlow: StackNavigationFlow {
                 historyUIComposer.makeHistoryView()
                 
             case let .routineRecordDetailView(routineRecord):
-                historyUIComposer.makeRoutineRecordDetailView(routineRecord: routineRecord)
+                historyUIComposer.makeRoutineRecordDetailViewWithStackNavigation(routineRecord: routineRecord)
             }
         }
     }
