@@ -31,6 +31,10 @@
 		B3692CC929998D8F00D9BD05 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CC829998D8F00D9BD05 /* RootView.swift */; };
 		B3692CCB2999912E00D9BD05 /* HistoryUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CCA2999912E00D9BD05 /* HistoryUIIntegrationTests.swift */; };
 		B3692CCD2999952500D9BD05 /* HistoryUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CCC2999952500D9BD05 /* HistoryUIComposerWithSpys.swift */; };
+		B3692CD22999B91200D9BD05 /* ExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */; };
+		B3692CD42999BE0100D9BD05 /* ExerciseNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */; };
+		B3692CD92999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */; };
+		B3692CDB2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift */; };
 		B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */; };
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
@@ -86,6 +90,10 @@
 		B3692CC829998D8F00D9BD05 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		B3692CCA2999912E00D9BD05 /* HistoryUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B3692CCC2999952500D9BD05 /* HistoryUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUIComposerWithSpys.swift; sourceTree = "<group>"; };
+		B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseUIComposer.swift; sourceTree = "<group>"; };
+		B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNavigationFlow.swift; sourceTree = "<group>"; };
+		B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciesViewUIIntegrationTests.swift; sourceTree = "<group>"; };
+		B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseUIComposerWithSps.swift; sourceTree = "<group>"; };
 		B3A854892908D48300F04CC1 /* LiftMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppApp.swift; sourceTree = "<group>"; };
 		B3A8548E2908D48300F04CC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -151,6 +159,7 @@
 				B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */,
 				B329086E29818B80008350B1 /* WorkoutUIComposerWithSpys.swift */,
 				B3692CCC2999952500D9BD05 /* HistoryUIComposerWithSpys.swift */,
+				B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift */,
 			);
 			path = ComposersWithSpys;
 			sourceTree = "<group>";
@@ -171,6 +180,15 @@
 				B3692CBD2999805B00D9BD05 /* HistoryNavigationFlow.swift */,
 			);
 			name = History;
+			sourceTree = "<group>";
+		};
+		B3692CD02999B8F400D9BD05 /* Exercise */ = {
+			isa = PBXGroup;
+			children = (
+				B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */,
+				B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */,
+			);
+			name = Exercise;
 			sourceTree = "<group>";
 		};
 		B3A854802908D48300F04CC1 = {
@@ -195,6 +213,7 @@
 		B3A8548B2908D48300F04CC1 /* LiftMeApp */ = {
 			isa = PBXGroup;
 			children = (
+				B3692CD02999B8F400D9BD05 /* Exercise */,
 				B3692CBA2999801700D9BD05 /* History */,
 				B33D0FB52970644400C2FB1E /* Home */,
 				B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */,
@@ -226,6 +245,7 @@
 				B33D0FAF296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift */,
 				B3290869297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift */,
 				B3692CCA2999912E00D9BD05 /* HistoryUIIntegrationTests.swift */,
+				B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */,
 			);
 			path = LiftMeAppTests;
 			sourceTree = "<group>";
@@ -355,12 +375,14 @@
 				B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */,
 				B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */,
 				B3692CBC2999803400D9BD05 /* HistoryUIComposer.swift in Sources */,
+				B3692CD22999B91200D9BD05 /* ExerciseUIComposer.swift in Sources */,
 				B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */,
 				B33D0FB42970643E00C2FB1E /* WorkoutUIComposer.swift in Sources */,
 				B368912B2913FBA800E04957 /* HomeUIComposer.swift in Sources */,
 				B3692CBE2999805B00D9BD05 /* HistoryNavigationFlow.swift in Sources */,
 				B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */,
 				B3692CC929998D8F00D9BD05 /* RootView.swift in Sources */,
+				B3692CD42999BE0100D9BD05 /* ExerciseNavigationFlow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +401,8 @@
 				B33D0FBA29706CB100C2FB1E /* HomeUIComposerWithSpys.swift in Sources */,
 				B329086D298189EE008350B1 /* RoutineStoreSpy.swift in Sources */,
 				B3692CCB2999912E00D9BD05 /* HistoryUIIntegrationTests.swift in Sources */,
+				B3692CDB2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift in Sources */,
+				B3692CD92999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

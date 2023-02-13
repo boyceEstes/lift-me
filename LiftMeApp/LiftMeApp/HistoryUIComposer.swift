@@ -11,7 +11,7 @@ import LiftMeRoutinesiOS
 import NavigationFlow
 
 
-public class HistoryUIComposer {
+class HistoryUIComposer {
     
     let routineStore: RoutineStore
     

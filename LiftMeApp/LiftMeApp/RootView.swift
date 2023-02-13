@@ -12,12 +12,14 @@ import LiftMeRoutinesiOS
 struct RootView: View {
     
     let homeUIComposer: HomeUIComposer
+    let exerciseUIComposer: ExerciseUIComposer
     let historyUIComposer: HistoryUIComposer
     
     
     init(routineStore: RoutineStore) {
         
         self.homeUIComposer = HomeUIComposer(routineStore: routineStore)
+        self.exerciseUIComposer = ExerciseUIComposer(routineStore: routineStore)
         self.historyUIComposer = HistoryUIComposer(routineStore: routineStore)
     }
     
@@ -28,6 +30,12 @@ struct RootView: View {
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
+            
+            exerciseUIComposer.makeExercisesViewWithStackNavigation()
+                .tabItem {
+                    Label("Exercises", systemImage: "dumbbell")
+                }
+            
             historyUIComposer.makeHistoryViewWithStackNavigation()
                 .tabItem {
                     Label("History", systemImage: "book.closed")

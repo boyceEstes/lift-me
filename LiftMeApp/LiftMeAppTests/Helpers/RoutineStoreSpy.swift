@@ -14,9 +14,9 @@ class RoutineStoreSpy: RoutineStore {
     enum ReceivedMessage: Equatable {
         case saveRoutine(Routine)
         case loadAllRoutines
-        case loadAllExercises
         case createRoutineRecord
         case readAllRoutineRecords
+        case readAllExercises
     }
     
     private(set) var requests = [ReceivedMessage]()
@@ -104,7 +104,7 @@ class RoutineStoreSpy: RoutineStore {
     
     func readAllExercises(completion: @escaping ReadExercisesCompletion) {
         
-        requests.append(.loadAllExercises)
+        requests.append(.readAllExercises)
         readAllExercisesCompletions.append(completion)
     }
     
