@@ -48,14 +48,6 @@ public class AddExerciseViewModel: ObservableObject {
     // Does not get set
     var allSelectableExercises = [SelectableExercise]()
     
-//    var selectedExercisesSet = Set<OrderedExercise>() {
-//        didSet {
-//            let orderedSelectedExercises = selectedExercisesSet.sorted { orderedExercise1, orderedExercise2 in
-//                orderedExercise1.orderIndex < orderedExercise2.orderIndex
-//            }
-//            selectedExercises = orderedSelectedExercises.map { $0.exercise }
-//        }
-//    }
 
     @Published var selectedExercises = [Exercise]()
     @Published var selectableFilteredExercises = [SelectableExercise]()

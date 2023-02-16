@@ -17,18 +17,25 @@ import CoreData
 public class HomeUIComposer {
     
     let routineStore: RoutineStore
+    let createRoutineUIComposer: CreateRoutineUIComposer // I am passing this through because I only want one instance at the root that will be used
     
     lazy var navigationFlow: HomeNavigationFlow = { [unowned self] in
         return HomeNavigationFlow(
             homeUIComposer: self,
-            workoutUIComposer: WorkoutUIComposer(routineStore: routineStore)
+            workoutUIComposer: WorkoutUIComposer(
+                routineStore: routineStore,
+                createRoutineUIComposer: createRoutineUIComposer
+            ),
+            createRoutineUIComposer: createRoutineUIComposer
         )
     }()
     
     
-    init(routineStore: RoutineStore) {
+    init(routineStore: RoutineStore,
+         createRoutineUIComposer: CreateRoutineUIComposer) {
         
         self.routineStore = routineStore
+        self.createRoutineUIComposer = createRoutineUIComposer
     }
 
 
@@ -80,20 +87,6 @@ public class HomeUIComposer {
         )
         
         return (RoutineListView(viewModel: viewModel), viewModel)
-    }
-    
-    
-    func makeCreateRoutineView() -> CreateRoutineView {
-
-        let viewModel = CreateRoutineViewModel(
-            routineStore: routineStore,
-            dismiss: { [weak self] in
-                print("my dismiss action")
-                self?.navigationFlow.dismiss()
-            }
-        )
-        
-        return CreateRoutineView(viewModel: viewModel)
     }
 }
 

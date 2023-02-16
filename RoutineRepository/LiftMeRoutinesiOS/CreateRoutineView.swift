@@ -13,6 +13,7 @@ public class CreateRoutineViewModel: ObservableObject {
     
     let routineStore: RoutineStore
     let routineRecord: RoutineRecord?
+
     let dismiss: () -> Void
     let superDismiss: (() -> Void)?
     
@@ -55,6 +56,16 @@ public class CreateRoutineViewModel: ObservableObject {
         }
         
         saveRoutine(routine: routine)
+    }
+    
+    
+    public func addExercisesCompletion(exercises: [Exercise]) {
+        
+        exercises.forEach { [weak self] in
+            
+            print("Appending \($0.name)")
+            self?.exercises.append($0)
+        }
     }
     
     
@@ -117,10 +128,14 @@ public struct CreateRoutineView: View {
     
     @ObservedObject var viewModel: CreateRoutineViewModel
     
+    let goToAddExerciseView: () -> Void
     
-    public init(viewModel: CreateRoutineViewModel) {
+    
+    public init(viewModel: CreateRoutineViewModel,
+                goToAddExerciseView: @escaping () -> Void) {
         
         self.viewModel = viewModel
+        self.goToAddExerciseView = goToAddExerciseView
     }
     
     
@@ -135,11 +150,28 @@ public struct CreateRoutineView: View {
                     Text("Description")
                 }
                 
-                Section("Exercises") {
+                Section {
                     ForEach(viewModel.exercises, id: \.self) { exercise in
                         HStack {
                             Text(exercise.name)
                         }
+                    }
+                } header: {
+                    HStack {
+                        Text("Exercises")
+                        Spacer()
+                        Button {
+                            print("Button tapped in Create Routine")
+                            goToAddExerciseView()
+                        } label: {
+                            HStack {
+                                Text("Add")
+                                Image(systemName: "plus")
+                            }
+                        }
+                        .buttonStyle(HighKeyButtonStyle())
+                        .id("add-exercise-button")
+                        
                     }
                 }
             }
@@ -171,6 +203,6 @@ struct CreateRoutineView_Previews: PreviewProvider {
             routineStore: RoutineStorePreview(),
             dismiss: { })
         
-        CreateRoutineView(viewModel: viewModel)
+        CreateRoutineView(viewModel: viewModel, goToAddExerciseView: { })
     }
 }

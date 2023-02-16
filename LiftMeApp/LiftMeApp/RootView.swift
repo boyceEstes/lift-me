@@ -14,11 +14,16 @@ struct RootView: View {
     let homeUIComposer: HomeUIComposer
     let exerciseUIComposer: ExerciseUIComposer
     let historyUIComposer: HistoryUIComposer
+    let createRoutineUIComposer: CreateRoutineUIComposer
     
     
     init(routineStore: RoutineStore) {
         
-        self.homeUIComposer = HomeUIComposer(routineStore: routineStore)
+        self.createRoutineUIComposer = CreateRoutineUIComposer(routineStore: routineStore)
+        self.homeUIComposer = HomeUIComposer(
+            routineStore: routineStore,
+            createRoutineUIComposer: createRoutineUIComposer
+        )
         self.exerciseUIComposer = ExerciseUIComposer(routineStore: routineStore)
         self.historyUIComposer = HistoryUIComposer(routineStore: routineStore)
     }

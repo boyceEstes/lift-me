@@ -14,15 +14,20 @@ import NavigationFlow
 public class WorkoutUIComposer {
     
     let routineStore: RoutineStore
+    let createRoutineUIComposer: CreateRoutineUIComposer
     
     lazy var navigationFlow: WorkoutNavigationFlow = { [unowned self] in
-        return WorkoutNavigationFlow(workoutUIComposer: self)
+        return WorkoutNavigationFlow(
+            workoutUIComposer: self,
+            createRoutineUIComposer: createRoutineUIComposer
+        )
     }()
     
     
-    init(routineStore: RoutineStore) {
+    init(routineStore: RoutineStore, createRoutineUIComposer: CreateRoutineUIComposer) {
         
         self.routineStore = routineStore
+        self.createRoutineUIComposer = createRoutineUIComposer
     }
 
     // WorkoutNavigationFlow for the workout since I want it to stay up whne it presents its own sheet
@@ -70,8 +75,6 @@ public class WorkoutUIComposer {
         dismiss: @escaping () -> Void
     ) -> AddExerciseView {
         
-        // what if I just post a notification and observe it in the workout view?
-        // can I post with a routine record and an array of exercises?
         let viewModel = AddExerciseViewModel(
             routineStore: routineStore,
             addExerciseCompletion: addExerciseCompletion,
@@ -80,24 +83,4 @@ public class WorkoutUIComposer {
         return AddExerciseView(viewModel: viewModel)
     }
     
-    
-    // super dismiss will dismiss from home composer (thus clearing out the entire workout modal)
-    // dismiss will just dismiss from the workout composer (thus going back to the original workout view)
-    func makeCreateRoutineView(
-        routineRecord: RoutineRecord,
-        superDismiss: @escaping () -> Void
-    ) -> CreateRoutineView {
-
-        let viewModel = CreateRoutineViewModel(
-            routineStore: routineStore,
-            routineRecord: routineRecord,
-            dismiss: { [weak self] in
-                print("workout view dismiss")
-                self?.navigationFlow.dismiss()
-            },
-            superDismiss: superDismiss
-        )
-        
-        return CreateRoutineView(viewModel: viewModel)
-    }
 }

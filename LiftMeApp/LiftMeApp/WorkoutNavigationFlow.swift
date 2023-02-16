@@ -51,10 +51,12 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
     
     
     let workoutUIComposer: WorkoutUIComposer
+    let createRoutineUIComposer: CreateRoutineUIComposer
     
-    init(workoutUIComposer: WorkoutUIComposer) {
+    init(workoutUIComposer: WorkoutUIComposer, createRoutineUIComposer: CreateRoutineUIComposer) {
         
         self.workoutUIComposer = workoutUIComposer
+        self.createRoutineUIComposer = createRoutineUIComposer
     }
     
     // TODO: Make the SheetyIdentifier a CurrentValueSubject to be more resilient to coding errors
@@ -76,7 +78,8 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
                     dismiss: dismiss
                 )
             case let .createRoutineView(routineRecord, superDismiss):
-                workoutUIComposer.makeCreateRoutineView(
+                
+                createRoutineUIComposer.makeCreateRoutineViewWithSheetyNavigation(
                     routineRecord: routineRecord,
                     superDismiss: superDismiss
                 )

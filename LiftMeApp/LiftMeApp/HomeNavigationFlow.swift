@@ -24,13 +24,17 @@ class HomeNavigationFlow: SheetyNavigationFlow {
     
     let homeUIComposer: HomeUIComposer
     let workoutUIComposer: WorkoutUIComposer
+    let createRoutineUIComposer: CreateRoutineUIComposer
     
     
     init(homeUIComposer: HomeUIComposer,
-         workoutUIComposer: WorkoutUIComposer) {
+         workoutUIComposer: WorkoutUIComposer,
+         createRoutineUIComposer: CreateRoutineUIComposer
+    ) {
         
         self.homeUIComposer = homeUIComposer
         self.workoutUIComposer = workoutUIComposer
+        self.createRoutineUIComposer = createRoutineUIComposer
     }
     
     
@@ -47,7 +51,10 @@ class HomeNavigationFlow: SheetyNavigationFlow {
             switch identifier {
                 
             case .createRoutine:
-                homeUIComposer.makeCreateRoutineView()
+                createRoutineUIComposer.makeCreateRoutineViewWithSheetyNavigation(
+                    routineRecord: nil,
+                    superDismiss: self.dismiss
+                )
                 
             case let .workout(routine):
                 workoutUIComposer.makeWorkoutViewWithSheetyNavigation(
