@@ -7,6 +7,7 @@
 
 import RoutineRepository
 import SwiftUI
+import Combine
 
 public class RoutineListViewModel: ObservableObject {
     
@@ -14,10 +15,15 @@ public class RoutineListViewModel: ObservableObject {
     let goToCreateRoutine: () -> Void
     let goToWorkoutView: (Routine) -> Void
     
+    let routineUIDataSource: RoutineDataSource
+    
     // TODO: Could I make this a future instead since it should only be emitted once
-    @Published var firstLoadCompleted = false
+//    @Published var firstLoadCompleted = false
     @Published var routineLoadError = false
+    
     @Published var routines = [Routine]()
+    
+    var cancellables = Set<AnyCancellable>()
     
     
     public init(routineStore: RoutineStore,
@@ -27,25 +33,46 @@ public class RoutineListViewModel: ObservableObject {
         self.routineStore = routineStore
         self.goToCreateRoutine = goToCreateRoutine
         self.goToWorkoutView = goToWorkoutView
-    }
-    
-    
-    public func loadRoutines() {
-        routineStore.readAllRoutines() { [weak self] result in
         
-            if self?.firstLoadCompleted == false {
-                self?.firstLoadCompleted = true
-            }
-            
-            switch result {
-            case let .success(routines):
-                self?.routines = routines
-                
-            case .failure:
-                self?.routineLoadError = true
-            }
-        }
+        self.routineUIDataSource = routineStore.routineDataSource()
+        
+        bindRoutinesToRoutineUIDataSource()
     }
+    
+    
+    func bindRoutinesToRoutineUIDataSource() {
+        
+        routineUIDataSource.routines
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] error in
+                
+                self?.routineLoadError = true
+                
+            }, receiveValue: { [weak self] routines in
+                
+                print("BOYCE: Setting routines value to \(routines)")
+                self?.routines = routines
+            })
+            .store(in: &cancellables)
+    }
+    
+    
+//    public func loadRoutines() {
+//        routineStore.readAllRoutines() { [weak self] result in
+//
+//            if self?.firstLoadCompleted == false {
+//                self?.firstLoadCompleted = true
+//            }
+//
+//            switch result {
+//            case let .success(routines):
+//                self?.routines = routines
+//
+//            case .failure:
+//                self?.routineLoadError = true
+//            }
+//        }
+//    }
     
     
     func tappedNewButton() {
@@ -125,9 +152,9 @@ public struct RoutineListView: View {
             
             ScrollableRoutineListView(viewModel: viewModel)
         }
-        .onAppear {
-            viewModel.loadRoutines()
-        }
+//        .onAppear {
+//            viewModel.loadRoutines()
+//        }
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
         }
@@ -247,7 +274,7 @@ public struct ScrollableRoutineListView: View {
             
             LazyHStack(spacing: 12) {
                 
-                if viewModel.firstLoadCompleted {
+//                if viewModel.firstLoadCompleted {
                     
                     if viewModel.routineLoadError {
                         ErrorRoutineCellView()
@@ -265,7 +292,7 @@ public struct ScrollableRoutineListView: View {
                             }
                         }
                     }
-                }
+//                }
             }
             .padding(.leading)
             .frame(height: 160)

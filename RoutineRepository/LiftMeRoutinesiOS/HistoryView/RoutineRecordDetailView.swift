@@ -19,7 +19,7 @@ public class RoutineRecordDetailViewModel: ObservableObject {
         dateFormatter.timeStyle = .short
         return dateFormatter
     }()
-    
+
     
     var creationDateString: String {
         return dateFormatter.string(from: routineRecord.creationDate)
@@ -36,7 +36,12 @@ public class RoutineRecordDetailViewModel: ObservableObject {
     
     
     public init(routineRecord: RoutineRecord) {
+        print("init routine record detail")
         self.routineRecord = routineRecord
+    }
+    
+    deinit {
+        print("deinit routine record detail")
     }
     
 }

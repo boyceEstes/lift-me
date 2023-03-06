@@ -22,6 +22,7 @@ public class ExerciseDetailViewModel: ObservableObject {
         self.exercise = exercise
         
         print("Initialized \(exercise.name) viewModel")
+        readExerciseRecordsForExercise()
     }
     
     deinit {
@@ -31,6 +32,7 @@ public class ExerciseDetailViewModel: ObservableObject {
     
     func readExerciseRecordsForExercise() {
         
+        print("read called")
         routineStore.readExerciseRecords(for: exercise) { [weak self] result in
             
             guard let self = self else {
@@ -99,7 +101,7 @@ public struct ExerciseDetailView: View {
             self.inspection.visit(self, $0)
         }
         .onAppear {
-            viewModel.readExerciseRecordsForExercise()
+//            viewModel.readExerciseRecordsForExercise()
         }
     }
 }

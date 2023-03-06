@@ -7,9 +7,15 @@
 
 import Foundation
 import RoutineRepository
+import Combine
 
 // TODO: Figure out a way to make the RootView unnecessary so that we can keep this internal for the LiftMeiOS
+class RoutineDataSourcePreview: RoutineDataSource {
+    var routines = CurrentValueSubject<[RoutineRepository.Routine], Error>([])
+}
+
 public class RoutineStorePreview: RoutineStore {
+    
     public func readExerciseRecords(for exercise: RoutineRepository.Exercise, completion: @escaping ReadExerciseRecordsCompletion) {
         print("")
     }
@@ -29,6 +35,11 @@ public class RoutineStorePreview: RoutineStore {
     // MARK: - Routines
     public func createUniqueRoutine(_ routine: Routine, completion: @escaping RoutineStore.CreateRoutineCompletion) {
         completion(nil)
+    }
+    
+    
+    public func routineDataSource() -> RoutineDataSource {
+        return RoutineDataSourcePreview()
     }
     
     

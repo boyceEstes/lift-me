@@ -222,7 +222,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
 
         let workoutUIComposer = WorkoutUIComposerWithSpys()
         let workoutNavigationFlow = workoutUIComposer.navigationFlow
-        let sut = workoutUIComposer.makeWorkoutView()
+        let sut = workoutUIComposer.makeWorkoutView(routine: nil, dismiss: { })
         let routineStore: RoutineStoreSpy = workoutUIComposer.routineStore as! RoutineStoreSpy
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)

@@ -39,7 +39,7 @@ final class HomeViewUIIntegrationTests: XCTestCase {
         // then
         XCTAssertEqual(
             homeNavigationFlow.modallyDisplayedView,
-            HomeNavigationFlow.SheetyIdentifier.workout
+            HomeNavigationFlow.SheetyIdentifier.workout(nil)
         )
     }
     

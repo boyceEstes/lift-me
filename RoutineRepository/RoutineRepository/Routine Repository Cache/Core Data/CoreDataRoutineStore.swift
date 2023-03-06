@@ -192,22 +192,3 @@ private extension NSManagedObjectModel {
     }
 }
 
-
-private extension Array where Element == ManagedRoutine {
-    func toModel() -> [Routine] {
-        map { $0.toModel() }
-    }
-}
-
-
-private extension ManagedRoutine {
-    
-    func toModel() -> Routine {
-        Routine(
-            id: self.id,
-            name: self.name,
-            creationDate: self.creationDate,
-            exercises: self.exercises?.toModel() ?? [],
-            routineRecords: self.routineRecords?.toModel() ?? [])
-    }
-}

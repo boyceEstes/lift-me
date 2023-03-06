@@ -105,26 +105,13 @@ class RoutineListUIIntegrationTests: XCTestCase {
         
         XCTAssertTrue(routineRepository.requests.isEmpty)
     }
-    
-    
-    func test_routineListView_viewWillAppear_requestsToLoadRoutines() {
         
-        let (sut, routineRepository, _) = makeSUT()
-        
-        let exp = sut.inspection.inspect { view in
-            XCTAssertEqual(routineRepository.requests, [.loadAllRoutines])
-        }
-        
-        ViewHosting.host(view: sut)
-        
-        wait(for: [exp], timeout: 1)
-    }
-    
     
     func test_routineListView_loadRoutineCompletionWithRoutines_willRenderRoutines() throws {
         
         // given
         let (sut, routineRepository, _) = makeSUT()
+        print("BOYCE: loading completion with routines")
         let routines = [uniqueRoutine(), uniqueRoutine(), uniqueRoutine(), uniqueRoutine()]
         
         let exp = sut.inspection.inspect { sut in
@@ -154,18 +141,13 @@ class RoutineListUIIntegrationTests: XCTestCase {
         
         // given
         let (sut, routineRepository, _) = makeSUT()
+        print("BOYCE: loading completion with no routines")
         let expectedNoRoutinesMessage = "Aww shucks. No routines yet."
         
         let exp = sut.inspection.inspect { sut in
             
-            // basecase
-            let cellsBeforeRoutineLoad = sut.findAll(EmptyRoutineCellView.self)
-            XCTAssertTrue(cellsBeforeRoutineLoad.isEmpty)
-            
-            // when
-            routineRepository.completeRoutineLoadingWithNoRoutines()
-            
-            // then
+            // when/then
+            // By default there should be an empty routines from the data source
             let cellsAfterRoutineLoad = sut.findAll(EmptyRoutineCellView.self)
             XCTAssertEqual(cellsAfterRoutineLoad.count, 1)
             let _ = try cellsAfterRoutineLoad.first!.find(text: expectedNoRoutinesMessage)
@@ -181,6 +163,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
         
         // given
         let (sut, routineRepository, _) = makeSUT()
+        print("BOYCE: loading completion with error")
         let error = anyNSError()
         let expectedRoutineErrorMessage = "Error loading routines... dang"
         

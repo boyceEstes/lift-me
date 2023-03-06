@@ -21,19 +21,16 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
     }
     
     
-    func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
-        // TODO: Doesn't matter because its not used
+    func routineDataSource() -> RoutineRepository.RoutineDataSource {
+        
+        // TODO: Make this happen on the main queue
+        decoratee.routineDataSource()
     }
     
     
-    func readAllRoutines(completion: @escaping ReadRoutinesCompletion) {
-        decoratee.readAllRoutines { [weak self] result in
-            self?.dispatch {
-                completion(result)
-            }
-        }
-    }
-    
+//    func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
+//    }
+//
     
     // MARK: Routine Record
     func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, routine: RoutineRepository.Routine?, completion: @escaping CreateRoutineRecordCompletion) {

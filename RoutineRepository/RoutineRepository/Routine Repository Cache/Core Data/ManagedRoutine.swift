@@ -38,10 +38,21 @@ extension ManagedRoutine {
     }
     
     
-    public static func findRoutines(in context: NSManagedObjectContext) throws -> [ManagedRoutine] {
+    public static func findRoutinesRequest() -> NSFetchRequest<ManagedRoutine> {
         
         let request = ManagedRoutine.fetchRequest
         request.returnsObjectsAsFaults = false
+        
+        let sortDescriptor = NSSortDescriptor(keyPath: \ManagedRoutine.name, ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        return request
+    }
+    
+    
+    public static func findRoutines(in context: NSManagedObjectContext) throws -> [ManagedRoutine] {
+        
+        let request = findRoutinesRequest()
         
         return try context.fetch(request)
     }
@@ -100,6 +111,26 @@ extension ManagedRoutine {
 
 
 extension ManagedRoutine: Identifiable {}
+
+
+extension Array where Element == ManagedRoutine {
+    func toModel() -> [Routine] {
+        map { $0.toModel() }
+    }
+}
+
+
+private extension ManagedRoutine {
+    
+    func toModel() -> Routine {
+        Routine(
+            id: self.id,
+            name: self.name,
+            creationDate: self.creationDate,
+            exercises: self.exercises?.toModel() ?? [],
+            routineRecords: self.routineRecords?.toModel() ?? [])
+    }
+}
 
 
 private extension Array where Element == RoutineRecord {

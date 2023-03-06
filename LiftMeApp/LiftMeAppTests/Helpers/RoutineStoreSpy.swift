@@ -6,14 +6,38 @@
 //
 
 import Foundation
+import Combine
 import RoutineRepository
+
+
+class RoutineDataSourceSpy: RoutineDataSource {
+    
+    var routines = CurrentValueSubject<[Routine], Error>([])
+    
+    init() {
+        print("BOYCE: initialized routine data source spy")
+    }
+    
+    /*
+     
+     Create a routine data source
+     This is called on initializing the view-model. It will be initalized at every test
+     So it should always be empty at initialization
+     
+     Once we call some completeWith: method, it will then have that current value
+     
+     */
+}
+
+
+
+
 
 
 class RoutineStoreSpy: RoutineStore {
 
     enum ReceivedMessage: Equatable {
         case saveRoutine(Routine)
-        case loadAllRoutines
         case createRoutineRecord
         case readAllRoutineRecords
         case readAllExercises
@@ -25,7 +49,7 @@ class RoutineStoreSpy: RoutineStore {
     
     // MARK: - Routines
     
-    private(set) var loadAllRoutinesCompletions = [RoutineStore.ReadRoutinesCompletion]()
+    let routineDataSourceSpy = RoutineDataSourceSpy()
     private(set) var saveRoutineCompletions = [RoutineStore.CreateRoutineCompletion]()
     
     
@@ -34,25 +58,32 @@ class RoutineStoreSpy: RoutineStore {
         saveRoutineCompletions.append(completion)
     }
 
-    
-    func readAllRoutines(completion: @escaping ReadRoutinesCompletion) {
-        requests.append(.loadAllRoutines)
-        loadAllRoutinesCompletions.append(completion)
+
+    func routineDataSource() -> RoutineRepository.RoutineDataSource {
+        
+        print("BOYCE: Request routineDataSource")
+        return routineDataSourceSpy
     }
     
     
     func completeRoutineLoading(with error: Error, at index: Int = 0) {
-        loadAllRoutinesCompletions[index](.failure(error))
+//        loadAllRoutinesCompletions[index](.failure(error))
+        print("BOYCE: completing with error")
+        routineDataSourceSpy.routines.send(completion: .failure(error))
     }
     
     
     func completeRoutineLoadingWithNoRoutines(at index: Int = 0) {
-        loadAllRoutinesCompletions[index](.success([]))
+//        loadAllRoutinesCompletions[index](.success([]))
+        print("BOYCE: completing with no routines")
+        routineDataSourceSpy.routines.send([])
     }
     
     
     func completeRoutineLoading(with routines: [Routine], at index: Int = 0) {
-        loadAllRoutinesCompletions[index](.success(routines))
+//        loadAllRoutinesCompletions[index](.success(routines))
+        print("BOYCE: completing with routines")
+        routineDataSourceSpy.routines.send(routines)
     }
     
     
@@ -65,7 +96,9 @@ class RoutineStoreSpy: RoutineStore {
     
     private(set) var readAllRoutineRecordsCompletions = [RoutineStore.ReadAllRoutineRecordsCompletion]()
     
-    func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, completion: @escaping CreateRoutineRecordCompletion) {
+    
+    func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, routine: RoutineRepository.Routine?, completion: @escaping CreateRoutineRecordCompletion) {
+        // TODO: Test for saving a routine record AND a routine
         requests.append(.createRoutineRecord)
     }
     

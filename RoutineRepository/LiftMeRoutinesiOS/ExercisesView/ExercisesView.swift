@@ -15,11 +15,22 @@ public class ExercisesViewModel: ObservableObject {
     
     let routineStore: RoutineStore
     let goToExerciseDetailView: (Exercise) -> Void
+    let goToCreateExerciseView: () -> Void
     
-    public init(routineStore: RoutineStore, goToExerciseDetailView: @escaping (Exercise) -> Void) {
+    public init(
+        routineStore: RoutineStore,
+        goToExerciseDetailView: @escaping (Exercise) -> Void,
+        goToCreateExerciseView: @escaping () -> Void
+    ) {
         
+        print("init exercise viewmodel")
         self.routineStore = routineStore
         self.goToExerciseDetailView = goToExerciseDetailView
+        self.goToCreateExerciseView = goToCreateExerciseView
+    }
+    
+    deinit {
+        print("deinit exercise viewmodel")
     }
     
     
@@ -52,6 +63,10 @@ public struct ExercisesView: View {
     
     public var body: some View {
         VStack {
+            Button("Create Exercise") {
+                viewModel.goToCreateExerciseView()
+            }
+            
             List {
                 ForEach(viewModel.exercises, id: \.self) { exercise in
                     
@@ -77,6 +92,6 @@ public struct ExercisesView: View {
 
 struct ExercisesView_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisesView(viewModel: ExercisesViewModel(routineStore: RoutineStorePreview(), goToExerciseDetailView: { _ in }))
+        ExercisesView(viewModel: ExercisesViewModel(routineStore: RoutineStorePreview(), goToExerciseDetailView: { _ in }, goToCreateExerciseView: { }))
     }
 }

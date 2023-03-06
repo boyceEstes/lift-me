@@ -11,6 +11,7 @@
 		B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307E497287E78C600AFD1F0 /* AddExerciseView.swift */; };
 		B316B4A329494A5000EB490B /* ExerciseSelectionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B316B4A229494A5000EB490B /* ExerciseSelectionListView.swift */; };
 		B316B4A92949A36E00EB490B /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B316B4A82949A36E00EB490B /* SwiftUIView.swift */; };
+		B320DC4D29B05101006CCE03 /* CreateExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B320DC4C29B05101006CCE03 /* CreateExerciseView.swift */; };
 		B33D0FAE296FBAE300C2FB1E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAD296FBAE300C2FB1E /* WorkoutView.swift */; };
 		B3454C042874875600B017BB /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C032874875600B017BB /* ExerciseDetailView.swift */; };
 		B3454C06287487C300B017BB /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3454C05287487C300B017BB /* Exercise.swift */; };
@@ -31,6 +32,7 @@
 		B307E497287E78C600AFD1F0 /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
 		B316B4A229494A5000EB490B /* ExerciseSelectionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseSelectionListView.swift; sourceTree = "<group>"; };
 		B316B4A82949A36E00EB490B /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		B320DC4C29B05101006CCE03 /* CreateExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseView.swift; sourceTree = "<group>"; };
 		B33D0FAD296FBAE300C2FB1E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		B3454C032874875600B017BB /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
 		B3454C05287487C300B017BB /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				B3454C05287487C300B017BB /* Exercise.swift */,
 				B307E47928752A2600AFD1F0 /* AddExerciseRecordView.swift */,
 				B307E497287E78C600AFD1F0 /* AddExerciseView.swift */,
+				B320DC4C29B05101006CCE03 /* CreateExerciseView.swift */,
 			);
 			path = Exercises;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 				B36891362914636A00E04957 /* UIColor+LightAndDarkMode.swift in Sources */,
 				B316B4A92949A36E00EB490B /* SwiftUIView.swift in Sources */,
 				B307E498287E78C600AFD1F0 /* AddExerciseView.swift in Sources */,
+				B320DC4D29B05101006CCE03 /* CreateExerciseView.swift in Sources */,
 				B316B4A329494A5000EB490B /* ExerciseSelectionListView.swift in Sources */,
 				B368913029145E0000E04957 /* HomeView.swift in Sources */,
 				B3AF3F4D28FA58A000549473 /* RoutineListView.swift in Sources */,

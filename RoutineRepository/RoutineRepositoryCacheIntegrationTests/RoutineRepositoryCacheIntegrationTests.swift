@@ -69,14 +69,14 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
     }
     
     
-    func test_localRoutineStore_saveAndSaveRoutineWithNoMatchingRoutine_deliversBothSavedRoutines() {
+    func test_localRoutineStore_saveAndSaveRoutineWithNoMatchingRoutine_deliversBothSavedRoutinesOrderedByName() {
         
         let sutToPerformSave1 = makeSUT()
         let sutToPerformSave2 = makeSUT()
         let sutToPerformLoad = makeSUT()
         
-        let routine1 = uniqueRoutine(exercises: [])
-        let routine2 = uniqueRoutine(exercises: [])
+        let routine1 = uniqueRoutine(name: "A name", exercises: [])
+        let routine2 = uniqueRoutine(name: "B name", exercises: [])
         
         XCTAssertNil(save(routine1, on: sutToPerformSave1))
         XCTAssertNil(save(routine2, on: sutToPerformSave2))
@@ -118,20 +118,7 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
     
     private func expect(_ sut: RoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
         
-        let expLoad = expectation(description: "Wait for loadAllRoutines completion")
-        
-        sut.readAllRoutines { result in
-            switch (result, expectedResult) {
-            case let (.success(routines), .success(expectedRoutines)):
-                XCTAssertEqual(routines, expectedRoutines, file: file, line: line)
-                
-            default:
-                XCTFail("Expected \(expectedResult) to be returned, got \(result) instead", file: file, line: line)
-            }
-            expLoad.fulfill()
-        }
-        
-        wait(for: [expLoad], timeout: 1)
+        XCTAssertEqual(sut.routineDataSource().routines.value, try? expectedResult.get(), file: file, line: line)
     }
     
     

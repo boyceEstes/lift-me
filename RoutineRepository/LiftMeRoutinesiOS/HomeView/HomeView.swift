@@ -44,9 +44,6 @@ public struct HomeView: View {
             Spacer()
         }
         .navigationTitle("Home")
-        .onAppear {
-            routineListView.viewModel.loadRoutines()
-        }
     }
 }
 

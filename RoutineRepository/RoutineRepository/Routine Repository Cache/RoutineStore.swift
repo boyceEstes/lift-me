@@ -51,7 +51,8 @@ public protocol RoutineStore {
     
     // Routines
     func createUniqueRoutine(_ routine: Routine, completion: @escaping CreateRoutineCompletion)
-    func readAllRoutines(completion: @escaping ReadRoutinesCompletion)
+//    func readAllRoutines(completion: @escaping ReadRoutinesCompletion)
+    func routineDataSource() -> RoutineDataSource
     
     // Routine Records
     func createRoutineRecord(_ routineRecord: RoutineRecord, routine: Routine?, completion: @escaping CreateRoutineRecordCompletion)

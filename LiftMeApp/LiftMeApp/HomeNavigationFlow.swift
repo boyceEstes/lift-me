@@ -13,7 +13,7 @@ import RoutineRepository
 
 class HomeNavigationFlow: SheetyNavigationFlow {
     
-    enum SheetyIdentifier: Identifiable {
+    enum SheetyIdentifier: Identifiable, Equatable {
         
         var id: Int { UUID().hashValue }
 

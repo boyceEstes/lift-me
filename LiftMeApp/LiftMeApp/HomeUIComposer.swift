@@ -63,13 +63,11 @@ public class HomeUIComposer {
     
     func makeRoutineListWithSheetyNavigation() -> SheetyNavigationView<RoutineListView, HomeNavigationFlow> {
         
-        let (routineListView, routineListViewModel) = makeRoutineListView()
+        let (routineListView, _) = makeRoutineListView()
         return SheetyNavigationView(
             sheetyNavigationViewModel: navigationFlow,
             content: routineListView,
-            onDismiss: {
-                routineListViewModel.loadRoutines()
-            }
+            onDismiss: nil
         )
     }
     

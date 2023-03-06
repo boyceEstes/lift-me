@@ -24,7 +24,10 @@ struct RootView: View {
             routineStore: routineStore,
             createRoutineUIComposer: createRoutineUIComposer
         )
+        
+        // Initialize ExercisesNavigationFlow with a weak reference to the composer
         self.exerciseUIComposer = ExerciseUIComposer(routineStore: routineStore)
+        
         self.historyUIComposer = HistoryUIComposer(routineStore: routineStore)
     }
     
@@ -36,7 +39,7 @@ struct RootView: View {
                     Label("Home", systemImage: "house")
                 }
             
-            exerciseUIComposer.makeExercisesViewWithStackNavigation()
+            exerciseUIComposer.makeExercisesViewWithSheetyStackNavigation()
                 .tabItem {
                     Label("Exercises", systemImage: "dumbbell")
                 }

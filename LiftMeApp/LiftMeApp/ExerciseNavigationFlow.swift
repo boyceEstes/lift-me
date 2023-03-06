@@ -11,34 +11,53 @@ import RoutineRepository
 import SwiftUI
 
 
-class ExerciseNavigationFlow: StackNavigationFlow {
+class ExerciseNavigationFlow: SheetyStackNavigationFlow {
     
     enum StackIdentifier: Hashable {
         case exerciseListView
         case exerciseDetailView(exercise: Exercise)
     }
     
-    let exerciseUIComposer: ExerciseUIComposer
+    
+    enum SheetyIdentifier: Identifiable {
+        
+        var id: Int { self.hashValue }
+        
+        case createExerciseView
+    }
+    
+    
+    weak var exerciseUIComposer: ExerciseUIComposer?
+    
     
     @Published var path = [StackIdentifier]()
+    @Published var modallyDisplayedView: SheetyIdentifier? = nil
     
-    init(exerciseUIComposer: ExerciseUIComposer) {
-        
+    
+    init(exerciseUIComposer: ExerciseUIComposer?) {
         self.exerciseUIComposer = exerciseUIComposer
     }
     
     
     func pushToStack(_ identifier: StackIdentifier) -> some View {
-        
+
         return Group {
             switch identifier {
             case .exerciseListView:
-                exerciseUIComposer.makeExercisesViewWithStackNavigation()
-                
+                exerciseUIComposer?.makeExercisesViewWithSheetyStackNavigation()
+
             case let .exerciseDetailView(exercise):
-                exerciseUIComposer.makeExerciseDetailViewWithStackNavigation(exercise: exercise)
+                exerciseUIComposer?.makeExerciseDetailViewWithStackNavigation(exercise: exercise)
             }
         }
-
+    }
+    
+    
+    func displaySheet(for identifier: SheetyIdentifier) -> some View {
+        
+        switch identifier {
+        case .createExerciseView: return exerciseUIComposer?.makeCreateExerciseView()
+        }
     }
 }
+

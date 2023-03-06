@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B30E83C5291EB36B00A19724 /* CreateRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */; };
 		B313A4412901805B00740E61 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
+		B320DC4B29B0506E006CCE03 /* CreateExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B320DC4A29B0506E006CCE03 /* CreateExerciseView.swift */; };
+		B320DC5529B1AB68006CCE03 /* RoutineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B320DC5429B1AB68006CCE03 /* RoutineDataSource.swift */; };
 		B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3290870298196DC008350B1 /* RoutineStorePreview.swift */; };
 		B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */; };
 		B32CADF128FEF53D00B154BD /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
@@ -108,6 +110,8 @@
 
 /* Begin PBXFileReference section */
 		B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineView.swift; sourceTree = "<group>"; };
+		B320DC4A29B0506E006CCE03 /* CreateExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseView.swift; sourceTree = "<group>"; };
+		B320DC5429B1AB68006CCE03 /* RoutineDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDataSource.swift; sourceTree = "<group>"; };
 		B3290870298196DC008350B1 /* RoutineStorePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStorePreview.swift; sourceTree = "<group>"; };
 		B32CADED28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RoutineRepositoryCacheIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineRepositoryCacheIntegrationTests.swift; sourceTree = "<group>"; };
@@ -200,6 +204,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B320DC4929B04EA0006CCE03 /* CreateRoutineView */ = {
+			isa = PBXGroup;
+			children = (
+				B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */,
+			);
+			path = CreateRoutineView;
+			sourceTree = "<group>";
+		};
+		B320DC4E29B0F463006CCE03 /* CreateExerciseView */ = {
+			isa = PBXGroup;
+			children = (
+				B320DC4A29B0506E006CCE03 /* CreateExerciseView.swift */,
+			);
+			path = CreateExerciseView;
+			sourceTree = "<group>";
+		};
+		B320DC5329B1AB43006CCE03 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				B320DC5429B1AB68006CCE03 /* RoutineDataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
 		B32CADEE28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,13 +239,14 @@
 		B32CAE0028FF4A2F00B154BD /* LiftMeRoutinesiOS */ = {
 			isa = PBXGroup;
 			children = (
+				B320DC4E29B0F463006CCE03 /* CreateExerciseView */,
+				B320DC4929B04EA0006CCE03 /* CreateRoutineView */,
 				B3692CD52999C07A00D9BD05 /* ExercisesView */,
 				B3692CBF2999897400D9BD05 /* HistoryView */,
 				B33D0FA6296F80C400C2FB1E /* HomeView */,
 				B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */,
 				B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */,
 				B34588AF290617BA006ED45C /* RoutineListView.swift */,
-				B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */,
 				B34588B1290617ED006ED45C /* Inspection.swift */,
 				B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */,
 				B34588B529061C2B006ED45C /* Color+LiftMeThemeColors.swift */,
@@ -343,6 +372,7 @@
 		B3D29C7228F8790D006CC77D /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				B320DC5329B1AB43006CCE03 /* DataSources */,
 				B3679FC929949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift */,
 				B3692CB4299950CA00D9BD05 /* ManagedSetRecord.swift */,
 				B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */,
@@ -589,6 +619,7 @@
 				B3692CC12999898100D9BD05 /* HistoryView.swift in Sources */,
 				B3692CDE2999CFC900D9BD05 /* ExerciseDetailView.swift in Sources */,
 				B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */,
+				B320DC4B29B0506E006CCE03 /* CreateExerciseView.swift in Sources */,
 				B3692CCF2999A20A00D9BD05 /* RoutineRecordDetailView.swift in Sources */,
 				B34588B2290617ED006ED45C /* Inspection.swift in Sources */,
 				B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */,
@@ -617,6 +648,7 @@
 				B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */,
 				B3D29C0628F1EE3B006CC77D /* Exercise.swift in Sources */,
 				B3A74CDB2972141500A376AC /* CoreDataRoutineStore+Exercise.swift in Sources */,
+				B320DC5529B1AB68006CCE03 /* RoutineDataSource.swift in Sources */,
 				B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */,
 				B3692CE32999D6BE00D9BD05 /* CoreDataRoutineStore+ExerciseRecord.swift in Sources */,
 				B35D53912999F9C00043DC52 /* CoreDataRoutineStore+Routine.swift in Sources */,
