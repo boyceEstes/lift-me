@@ -12,7 +12,9 @@ import Combine
 extension DispatchQueueMainDecorator: RoutineDataSource where T == RoutineDataSource {
     
     var routines: AnyPublisher<[Routine], Error> {
-        decoratee.routines.eraseToAnyPublisher()
+        decoratee.routines
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
 }
 
