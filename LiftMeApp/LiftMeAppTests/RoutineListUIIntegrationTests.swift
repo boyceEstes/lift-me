@@ -7,12 +7,12 @@
 
 import XCTest
 import RoutineRepository
-import LiftMeRoutinesiOS
+@testable import LiftMeRoutinesiOS
 import SwiftUI
 import ViewInspector
 import NavigationFlow
 @testable import LiftMeApp
-
+import Combine
 
 /*
  * // TODO: Add accessibility identifiers
@@ -105,34 +105,88 @@ class RoutineListUIIntegrationTests: XCTestCase {
         
         XCTAssertTrue(routineRepository.requests.isEmpty)
     }
+    
+    
+    func test_routineList_loadRoutineCompletionWithRoutines2_willRenderRoutines() {
+        
+        // given
+        DispatchQueue.main.async {
+            do {
+                let routineStore = RoutineStoreSpy()
+                let viewModel = RoutineListViewModel(routineStore: routineStore, goToCreateRoutine: {}, goToWorkoutView: { _ in })
+                let sut = RoutineListView(viewModel: viewModel)
+
+                // On initialization routineStoreSpy should be initialized with no routines
+
+                let cellsBeforeRoutineLoad = try sut.inspect().findAll(RoutineCellView.self)
+                XCTAssertEqual(cellsBeforeRoutineLoad.count, 0)
+
+                // when
+                let routines = [uniqueRoutine(), uniqueRoutine(), uniqueRoutine(), uniqueRoutine()]
+                routineStore.completeRoutineLoading(with: routines)
+
+                // then
+                let cells = try sut.inspect().findAll(RoutineCellView.self)
+                XCTAssertEqual(cells.count, routines.count)
+            } catch {
+                XCTFail("Test failed with error: \(error)")
+            }
+        }
+    }
+    
+    
+    func test_simple() {
+
+        let routineStore = RoutineStoreSpy()
+//        let viewModel = MyViewModel(routineStore: routineStore)
+        let viewModel = RoutineListViewModel(routineStore: routineStore, goToCreateRoutine: {}, goToWorkoutView: { _ in })
+        
+//        routineStore.routineDataSource().routines.sink { error in
+//            print("BOYCE2: \(error)")
+//        } receiveValue: { routines in
+//            print("BOYCE2: \(routines)")
+//        }.store(in: &cancellables)
+
+        routineStore.completeRoutineLoading(with: [uniqueRoutine()])
+    }
         
     
     func test_routineListView_loadRoutineCompletionWithRoutines_willRenderRoutines() throws {
         
         // given
-        let (sut, routineRepository, _) = makeSUT()
+//        let (sut, routineStore, _) = makeSUT()
+        let routineStore = RoutineStoreSpy()
+        let viewModel = RoutineListViewModel(routineStore: routineStore, goToCreateRoutine: {}, goToWorkoutView: { _ in })
+        let sut = RoutineListView(viewModel: viewModel)
         print("BOYCE: loading completion with routines")
         let routines = [uniqueRoutine(), uniqueRoutine(), uniqueRoutine(), uniqueRoutine()]
-        
-        let exp = sut.inspection.inspect { sut in
-            
+
+        let exp = sut.inspection.inspect { [unowned self] sut in
+
             let cellsBeforeRoutineLoad = sut.findAll(RoutineCellView.self)
             XCTAssertTrue(cellsBeforeRoutineLoad.isEmpty)
+
+            // This is updating on the main queue, this might take longer to finish than we have
+            routineStore.completeRoutineLoading(with: routines)
             
-            routineRepository.completeRoutineLoading(with: routines)
+//            let exp2 = self.expectation(description: "Wait for routines to be set")
+            
+//            wait(for: [exp2], timeout: 1)
+            print("BOYCE: After the complete loading has happened: \(viewModel.routines)")
+
             
             let cellsAfterRoutineLoad = sut.findAll(RoutineCellView.self)
             XCTAssertEqual(cellsAfterRoutineLoad.count, routines.count)
-            
+
             for (index, routineCellView) in cellsAfterRoutineLoad.enumerated() {
-                
+
                 let expectedRoutineName = routines[index].name
                 let _ = try routineCellView.find(text: "\(expectedRoutineName)")
             }
         }
-        
+
         ViewHosting.host(view: sut)
-        
+
         wait(for: [exp], timeout: 1)
     }
     
@@ -140,14 +194,14 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_loadRoutineCompletionWithoutRoutines_willRenderNoRoutinesMessage() throws {
         
         // given
-        let (sut, routineRepository, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
         print("BOYCE: loading completion with no routines")
         let expectedNoRoutinesMessage = "Aww shucks. No routines yet."
         
         let exp = sut.inspection.inspect { sut in
             
             // when/then
-            // By default there should be an empty routines from the data source
+            // By default there should be an empty routine cell view
             let cellsAfterRoutineLoad = sut.findAll(EmptyRoutineCellView.self)
             XCTAssertEqual(cellsAfterRoutineLoad.count, 1)
             let _ = try cellsAfterRoutineLoad.first!.find(text: expectedNoRoutinesMessage)
@@ -162,7 +216,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_loadRoutineCompletionWithError_willRenderErrorRoutineCell() throws {
         
         // given
-        let (sut, routineRepository, _) = makeSUT()
+        let (sut, routineStore, _) = makeSUT()
         print("BOYCE: loading completion with error")
         let error = anyNSError()
         let expectedRoutineErrorMessage = "Error loading routines... dang"
@@ -174,7 +228,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
             XCTAssertTrue(cellsBeforeRoutineLoad.isEmpty)
             
             // when
-            routineRepository.completeRoutineLoading(with: error)
+            routineStore.completeRoutineLoading(with: error)
             
             // then
             let cellsAfterRoutineLoad = sut.findAll(ErrorRoutineCellView.self)
@@ -249,12 +303,12 @@ class RoutineListUIIntegrationTests: XCTestCase {
         let homeUIComposer = HomeUIComposerWithSpys()
         let routineNavigationFlow = homeUIComposer.navigationFlow
         let sut = homeUIComposer.makeRoutineListView().0
-        let routineRepository: RoutineStoreSpy = homeUIComposer.routineStore as! RoutineStoreSpy
+        let routineStore: RoutineStoreSpy = homeUIComposer.routineStore as! RoutineStoreSpy
         
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, routineRepository, routineNavigationFlow)
+        return (sut, routineStore, routineNavigationFlow)
     }
 }
 

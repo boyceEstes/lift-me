@@ -74,6 +74,12 @@ class ExerciseUIComposer {
     }
     
     
+    func makeCreateExerciseViewWithStackNavigation() -> StackNavigationView<CreateExerciseView, ExerciseNavigationFlow> {
+        
+        StackNavigationView(stackNavigationViewModel: navigationFlow, content: makeCreateExerciseView())
+    }
+    
+    
     func makeCreateExerciseView() -> CreateExerciseView {
         
         return CreateExerciseView()

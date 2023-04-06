@@ -9,18 +9,46 @@ import RoutineRepository
 import SwiftUI
 import Combine
 
+class MyViewModel: ObservableObject {
+    
+    let routineStore: RoutineStore
+    var cancellables = Set<AnyCancellable>()
+    
+    @Published var routines = [Routine]()
+    @Published var routineLoadingError = false
+    
+    init(routineStore: RoutineStore) {
+        
+        self.routineStore = routineStore
+        
+        bindDataSource()
+    }
+    
+    
+    func bindDataSource() {
+        
+        routineStore.routineDataSource().routines.sink { error in
+            print("BOYCE: 2 Error")
+            self.routineLoadingError = true
+        } receiveValue: { routines in
+            print("BOYCE: 2 Routines \(routines)")
+            self.routines = routines
+        }.store(in: &cancellables)
+    }
+}
+
+
 public class RoutineListViewModel: ObservableObject {
     
     let routineStore: RoutineStore
     let goToCreateRoutine: () -> Void
     let goToWorkoutView: (Routine) -> Void
     
-    let routineUIDataSource: RoutineDataSource
+//    let routineUIDataSource: RoutineDataSource
     
     // TODO: Could I make this a future instead since it should only be emitted once
 //    @Published var firstLoadCompleted = false
-    @Published var routineLoadError = false
-    
+    @Published var routineLoadingError = false
     @Published var routines = [Routine]()
     
     var cancellables = Set<AnyCancellable>()
@@ -34,46 +62,25 @@ public class RoutineListViewModel: ObservableObject {
         self.goToCreateRoutine = goToCreateRoutine
         self.goToWorkoutView = goToWorkoutView
         
-        self.routineUIDataSource = routineStore.routineDataSource()
+//        self.routineUIDataSource = routineStore.routineDataSource()
         
-        bindRoutinesToRoutineUIDataSource()
+//        bindRoutinesToRoutineUIDataSource()
+        bindDataSource()
     }
     
     
-    func bindRoutinesToRoutineUIDataSource() {
+    func bindDataSource() {
         
-        routineUIDataSource.routines
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { [weak self] error in
-                
-                self?.routineLoadError = true
-                
-            }, receiveValue: { [weak self] routines in
-                
-                print("BOYCE: Setting routines value to \(routines)")
-                self?.routines = routines
-            })
-            .store(in: &cancellables)
+        routineStore.routineDataSource().routines
+            .sink { [weak self] error in
+            print("BOYCE: 2 Error")
+            self?.routineLoadingError = true
+        } receiveValue: { [weak self] routines in
+            print("BOYCE: 2 Routines \(routines)")
+            self?.routines = routines
+        }.store(in: &cancellables)
     }
-    
-    
-//    public func loadRoutines() {
-//        routineStore.readAllRoutines() { [weak self] result in
-//
-//            if self?.firstLoadCompleted == false {
-//                self?.firstLoadCompleted = true
-//            }
-//
-//            switch result {
-//            case let .success(routines):
-//                self?.routines = routines
-//
-//            case .failure:
-//                self?.routineLoadError = true
-//            }
-//        }
-//    }
-    
+
     
     func tappedNewButton() {
         goToCreateRoutine()
@@ -276,7 +283,7 @@ public struct ScrollableRoutineListView: View {
                 
 //                if viewModel.firstLoadCompleted {
                     
-                    if viewModel.routineLoadError {
+                    if viewModel.routineLoadingError {
                         ErrorRoutineCellView()
                     } else {
                         

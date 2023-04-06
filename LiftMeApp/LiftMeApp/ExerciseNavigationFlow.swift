@@ -56,7 +56,7 @@ class ExerciseNavigationFlow: SheetyStackNavigationFlow {
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
         
         switch identifier {
-        case .createExerciseView: return exerciseUIComposer?.makeCreateExerciseView()
+        case .createExerciseView: return exerciseUIComposer?.makeCreateExerciseViewWithStackNavigation()
         }
     }
 }

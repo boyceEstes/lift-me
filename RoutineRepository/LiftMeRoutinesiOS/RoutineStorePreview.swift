@@ -11,7 +11,7 @@ import Combine
 
 // TODO: Figure out a way to make the RootView unnecessary so that we can keep this internal for the LiftMeiOS
 class RoutineDataSourcePreview: RoutineDataSource {
-    var routines = CurrentValueSubject<[RoutineRepository.Routine], Error>([])
+    var routines = CurrentValueSubject<[RoutineRepository.Routine], Error>([]).eraseToAnyPublisher()
 }
 
 public class RoutineStorePreview: RoutineStore {

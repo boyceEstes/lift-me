@@ -6,7 +6,15 @@
 //
 
 import RoutineRepository
+import Combine
 
+
+extension DispatchQueueMainDecorator: RoutineDataSource where T == RoutineDataSource {
+    
+    var routines: AnyPublisher<[Routine], Error> {
+        decoratee.routines.eraseToAnyPublisher()
+    }
+}
 
 extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
 
@@ -24,13 +32,14 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
     func routineDataSource() -> RoutineRepository.RoutineDataSource {
         
         // TODO: Make this happen on the main queue
-        decoratee.routineDataSource()
+        let unsafeRoutineDataSource = decoratee.routineDataSource()
+        return DispatchQueueMainDecorator<RoutineDataSource>(decoratee: unsafeRoutineDataSource)
     }
     
     
 //    func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
 //    }
-//
+    
     
     // MARK: Routine Record
     func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, routine: RoutineRepository.Routine?, completion: @escaping CreateRoutineRecordCompletion) {

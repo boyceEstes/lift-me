@@ -13,7 +13,10 @@ import Foundation
 class HomeUIComposerWithSpys: HomeUIComposer {
     
     convenience init() {
-        self.init(routineStore: RoutineStoreSpy(), createRoutineUIComposer: CreateRoutineUIComposerWithSpys())
+        self.init(
+            routineStore: RoutineStoreSpy(),
+            createRoutineUIComposer: CreateRoutineUIComposerWithSpys()
+        )
     }
 }
 

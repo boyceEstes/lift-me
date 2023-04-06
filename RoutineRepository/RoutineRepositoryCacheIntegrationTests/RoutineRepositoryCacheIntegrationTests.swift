@@ -118,7 +118,13 @@ class RoutineRepositoryCacheIntegrationTests: XCTestCase {
     
     private func expect(_ sut: RoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {
         
-        XCTAssertEqual(sut.routineDataSource().routines.value, try? expectedResult.get(), file: file, line: line)
+        let _ = sut.routineDataSource().routines.sink { error in
+            XCTFail("Expected \(expectedResult), but got \(error) instead")
+        } receiveValue: { routines in
+            XCTAssertEqual(routines, try? expectedResult.get(), file: file, line: line)
+        }
+
+//        XCTAssertEqual(sut.routineDataSource().routines.value, try? expectedResult.get(), file: file, line: line)
     }
     
     

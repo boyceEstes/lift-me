@@ -12,25 +12,11 @@ import RoutineRepository
 
 class RoutineDataSourceSpy: RoutineDataSource {
     
-    var routines = CurrentValueSubject<[Routine], Error>([])
-    
-    init() {
-        print("BOYCE: initialized routine data source spy")
+    var routinesSubject = CurrentValueSubject<[Routine], Error>([])
+    var routines: AnyPublisher<[Routine], Error> {
+        routinesSubject.eraseToAnyPublisher()
     }
-    
-    /*
-     
-     Create a routine data source
-     This is called on initializing the view-model. It will be initalized at every test
-     So it should always be empty at initialization
-     
-     Once we call some completeWith: method, it will then have that current value
-     
-     */
 }
-
-
-
 
 
 
@@ -69,21 +55,20 @@ class RoutineStoreSpy: RoutineStore {
     func completeRoutineLoading(with error: Error, at index: Int = 0) {
 //        loadAllRoutinesCompletions[index](.failure(error))
         print("BOYCE: completing with error")
-        routineDataSourceSpy.routines.send(completion: .failure(error))
+        routineDataSourceSpy.routinesSubject.send(completion: .failure(error))
     }
     
     
     func completeRoutineLoadingWithNoRoutines(at index: Int = 0) {
 //        loadAllRoutinesCompletions[index](.success([]))
         print("BOYCE: completing with no routines")
-        routineDataSourceSpy.routines.send([])
+        routineDataSourceSpy.routinesSubject.send([])
     }
     
     
     func completeRoutineLoading(with routines: [Routine], at index: Int = 0) {
 //        loadAllRoutinesCompletions[index](.success(routines))
-        print("BOYCE: completing with routines")
-        routineDataSourceSpy.routines.send(routines)
+        self.routineDataSourceSpy.routinesSubject.send(routines)
     }
     
     
