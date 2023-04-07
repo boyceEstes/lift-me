@@ -21,8 +21,8 @@ class AddExerciseNavigationFlow: SheetyNavigationFlow {
     }
     
     let exerciseUIComposer: ExerciseUIComposer
-    
     @Published var modallyDisplayedView: SheetyIdentifier?
+    
     
     init(exerciseUIComposer: ExerciseUIComposer) {
         

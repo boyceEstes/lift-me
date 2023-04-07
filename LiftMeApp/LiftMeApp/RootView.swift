@@ -23,9 +23,15 @@ struct RootView: View {
         // Initialize ExercisesNavigationFlow with a weak reference to the composer
         
         self.exerciseUIComposer = ExerciseUIComposer(routineStore: routineStore)
-        self.addExerciseUIComposer = AddExerciseUIComposer(routineStore: routineStore, exerciseUIComposer: exerciseUIComposer)
+        self.addExerciseUIComposer = AddExerciseUIComposer(
+            routineStore: routineStore,
+            exerciseUIComposer: exerciseUIComposer
+        )
         
-        self.createRoutineUIComposer = CreateRoutineUIComposer(routineStore: routineStore)
+        self.createRoutineUIComposer = CreateRoutineUIComposer(
+            routineStore: routineStore,
+            addExerciseUIComposer: addExerciseUIComposer
+        )
         
         self.workoutUIComposer = WorkoutUIComposer(
             routineStore: routineStore,

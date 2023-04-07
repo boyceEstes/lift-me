@@ -15,47 +15,34 @@ class CreateRoutineNavigationFlow: SheetyNavigationFlow {
     
     
     enum SheetyIdentifier: Identifiable, Hashable {
-        
-        var id: UUID { UUID() }
+
+        var id: Int { self.hashValue }
         
         case addExercise(
             addExercisesCompletion: ([Exercise]) -> Void,
             dismiss: () -> Void
         )
         
-        case testing
+        
+        static func == (lhs: CreateRoutineNavigationFlow.SheetyIdentifier, rhs: CreateRoutineNavigationFlow.SheetyIdentifier) -> Bool {
+            lhs.id == rhs.id
+        }
         
         
         func hash(into hasher: inout Hasher) {
-            
-            switch self {
-            case .addExercise:
-                hasher.combine(0)
-            case .testing:
-                hasher.combine(1)
-            }
-        }
-        
-        
-        static func == (lhs: CreateRoutineNavigationFlow.SheetyIdentifier, rhs: CreateRoutineNavigationFlow.SheetyIdentifier) -> Bool {
-            
-            switch (lhs, rhs) {
-            case (.addExercise, .addExercise): return true
-            case (.testing, .testing): return true
-            default: return false
-            }
+            hasher.combine(0)
         }
     }
     
     
-    let createRoutineUIComposer: CreateRoutineUIComposer
+    let addExerciseUIComposer: AddExerciseUIComposer
+        @Published var modallyDisplayedView: SheetyIdentifier? = nil
     
-    init(createRoutineUIComposer: CreateRoutineUIComposer) {
         
-        self.createRoutineUIComposer = createRoutineUIComposer
+    init(addExerciseUIComposer: AddExerciseUIComposer) {
+        
+        self.addExerciseUIComposer = addExerciseUIComposer
     }
-    
-    @Published var modallyDisplayedView: SheetyIdentifier? = nil
     
     
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
@@ -64,13 +51,10 @@ class CreateRoutineNavigationFlow: SheetyNavigationFlow {
             switch identifier {
             case let .addExercise(addExerciseCompletion, dismiss):
                 
-                 createRoutineUIComposer.makeAddExerciseView(
+                addExerciseUIComposer.makeAddExerciseViewWithSheetyNavigation(
                     addExerciseCompletion: addExerciseCompletion,
                     dismiss: dismiss
                 )
-                
-            case .testing:
-                Text("Hello world")
             }
         }
 
