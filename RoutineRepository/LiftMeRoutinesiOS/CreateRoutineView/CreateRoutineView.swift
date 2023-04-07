@@ -102,7 +102,7 @@ public class CreateRoutineViewModel: ObservableObject {
             guard let self = self else { return }
             
             if error != nil {
-                fatalError("Idk, handle it \(error?.localizedDescription)")
+                fatalError("Idk, handle it. error: \(error?.localizedDescription ?? "unknown error")")
             }
             
             // Dismiss all the way to the root because we have done everything successfully

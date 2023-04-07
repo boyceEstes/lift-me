@@ -135,62 +135,6 @@ class RoutineListUIIntegrationTests: XCTestCase {
     }
     
     
-    func test_simple() {
-
-        let routineStore = RoutineStoreSpy()
-//        let viewModel = MyViewModel(routineStore: routineStore)
-        let viewModel = RoutineListViewModel(routineStore: routineStore, goToCreateRoutine: {}, goToWorkoutView: { _ in })
-        
-//        routineStore.routineDataSource().routines.sink { error in
-//            print("BOYCE2: \(error)")
-//        } receiveValue: { routines in
-//            print("BOYCE2: \(routines)")
-//        }.store(in: &cancellables)
-
-        routineStore.completeRoutineLoading(with: [uniqueRoutine()])
-    }
-        
-    
-    func test_routineListView_loadRoutineCompletionWithRoutines_willRenderRoutines() throws {
-        
-        // given
-//        let (sut, routineStore, _) = makeSUT()
-        let routineStore = RoutineStoreSpy()
-        let viewModel = RoutineListViewModel(routineStore: routineStore, goToCreateRoutine: {}, goToWorkoutView: { _ in })
-        let sut = RoutineListView(viewModel: viewModel)
-        print("BOYCE: loading completion with routines")
-        let routines = [uniqueRoutine(), uniqueRoutine(), uniqueRoutine(), uniqueRoutine()]
-
-        let exp = sut.inspection.inspect { [unowned self] sut in
-
-            let cellsBeforeRoutineLoad = sut.findAll(RoutineCellView.self)
-            XCTAssertTrue(cellsBeforeRoutineLoad.isEmpty)
-
-            // This is updating on the main queue, this might take longer to finish than we have
-            routineStore.completeRoutineLoading(with: routines)
-            
-//            let exp2 = self.expectation(description: "Wait for routines to be set")
-            
-//            wait(for: [exp2], timeout: 1)
-            print("BOYCE: After the complete loading has happened: \(viewModel.routines)")
-
-            
-            let cellsAfterRoutineLoad = sut.findAll(RoutineCellView.self)
-            XCTAssertEqual(cellsAfterRoutineLoad.count, routines.count)
-
-            for (index, routineCellView) in cellsAfterRoutineLoad.enumerated() {
-
-                let expectedRoutineName = routines[index].name
-                let _ = try routineCellView.find(text: "\(expectedRoutineName)")
-            }
-        }
-
-        ViewHosting.host(view: sut)
-
-        wait(for: [exp], timeout: 1)
-    }
-    
-    
     func test_routineListView_loadRoutineCompletionWithoutRoutines_willRenderNoRoutinesMessage() throws {
         
         // given

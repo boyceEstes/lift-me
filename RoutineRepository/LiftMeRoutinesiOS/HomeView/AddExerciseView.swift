@@ -81,7 +81,7 @@ public class AddExerciseViewModel: ObservableObject {
                 self.allSelectableExercises = exercises.map { SelectableExercise(isSelected: false, exercise: $0) }
                 self.selectableFilteredExercises = self.allSelectableExercises
                 
-            case let .failure(_):
+            case .failure:
                 break
             }
         }

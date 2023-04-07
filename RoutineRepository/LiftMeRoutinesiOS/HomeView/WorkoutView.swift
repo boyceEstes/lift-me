@@ -165,7 +165,7 @@ public class WorkoutViewModel: ObservableObject {
             
             if error != nil {
                 // There was an issue
-                fatalError("error: \(error?.localizedDescription)")
+                fatalError("error: \(error?.localizedDescription ?? "unknown")")
             }
             
             self?.dismiss()
@@ -197,7 +197,8 @@ public class WorkoutViewModel: ObservableObject {
         
         routineRecord.exerciseRecords.forEach {
             $0.setRecords.forEach {
-                if $0.repCount == nil || $0.weight == nil {
+                // -1 means that there was no value inputted
+                if $0.repCount != -1 || $0.weight != -1 {
                     foundMissing = false
                 }
             }
