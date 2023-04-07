@@ -20,22 +20,24 @@ class AddExerciseNavigationFlow: SheetyNavigationFlow {
         case createExercise
     }
     
-//    let exerciseUIComposer: ExerciseUIComposer
+    let exerciseUIComposer: ExerciseUIComposer
     
     @Published var modallyDisplayedView: SheetyIdentifier?
     
-    init() {
+    init(exerciseUIComposer: ExerciseUIComposer) {
+        
+        self.exerciseUIComposer = exerciseUIComposer
     }
     
     
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
-        Text("Nothing")
-//
-//        Group {
-//            switch identifier {
-//            case let .addExercise(addExercisesCompletion, dismiss):
-//                addExerciseUIComposer.makeAddExerciseView(addExerciseCompletion: addExercisesCompletion, dismiss: dismiss)
-//            }
-//        }
+
+        Group {
+            switch identifier {
+           
+            case .createExercise:
+                exerciseUIComposer.makeCreateExerciseViewWithStackNavigation()
+            }
+        }
     }
 }

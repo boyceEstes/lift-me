@@ -43,6 +43,7 @@ public class AddExerciseViewModel: ObservableObject {
     
     let routineStore: RoutineStore
     let addExerciseCompletion: ([Exercise]) -> Void
+    let goToCreateExercise: () -> Void
     let dismiss: () -> Void
     
     // Does not get set
@@ -59,11 +60,13 @@ public class AddExerciseViewModel: ObservableObject {
     public init(
         routineStore: RoutineStore,
         addExerciseCompletion: @escaping ([Exercise]) -> Void,
+        goToCreateExercise: @escaping () -> Void,
         dismiss: @escaping () -> Void
     ) {
         
         self.routineStore = routineStore
         self.addExerciseCompletion = addExerciseCompletion
+        self.goToCreateExercise = goToCreateExercise
         self.dismiss = dismiss
         
         bindSearchTextFieldChange()
@@ -183,8 +186,9 @@ public struct AddExerciseView: View {
             SelectedExercisesList(viewModel: viewModel)
             
             Button("Create") {
-                viewModel.createExercise()
-                viewModel.loadAllExercises()
+                viewModel.goToCreateExercise()
+//                viewModel.createExercise()
+//                viewModel.loadAllExercises()
             }
             
             TextField("Hello world", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
@@ -292,6 +296,7 @@ struct AddExerciseView_Previews: PreviewProvider {
             viewModel: AddExerciseViewModel(
                 routineStore: RoutineStorePreview(),
                 addExerciseCompletion: { _ in },
+                goToCreateExercise: { },
                 dismiss: { }
             )
         )
