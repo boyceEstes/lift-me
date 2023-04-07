@@ -12,22 +12,34 @@ import LiftMeRoutinesiOS
 struct RootView: View {
     
     let homeUIComposer: HomeUIComposer
+    let workoutUIComposer: WorkoutUIComposer
+    let addExerciseUIComposer: AddExerciseUIComposer
     let exerciseUIComposer: ExerciseUIComposer
     let historyUIComposer: HistoryUIComposer
     let createRoutineUIComposer: CreateRoutineUIComposer
     
     
     init(routineStore: RoutineStore) {
+        // Initialize ExercisesNavigationFlow with a weak reference to the composer
+        
+        self.exerciseUIComposer = ExerciseUIComposer(routineStore: routineStore)
+        self.addExerciseUIComposer = AddExerciseUIComposer(routineStore: routineStore, exerciseUIComposer: exerciseUIComposer)
         
         self.createRoutineUIComposer = CreateRoutineUIComposer(routineStore: routineStore)
-        self.homeUIComposer = HomeUIComposer(
+        
+        self.workoutUIComposer = WorkoutUIComposer(
             routineStore: routineStore,
-            createRoutineUIComposer: createRoutineUIComposer
+            createRoutineUIComposer: createRoutineUIComposer,
+            addExerciseUIComposer: addExerciseUIComposer,
+            exerciseUIComposer: exerciseUIComposer
         )
         
-        // Initialize ExercisesNavigationFlow with a weak reference to the composer
-        self.exerciseUIComposer = ExerciseUIComposer(routineStore: routineStore)
-        
+        self.homeUIComposer = HomeUIComposer(
+            routineStore: routineStore,
+            workoutUIComposer: workoutUIComposer,
+            createRoutineUIComposer: createRoutineUIComposer
+        )
+
         self.historyUIComposer = HistoryUIComposer(routineStore: routineStore)
     }
     

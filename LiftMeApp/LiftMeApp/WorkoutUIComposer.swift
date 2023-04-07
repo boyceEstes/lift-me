@@ -15,19 +15,29 @@ public class WorkoutUIComposer {
     
     let routineStore: RoutineStore
     let createRoutineUIComposer: CreateRoutineUIComposer
+    let addExerciseUIComposer: AddExerciseUIComposer
+    let exerciseUIComposer: ExerciseUIComposer
     
     lazy var navigationFlow: WorkoutNavigationFlow = { [unowned self] in
         return WorkoutNavigationFlow(
             workoutUIComposer: self,
-            createRoutineUIComposer: createRoutineUIComposer
+            createRoutineUIComposer: createRoutineUIComposer,
+            addExerciseUIComposer: addExerciseUIComposer,
+            exerciseUIComposer: exerciseUIComposer
         )
     }()
     
     
-    init(routineStore: RoutineStore, createRoutineUIComposer: CreateRoutineUIComposer) {
+    init(routineStore: RoutineStore,
+         createRoutineUIComposer: CreateRoutineUIComposer,
+         addExerciseUIComposer: AddExerciseUIComposer,
+         exerciseUIComposer: ExerciseUIComposer
+    ) {
         
         self.routineStore = routineStore
         self.createRoutineUIComposer = createRoutineUIComposer
+        self.addExerciseUIComposer = addExerciseUIComposer
+        self.exerciseUIComposer = exerciseUIComposer
     }
 
     // WorkoutNavigationFlow for the workout since I want it to stay up whne it presents its own sheet
@@ -68,19 +78,4 @@ public class WorkoutUIComposer {
             }
         )
     }
-    
-    
-    func makeAddExerciseView(
-        addExerciseCompletion: @escaping ([Exercise]) -> Void,
-        dismiss: @escaping () -> Void
-    ) -> AddExerciseView {
-        
-        let viewModel = AddExerciseViewModel(
-            routineStore: routineStore,
-            addExerciseCompletion: addExerciseCompletion,
-            dismiss: dismiss
-        )
-        return AddExerciseView(viewModel: viewModel)
-    }
-    
 }

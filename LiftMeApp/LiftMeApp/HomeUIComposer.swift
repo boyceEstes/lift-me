@@ -18,23 +18,25 @@ public class HomeUIComposer {
     
     let routineStore: RoutineStore
     let createRoutineUIComposer: CreateRoutineUIComposer // I am passing this through because I only want one instance at the root that will be used
+    let workoutUIComposer: WorkoutUIComposer
     
     lazy var navigationFlow: HomeNavigationFlow = { [unowned self] in
+        
         return HomeNavigationFlow(
             homeUIComposer: self,
-            workoutUIComposer: WorkoutUIComposer(
-                routineStore: routineStore,
-                createRoutineUIComposer: createRoutineUIComposer
-            ),
+            workoutUIComposer: workoutUIComposer,
             createRoutineUIComposer: createRoutineUIComposer
         )
     }()
     
     
     init(routineStore: RoutineStore,
-         createRoutineUIComposer: CreateRoutineUIComposer) {
+         workoutUIComposer: WorkoutUIComposer,
+         createRoutineUIComposer: CreateRoutineUIComposer
+    ) {
         
         self.routineStore = routineStore
+        self.workoutUIComposer = workoutUIComposer
         self.createRoutineUIComposer = createRoutineUIComposer
     }
 

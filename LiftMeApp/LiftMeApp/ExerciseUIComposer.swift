@@ -82,7 +82,8 @@ class ExerciseUIComposer {
     
     func makeCreateExerciseView() -> CreateExerciseView {
         
-        return CreateExerciseView()
+        let viewModel = CreateExerciseViewModel()
+        return CreateExerciseView(viewModel: viewModel)
     }
 }
 //

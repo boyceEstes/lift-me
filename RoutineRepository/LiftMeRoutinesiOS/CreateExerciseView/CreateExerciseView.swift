@@ -7,20 +7,24 @@
 
 import SwiftUI
 
-class CreateExerciseViewModel: ObservableObject {
+public class CreateExerciseViewModel: ObservableObject {
     
     @Published var exerciseName: String = ""
     @Published var exerciseDescription: String = ""
     
-    init() { }
+    public init() { }
 }
+
 
 public struct CreateExerciseView: View {
     
-    @ObservedObject var viewModel = CreateExerciseViewModel()
+    @ObservedObject var viewModel: CreateExerciseViewModel
     
-    public init() {
+    
+    public init(viewModel: CreateExerciseViewModel) {
+        self.viewModel = viewModel
     }
+    
     
     public var body: some View {
         Form {
@@ -30,8 +34,10 @@ public struct CreateExerciseView: View {
     }
 }
 
+
 struct CreateExerciseView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        CreateExerciseView()
+        CreateExerciseView(viewModel: CreateExerciseViewModel())
     }
 }

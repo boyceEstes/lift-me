@@ -51,20 +51,24 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
     
     
     let workoutUIComposer: WorkoutUIComposer
-    let createRoutineUIComposer: CreateRoutineUIComposer
+    let createRoutineUIComposer: CreateRoutineUIComposer // go to create routine from workout
+    let addExerciseUIComposer: AddExerciseUIComposer
+    let exerciseUIComposer: ExerciseUIComposer // Go to create exercise, go to exercise details from workout
     
-    init(workoutUIComposer: WorkoutUIComposer, createRoutineUIComposer: CreateRoutineUIComposer) {
+    init(workoutUIComposer: WorkoutUIComposer,
+         createRoutineUIComposer: CreateRoutineUIComposer,
+         addExerciseUIComposer: AddExerciseUIComposer,
+         exerciseUIComposer: ExerciseUIComposer
+    ) {
         
         self.workoutUIComposer = workoutUIComposer
         self.createRoutineUIComposer = createRoutineUIComposer
+        self.addExerciseUIComposer = addExerciseUIComposer
+        self.exerciseUIComposer = exerciseUIComposer
     }
     
     // TODO: Make the SheetyIdentifier a CurrentValueSubject to be more resilient to coding errors
-    @Published var modallyDisplayedView: SheetyIdentifier? = nil {
-        willSet {
-            print("current: \(modallyDisplayedView), new: \(newValue)")
-        }
-    }
+    @Published var modallyDisplayedView: SheetyIdentifier? = nil
     
     
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
@@ -73,10 +77,8 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
             switch identifier {
                 
             case let .addExercise(addExerciseCompletion, dismiss):
-                workoutUIComposer.makeAddExerciseView(
-                    addExerciseCompletion: addExerciseCompletion,
-                    dismiss: dismiss
-                )
+                addExerciseUIComposer.makeAddExerciseView(addExerciseCompletion: addExerciseCompletion, dismiss: dismiss)
+
             case let .createRoutineView(routineRecord, superDismiss):
                 
                 createRoutineUIComposer.makeCreateRoutineViewWithSheetyNavigation(
