@@ -15,6 +15,7 @@ class HomeUIComposerWithSpys: HomeUIComposer {
     convenience init() {
         self.init(
             routineStore: RoutineStoreSpy(),
+            workoutUIComposer: WorkoutUIComposerWithSpys(),
             createRoutineUIComposer: CreateRoutineUIComposerWithSpys()
         )
     }
@@ -24,6 +25,20 @@ class HomeUIComposerWithSpys: HomeUIComposer {
 class CreateRoutineUIComposerWithSpys: CreateRoutineUIComposer {
     
     convenience init() {
-        self.init(routineStore: RoutineStoreSpy())
+        self.init(
+            routineStore: RoutineStoreSpy(),
+            addExerciseUIComposer: AddExerciseUIComposerWithSpys()
+        )
+    }
+}
+
+
+class AddExerciseUIComposerWithSpys: AddExerciseUIComposer {
+    
+    convenience init() {
+        self.init(
+            routineStore: RoutineStoreSpy(),
+            exerciseUIComposer: ExerciseUIComposerWithSpys()
+        )
     }
 }

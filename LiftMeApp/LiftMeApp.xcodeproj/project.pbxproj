@@ -20,6 +20,7 @@
 		B33D0FBA29706CB100C2FB1E /* HomeUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */; };
 		B352A08129E0541900923B6C /* AddExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08029E0541900923B6C /* AddExerciseUIComposer.swift */; };
 		B352A08329E0542300923B6C /* AddExerciseNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08229E0542300923B6C /* AddExerciseNavigationFlow.swift */; };
+		B352A08529E2289800923B6C /* CreateExerciseUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08429E2289800923B6C /* CreateExerciseUIIntegrationTests.swift */; };
 		B36890F62911F4B000E04957 /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; };
 		B36890F72911F4B000E04957 /* LiftMeRoutinesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B36890F82911F4B000E04957 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F52911F4B000E04957 /* RoutineRepository.framework */; };
@@ -86,6 +87,7 @@
 		B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUIComposerWithSpys.swift; sourceTree = "<group>"; };
 		B352A08029E0541900923B6C /* AddExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseUIComposer.swift; sourceTree = "<group>"; };
 		B352A08229E0542300923B6C /* AddExerciseNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseNavigationFlow.swift; sourceTree = "<group>"; };
+		B352A08429E2289800923B6C /* CreateExerciseUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36890F52911F4B000E04957 /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMainDecorator.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				B3692CCA2999912E00D9BD05 /* HistoryUIIntegrationTests.swift */,
 				B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */,
 				B3692CDF2999D39B00D9BD05 /* ExerciseDetailViewUIIntegrationTests.swift */,
+				B352A08429E2289800923B6C /* CreateExerciseUIIntegrationTests.swift */,
 			);
 			path = LiftMeAppTests;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B368915B2914B66100E04957 /* SharedTestHelpers.swift in Sources */,
+				B352A08529E2289800923B6C /* CreateExerciseUIIntegrationTests.swift in Sources */,
 				B329086F29818B80008350B1 /* WorkoutUIComposerWithSpys.swift in Sources */,
 				B33D0FA5296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift in Sources */,
 				B33D0FB0296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift in Sources */,

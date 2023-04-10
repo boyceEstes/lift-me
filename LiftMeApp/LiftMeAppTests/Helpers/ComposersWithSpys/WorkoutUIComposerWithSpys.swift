@@ -11,6 +11,10 @@ import Foundation
 class WorkoutUIComposerWithSpys: WorkoutUIComposer {
     
     convenience init() {
-        self.init(routineStore: RoutineStoreSpy(), createRoutineUIComposer: CreateRoutineUIComposerWithSpys())
+        self.init(
+            routineStore: RoutineStoreSpy(),
+            createRoutineUIComposer: CreateRoutineUIComposerWithSpys(),
+            addExerciseUIComposer: AddExerciseUIComposerWithSpys(),
+            exerciseUIComposer: ExerciseUIComposerWithSpys())
     }
 }

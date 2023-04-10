@@ -26,6 +26,7 @@ class RoutineStoreSpy: RoutineStore {
         case saveRoutine(Routine)
         case createRoutineRecord
         case readAllRoutineRecords
+        case createExercise(Exercise)
         case readAllExercises
         case readAllExerciseRecords(Exercise)
     }
@@ -119,6 +120,7 @@ class RoutineStoreSpy: RoutineStore {
     // MARK: - Exercises
     
     private(set) var readAllExercisesCompletions = [RoutineStore.ReadExercisesCompletion]()
+    private (set) var createExerciseCompletions = [RoutineStore.CreateExerciseCompletion]()
     
     
     func readAllExercises(completion: @escaping ReadExercisesCompletion) {
@@ -130,11 +132,19 @@ class RoutineStoreSpy: RoutineStore {
     
     func createExercise(_ exercise: RoutineRepository.Exercise, completion: @escaping CreateExerciseCompletion) {
         
+        requests.append(.createExercise(exercise))
+        createExerciseCompletions.append(completion)
     }
     
     
     func completeReadAllExercises(with exercises: [Exercise], at index: Int = 0) {
         readAllExercisesCompletions[index](.success(exercises))
+    }
+    
+    
+    func completeCreateExercise(error: Error?, at index: Int = 0) {
+        
+        createExerciseCompletions[index](error)
     }
     
     

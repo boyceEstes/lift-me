@@ -180,20 +180,20 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     }
     
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: AddExerciseNavigationFlow) {
 
-        let workoutUIComposer = WorkoutUIComposerWithSpys()
-        let workoutNavigationFlow = workoutUIComposer.navigationFlow
-        let sut = workoutUIComposer.makeAddExerciseView(
+        let addExerciseUIComposer = AddExerciseUIComposerWithSpys()
+        let addExerciseNavigationFlow = addExerciseUIComposer.navigationFlow
+        let sut = addExerciseUIComposer.makeAddExerciseView(
             addExerciseCompletion: { _ in },
-            dismiss: workoutNavigationFlow.dismiss
+            dismiss: addExerciseNavigationFlow.dismiss
         )
-        let routineStore: RoutineStoreSpy = workoutUIComposer.routineStore as! RoutineStoreSpy
+        let routineStore: RoutineStoreSpy = addExerciseUIComposer.routineStore as! RoutineStoreSpy
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, routineStore, workoutNavigationFlow)
+        return (sut, routineStore, addExerciseNavigationFlow)
     }
     
     

@@ -18,7 +18,7 @@ import SwiftUI
 // We could solve this by making one of them weak? I'm attempting to make ExerciseNavigationFlow have
 // a weak reference to this composer
 
-class ExerciseUIComposer {
+public class ExerciseUIComposer {
     
     let routineStore: RoutineStore
     
@@ -82,35 +82,7 @@ class ExerciseUIComposer {
     
     func makeCreateExerciseView() -> CreateExerciseView {
         
-        let viewModel = CreateExerciseViewModel()
+        let viewModel = CreateExerciseViewModel(routineStore: routineStore)
         return CreateExerciseView(viewModel: viewModel)
     }
 }
-//
-//struct SomeView: View {
-//
-//    let viewModel: SomeViewModel
-//
-//    init(exercise: Exercise) {
-//        viewModel = SomeViewModel(exercise: exercise)
-//        print("init for View")
-//    }
-//
-//    var body: some View {
-//        Text("\(viewModel.exercise.name) 4")
-//    }
-//}
-//
-//class SomeViewModel: ObservableObject {
-//
-//    @Published var exercise: Exercise
-//
-//    init(exercise: Exercise) {
-//        print("init")
-//        self.exercise = exercise
-//    }
-//
-//    deinit {
-//        print("deinit")
-//    }
-//}
