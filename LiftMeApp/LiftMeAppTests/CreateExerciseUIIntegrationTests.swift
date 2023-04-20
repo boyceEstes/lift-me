@@ -10,6 +10,7 @@ import ViewInspector
 import SwiftUI
 import RoutineRepository
 import LiftMeRoutinesiOS
+import NavigationFlow
 @testable import LiftMeApp
 
 
@@ -30,7 +31,7 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
     func test_createExerciseView_saveEmptyNameAndEmptyDescription_isNotPossibleBecauseSaveButtonIsDisabled() throws {
         
         // given/when
-        let (sut, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
         
         let expectedName = ""
         let expectedDescription = ""
@@ -55,7 +56,7 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
     func test_createExerciseView_saveNonEmptyNameAndDescription_createsExerciseInDatabaseAndCallsDismiss() throws {
         
         // given
-        let (sut, routineStore) = makeSUT()
+        let (sut, routineStore, _) = makeSUT()
         let expectedName = "Any Exercise Name"
         let expectedDescription = ""
         
@@ -88,7 +89,7 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
     func test_createExerciseView_saveEmptyNameAndNonEmptyDescription_isNotPossibleBecauseSaveButtonIsDisabled() throws {
         
         // given/when
-        let (sut, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
         
         let expectedName = ""
         let expectedDescription = "Any exercise description"
@@ -142,17 +143,35 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
 //            XCTFail("Spy did not retrieve created exercise correctly")
 //        }
 //    }
+    
+    func test_createExerciseView_cancelTapped_dismissesCreateExerciseViewWithoutSaving() throws {
+        
+        // given
+        let (sut, _, exerciseUIComposer) = makeSUT()
+        
+        // when
+        let cancelButton = try sut.inspect().find(button: "Cancel")
+        try cancelButton.tap()
+        
+        // then
+        // assert Dismiss is called via spy
+        XCTAssertEqual(exerciseUIComposer.messages, [UIComposerMessage.dismissModal])
+        
+    }
 
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: CreateExerciseView, routineStore: RoutineStoreSpy) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: CreateExerciseView, routineStore: RoutineStoreSpy, exerciseUIComposer: ExerciseUIComposerWithSpys) {
         
-        let exerciseUIComposer = ExerciseUIComposerWithSpys()
+        // Can come from the AddExerciseView or the exerciseListView from ExerciseUIComposer
+        let exerciseUIComposer = ExerciseUIComposerWithSpys(baseState: .createExerciseViewDisplayed)
         let exerciseNavigationFlow = exerciseUIComposer.navigationFlow
-        let sut = exerciseUIComposer.makeCreateExerciseView()
+        
+        let sutAsSomeView = exerciseNavigationFlow.displaySheet(for: exerciseNavigationFlow.modallyDisplayedView!) // Should always have this set from composer initializer
+        let sutAsStackNavigationView = sutAsSomeView as? StackNavigationView<CreateExerciseView, ExerciseNavigationFlow>
+        let sut = sutAsStackNavigationView!.content
         
         let routineStore: RoutineStoreSpy = exerciseUIComposer.routineStore as! RoutineStoreSpy
         
-        return (sut, routineStore)
+        return (sut, routineStore, exerciseUIComposer)
     }
-
 }

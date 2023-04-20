@@ -37,7 +37,7 @@
 		B3692CD22999B91200D9BD05 /* ExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */; };
 		B3692CD42999BE0100D9BD05 /* ExerciseNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */; };
 		B3692CD92999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */; };
-		B3692CDB2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift */; };
+		B3692CDB2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift */; };
 		B3692CE02999D39B00D9BD05 /* ExerciseDetailViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CDF2999D39B00D9BD05 /* ExerciseDetailViewUIIntegrationTests.swift */; };
 		B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */; };
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
@@ -102,7 +102,7 @@
 		B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseUIComposer.swift; sourceTree = "<group>"; };
 		B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNavigationFlow.swift; sourceTree = "<group>"; };
 		B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciesViewUIIntegrationTests.swift; sourceTree = "<group>"; };
-		B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseUIComposerWithSps.swift; sourceTree = "<group>"; };
+		B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseUIComposerWithSpys.swift; sourceTree = "<group>"; };
 		B3692CDF2999D39B00D9BD05 /* ExerciseDetailViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailViewUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B3A854892908D48300F04CC1 /* LiftMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppApp.swift; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 				B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */,
 				B329086E29818B80008350B1 /* WorkoutUIComposerWithSpys.swift */,
 				B3692CCC2999952500D9BD05 /* HistoryUIComposerWithSpys.swift */,
-				B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift */,
+				B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift */,
 			);
 			path = ComposersWithSpys;
 			sourceTree = "<group>";
@@ -441,7 +441,7 @@
 				B33D0FBA29706CB100C2FB1E /* HomeUIComposerWithSpys.swift in Sources */,
 				B329086D298189EE008350B1 /* RoutineStoreSpy.swift in Sources */,
 				B3692CCB2999912E00D9BD05 /* HistoryUIIntegrationTests.swift in Sources */,
-				B3692CDB2999C6FD00D9BD05 /* ExerciseUIComposerWithSps.swift in Sources */,
+				B3692CDB2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift in Sources */,
 				B3692CD92999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

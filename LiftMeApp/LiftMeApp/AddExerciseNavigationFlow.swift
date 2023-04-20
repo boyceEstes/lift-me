@@ -17,7 +17,24 @@ class AddExerciseNavigationFlow: SheetyNavigationFlow {
     enum SheetyIdentifier: Identifiable, Hashable {
 
         var id: Int { self.hashValue }
-        case createExercise
+        case createExercise(dismiss: () -> Void, UUID)
+        
+        static func == (lhs: AddExerciseNavigationFlow.SheetyIdentifier, rhs: AddExerciseNavigationFlow.SheetyIdentifier) -> Bool {
+            
+            lhs.hashValue == rhs.hashValue
+        }
+        
+        
+        func hash(into hasher: inout Hasher) {
+            
+            switch self {
+            case let .createExercise(dismiss, uuid):
+                
+                let stringValue = String(reflecting: dismiss)
+                hasher.combine(stringValue)
+                hasher.combine(uuid)
+            }
+        }
     }
     
     let exerciseUIComposer: ExerciseUIComposer
@@ -35,8 +52,8 @@ class AddExerciseNavigationFlow: SheetyNavigationFlow {
         Group {
             switch identifier {
            
-            case .createExercise:
-                exerciseUIComposer.makeCreateExerciseViewWithStackNavigation()
+            case let .createExercise(dismiss, _):
+                exerciseUIComposer.makeCreateExerciseViewWithStackNavigation(dismiss: dismiss)
             }
         }
     }

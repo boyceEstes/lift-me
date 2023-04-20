@@ -49,7 +49,10 @@ public class AddExerciseUIComposer {
             addExerciseCompletion: addExerciseCompletion,
             goToCreateExercise: {
                 print("Trigger go to create exercise")
-                self.navigationFlow.modallyDisplayedView = .createExercise
+                self.navigationFlow.modallyDisplayedView = .createExercise(dismiss: {
+                    
+                    self.navigationFlow.modallyDisplayedView = nil
+                }, UUID())
             },
             dismiss: dismiss
         )

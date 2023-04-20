@@ -10,8 +10,9 @@ import NavigationFlow
 import RoutineRepository
 import SwiftUI
 
+protocol ExerciseNavigationFlowProtocol: SheetyStackNavigationFlow { }
 
-class ExerciseNavigationFlow: SheetyStackNavigationFlow {
+class ExerciseNavigationFlow: ExerciseNavigationFlowProtocol {
     
     enum StackIdentifier: Hashable {
         case exerciseListView
@@ -19,11 +20,24 @@ class ExerciseNavigationFlow: SheetyStackNavigationFlow {
     }
     
     
-    enum SheetyIdentifier: Identifiable {
+    enum SheetyIdentifier: Identifiable, Hashable {
         
         var id: Int { self.hashValue }
         
-        case createExerciseView
+        case createExerciseView(dismiss: () -> Void, uuid: UUID)
+        
+        static func == (lhs: ExerciseNavigationFlow.SheetyIdentifier, rhs: ExerciseNavigationFlow.SheetyIdentifier) -> Bool {
+            
+            lhs.id == rhs.id
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            
+            if case let .createExerciseView(dismiss, uuid) = self {
+                let stringValue = String(reflecting: dismiss)
+                hasher.combine(uuid)
+            }
+        }
     }
     
     
@@ -56,7 +70,7 @@ class ExerciseNavigationFlow: SheetyStackNavigationFlow {
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
         
         switch identifier {
-        case .createExerciseView: return exerciseUIComposer?.makeCreateExerciseViewWithStackNavigation()
+        case let .createExerciseView(dismiss, _): return exerciseUIComposer?.makeCreateExerciseViewWithStackNavigation(dismiss: dismiss)
         }
     }
 }
