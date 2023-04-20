@@ -83,10 +83,22 @@ extension ManagedExercise {
     }
     
     
-    public static func findExercises(in context: NSManagedObjectContext) throws -> [ManagedExercise] {
+    public static func findExercisesRequest() -> NSFetchRequest<ManagedExercise> {
         
         let request = ManagedExercise.fetchRequest
         request.returnsObjectsAsFaults = false
+        
+        
+        let sortDescriptor = NSSortDescriptor(keyPath: \ManagedExercise.name, ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        return request
+    }
+    
+    
+    public static func findExercises(in context: NSManagedObjectContext) throws -> [ManagedExercise] {
+        
+        let request = findExercisesRequest()
         
         return try context.fetch(request)
     }

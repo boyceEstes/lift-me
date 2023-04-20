@@ -19,6 +19,15 @@ class RoutineDataSourceSpy: RoutineDataSource {
 }
 
 
+class ExerciseDataSourceSpy: ExerciseDataSource {
+    
+    var exercisesSubject = CurrentValueSubject<[Exercise], Error>([])
+    var exercises: AnyPublisher<[Exercise], Error> {
+        exercisesSubject.eraseToAnyPublisher()
+    }
+}
+
+
 
 class RoutineStoreSpy: RoutineStore {
 
@@ -119,6 +128,7 @@ class RoutineStoreSpy: RoutineStore {
     
     // MARK: - Exercises
     
+    private let exerciseDataSourceSpy = ExerciseDataSourceSpy()
     private(set) var readAllExercisesCompletions = [RoutineStore.ReadExercisesCompletion]()
     private (set) var createExerciseCompletions = [RoutineStore.CreateExerciseCompletion]()
     
@@ -134,6 +144,12 @@ class RoutineStoreSpy: RoutineStore {
         
         requests.append(.createExercise(exercise))
         createExerciseCompletions.append(completion)
+    }
+    
+    
+    func exerciseDataSource() -> ExerciseDataSource {
+        
+        exerciseDataSourceSpy
     }
     
     

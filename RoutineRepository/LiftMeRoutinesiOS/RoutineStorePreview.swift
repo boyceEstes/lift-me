@@ -14,6 +14,12 @@ class RoutineDataSourcePreview: RoutineDataSource {
     var routines = CurrentValueSubject<[RoutineRepository.Routine], Error>([]).eraseToAnyPublisher()
 }
 
+
+class ExerciseDataSourcePreview: ExerciseDataSource {
+    var exercises = CurrentValueSubject<[RoutineRepository.Exercise], Error>([]).eraseToAnyPublisher()
+}
+
+
 public class RoutineStorePreview: RoutineStore {
     
     public func readExerciseRecords(for exercise: RoutineRepository.Exercise, completion: @escaping ReadExerciseRecordsCompletion) {
@@ -39,7 +45,7 @@ public class RoutineStorePreview: RoutineStore {
     
     
     public func routineDataSource() -> RoutineDataSource {
-        return RoutineDataSourcePreview()
+        RoutineDataSourcePreview()
     }
     
     
@@ -79,5 +85,11 @@ public class RoutineStorePreview: RoutineStore {
     
     public func createExercise(_ exercise: RoutineRepository.Exercise, completion: @escaping CreateExerciseCompletion) {
         print("")
+    }
+    
+    
+    public func exerciseDataSource() -> ExerciseDataSource {
+        
+        ExerciseDataSourcePreview()
     }
 }

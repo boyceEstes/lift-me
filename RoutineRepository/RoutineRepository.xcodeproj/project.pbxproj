@@ -27,6 +27,7 @@
 		B34588B2290617ED006ED45C /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B1290617ED006ED45C /* Inspection.swift */; };
 		B34588B429061BF0006ED45C /* UIColor+LiftMeThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */; };
 		B34588B629061C2B006ED45C /* Color+LiftMeThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B529061C2B006ED45C /* Color+LiftMeThemeColors.swift */; };
+		B352A08729F16F2900923B6C /* ExerciseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08629F16F2900923B6C /* ExerciseDataSource.swift */; };
 		B357C4D2299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357C4D1299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift */; };
 		B357C4D42991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B357C4D32991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift */; };
 		B35D53912999F9C00043DC52 /* CoreDataRoutineStore+Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35D53902999F9C00043DC52 /* CoreDataRoutineStore+Routine.swift */; };
@@ -126,6 +127,7 @@
 		B34588B1290617ED006ED45C /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
 		B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+LiftMeThemeColors.swift"; sourceTree = "<group>"; };
 		B34588B529061C2B006ED45C /* Color+LiftMeThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+LiftMeThemeColors.swift"; sourceTree = "<group>"; };
+		B352A08629F16F2900923B6C /* ExerciseDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDataSource.swift; sourceTree = "<group>"; };
 		B357C4D1299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStoreTests+RoutineRecords.swift"; sourceTree = "<group>"; };
 		B357C4D32991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStore+RoutineRecord.swift"; sourceTree = "<group>"; };
 		B35D53902999F9C00043DC52 /* CoreDataRoutineStore+Routine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStore+Routine.swift"; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				B320DC5429B1AB68006CCE03 /* RoutineDataSource.swift */,
+				B352A08629F16F2900923B6C /* ExerciseDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				B320DC5529B1AB68006CCE03 /* RoutineDataSource.swift in Sources */,
 				B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */,
 				B3692CE32999D6BE00D9BD05 /* CoreDataRoutineStore+ExerciseRecord.swift in Sources */,
+				B352A08729F16F2900923B6C /* ExerciseDataSource.swift in Sources */,
 				B35D53912999F9C00043DC52 /* CoreDataRoutineStore+Routine.swift in Sources */,
 				B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */,
 				B357C4D42991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift in Sources */,

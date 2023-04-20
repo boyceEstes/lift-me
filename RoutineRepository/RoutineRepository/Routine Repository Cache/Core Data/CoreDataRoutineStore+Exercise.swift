@@ -5,7 +5,7 @@
 //  Created by Boyce Estes on 1/13/23.
 //
 
-import Foundation
+import CoreData
 
 
 extension CoreDataRoutineStore {
@@ -38,6 +38,18 @@ extension CoreDataRoutineStore {
                 completion(.failure(error))
             }
         }
+    }
+    
+    
+    public func exerciseDataSource() -> ExerciseDataSource {
+        
+        let frc = NSFetchedResultsController(
+            fetchRequest: ManagedExercise.findExercisesRequest(),
+            managedObjectContext: context,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return FRCExerciseDataSourceAdapter(frc: frc)
     }
     
 

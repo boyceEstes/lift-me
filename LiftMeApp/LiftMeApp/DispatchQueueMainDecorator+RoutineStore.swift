@@ -18,6 +18,17 @@ extension DispatchQueueMainDecorator: RoutineDataSource where T == RoutineDataSo
     }
 }
 
+
+extension DispatchQueueMainDecorator: ExerciseDataSource where T == ExerciseDataSource {
+    
+    var exercises: AnyPublisher<[Exercise], Error> {
+        decoratee.exercises
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
+    }
+}
+
+
 extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
 
     // MARK: Routine
@@ -33,7 +44,6 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
     
     func routineDataSource() -> RoutineRepository.RoutineDataSource {
         
-        // TODO: Make this happen on the main queue
         let unsafeRoutineDataSource = decoratee.routineDataSource()
         return DispatchQueueMainDecorator<RoutineDataSource>(decoratee: unsafeRoutineDataSource)
     }
@@ -95,6 +105,13 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
                 completion(error)
             }
         }
+    }
+    
+    
+    func exerciseDataSource() -> ExerciseDataSource {
+        
+        let unsafeExerciseDataSource = decoratee.exerciseDataSource()
+        return DispatchQueueMainDecorator<ExerciseDataSource>(decoratee: unsafeExerciseDataSource)
     }
     
     

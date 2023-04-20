@@ -65,6 +65,7 @@ public protocol RoutineStore {
     // Exercises
     func readAllExercises(completion: @escaping ReadExercisesCompletion)
     func createExercise(_ exercise: Exercise, completion: @escaping CreateExerciseCompletion)
+    func exerciseDataSource() -> ExerciseDataSource
     
     // ExerciseRecords
     func readExerciseRecords(for exercise: Exercise, completion: @escaping ReadExerciseRecordsCompletion)

@@ -41,13 +41,6 @@ public class FRCRoutineDataSourceAdapter: NSObject, RoutineDataSource {
         frc.delegate = self
         
         performFetch()
-        // In progress:
-//        routinesSubject.sink { error in
-//
-//        } receiveValue: { routines in
-//            <#code#>
-//        }
-
     }
     
     
@@ -56,13 +49,19 @@ public class FRCRoutineDataSourceAdapter: NSObject, RoutineDataSource {
         do {
             try frc.performFetch()
             
-            let managedRoutines = frc.fetchedObjects ?? []
-            routinesSubject.send(managedRoutines.toModel())
+            updateRoutinesWithLatestValues()
 //            routines.value = managedRoutines.toModel()
         } catch {
             let nsError = error as NSError
             fatalError("Unresoled error \(nsError), \(nsError.userInfo)")
         }
+    }
+    
+    
+    private func updateRoutinesWithLatestValues() {
+        
+        let managedRoutines = frc.fetchedObjects ?? []
+        routinesSubject.send(managedRoutines.toModel())
     }
 }
 
@@ -73,8 +72,6 @@ extension FRCRoutineDataSourceAdapter: NSFetchedResultsControllerDelegate {
         
         print("Did change routine core data content")
         
-        let managedRoutines = frc.fetchedObjects ?? []
-//        self.routines.value = managedRoutines.toModel()
-        self.routinesSubject.send(managedRoutines.toModel())
+        updateRoutinesWithLatestValues()
     }
 }
