@@ -7,6 +7,7 @@
 
 import SwiftUI
 import RoutineRepository
+import Combine
 
 
 public class ExercisesViewModel: ObservableObject {
@@ -16,6 +17,8 @@ public class ExercisesViewModel: ObservableObject {
     let routineStore: RoutineStore
     let goToExerciseDetailView: (Exercise) -> Void
     let goToCreateExerciseView: () -> Void
+    
+    var cancellables = Set<AnyCancellable>()
     
     public init(
         routineStore: RoutineStore,
@@ -29,22 +32,25 @@ public class ExercisesViewModel: ObservableObject {
         self.goToCreateExerciseView = goToCreateExerciseView
     }
     
+    
     deinit {
         print("deinit exercise viewmodel")
     }
     
     
-    func readAllExercises() {
+    func loadAllExercises() {
         
-        routineStore.readAllExercises { result in
-            switch result {
-            case let .success(exercises):
-                self.exercises = exercises
-                
-            case let .failure(error):
-                fatalError("Deal with the loading error \(error)")
-            }
-        }
+        routineStore.exerciseDataSource().exercises.sink { error in
+            
+            // TODO: Handle error case
+            fatalError("Deal with the loading error \(error)")
+            
+        } receiveValue: { [weak self] exercises in
+            
+            guard let self = self else { return }
+            self.exercises = exercises
+            
+        }.store(in: &cancellables)
     }
 }
 
@@ -81,7 +87,7 @@ public struct ExercisesView: View {
         }
             .navigationTitle("Exercises")
             .onAppear {
-                viewModel.readAllExercises()
+                viewModel.loadAllExercises()
             }
             .onReceive(inspection.notice) {
                 self.inspection.visit(self, $0)

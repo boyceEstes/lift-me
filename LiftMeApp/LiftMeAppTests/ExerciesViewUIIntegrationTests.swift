@@ -34,7 +34,7 @@ final class ExerciesViewUIIntegrationTests: XCTestCase {
             
             // THEN
             // assert that the routine store has been requested for .readAllRoutineRecords
-            XCTAssertEqual(routineStore.requests, [.readAllExercises])
+            XCTAssertEqual(routineStore.requests, [.getExerciseDataSource])
         }
         
         // WHEN

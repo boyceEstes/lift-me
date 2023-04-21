@@ -38,6 +38,7 @@ class RoutineStoreSpy: RoutineStore {
         case createExercise(Exercise)
         case readAllExercises
         case readAllExerciseRecords(Exercise)
+        case getExerciseDataSource
     }
     
     private(set) var requests = [ReceivedMessage]()
@@ -149,18 +150,20 @@ class RoutineStoreSpy: RoutineStore {
     
     func exerciseDataSource() -> ExerciseDataSource {
         
-        exerciseDataSourceSpy
+        requests.append(.getExerciseDataSource)
+        return exerciseDataSourceSpy
     }
     
     
     func completeReadAllExercises(with exercises: [Exercise], at index: Int = 0) {
-        readAllExercisesCompletions[index](.success(exercises))
+        
+        exerciseDataSourceSpy.exercisesSubject.send(exercises)
     }
     
     
-    func completeCreateExercise(error: Error?, at index: Int = 0) {
+    func completeCreateExercise(error: Error, at index: Int = 0) {
         
-        createExerciseCompletions[index](error)
+        exerciseDataSourceSpy.exercisesSubject.send(completion: .failure(error))
     }
     
     

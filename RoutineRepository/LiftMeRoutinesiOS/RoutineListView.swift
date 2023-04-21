@@ -9,33 +9,6 @@ import RoutineRepository
 import SwiftUI
 import Combine
 
-class MyViewModel: ObservableObject {
-    
-    let routineStore: RoutineStore
-    var cancellables = Set<AnyCancellable>()
-    
-    @Published var routines = [Routine]()
-    @Published var routineLoadingError = false
-    
-    init(routineStore: RoutineStore) {
-        
-        self.routineStore = routineStore
-        
-        bindDataSource()
-    }
-    
-    
-    func bindDataSource() {
-        
-        routineStore.routineDataSource().routines.sink { error in
-            print("BOYCE: 2 Error")
-            self.routineLoadingError = true
-        } receiveValue: { routines in
-            print("BOYCE: 2 Routines \(routines)")
-            self.routines = routines
-        }.store(in: &cancellables)
-    }
-}
 
 
 public class RoutineListViewModel: ObservableObject {

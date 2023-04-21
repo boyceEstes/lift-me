@@ -74,20 +74,18 @@ public class AddExerciseViewModel: ObservableObject {
     
     
     func loadAllExercises() {
-        routineStore.readAllExercises() { [weak self] result in
+        
+        routineStore.exerciseDataSource().exercises.sink { error in
+            // TODO: Handle this error
+            fatalError("uh oh")
+            
+        } receiveValue: { [weak self] exercises in
             
             guard let self = self else { return }
+            self.allSelectableExercises = exercises.map { SelectableExercise(isSelected: false, exercise: $0) }
+            self.selectableFilteredExercises = self.allSelectableExercises
             
-            switch result {
-            case let .success(exercises):
-                // We are doing this first - If we delete an exercise `loadAllExercises`
-                self.allSelectableExercises = exercises.map { SelectableExercise(isSelected: false, exercise: $0) }
-                self.selectableFilteredExercises = self.allSelectableExercises
-                
-            case .failure:
-                break
-            }
-        }
+        }.store(in: &cancellables)
     }
     
     

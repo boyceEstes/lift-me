@@ -57,7 +57,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         
         let exp = sut.inspection.inspect { view in
             // then
-            XCTAssertEqual(routineStore.requests, [.readAllExercises])
+            XCTAssertEqual(routineStore.requests, [.getExerciseDataSource])
         }
         
         // when
