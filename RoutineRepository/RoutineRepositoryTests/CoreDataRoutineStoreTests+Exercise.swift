@@ -87,7 +87,7 @@ extension CoreDataRoutineStoreTests {
     }
     
     
-    func test_coreDataRoutineStore_deleteExerciseOnEmptyCache_succeedsWithNoError() {
+    func test_coreDataRoutineStore_deleteExerciseOnEmptyCache_failsWithCannotFindExerciseError() {
         
         // given
         let sut = makeSUT()
@@ -97,7 +97,41 @@ extension CoreDataRoutineStoreTests {
         let deleteError = delete(exerciseID, into: sut)
         
         // then
-        XCTAssertNil(deleteError)
+        let expectedError = CoreDataRoutineStore.Error.cannotFindExercise
+        XCTAssertEqual(deleteError as? NSError, expectedError as NSError)
+    }
+    
+    
+    func test_coreDataRoutineStore_deleteExerciseNotInNonEmptyCache_failsWithCannotFindExerciseError() {
+        
+        // given
+        let sut = makeSUT()
+        let anyExercise = uniqueExercise()
+        create(anyExercise, into: sut)
+        
+        // when
+        let differentExerciseID = uniqueExercise().id
+        let deleteError = delete(differentExerciseID, into: sut)
+        
+        // then
+        let expectedError = CoreDataRoutineStore.Error.cannotFindExercise
+        XCTAssertEqual(deleteError as? NSError, expectedError as NSError)
+    }
+    
+
+    func test_coreDataRoutineStore_deleteExerciseInNonEmptyCache_deletesExerciseFromCache() {
+
+        // given
+        let sut = makeSUT()
+        let anyExercise = uniqueExercise()
+        create(anyExercise, into: sut)
+
+        // when
+        let anyExerciseID = anyExercise.id
+        let deleteError = delete(anyExerciseID, into: sut)
+
+        // then
+        expectReadAllExercises(on: sut, toCompleteWith: .success([]))
     }
     
     

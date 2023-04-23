@@ -62,15 +62,10 @@ extension CoreDataRoutineStore {
                 context.delete(managedExerciseToDelete)
                 
                 completion(nil)
+                
             } catch {
-                // --
-                if let coreDataRoutineError = error as? CoreDataRoutineStore.Error,
-                   coreDataRoutineError == .cannotFindExercise {
                     
-                    completion(nil)
-                } else {
-                    completion(error)
-                }
+                completion(error)
             }
         }
     }
