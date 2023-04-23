@@ -39,6 +39,7 @@ class RoutineStoreSpy: RoutineStore {
         case readAllExercises
         case readAllExerciseRecords(Exercise)
         case getExerciseDataSource
+        case deleteExercise(UUID)
     }
     
     private(set) var requests = [ReceivedMessage]()
@@ -164,6 +165,12 @@ class RoutineStoreSpy: RoutineStore {
     func completeCreateExercise(error: Error, at index: Int = 0) {
         
         exerciseDataSourceSpy.exercisesSubject.send(completion: .failure(error))
+    }
+    
+    
+    func deleteExercise(by exerciseID: UUID, completion: @escaping DeleteExerciseCompletion) {
+
+        requests.append(.deleteExercise(exerciseID))
     }
     
     

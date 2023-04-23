@@ -92,4 +92,9 @@ public class RoutineStorePreview: RoutineStore {
         
         ExerciseDataSourcePreview()
     }
+    
+    
+    public func deleteExercise(by exerciseID: UUID, completion: @escaping DeleteExerciseCompletion) {
+        
+    }
 }

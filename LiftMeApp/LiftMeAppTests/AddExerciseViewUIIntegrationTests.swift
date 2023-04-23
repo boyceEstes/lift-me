@@ -64,7 +64,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         let exercises = [uniqueExercise(), uniqueExercise(), uniqueExercise()]
 
         // when/then
-        assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
+        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
     }
     
     
@@ -78,7 +78,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
             uniqueExercise(name: "Squat")]
         let expectedNumberOfFilteredExercises = 1
 
-        assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
+        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
         
         // then
         // Check the items rendered
@@ -107,7 +107,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
             uniqueExercise(name: "Deadlift"),
             uniqueExercise(name: "Squat")]
 
-        assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
+        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
         
         let exp = sut.inspection.inspect { sut in
             
@@ -170,6 +170,44 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     }
     
     
+    func test_addExerciseView_swipeToDeleteOnFilteredExercise_deletesAnExercise() {
+        
+        // given
+        let (sut, routineStore, _) = makeSUT()
+        
+        let exercises = [
+            uniqueExercise(name: "Bench"),
+            uniqueExercise(name: "Deadlift"),
+            uniqueExercise(name: "Squat")]
+        
+        let exerciseToDeleteIndex = 0
+        let exerciseToDelete = exercises[exerciseToDeleteIndex]
+
+        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
+        
+        let exp = sut.inspection.inspect { sut in
+            
+            let filteredSelectableList = try sut.find(FilteredAllExercisesList.self)
+            let allFilteredSelectableExerciseRowsBeforeDeletion = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self)
+            
+            XCTAssertEqual(allFilteredSelectableExerciseRowsBeforeDeletion.count, 3)
+            
+            // when
+            try filteredSelectableList.list().forEach(0).callOnDelete(IndexSet(integer: exerciseToDeleteIndex))
+            
+            
+            // then
+            let allFilteredSelectableExerciseRowsAfterDeletion = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self)
+            
+            XCTAssertEqual(allFilteredSelectableExerciseRowsAfterDeletion.count, 2)
+            
+            XCTAssertEqual(routineStore.requests, [.getExerciseDataSource, .deleteExercise(exerciseToDelete.id)])
+        }
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: AddExerciseNavigationFlow) {
 
         let addExerciseUIComposer = AddExerciseUIComposerWithSpys()
@@ -187,7 +225,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     }
     
     
-    private func assertReadAllExercisesRenders(
+    private func assertThatRoutineStoreRendersGivenExercises(
         in sut: AddExerciseView,
         routineStore: RoutineStoreSpy,
         with expectedExercises: [Exercise],

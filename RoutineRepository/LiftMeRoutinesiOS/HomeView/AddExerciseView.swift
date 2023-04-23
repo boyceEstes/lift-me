@@ -151,6 +151,22 @@ public class AddExerciseViewModel: ObservableObject {
             }
         }
     }
+    
+    
+    func deleteExercise(at offsets: IndexSet) {
+
+        let exercisesToBeRemoved = offsets.map { selectableFilteredExercises[$0] }
+        
+        for exerciseToBeRemoved in exercisesToBeRemoved {
+            
+            routineStore.deleteExercise(by: exerciseToBeRemoved.exercise.id) { error in
+                fatalError("Handle errors when deleting exercise fails")
+            }
+        }
+        
+        selectableFilteredExercises.remove(atOffsets: offsets)
+        print("left with: \(selectableFilteredExercises.map { "\($0.exercise.name)" }) ")
+    }
 }
 
 
@@ -242,6 +258,7 @@ public struct FilteredAllExercisesList: View {
                     }
                 }
             }
+            .onDelete(perform: viewModel.deleteExercise)
         }
         .accessibilityIdentifier("filtered_exercise_list")
     }
