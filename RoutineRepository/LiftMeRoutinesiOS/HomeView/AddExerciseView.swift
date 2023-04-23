@@ -167,7 +167,6 @@ public class AddExerciseViewModel: ObservableObject {
         }
         
         selectableFilteredExercises.remove(atOffsets: offsets)
-        print("left with: \(selectableFilteredExercises.map { "\($0.exercise.name)" }) ")
     }
 }
 

@@ -23,12 +23,18 @@ public struct RoutineRecordViewModel: Hashable {
                 ExerciseRecord(
                     id: UUID(),
                     setRecords: $0.setRecordViewModels.map {
+                        // You cannot have 0 reps #businessRule - should be done somewhere
+                        // else, but anyway: You can have a 0 weight. So if nothing is
+                        // set for the weight, we will assume its zero.
+                        
+                        // If rep count is empty we will error - set it to negative 1
                         SetRecord(
                             id: UUID(),
                             duration: nil,
-                            repCount: ($0.repCount.isEmpty ? 0 : Double($0.repCount)) ?? -1,
-                            weight: ($0.weight.isEmpty ? 0 : Double($0.weight)) ?? -1,
-                            difficulty: nil)
+                            repCount: ($0.repCount.isEmpty ? -1 : Double($0.repCount)) ?? -1,
+                            weight: ($0.weight.isEmpty ? 0 : Double($0.weight)) ?? 0,
+                            difficulty: nil
+                        )
                     },
                     exercise: $0.exercise
                 )
@@ -122,6 +128,7 @@ public class WorkoutViewModel: ObservableObject {
     
     func didTapSaveButton() {
         
+        // TODO: Move this since it isn't needed if routine is nil
         guard let routineRecord = getRoutineRecordFromCurrentState() else { return }
         
         if routine == nil {
@@ -198,7 +205,7 @@ public class WorkoutViewModel: ObservableObject {
         routineRecord.exerciseRecords.forEach {
             $0.setRecords.forEach {
                 // -1 means that there was no value inputted
-                if $0.repCount != -1 || $0.weight != -1 {
+                if $0.repCount == -1 {
                     foundMissing = false
                 }
             }

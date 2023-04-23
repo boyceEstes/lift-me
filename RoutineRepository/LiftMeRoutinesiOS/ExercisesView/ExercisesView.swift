@@ -56,6 +56,23 @@ public class ExercisesViewModel: ObservableObject {
             
         }.store(in: &cancellables)
     }
+    
+    
+    func deleteExercise(at offsets: IndexSet) {
+
+        let exercisesToBeRemoved = offsets.map { exercises[$0] }
+        
+        for exerciseToBeRemoved in exercisesToBeRemoved {
+            
+            routineStore.deleteExercise(by: exerciseToBeRemoved.id) { error in
+                if error != nil {
+                    fatalError("Handle deletion error")
+                }
+            }
+        }
+        
+        exercises.remove(atOffsets: offsets)
+    }
 }
 
 
@@ -86,6 +103,7 @@ public struct ExercisesView: View {
                             viewModel.goToExerciseDetailView(exercise)
                         }
                 }
+                .onDelete(perform: viewModel.deleteExercise)
             }
             Spacer()
         }
