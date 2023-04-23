@@ -160,7 +160,9 @@ public class AddExerciseViewModel: ObservableObject {
         for exerciseToBeRemoved in exercisesToBeRemoved {
             
             routineStore.deleteExercise(by: exerciseToBeRemoved.exercise.id) { error in
-                fatalError("Handle errors when deleting exercise fails")
+                if error != nil {
+                    fatalError("Handle deletion error")
+                }
             }
         }
         

@@ -117,6 +117,11 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
     
     func deleteExercise(by exerciseID: UUID, completion: @escaping DeleteExerciseCompletion) {
         
+        decoratee.deleteExercise(by: exerciseID) { [weak self] error in
+            self?.dispatch {
+                completion(error)
+            }
+        }
     }
     
     
