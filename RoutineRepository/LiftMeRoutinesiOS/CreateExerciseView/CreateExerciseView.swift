@@ -33,9 +33,12 @@ public class CreateExerciseViewModel: ObservableObject {
     public func saveExercise() {
         
         let exercise = Exercise(id: UUID(), name: exerciseName, creationDate: Date(), tags: [])
-        routineStore.createExercise(exercise) { error in
+        routineStore.createExercise(exercise) { [weak self] error in
 //
             if let error { fatalError("Could not save, \(error.localizedDescription)") }
+            else {
+                self?.dismiss()
+            }
         }
     }
 }

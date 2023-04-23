@@ -30,6 +30,8 @@ public class ExercisesViewModel: ObservableObject {
         self.routineStore = routineStore
         self.goToExerciseDetailView = goToExerciseDetailView
         self.goToCreateExerciseView = goToCreateExerciseView
+        
+        bindDataSource()
     }
     
     
@@ -38,7 +40,7 @@ public class ExercisesViewModel: ObservableObject {
     }
     
     
-    func loadAllExercises() {
+    func bindDataSource() {
         
         routineStore.exerciseDataSource().exercises.sink { error in
             
@@ -46,6 +48,8 @@ public class ExercisesViewModel: ObservableObject {
             fatalError("Deal with the loading error \(error)")
             
         } receiveValue: { [weak self] exercises in
+            
+            print("BOYCE: exercises change")
             
             guard let self = self else { return }
             self.exercises = exercises
@@ -86,9 +90,9 @@ public struct ExercisesView: View {
             Spacer()
         }
             .navigationTitle("Exercises")
-            .onAppear {
-                viewModel.loadAllExercises()
-            }
+//            .onAppear {
+//                viewModel.loadAllExercises()
+//            }
             .onReceive(inspection.notice) {
                 self.inspection.visit(self, $0)
             }

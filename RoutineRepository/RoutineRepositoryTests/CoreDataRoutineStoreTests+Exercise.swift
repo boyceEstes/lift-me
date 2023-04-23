@@ -87,6 +87,20 @@ extension CoreDataRoutineStoreTests {
     }
     
     
+    func test_coreDataRoutineStore_deleteExerciseOnEmptyCache_succeedsWithNoError() {
+        
+        // given
+        let sut = makeSUT()
+        
+        // when
+        let exerciseID = uniqueExercise().id
+        let deleteError = delete(exerciseID, into: sut)
+        
+        // then
+        XCTAssertNil(deleteError)
+    }
+    
+    
     @discardableResult
     func create(_ exercise: Exercise, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateExerciseResult {
         
@@ -95,6 +109,24 @@ extension CoreDataRoutineStoreTests {
         var receivedResult: RoutineStore.CreateExerciseResult = nil
         
         sut.createExercise(exercise) { result in
+            receivedResult = result
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
+        return receivedResult
+    }
+    
+    
+    @discardableResult
+    func delete(_ exerciseID: UUID, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.DeleteExerciseResult {
+        
+        let exp = expectation(description: "Wait for RoutineStore create completion")
+        
+        var receivedResult: RoutineStore.DeleteExerciseResult = nil
+        
+        sut.deleteExercise(by: exerciseID) { result in
             receivedResult = result
             exp.fulfill()
         }

@@ -30,16 +30,6 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     }
     
     
-    func test_addExerciseView_init_doesNotRequestAllExerciseLoad() {
-        
-        // given/when
-        let (_, routineStore, _) = makeSUT()
-        
-        // then
-        XCTAssertTrue(routineStore.requests.isEmpty)
-    }
-    
-    
     func test_addExerciseView_init_rendersAddExerciseButton() {
         
         // given/when

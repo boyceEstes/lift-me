@@ -52,6 +52,29 @@ extension CoreDataRoutineStore {
         return FRCExerciseDataSourceAdapter(frc: frc)
     }
     
+    
+    public func deleteExercise(by exerciseID: UUID, completion: @escaping DeleteExerciseCompletion) {
+        
+        let context = context
+        context.perform {
+            do {
+                let managedExerciseToDelete = try ManagedExercise.findExercise(with: exerciseID, in: context)
+                context.delete(managedExerciseToDelete)
+                
+                completion(nil)
+            } catch {
+                // --
+                if let coreDataRoutineError = error as? CoreDataRoutineStore.Error,
+                   coreDataRoutineError == .cannotFindExercise {
+                    
+                    completion(nil)
+                } else {
+                    completion(error)
+                }
+            }
+        }
+    }
+    
 
     var seedExercises: [Exercise] {
         return [

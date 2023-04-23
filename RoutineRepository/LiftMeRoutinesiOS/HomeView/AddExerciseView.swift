@@ -70,10 +70,11 @@ public class AddExerciseViewModel: ObservableObject {
         self.dismiss = dismiss
         
         bindSearchTextFieldChange()
+        bindDataSource()
     }
     
     
-    func loadAllExercises() {
+    func bindDataSource() {
         
         routineStore.exerciseDataSource().exercises.sink { error in
             // TODO: Handle this error
@@ -193,10 +194,6 @@ public struct AddExerciseView: View {
             
             FilteredAllExercisesList(viewModel: viewModel)
         }
-            .onAppear {
-                // Do whatever
-                viewModel.loadAllExercises()
-            }
         // Added for testing
             .onReceive(inspection.notice) {
                 self.inspection.visit(self, $0)

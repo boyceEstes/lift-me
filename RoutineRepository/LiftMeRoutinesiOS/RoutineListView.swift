@@ -27,16 +27,16 @@ public class RoutineListViewModel: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     
     
-    public init(routineStore: RoutineStore,
-                goToCreateRoutine: @escaping () -> Void,
-                goToWorkoutView: @escaping (Routine) -> Void
+    public init(
+        routineStore: RoutineStore,
+        goToCreateRoutine: @escaping () -> Void,
+        goToWorkoutView: @escaping (Routine) -> Void
     ) {
         self.routineStore = routineStore
         self.goToCreateRoutine = goToCreateRoutine
         self.goToWorkoutView = goToWorkoutView
         
 //        self.routineUIDataSource = routineStore.routineDataSource()
-        
 //        bindRoutinesToRoutineUIDataSource()
         bindDataSource()
     }
