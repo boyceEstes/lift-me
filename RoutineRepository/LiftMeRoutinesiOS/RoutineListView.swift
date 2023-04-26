@@ -14,6 +14,7 @@ import Combine
 public class RoutineListViewModel: ObservableObject {
     
     let routineStore: RoutineStore
+    let routineDataSource: RoutineDataSource
     let goToCreateRoutine: () -> Void
     let goToWorkoutView: (Routine) -> Void
     
@@ -36,15 +37,14 @@ public class RoutineListViewModel: ObservableObject {
         self.goToCreateRoutine = goToCreateRoutine
         self.goToWorkoutView = goToWorkoutView
         
-//        self.routineUIDataSource = routineStore.routineDataSource()
-//        bindRoutinesToRoutineUIDataSource()
+        self.routineDataSource = routineStore.routineDataSource()
         bindDataSource()
     }
     
     
     func bindDataSource() {
         
-        routineStore.routineDataSource().routines
+        routineDataSource.routines
             .sink { [weak self] error in
             print("BOYCE: 2 Error")
             self?.routineLoadingError = true
