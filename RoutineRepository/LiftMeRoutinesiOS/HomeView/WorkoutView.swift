@@ -182,7 +182,6 @@ public class WorkoutViewModel: ObservableObject {
     
     func createRoutineAndSaveRoutineRecord() {
         
-        
         print("validate all fields are entered")
         let routineRecord = routineRecordViewModel.mapToRoutineRecord(completionDate: Date())
         

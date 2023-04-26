@@ -42,6 +42,8 @@ public class AddExerciseViewModel: ObservableObject {
     
     
     let routineStore: RoutineStore
+    let exerciseDataSource: ExerciseDataSource
+    
     let addExerciseCompletion: ([Exercise]) -> Void
     let goToCreateExercise: () -> Void
     let dismiss: () -> Void
@@ -65,6 +67,7 @@ public class AddExerciseViewModel: ObservableObject {
     ) {
         
         self.routineStore = routineStore
+        self.exerciseDataSource = routineStore.exerciseDataSource()
         self.addExerciseCompletion = addExerciseCompletion
         self.goToCreateExercise = goToCreateExercise
         self.dismiss = dismiss
@@ -76,7 +79,7 @@ public class AddExerciseViewModel: ObservableObject {
     
     func bindDataSource() {
         
-        routineStore.exerciseDataSource().exercises.sink { error in
+        exerciseDataSource.exercises.sink { error in
             // TODO: Handle this error
             fatalError("uh oh")
             
@@ -165,8 +168,6 @@ public class AddExerciseViewModel: ObservableObject {
                 }
             }
         }
-        
-        selectableFilteredExercises.remove(atOffsets: offsets)
     }
 }
 

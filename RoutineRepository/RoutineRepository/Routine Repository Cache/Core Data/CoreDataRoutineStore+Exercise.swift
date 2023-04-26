@@ -61,6 +61,8 @@ extension CoreDataRoutineStore {
                 let managedExerciseToDelete = try ManagedExercise.findExercise(with: exerciseID, in: context)
                 context.delete(managedExerciseToDelete)
                 
+                // TODO: Make sure that the changes here cascade so that if you delete the exercise, it will properly be modified in any routine/routine record
+                try context.save()
                 completion(nil)
                 
             } catch {

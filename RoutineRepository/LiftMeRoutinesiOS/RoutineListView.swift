@@ -48,9 +48,11 @@ public class RoutineListViewModel: ObservableObject {
             .sink { [weak self] error in
             print("BOYCE: 2 Error")
             self?.routineLoadingError = true
+                
         } receiveValue: { [weak self] routines in
-            print("BOYCE: 2 Routines \(routines)")
+            
             self?.routines = routines
+            
         }.store(in: &cancellables)
     }
 

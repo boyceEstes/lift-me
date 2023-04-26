@@ -15,6 +15,8 @@ public class ExercisesViewModel: ObservableObject {
     @Published var exercises = [Exercise]()
     
     let routineStore: RoutineStore
+    let exerciseDataSource: ExerciseDataSource
+    
     let goToExerciseDetailView: (Exercise) -> Void
     let goToCreateExerciseView: () -> Void
     
@@ -31,6 +33,8 @@ public class ExercisesViewModel: ObservableObject {
         self.goToExerciseDetailView = goToExerciseDetailView
         self.goToCreateExerciseView = goToCreateExerciseView
         
+        self.exerciseDataSource = routineStore.exerciseDataSource()
+        
         bindDataSource()
     }
     
@@ -42,7 +46,7 @@ public class ExercisesViewModel: ObservableObject {
     
     func bindDataSource() {
         
-        routineStore.exerciseDataSource().exercises.sink { error in
+        exerciseDataSource.exercises.sink { error in
             
             // TODO: Handle error case
             fatalError("Deal with the loading error \(error)")
@@ -71,7 +75,7 @@ public class ExercisesViewModel: ObservableObject {
             }
         }
         
-        exercises.remove(atOffsets: offsets)
+//        exercises.remove(atOffsets: offsets)
     }
 }
 

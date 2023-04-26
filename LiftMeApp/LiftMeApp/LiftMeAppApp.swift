@@ -31,4 +31,3 @@ struct LiftMeAppApp: App {
         }
     }
 }
-

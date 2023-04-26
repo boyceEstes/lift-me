@@ -31,6 +31,7 @@ public class FRCExerciseDataSourceAdapter: NSObject, ExerciseDataSource {
         super.init()
         
         setupFRC()
+        
     }
     
     

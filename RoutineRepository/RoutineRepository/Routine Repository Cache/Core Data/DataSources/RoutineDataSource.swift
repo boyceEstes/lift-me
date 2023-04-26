@@ -46,6 +46,7 @@ public class FRCRoutineDataSourceAdapter: NSObject, RoutineDataSource {
     
     private func performFetch() {
         
+        print("BOYCE: perform fetch")
         do {
             try frc.performFetch()
             
@@ -70,7 +71,7 @@ extension FRCRoutineDataSourceAdapter: NSFetchedResultsControllerDelegate {
     
     public func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        print("Did change routine core data content")
+        print("BOYCE: Did change routine core data content")
         
         updateRoutinesWithLatestValues()
     }
