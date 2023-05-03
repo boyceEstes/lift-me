@@ -24,7 +24,7 @@ class ExerciseNavigationFlow: ExerciseNavigationFlowProtocol {
         
         var id: Int { self.hashValue }
         
-        case createExerciseView(dismiss: () -> Void, uuid: UUID)
+        case createExerciseView(dismiss: (Exercise?) -> Void, uuid: UUID)
         
         static func == (lhs: ExerciseNavigationFlow.SheetyIdentifier, rhs: ExerciseNavigationFlow.SheetyIdentifier) -> Bool {
             

@@ -34,7 +34,11 @@ public class AddExerciseUIComposer {
         dismiss: @escaping () -> Void
     ) -> SheetyNavigationView<AddExerciseView, AddExerciseNavigationFlow> {
         
-        let addExerciseView = makeAddExerciseView(addExerciseCompletion: addExerciseCompletion, dismiss: dismiss)
+        let addExerciseView = makeAddExerciseView(
+            addExerciseCompletion: addExerciseCompletion,
+            dismiss: dismiss
+        )
+        
         return SheetyNavigationView(sheetyNavigationViewModel: navigationFlow, content: addExerciseView)
     }
     
@@ -47,11 +51,14 @@ public class AddExerciseUIComposer {
         let viewModel = AddExerciseViewModel(
             routineStore: routineStore,
             addExerciseCompletion: addExerciseCompletion,
-            goToCreateExercise: {
+            goToCreateExercise: { handleCreateExerciseCompletion in
                 print("Trigger go to create exercise")
-                self.navigationFlow.modallyDisplayedView = .createExercise(dismiss: {
-                    
-                    self.navigationFlow.modallyDisplayedView = nil
+                self.navigationFlow.modallyDisplayedView = .createExercise(
+                    dismiss: { exercise in
+                        
+                        print("dismissing create exercise")
+                        self.navigationFlow.modallyDisplayedView = nil
+                        handleCreateExerciseCompletion(exercise)
                 }, UUID())
             },
             dismiss: dismiss

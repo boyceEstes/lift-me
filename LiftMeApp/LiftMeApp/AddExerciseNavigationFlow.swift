@@ -17,7 +17,7 @@ class AddExerciseNavigationFlow: SheetyNavigationFlow {
     enum SheetyIdentifier: Identifiable, Hashable {
 
         var id: Int { self.hashValue }
-        case createExercise(dismiss: () -> Void, UUID)
+        case createExercise(dismiss: (Exercise?) -> Void, UUID)
         
         static func == (lhs: AddExerciseNavigationFlow.SheetyIdentifier, rhs: AddExerciseNavigationFlow.SheetyIdentifier) -> Bool {
             

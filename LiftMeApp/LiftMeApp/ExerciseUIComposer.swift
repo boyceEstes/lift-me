@@ -53,10 +53,12 @@ public class ExerciseUIComposer {
             self.navigationFlow.path.append(.exerciseDetailView(exercise: exercise))
         } goToCreateExerciseView: {
             
-            let destination: ExerciseNavigationFlow.SheetyIdentifier = .createExerciseView(dismiss: {
-                
-                self.navigationFlow.modallyDisplayedView = nil
-            }, uuid: UUID())
+            let destination: ExerciseNavigationFlow.SheetyIdentifier = .createExerciseView(
+                dismiss: { _ in
+                    
+                    self.navigationFlow.modallyDisplayedView = nil
+                }, uuid: UUID()
+            )
             
             self.navigationFlow.modallyDisplayedView = destination
         }
@@ -80,14 +82,14 @@ public class ExerciseUIComposer {
     }
     
     
-    func makeCreateExerciseViewWithStackNavigation(dismiss: @escaping () -> Void) -> StackNavigationView<CreateExerciseView, ExerciseNavigationFlow> {
+    func makeCreateExerciseViewWithStackNavigation(dismiss: @escaping (Exercise?) -> Void) -> StackNavigationView<CreateExerciseView, ExerciseNavigationFlow> {
         
         let createExerciseView = makeCreateExerciseView(dismiss: dismiss)
         return StackNavigationView(stackNavigationViewModel: navigationFlow, content: createExerciseView)
     }
     
     
-    func makeCreateExerciseView(dismiss: @escaping () -> Void) -> CreateExerciseView {
+    func makeCreateExerciseView(dismiss: @escaping (Exercise?) -> Void) -> CreateExerciseView {
         
         let viewModel = CreateExerciseViewModel(routineStore: routineStore, dismiss: dismiss)
         return CreateExerciseView(viewModel: viewModel)

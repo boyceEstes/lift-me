@@ -45,7 +45,7 @@ public class AddExerciseViewModel: ObservableObject {
     let exerciseDataSource: ExerciseDataSource
     
     let addExerciseCompletion: ([Exercise]) -> Void
-    let goToCreateExercise: () -> Void
+    let goToCreateExercise: (@escaping (Exercise?) -> Void) -> Void
     let dismiss: () -> Void
     
     // Does not get set
@@ -62,7 +62,7 @@ public class AddExerciseViewModel: ObservableObject {
     public init(
         routineStore: RoutineStore,
         addExerciseCompletion: @escaping ([Exercise]) -> Void,
-        goToCreateExercise: @escaping () -> Void,
+        goToCreateExercise: @escaping (@escaping (Exercise?) -> Void) -> Void,
         dismiss: @escaping () -> Void
     ) {
         
@@ -168,6 +168,20 @@ public class AddExerciseViewModel: ObservableObject {
                 }
             }
         }
+        
+//        selectableFilteredExercises.remove(atOffsets: offsets)
+    }
+    
+    
+    func handleGoToCreateExercise() {
+        
+        goToCreateExercise(handleCreateExerciseCompletion)
+    }
+    
+    
+    func handleCreateExerciseCompletion(exercise: Exercise?) {
+        
+        print("We have created \(exercise?.name ?? "Nah no exercise here")")
     }
 }
 
@@ -203,7 +217,7 @@ public struct AddExerciseView: View {
             SelectedExercisesList(viewModel: viewModel)
             
             Button("Create") {
-                viewModel.goToCreateExercise()
+                viewModel.handleGoToCreateExercise()
 //                viewModel.createExercise()
 //                viewModel.loadAllExercises()
             }
@@ -310,7 +324,7 @@ struct AddExerciseView_Previews: PreviewProvider {
             viewModel: AddExerciseViewModel(
                 routineStore: RoutineStorePreview(),
                 addExerciseCompletion: { _ in },
-                goToCreateExercise: { },
+                goToCreateExercise: { _ in },
                 dismiss: { }
             )
         )

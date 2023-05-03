@@ -194,18 +194,34 @@ extension CoreDataRoutineStoreTests {
         let uuid = UUID()
         let creationDate = Date()
         let completionDate = Date()
+        
         let exercise = uniqueExercise()
         let exerciseRecord = uniqueExerciseRecord(exercise: exercise)
         
-        let routineRecordBefore = uniqueRoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [exerciseRecord])
-        let routineRecordAfter = uniqueRoutineRecord(id: uuid, creationDate: creationDate, completionDate: completionDate, exerciseRecords: [exerciseRecord])
+        let routineRecordBefore = uniqueRoutineRecord(
+            id: uuid,
+            creationDate: creationDate,
+            completionDate: nil,
+            exerciseRecords: [exerciseRecord]
+        )
+        let routineRecordAfter = uniqueRoutineRecord(
+            id: uuid,
+            creationDate: creationDate,
+            completionDate: completionDate,
+            exerciseRecords: [exerciseRecord]
+        )
         
         create(exercise, into: sut)
         
         createRoutineRecord(routineRecordBefore, on: sut)
 
         // when
-        XCTAssertNil(updateRoutineRecord(routineRecordBefore.id, completionDate: completionDate, exerciseRecords: [exerciseRecord], on: sut))
+        XCTAssertNil(updateRoutineRecord(
+            routineRecordBefore.id,
+            completionDate: completionDate,
+            exerciseRecords: [exerciseRecord],
+            on: sut)
+        )
         
         // then
         expectReadAllRoutineRecords(on: sut, toCompleteWith: .success([routineRecordAfter]))

@@ -15,7 +15,7 @@ public class CreateExerciseViewModel: ObservableObject {
     @Published var exerciseName: String = ""
     @Published var exerciseDescription: String = ""
     
-    let dismiss: () -> Void
+    let dismiss: (Exercise?) -> Void
     
     
     var isSaveButtonDisabled: Bool {
@@ -23,7 +23,7 @@ public class CreateExerciseViewModel: ObservableObject {
     }
     
     
-    public init(routineStore: RoutineStore, dismiss: @escaping () -> Void) {
+    public init(routineStore: RoutineStore, dismiss: @escaping (Exercise?) -> Void) {
         
         self.routineStore = routineStore
         self.dismiss = dismiss
@@ -37,7 +37,7 @@ public class CreateExerciseViewModel: ObservableObject {
 //
             if let error { fatalError("Could not save, \(error.localizedDescription)") }
             else {
-                self?.dismiss()
+                self?.dismiss(exercise)
             }
         }
     }
@@ -69,7 +69,7 @@ public struct CreateExerciseView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel") {
                     print("Cancel")
-                    viewModel.dismiss()
+                    viewModel.dismiss(nil)
                 }
             }
             
@@ -93,7 +93,7 @@ struct CreateExerciseView_Previews: PreviewProvider {
         CreateExerciseView(
             viewModel: CreateExerciseViewModel(
                 routineStore: RoutineStorePreview(),
-                dismiss: { }
+                dismiss: { _ in }
             )
         )
     }

@@ -7,33 +7,81 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1555CFCD-E070-4217-8023-2C53A0ADCB2A"
+            uuid = "EC9EFD2E-BC2C-45A3-88BD-3FD4414265FA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/CoreDataRoutineStore.swift"
+            filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/CoreDataRoutineStore+RoutineRecord.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "create(_:completion:)"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "updateRoutineRecord(id:updatedCompletionDate:updatedExerciseRecords:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "309A19A0-E10B-4C44-9613-FC9EE2C3DBB0"
+            uuid = "984CC5F9-8A81-45E7-8272-78D8CE125F03"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LiftMeApp/LiftMeAppTests/CreateExerciseUIIntegrationTests.swift"
+            filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/CoreDataRoutineStore+RoutineRecord.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "CreateExerciseUIIntegrationTests"
-            landmarkType = "3">
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "updateRoutineRecord(id:updatedCompletionDate:updatedExerciseRecords:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6C80691B-242C-4B6D-865F-CD54423ECD01"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/CoreDataRoutineStore+RoutineRecord.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "updateRoutineRecord(id:updatedCompletionDate:updatedExerciseRecords:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "297AB644-CB11-4A97-B5B5-4985FBB1EA43"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/ManagedExerciseRecord.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "createManagedExerciseRecord(_:for:in:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A21A2BEC-94EB-4814-A5DC-4F0613F39555"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RoutineRepository/RoutineRepository/Routine Repository Cache/Core Data/ManagedExercise.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "findExercise(with:in:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

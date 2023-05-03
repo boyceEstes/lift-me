@@ -43,7 +43,7 @@ class ExerciseUIComposerWithSpys: ExerciseUIComposer {
     
     func makeCreateExerciseViewSheetyIdentifier() -> ExerciseNavigationFlow.SheetyIdentifier {
         
-        let createExerciseViewDismissClosure = { self.messages.append(.dismissModal) }
+        let createExerciseViewDismissClosure: (Exercise?) -> Void = { _ in self.messages.append(.dismissModal) }
         
         return .createExerciseView(
             dismiss: createExerciseViewDismissClosure,
