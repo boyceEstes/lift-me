@@ -10,7 +10,7 @@
     </entity>
     <entity name="ManagedExerciseRecord" representedClassName="ManagedExerciseRecord" syncable="YES">
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ManagedExercise" inverseName="exerciseRecords" inverseEntity="ManagedExercise"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedExercise" inverseName="exerciseRecords" inverseEntity="ManagedExercise"/>
         <relationship name="routineRecord" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRoutineRecord" inverseName="exerciseRecords" inverseEntity="ManagedRoutineRecord"/>
         <relationship name="setRecords" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedSetRecord" inverseName="exerciseRecord" inverseEntity="ManagedSetRecord"/>
     </entity>
