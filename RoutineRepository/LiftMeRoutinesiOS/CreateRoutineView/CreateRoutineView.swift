@@ -37,6 +37,12 @@ public class CreateRoutineViewModel: ObservableObject {
     }
     
     
+    var isSaveButtonDisabled: Bool {
+        
+        name.isEmpty// || exercises.isEmpty
+    }
+    
+    
     private func populateExercisesFromRoutineRecordIfPossible() {
         
         guard let routineRecord = routineRecord else { return }
@@ -126,9 +132,10 @@ public class CreateRoutineViewModel: ObservableObject {
 
 public struct CreateRoutineView: View {
     
-    @ObservedObject var viewModel: CreateRoutineViewModel
-    
+    public let inspection = Inspection<Self>()
     let goToAddExerciseView: () -> Void
+    
+    @ObservedObject var viewModel: CreateRoutineViewModel
     
     
     public init(viewModel: CreateRoutineViewModel,
@@ -145,10 +152,12 @@ public struct CreateRoutineView: View {
                 TextField(text: $viewModel.name) {
                     Text("Name")
                 }
+                .accessibilityIdentifier("routine_name")
                 
                 TextField(text: $viewModel.desc) {
                     Text("Description")
                 }
+                .accessibilityIdentifier("routine_description")
                 
                 Section {
                     ForEach(viewModel.exercises, id: \.self) { exercise in
@@ -188,10 +197,13 @@ public struct CreateRoutineView: View {
                         
                         viewModel.saveButtonTapped()
                     }
+                    .disabled(viewModel.isSaveButtonDisabled)
                 }
             }
         }
-        
+        .onReceive(inspection.notice) {
+            self.inspection.visit(self, $0)
+        }
     }
 }
 

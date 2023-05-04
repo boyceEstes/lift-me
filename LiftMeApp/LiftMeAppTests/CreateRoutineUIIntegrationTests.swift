@@ -56,7 +56,6 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     }
     
     
-    // TODO: Can I test if dismiss is called?
     func test_createRoutineView_init_containsCancelButton() throws {
         
         // given/when
@@ -67,22 +66,37 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     }
     
     
+    func test_createRoutineView_noNameNoDescriptionNoExercises_hasDisabledSaveButton() throws {
+        
+        // given
+        let (sut, _) = makeSUT()
+        
+        // when
+        // It is in its basic state (of no information)
+        
+        // then
+        let saveButton = try sut.inspect().find(button: "Save")
+        XCTAssertTrue(saveButton.isDisabled())
+    }
+    
+    
     func test_createRoutineView_saveRoutineWithTextFieldNameEntered_requestsToSaveRoutineWithSameName() throws {
         
         // given
         let (sut, routineRepository) = makeSUT()
         let expectedName = "DeadLift"
-//        let expectedRoutine = uniqueRoutine(name: expectedName).model
+
+        // when
+        let exp = sut.inspection.inspect { view in
+            
+            let nameTextField = try view.find(viewWithAccessibilityIdentifier: "routine_name").textField()
+            try nameTextField.setInput(expectedName)
+        }
+        
+        ViewHosting.host(view: sut)
+        wait(for: [exp], timeout: 0.3)
         
         let saveButton = try sut.inspect().find(button: "Save")
-        //        let descriptionTextField = try sut.inspect().find(text: "Description")
-        
-        // when
-        try sut
-            .inspect()
-            .find(ViewType.TextField.self)
-            .setInput(expectedName)
-        
         try saveButton.tap()
         
         // This will with index out-of-bounds if we have not hooked up button to save

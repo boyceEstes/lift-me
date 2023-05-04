@@ -47,8 +47,8 @@ public class CreateExerciseViewModel: ObservableObject {
 public struct CreateExerciseView: View {
     
     public let inspection = Inspection<Self>()
-    @ObservedObject public var viewModel: CreateExerciseViewModel
     
+    @ObservedObject public var viewModel: CreateExerciseViewModel
     
     public init(viewModel: CreateExerciseViewModel) {
         self.viewModel = viewModel
