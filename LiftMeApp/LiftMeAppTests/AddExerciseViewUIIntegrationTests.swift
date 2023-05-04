@@ -201,14 +201,18 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
             // This test does not work when we are relying on the datasource completely and not doing a
             // `selectableFilteredExercises.remove(atOffsets: offsets)`
             //
-            // Maybe I need to do some sort of expectation for the deletion to be completed
-            // TODO:  Fix this test so that the rows are one less after there has been one deleted
-//            XCTAssertEqual(allFilteredSelectableExerciseRowsAfterDeletion.count, 2)
+            // This doesn't work because we use a fake data source in this unit testing.
+            // The best we can do is just make sure that the correct method to delete is called.
             
             XCTAssertEqual(routineStore.requests, [.getExerciseDataSource, .deleteExercise(exerciseToDelete.id)])
         }
         
         wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_addExerciseView_openCreateExerciseAndSaveExercise_willSelectTheExerciseInTheList() {
+        // This also seems hard to test with the data source spy instead of the actual data source because we are needing the list to be repopulated with the new row.
     }
     
     

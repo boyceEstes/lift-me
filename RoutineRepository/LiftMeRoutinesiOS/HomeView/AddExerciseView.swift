@@ -181,7 +181,12 @@ public class AddExerciseViewModel: ObservableObject {
     
     func handleCreateExerciseCompletion(exercise: Exercise?) {
         
-        print("We have created \(exercise?.name ?? "Nah no exercise here")")
+        guard let exercise = exercise else { return }
+        guard let selectableExercise = selectableFilteredExercises.filter({ selectableExercise in
+            selectableExercise.exercise.id == exercise.id
+        }).first else { return}
+        
+        addSelectableExerciseToSelectedList(selectableExercise: selectableExercise)
     }
 }
 
