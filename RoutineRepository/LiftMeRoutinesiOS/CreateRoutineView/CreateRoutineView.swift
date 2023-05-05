@@ -39,7 +39,7 @@ public class CreateRoutineViewModel: ObservableObject {
     
     var isSaveButtonDisabled: Bool {
         
-        name.isEmpty// || exercises.isEmpty
+        name.isEmpty || exercises.isEmpty
     }
     
     
@@ -56,7 +56,7 @@ public class CreateRoutineViewModel: ObservableObject {
         
         if let routineRecord = routineRecord {
             
-            routine = createRoutine(with: routineRecord)
+            routine = createRoutine(with: [routineRecord])
         } else {
             routine = createRoutine()
         }
@@ -75,27 +75,14 @@ public class CreateRoutineViewModel: ObservableObject {
     }
     
     
-    func createRoutine(with routineRecord: RoutineRecord) -> Routine {
+    func createRoutine(with routineRecords: [RoutineRecord]? = nil) -> Routine {
         
         let routine = Routine(
             id: UUID(),
             name: name,
             creationDate: Date(),
             exercises: exercises,
-            routineRecords: [routineRecord])
-
-        return routine
-    }
-    
-    
-    func createRoutine() -> Routine {
-        
-        let routine = Routine(
-            id: UUID(),
-            name: name,
-            creationDate: Date(),
-            exercises: exercises,
-            routineRecords: [])
+            routineRecords: routineRecords ?? [])
 
         return routine
     }
@@ -163,6 +150,7 @@ public struct CreateRoutineView: View {
                     ForEach(viewModel.exercises, id: \.self) { exercise in
                         HStack {
                             Text(exercise.name)
+                                .accessibilityIdentifier("exercise_row")
                         }
                     }
                 } header: {
