@@ -39,8 +39,8 @@ class HomeNavigationFlow: SheetyNavigationFlow {
     
     
     @Published var modallyDisplayedView: SheetyIdentifier? = nil {
-        willSet {
-            print("current: \(modallyDisplayedView), new: \(newValue)")
+        didSet {
+            print("Home Navigation Flow - \(modallyDisplayedView.debugDescription)")
         }
     }
     
@@ -59,10 +59,8 @@ class HomeNavigationFlow: SheetyNavigationFlow {
             case let .workout(routine):
                 workoutUIComposer.makeWorkoutViewWithSheetyNavigation(
                     routine: routine,
-                    dismiss: {
-                    print("HomeNavigationFlow is called")
-                    self.dismiss()
-                })
+                    dismiss: self.dismiss
+                )
             }
         }
     }

@@ -16,7 +16,7 @@ struct LiftMeAppApp: App {
     
     init() {
         // Do calculations to get the routineStore here
-        // pass it into the UIComposer which will create the HomeUIComposer  and othe stuff woith it
+        // pass it into the UIComposer which will create the HomeUIComposer and other stuff with it
         let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("routine-store.sqlite")
         let bundle = Bundle(for: CoreDataRoutineStore.self)
         let routineStore = try! CoreDataRoutineStore(storeURL: localStoreURL, bundle: bundle)

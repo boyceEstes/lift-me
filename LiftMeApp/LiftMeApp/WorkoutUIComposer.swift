@@ -57,10 +57,17 @@ public class WorkoutUIComposer {
         let viewModel = WorkoutViewModel(
             routineStore: routineStore,
             routine: routine,
-            goToCreateRoutineView: { routineRecord in
-                self.navigationFlow.modallyDisplayedView = .createRoutineView(
+            goToCreateRoutineView: { [weak self] routineRecord in
+                
+                self?.navigationFlow.modallyDisplayedView = .createRoutineView(
                     routineRecord: routineRecord,
-                    superDismiss: dismiss
+                    superDismiss: {
+                        print("super dismiss called")
+                        // dismiss view from the workout navigation flow
+                        self?.navigationFlow.modallyDisplayedView = nil
+                        // dismiss view from the home navigation flow
+                        dismiss()
+                    }
                 )
             },
             dismiss: dismiss

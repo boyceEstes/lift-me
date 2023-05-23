@@ -68,7 +68,11 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
     }
     
     // TODO: Make the SheetyIdentifier a CurrentValueSubject to be more resilient to coding errors
-    @Published var modallyDisplayedView: SheetyIdentifier? = nil
+    @Published var modallyDisplayedView: SheetyIdentifier? = nil {
+        didSet {
+            print("Workout Navigation Flow - \(modallyDisplayedView.debugDescription)")
+        }
+    }
     
     
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
