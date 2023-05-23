@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B30E83C5291EB36B00A19724 /* CreateRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E83C4291EB36B00A19724 /* CreateRoutineView.swift */; };
-		B313A4412901805B00740E61 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B320DC4B29B0506E006CCE03 /* CreateExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B320DC4A29B0506E006CCE03 /* CreateExerciseView.swift */; };
 		B320DC5529B1AB68006CCE03 /* RoutineDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B320DC5429B1AB68006CCE03 /* RoutineDataSource.swift */; };
 		B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3290870298196DC008350B1 /* RoutineStorePreview.swift */; };
@@ -46,6 +45,7 @@
 		B3A74CD929720D6A00A376AC /* ManagedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD329720D6A00A376AC /* ManagedExercise.swift */; };
 		B3A74CDB2972141500A376AC /* CoreDataRoutineStore+Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CDA2972141500A376AC /* CoreDataRoutineStore+Exercise.swift */; };
 		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
+		B3C35F962A1D124A00C0C953 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0028F1EDB4006CC77D /* Routine.swift */; };
@@ -635,8 +635,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3C35F962A1D124A00C0C953 /* SharedTestHelpers.swift in Sources */,
 				B32CAE1928FF915D00B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
-				B313A4412901805B00740E61 /* SharedTestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
