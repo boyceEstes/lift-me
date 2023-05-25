@@ -94,17 +94,17 @@ public class CreateRoutineViewModel: ObservableObject {
             
             guard let self = self else { return }
             
-            if error != nil {
-                fatalError("Idk, handle it. error: \(error?.localizedDescription ?? "unknown error")")
-            }
-            
-            // Dismiss all the way to the root because we have done everything successfully
-            if let superDismiss = self.superDismiss {
-                
-                self.dismiss()
-                superDismiss()
+            if let error = error {
+                self.handleError(error: error, saving: routine)
             } else {
-                self.dismiss()
+                // Dismiss all the way to the root because we have done everything successfully
+                if let superDismiss = self.superDismiss {
+                    
+                    self.dismiss()
+                    superDismiss()
+                } else {
+                    self.dismiss()
+                }
             }
         }
     }
@@ -113,6 +113,37 @@ public class CreateRoutineViewModel: ObservableObject {
     func cancelCreateRoutine() {
         
         dismiss()
+    }
+    
+    
+    private func handleError(error: Error, saving routine: Routine) {
+        
+        if case CoreDataRoutineStore.Error.routineWithNameAlreadyExists = error {
+            // calculate new name and try saving again
+            let uniquelyNamedRoutine = uniquelyNamedRoutine(from: routine)
+            
+        } else {
+            displayAlert(with: error)
+        }
+    }
+    
+    
+    private func displayAlert(with error: Error) {
+        
+    }
+    
+    
+    private func uniquelyNamedRoutine(from routine: Routine) -> Routine {
+        
+        // Create unique name based on the given routine
+        let uniquelyNamedRoutine = Routine(
+            id: routine.id,
+            name: "unique",
+            creationDate: routine.creationDate,
+            exercises: routine.exercises,
+            routineRecords: routine.routineRecords
+        )
+        return uniquelyNamedRoutine
     }
 }
 
