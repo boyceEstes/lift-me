@@ -7,43 +7,55 @@
 
 import RoutineRepository
 import SwiftUI
+import Combine
+
+
 
 public class RoutineListViewModel: ObservableObject {
     
     let routineStore: RoutineStore
+    let routineDataSource: RoutineDataSource
     let goToCreateRoutine: () -> Void
+    let goToWorkoutView: (Routine) -> Void
+    
+//    let routineUIDataSource: RoutineDataSource
     
     // TODO: Could I make this a future instead since it should only be emitted once
-    @Published var firstLoadCompleted = false
-    @Published var routineLoadError = false
+//    @Published var firstLoadCompleted = false
+    @Published var routineLoadingError = false
     @Published var routines = [Routine]()
     
+    var cancellables = Set<AnyCancellable>()
     
-    public init(routineStore: RoutineStore,
-                goToCreateRoutine: @escaping () -> Void
+    
+    public init(
+        routineStore: RoutineStore,
+        goToCreateRoutine: @escaping () -> Void,
+        goToWorkoutView: @escaping (Routine) -> Void
     ) {
         self.routineStore = routineStore
         self.goToCreateRoutine = goToCreateRoutine
-    }
-    
-    
-    public func loadRoutines() {
-        routineStore.readAllRoutines() { [weak self] result in
+        self.goToWorkoutView = goToWorkoutView
         
-            if self?.firstLoadCompleted == false {
-                self?.firstLoadCompleted = true
-            }
-            
-            switch result {
-            case let .success(routines):
-                self?.routines = routines
-                
-            case .failure:
-                self?.routineLoadError = true
-            }
-        }
+        self.routineDataSource = routineStore.routineDataSource()
+        bindDataSource()
     }
     
+    
+    func bindDataSource() {
+        
+        routineDataSource.routines
+            .sink { [weak self] error in
+            print("BOYCE: 2 Error")
+            self?.routineLoadingError = true
+                
+        } receiveValue: { [weak self] routines in
+            
+            self?.routines = routines
+            
+        }.store(in: &cancellables)
+    }
+
     
     func tappedNewButton() {
         goToCreateRoutine()
@@ -122,9 +134,9 @@ public struct RoutineListView: View {
             
             ScrollableRoutineListView(viewModel: viewModel)
         }
-        .onAppear {
-            viewModel.loadRoutines()
-        }
+//        .onAppear {
+//            viewModel.loadRoutines()
+//        }
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
         }
@@ -204,10 +216,14 @@ public struct MoreRoutinesButtonView: View {
 public struct RoutineCellView: View {
     
     let routine: Routine
+    let goToWorkoutView: (Routine) -> Void
     
     public var body: some View {
         Text("\(routine.name)")
             .routineCell()
+            .onTapGesture {
+                goToWorkoutView(routine)
+            }
     }
 }
 
@@ -240,9 +256,9 @@ public struct ScrollableRoutineListView: View {
             
             LazyHStack(spacing: 12) {
                 
-                if viewModel.firstLoadCompleted {
+//                if viewModel.firstLoadCompleted {
                     
-                    if viewModel.routineLoadError {
+                    if viewModel.routineLoadingError {
                         ErrorRoutineCellView()
                     } else {
                         
@@ -252,11 +268,13 @@ public struct ScrollableRoutineListView: View {
                         } else {
                             
                             ForEach(viewModel.routines, id: \.self) { routine in
-                                RoutineCellView(routine: routine)
+                                RoutineCellView(
+                                    routine: routine,
+                                    goToWorkoutView: viewModel.goToWorkoutView)
                             }
                         }
                     }
-                }
+//                }
             }
             .padding(.leading)
             .frame(height: 160)
@@ -273,7 +291,8 @@ struct RoutineListView_Previews: PreviewProvider {
         RoutineListView(
             viewModel: RoutineListViewModel(
                 routineStore: RoutineStorePreview(),
-                goToCreateRoutine: { }
+                goToCreateRoutine: { },
+                goToWorkoutView: { _ in }
             )
         )
         .preferredColorScheme(.dark)

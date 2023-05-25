@@ -18,6 +18,9 @@
 		B33D0FB42970643E00C2FB1E /* WorkoutUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */; };
 		B33D0FB82970647500C2FB1E /* WorkoutNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB72970647500C2FB1E /* WorkoutNavigationFlow.swift */; };
 		B33D0FBA29706CB100C2FB1E /* HomeUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */; };
+		B352A08129E0541900923B6C /* AddExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08029E0541900923B6C /* AddExerciseUIComposer.swift */; };
+		B352A08329E0542300923B6C /* AddExerciseNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08229E0542300923B6C /* AddExerciseNavigationFlow.swift */; };
+		B352A08529E2289800923B6C /* CreateExerciseUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08429E2289800923B6C /* CreateExerciseUIIntegrationTests.swift */; };
 		B36890F62911F4B000E04957 /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; };
 		B36890F72911F4B000E04957 /* LiftMeRoutinesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B36890F82911F4B000E04957 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F52911F4B000E04957 /* RoutineRepository.framework */; };
@@ -26,10 +29,22 @@
 		B368912B2913FBA800E04957 /* HomeUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368912A2913FBA800E04957 /* HomeUIComposer.swift */; };
 		B36891582914B5E700E04957 /* RoutineListUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36891572914B5E700E04957 /* RoutineListUIIntegrationTests.swift */; };
 		B368915B2914B66100E04957 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B368915A2914B66100E04957 /* SharedTestHelpers.swift */; };
+		B3692CBC2999803400D9BD05 /* HistoryUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CBB2999803400D9BD05 /* HistoryUIComposer.swift */; };
+		B3692CBE2999805B00D9BD05 /* HistoryNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CBD2999805B00D9BD05 /* HistoryNavigationFlow.swift */; };
+		B3692CC929998D8F00D9BD05 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CC829998D8F00D9BD05 /* RootView.swift */; };
+		B3692CCB2999912E00D9BD05 /* HistoryUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CCA2999912E00D9BD05 /* HistoryUIIntegrationTests.swift */; };
+		B3692CCD2999952500D9BD05 /* HistoryUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CCC2999952500D9BD05 /* HistoryUIComposerWithSpys.swift */; };
+		B3692CD22999B91200D9BD05 /* ExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */; };
+		B3692CD42999BE0100D9BD05 /* ExerciseNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */; };
+		B3692CD92999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */; };
+		B3692CDB2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift */; };
+		B3692CE02999D39B00D9BD05 /* ExerciseDetailViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CDF2999D39B00D9BD05 /* ExerciseDetailViewUIIntegrationTests.swift */; };
 		B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */; };
 		B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548E2908D48300F04CC1 /* ContentView.swift */; };
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
 		B3A854942908D48400F04CC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854932908D48400F04CC1 /* Preview Assets.xcassets */; };
+		B3E156EF299A3BF700A5BC50 /* CreateRoutineUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E156EE299A3BF700A5BC50 /* CreateRoutineUIComposer.swift */; };
+		B3E156F1299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E156F0299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift */; };
 		B3F0E28F292FCB9800A5C506 /* HomeNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0E28E292FCB9800A5C506 /* HomeNavigationFlow.swift */; };
 		B3F0E293292FCC9000A5C506 /* NavigationFlow in Frameworks */ = {isa = PBXBuildFile; productRef = B3F0E292292FCC9000A5C506 /* NavigationFlow */; };
 /* End PBXBuildFile section */
@@ -70,18 +85,33 @@
 		B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutUIComposer.swift; sourceTree = "<group>"; };
 		B33D0FB72970647500C2FB1E /* WorkoutNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutNavigationFlow.swift; sourceTree = "<group>"; };
 		B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUIComposerWithSpys.swift; sourceTree = "<group>"; };
+		B352A08029E0541900923B6C /* AddExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseUIComposer.swift; sourceTree = "<group>"; };
+		B352A08229E0542300923B6C /* AddExerciseNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseNavigationFlow.swift; sourceTree = "<group>"; };
+		B352A08429E2289800923B6C /* CreateExerciseUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36890F52911F4B000E04957 /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMainDecorator.swift; sourceTree = "<group>"; };
 		B368912A2913FBA800E04957 /* HomeUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUIComposer.swift; sourceTree = "<group>"; };
 		B36891572914B5E700E04957 /* RoutineListUIIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineListUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B368915A2914B66100E04957 /* SharedTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestHelpers.swift; sourceTree = "<group>"; };
+		B3692CBB2999803400D9BD05 /* HistoryUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUIComposer.swift; sourceTree = "<group>"; };
+		B3692CBD2999805B00D9BD05 /* HistoryNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryNavigationFlow.swift; sourceTree = "<group>"; };
+		B3692CC829998D8F00D9BD05 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		B3692CCA2999912E00D9BD05 /* HistoryUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUIIntegrationTests.swift; sourceTree = "<group>"; };
+		B3692CCC2999952500D9BD05 /* HistoryUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUIComposerWithSpys.swift; sourceTree = "<group>"; };
+		B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseUIComposer.swift; sourceTree = "<group>"; };
+		B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNavigationFlow.swift; sourceTree = "<group>"; };
+		B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciesViewUIIntegrationTests.swift; sourceTree = "<group>"; };
+		B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseUIComposerWithSpys.swift; sourceTree = "<group>"; };
+		B3692CDF2999D39B00D9BD05 /* ExerciseDetailViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailViewUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B3A854892908D48300F04CC1 /* LiftMeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiftMeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiftMeAppApp.swift; sourceTree = "<group>"; };
 		B3A8548E2908D48300F04CC1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B3A854902908D48400F04CC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3A854932908D48400F04CC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B3A854992908D48500F04CC1 /* LiftMeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3E156EE299A3BF700A5BC50 /* CreateRoutineUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreateRoutineUIComposer.swift; path = ../../../../../../Desktop/CreateRoutineUIComposer.swift; sourceTree = "<group>"; };
+		B3E156F0299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineNavigationFlow.swift; sourceTree = "<group>"; };
 		B3F0E28E292FCB9800A5C506 /* HomeNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,6 +159,7 @@
 		B33D0FB62970645800C2FB1E /* Workout */ = {
 			isa = PBXGroup;
 			children = (
+				B352A07F29E0540300923B6C /* AddExercise */,
 				B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */,
 				B33D0FB72970647500C2FB1E /* WorkoutNavigationFlow.swift */,
 			);
@@ -140,6 +171,8 @@
 			children = (
 				B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */,
 				B329086E29818B80008350B1 /* WorkoutUIComposerWithSpys.swift */,
+				B3692CCC2999952500D9BD05 /* HistoryUIComposerWithSpys.swift */,
+				B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift */,
 			);
 			path = ComposersWithSpys;
 			sourceTree = "<group>";
@@ -151,6 +184,33 @@
 				B36890F52911F4B000E04957 /* RoutineRepository.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B352A07F29E0540300923B6C /* AddExercise */ = {
+			isa = PBXGroup;
+			children = (
+				B352A08029E0541900923B6C /* AddExerciseUIComposer.swift */,
+				B352A08229E0542300923B6C /* AddExerciseNavigationFlow.swift */,
+			);
+			name = AddExercise;
+			sourceTree = "<group>";
+		};
+		B3692CBA2999801700D9BD05 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				B3692CBB2999803400D9BD05 /* HistoryUIComposer.swift */,
+				B3692CBD2999805B00D9BD05 /* HistoryNavigationFlow.swift */,
+			);
+			name = History;
+			sourceTree = "<group>";
+		};
+		B3692CD02999B8F400D9BD05 /* Exercises */ = {
+			isa = PBXGroup;
+			children = (
+				B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */,
+				B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */,
+			);
+			name = Exercises;
 			sourceTree = "<group>";
 		};
 		B3A854802908D48300F04CC1 = {
@@ -175,8 +235,12 @@
 		B3A8548B2908D48300F04CC1 /* LiftMeApp */ = {
 			isa = PBXGroup;
 			children = (
+				B3E156ED299A3BA800A5BC50 /* CreateRoutine */,
+				B3692CD02999B8F400D9BD05 /* Exercises */,
+				B3692CBA2999801700D9BD05 /* History */,
 				B33D0FB52970644400C2FB1E /* Home */,
 				B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */,
+				B3692CC829998D8F00D9BD05 /* RootView.swift */,
 				B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */,
 				B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift */,
 				B3A8548E2908D48300F04CC1 /* ContentView.swift */,
@@ -203,8 +267,21 @@
 				B33D0FA4296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift */,
 				B33D0FAF296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift */,
 				B3290869297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift */,
+				B3692CCA2999912E00D9BD05 /* HistoryUIIntegrationTests.swift */,
+				B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */,
+				B3692CDF2999D39B00D9BD05 /* ExerciseDetailViewUIIntegrationTests.swift */,
+				B352A08429E2289800923B6C /* CreateExerciseUIIntegrationTests.swift */,
 			);
 			path = LiftMeAppTests;
+			sourceTree = "<group>";
+		};
+		B3E156ED299A3BA800A5BC50 /* CreateRoutine */ = {
+			isa = PBXGroup;
+			children = (
+				B3E156EE299A3BF700A5BC50 /* CreateRoutineUIComposer.swift */,
+				B3E156F0299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift */,
+			);
+			name = CreateRoutine;
 			sourceTree = "<group>";
 		};
 		B3F0E290292FCBA100A5C506 /* Supporting Files */ = {
@@ -327,14 +404,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3E156EF299A3BF700A5BC50 /* CreateRoutineUIComposer.swift in Sources */,
 				B3F0E28F292FCB9800A5C506 /* HomeNavigationFlow.swift in Sources */,
 				B33D0FB82970647500C2FB1E /* WorkoutNavigationFlow.swift in Sources */,
 				B3A8548F2908D48300F04CC1 /* ContentView.swift in Sources */,
 				B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */,
+				B352A08329E0542300923B6C /* AddExerciseNavigationFlow.swift in Sources */,
+				B3692CBC2999803400D9BD05 /* HistoryUIComposer.swift in Sources */,
+				B3692CD22999B91200D9BD05 /* ExerciseUIComposer.swift in Sources */,
 				B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */,
 				B33D0FB42970643E00C2FB1E /* WorkoutUIComposer.swift in Sources */,
+				B3E156F1299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift in Sources */,
 				B368912B2913FBA800E04957 /* HomeUIComposer.swift in Sources */,
+				B3692CBE2999805B00D9BD05 /* HistoryNavigationFlow.swift in Sources */,
 				B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */,
+				B352A08129E0541900923B6C /* AddExerciseUIComposer.swift in Sources */,
+				B3692CC929998D8F00D9BD05 /* RootView.swift in Sources */,
+				B3692CD42999BE0100D9BD05 /* ExerciseNavigationFlow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,14 +429,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				B368915B2914B66100E04957 /* SharedTestHelpers.swift in Sources */,
+				B352A08529E2289800923B6C /* CreateExerciseUIIntegrationTests.swift in Sources */,
 				B329086F29818B80008350B1 /* WorkoutUIComposerWithSpys.swift in Sources */,
 				B33D0FA5296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift in Sources */,
 				B33D0FB0296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift in Sources */,
+				B3692CE02999D39B00D9BD05 /* ExerciseDetailViewUIIntegrationTests.swift in Sources */,
 				B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */,
 				B36891582914B5E700E04957 /* RoutineListUIIntegrationTests.swift in Sources */,
+				B3692CCD2999952500D9BD05 /* HistoryUIComposerWithSpys.swift in Sources */,
 				B329086A297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift in Sources */,
 				B33D0FBA29706CB100C2FB1E /* HomeUIComposerWithSpys.swift in Sources */,
 				B329086D298189EE008350B1 /* RoutineStoreSpy.swift in Sources */,
+				B3692CCB2999912E00D9BD05 /* HistoryUIIntegrationTests.swift in Sources */,
+				B3692CDB2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift in Sources */,
+				B3692CD92999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

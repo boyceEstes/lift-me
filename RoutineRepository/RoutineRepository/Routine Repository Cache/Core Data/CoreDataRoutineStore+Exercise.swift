@@ -5,7 +5,7 @@
 //  Created by Boyce Estes on 1/13/23.
 //
 
-import Foundation
+import CoreData
 
 
 extension CoreDataRoutineStore {
@@ -40,11 +40,43 @@ extension CoreDataRoutineStore {
         }
     }
     
+    
+    public func exerciseDataSource() -> ExerciseDataSource {
+        
+        let frc = NSFetchedResultsController(
+            fetchRequest: ManagedExercise.findExercisesRequest(),
+            managedObjectContext: context,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return FRCExerciseDataSourceAdapter(frc: frc)
+    }
+    
+    
+    public func deleteExercise(by exerciseID: UUID, completion: @escaping DeleteExerciseCompletion) {
+        
+        let context = context
+        context.perform {
+            do {
+                let managedExerciseToDelete = try ManagedExercise.findExercise(with: exerciseID, in: context)
+                context.delete(managedExerciseToDelete)
+                
+                // TODO: Make sure that the changes here cascade so that if you delete the exercise, it will properly be modified in any routine/routine record
+                try context.save()
+                completion(nil)
+                
+            } catch {
+                    
+                completion(error)
+            }
+        }
+    }
+    
 
     var seedExercises: [Exercise] {
         return [
-            Exercise(id: UUID(), name: "Deadlift", creationDate: Date(), exerciseRecords: [], tags: []),
-            Exercise(id: UUID(), name: "Bench Press", creationDate: Date(), exerciseRecords: [], tags: [])
+            Exercise(id: UUID(), name: "Deadlift", creationDate: Date(), tags: []),
+            Exercise(id: UUID(), name: "Bench Press", creationDate: Date(), tags: [])
 //            Exercise(name: "Deadlift", tags: [.back]),
 //            Exercise(name: "Bench press", tags: [.chest]),
 //            Exercise(name: "Squat", tags: [.glutes, .quads, .hamstrings]),
@@ -67,29 +99,3 @@ extension CoreDataRoutineStore {
         ]
     }
 }
-
-
-private extension ManagedExercise {
-    
-    func toModel() -> Exercise {
-
-        Exercise(
-            id: self.id,
-            name: self.name,
-            creationDate: self.creationDate,
-            exerciseRecords: [],
-            tags: [])
-    }
-}
-
-
-private extension Array where Element == ManagedExercise {
-    
-    func toModel() -> [Exercise] {
-        map {
-            $0.toModel()
-        }
-    }
-}
-
-

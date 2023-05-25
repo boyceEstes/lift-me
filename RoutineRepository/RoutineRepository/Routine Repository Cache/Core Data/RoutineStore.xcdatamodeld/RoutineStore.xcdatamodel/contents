@@ -9,20 +9,29 @@
         <relationship name="routines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedRoutine" inverseName="exercises" inverseEntity="ManagedRoutine"/>
     </entity>
     <entity name="ManagedExerciseRecord" representedClassName="ManagedExerciseRecord" syncable="YES">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedExercise" inverseName="exerciseRecords" inverseEntity="ManagedExercise"/>
+        <relationship name="routineRecord" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRoutineRecord" inverseName="exerciseRecords" inverseEntity="ManagedRoutineRecord"/>
+        <relationship name="setRecords" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedSetRecord" inverseName="exerciseRecord" inverseEntity="ManagedSetRecord"/>
     </entity>
     <entity name="ManagedRoutine" representedClassName="ManagedRoutine" syncable="YES">
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="exercises" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedExercise" inverseName="routines" inverseEntity="ManagedExercise"/>
-        <relationship name="routineRecords" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedRoutineRecord" inverseName="routine" inverseEntity="ManagedRoutineRecord"/>
+        <relationship name="routineRecords" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedRoutineRecord" inverseName="routine" inverseEntity="ManagedRoutineRecord"/>
     </entity>
     <entity name="ManagedRoutineRecord" representedClassName="ManagedRoutineRecord" syncable="YES">
         <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="exerciseRecords" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedExerciseRecord" inverseName="routineRecord" inverseEntity="ManagedExerciseRecord"/>
         <relationship name="routine" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRoutine" inverseName="routineRecords" inverseEntity="ManagedRoutine"/>
+    </entity>
+    <entity name="ManagedSetRecord" representedClassName="ManagedSetRecord" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="repCount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="exerciseRecord" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedExerciseRecord" inverseName="setRecords" inverseEntity="ManagedExerciseRecord"/>
     </entity>
 </model>

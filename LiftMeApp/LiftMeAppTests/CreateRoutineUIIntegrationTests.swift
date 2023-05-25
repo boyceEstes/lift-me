@@ -56,7 +56,6 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     }
     
     
-    // TODO: Can I test if dismiss is called?
     func test_createRoutineView_init_containsCancelButton() throws {
         
         // given/when
@@ -67,22 +66,117 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     }
     
     
+    func test_createRoutineView_noNameNoDescriptionNoExercises_hasDisabledSaveButton() throws {
+        
+        // given
+        let (sut, _) = makeSUT()
+        
+        // when
+        // It is in its basic state (of no information)
+        
+        // then
+        let saveButton = try sut.inspect().find(button: "Save")
+        XCTAssertTrue(saveButton.isDisabled())
+    }
+    
+    
+    func test_createRoutineView_NoNameNoDescriptionExercises_hasDisabledSaveButton() throws {
+        
+        // given
+        let (sut, _) = makeSUT()
+        
+        // when
+        // This would normally make the next `AddExerciseView` pop up, but instead we made this closure just return an exercise for the tests
+        try sut.inspect().find(button: "Add").tap()
+        let exerciseRows = try sut.inspect().findAll { view in
+            try view.accessibilityIdentifier() == "exercise_row"
+        }
+        XCTAssertEqual(exerciseRows.count, 1)
+        
+        // then
+        let saveButton = try sut.inspect().find(button: "Save")
+        XCTAssertTrue(saveButton.isDisabled())
+    }
+    
+    
+    func test_createRoutineView_NameNoDescriptionNoExercises_hasDisabledSaveButton() throws {
+        
+        // given
+        let (sut, _) = makeSUT()
+        
+        // when
+        // Enter name
+        let expectedName = "Any Routine"
+        let exp = sut.inspection.inspect { view in
+            
+            let nameTextField = try view.find(viewWithAccessibilityIdentifier: "routine_name").textField()
+            try nameTextField.setInput(expectedName)
+        }
+        
+        ViewHosting.host(view: sut)
+        wait(for: [exp], timeout: 0.3)
+        
+        // then
+        let saveButton = try sut.inspect().find(button: "Save")
+        XCTAssertTrue(saveButton.isDisabled())
+    }
+    
+    
+    func test_createRoutineView_NameNoDescriptionExercises_hasEnabledSaveButton() throws {
+        
+        // given
+        let (sut, _) = makeSUT()
+        
+        // when
+        // Enter name
+        let expectedName = "Any Routine"
+        let exp = sut.inspection.inspect { view in
+            
+            let nameTextField = try view.find(viewWithAccessibilityIdentifier: "routine_name").textField()
+            try nameTextField.setInput(expectedName)
+        }
+        
+        ViewHosting.host(view: sut)
+        wait(for: [exp], timeout: 0.3)
+        // Add exercise
+        // This would normally make the next `AddExerciseView` pop up, but instead we made this closure just return an exercise for the tests
+        try sut.inspect().find(button: "Add").tap()
+        let exerciseRows = try sut.inspect().findAll { view in
+            try view.accessibilityIdentifier() == "exercise_row"
+        }
+        XCTAssertEqual(exerciseRows.count, 1)
+        
+        // then
+        let saveButton = try sut.inspect().find(button: "Save")
+        XCTAssertFalse(saveButton.isDisabled())
+    }
+    
+    
     func test_createRoutineView_saveRoutineWithTextFieldNameEntered_requestsToSaveRoutineWithSameName() throws {
         
         // given
         let (sut, routineRepository) = makeSUT()
         let expectedName = "DeadLift"
-//        let expectedRoutine = uniqueRoutine(name: expectedName).model
+
+        // when
+        let exp = sut.inspection.inspect { view in
+            
+            let nameTextField = try view.find(viewWithAccessibilityIdentifier: "routine_name").textField()
+            try nameTextField.setInput(expectedName)
+        }
+        
+        ViewHosting.host(view: sut)
+        wait(for: [exp], timeout: 0.3)
+        
+        // Add exercise
+        // This would normally make the next `AddExerciseView` pop up, but instead we made this closure just return an exercise for the tests
+        try sut.inspect().find(button: "Add").tap()
+        let exerciseRows = try sut.inspect().findAll { view in
+            try view.accessibilityIdentifier() == "exercise_row"
+        }
+        XCTAssertEqual(exerciseRows.count, 1)
         
         let saveButton = try sut.inspect().find(button: "Save")
-        //        let descriptionTextField = try sut.inspect().find(text: "Description")
-        
-        // when
-        try sut
-            .inspect()
-            .find(ViewType.TextField.self)
-            .setInput(expectedName)
-        
         try saveButton.tap()
         
         // This will with index out-of-bounds if we have not hooked up button to save
@@ -98,11 +192,18 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     
     func makeSUT() -> (CreateRoutineView, RoutineStoreSpy) {
         
-        let homeUIComposer = HomeUIComposerWithSpys()
+        let homeUIComposer = CreateRoutineUIComposerWithSpys()
         let routineStore: RoutineStoreSpy = homeUIComposer.routineStore as! RoutineStoreSpy
         
-        let sut = homeUIComposer.makeCreateRoutineView()
+//        let sut = homeUIComposer.makeCreateRoutineView(routineRecord: nil, superDismiss: nil)
         
+        // I want a simpller way to get exercises added to the view rather than doing a full sequence on another page.
+        // ... Some I'm stubbing the behavior with this `goToAddExerciseView` closure below
+        
+        // The other thing that would make this much easier is actually just making the view model public, then I could just call the function whenever
+        
+        let viewModel = CreateRoutineViewModel(routineStore: routineStore, dismiss: { })
+        let sut = CreateRoutineView(viewModel: viewModel, goToAddExerciseView: { viewModel.addExercisesCompletion(exercises: [uniqueExercise()] ) })
         return (sut, routineStore)
     }
 }

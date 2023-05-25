@@ -6,16 +6,40 @@
 //
 
 import Foundation
+import Combine
 import RoutineRepository
+
+
+class RoutineDataSourceSpy: RoutineDataSource {
+    
+    var routinesSubject = CurrentValueSubject<[Routine], Error>([])
+    var routines: AnyPublisher<[Routine], Error> {
+        routinesSubject.eraseToAnyPublisher()
+    }
+}
+
+
+class ExerciseDataSourceSpy: ExerciseDataSource {
+    
+    var exercisesSubject = CurrentValueSubject<[Exercise], Error>([])
+    var exercises: AnyPublisher<[Exercise], Error> {
+        exercisesSubject.eraseToAnyPublisher()
+    }
+}
+
 
 
 class RoutineStoreSpy: RoutineStore {
 
-
     enum ReceivedMessage: Equatable {
         case saveRoutine(Routine)
-        case loadAllRoutines
-        case loadAllExercises
+        case createRoutineRecord
+        case readAllRoutineRecords
+        case createExercise(Exercise)
+        case readAllExercises
+        case readAllExerciseRecords(Exercise)
+        case getExerciseDataSource
+        case deleteExercise(UUID)
     }
     
     private(set) var requests = [ReceivedMessage]()
@@ -23,7 +47,7 @@ class RoutineStoreSpy: RoutineStore {
     
     // MARK: - Routines
     
-    private(set) var loadAllRoutinesCompletions = [RoutineStore.ReadRoutinesCompletion]()
+    let routineDataSourceSpy = RoutineDataSourceSpy()
     private(set) var saveRoutineCompletions = [RoutineStore.CreateRoutineCompletion]()
     
     
@@ -32,25 +56,31 @@ class RoutineStoreSpy: RoutineStore {
         saveRoutineCompletions.append(completion)
     }
 
-    
-    func readAllRoutines(completion: @escaping ReadRoutinesCompletion) {
-        requests.append(.loadAllRoutines)
-        loadAllRoutinesCompletions.append(completion)
+
+    func routineDataSource() -> RoutineRepository.RoutineDataSource {
+        
+        print("BOYCE: Request routineDataSource")
+        return routineDataSourceSpy
     }
     
     
     func completeRoutineLoading(with error: Error, at index: Int = 0) {
-        loadAllRoutinesCompletions[index](.failure(error))
+//        loadAllRoutinesCompletions[index](.failure(error))
+        print("BOYCE: completing with error")
+        routineDataSourceSpy.routinesSubject.send(completion: .failure(error))
     }
     
     
     func completeRoutineLoadingWithNoRoutines(at index: Int = 0) {
-        loadAllRoutinesCompletions[index](.success([]))
+//        loadAllRoutinesCompletions[index](.success([]))
+        print("BOYCE: completing with no routines")
+        routineDataSourceSpy.routinesSubject.send([])
     }
     
     
     func completeRoutineLoading(with routines: [Routine], at index: Int = 0) {
-        loadAllRoutinesCompletions[index](.success(routines))
+//        loadAllRoutinesCompletions[index](.success(routines))
+        self.routineDataSourceSpy.routinesSubject.send(routines)
     }
     
     
@@ -60,37 +90,101 @@ class RoutineStoreSpy: RoutineStore {
     
     
     // MARK: - Routine Records
-    func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
+    
+    private(set) var readAllRoutineRecordsCompletions = [RoutineStore.ReadAllRoutineRecordsCompletion]()
+    
+    
+    func createRoutineRecord(_ routineRecord: RoutineRepository.RoutineRecord, routine: RoutineRepository.Routine?, completion: @escaping CreateRoutineRecordCompletion) {
+        // TODO: Test for saving a routine record AND a routine
+        requests.append(.createRoutineRecord)
+    }
+    
+    
+    func readRoutineRecord(with id: UUID, completion: @escaping ReadRoutineRecordCompletion) {
         print("placeholder")
     }
     
-    func updateRoutineRecord(newRoutineRecord: RoutineRepository.RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
+    
+    func readAllRoutineRecords(completion: @escaping ReadAllRoutineRecordsCompletion) {
+        requests.append(.readAllRoutineRecords)
+        readAllRoutineRecordsCompletions.append(completion)
+    }
+    
+    
+    func updateRoutineRecord(id: UUID, updatedCompletionDate: Date?, updatedExerciseRecords: [RoutineRepository.ExerciseRecord], completion: @escaping UpdateRoutineRecordCompletion) {
+        
         print("placeholder")
     }
+    
     
     func deleteRoutineRecord(routineRecord: RoutineRepository.RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
         print("placeholder")
     }
     
     
+    // Completions
+    func completeReadRoutineRecords(with routineRecords: [RoutineRecord], at index: Int = 0) {
+        readAllRoutineRecordsCompletions[index](.success(routineRecords))
+    }
+    
+    
     // MARK: - Exercises
     
+    private let exerciseDataSourceSpy = ExerciseDataSourceSpy()
     private(set) var readAllExercisesCompletions = [RoutineStore.ReadExercisesCompletion]()
+    private (set) var createExerciseCompletions = [RoutineStore.CreateExerciseCompletion]()
     
     
     func readAllExercises(completion: @escaping ReadExercisesCompletion) {
         
-        requests.append(.loadAllExercises)
+        requests.append(.readAllExercises)
         readAllExercisesCompletions.append(completion)
     }
     
     
     func createExercise(_ exercise: RoutineRepository.Exercise, completion: @escaping CreateExerciseCompletion) {
         
+        requests.append(.createExercise(exercise))
+        createExerciseCompletions.append(completion)
+    }
+    
+    
+    func exerciseDataSource() -> ExerciseDataSource {
+        
+        requests.append(.getExerciseDataSource)
+        return exerciseDataSourceSpy
     }
     
     
     func completeReadAllExercises(with exercises: [Exercise], at index: Int = 0) {
-        readAllExercisesCompletions[index](.success(exercises))
+        
+        exerciseDataSourceSpy.exercisesSubject.send(exercises)
+    }
+    
+    
+    func completeCreateExercise(error: Error, at index: Int = 0) {
+        
+        exerciseDataSourceSpy.exercisesSubject.send(completion: .failure(error))
+    }
+    
+    
+    func deleteExercise(by exerciseID: UUID, completion: @escaping DeleteExerciseCompletion) {
+
+        requests.append(.deleteExercise(exerciseID))
+    }
+    
+    
+    // MARK: - Exercise Records
+    
+    private(set) var readExerciseRecordsCompletions = [RoutineStore.ReadExerciseRecordsCompletion]()
+    
+    func readExerciseRecords(for exercise: RoutineRepository.Exercise, completion: @escaping ReadExerciseRecordsCompletion) {
+        requests.append(.readAllExerciseRecords(exercise))
+        readExerciseRecordsCompletions.append(completion)
+    }
+    
+    
+    func completeReadExerciseRecordsForExercise(with exerciseRecords: [ExerciseRecord], at index: Int = 0) {
+        readExerciseRecordsCompletions[index](.success(exerciseRecords))
     }
 }
