@@ -6,7 +6,7 @@
       "location" : "https://github.com/boyceEstes/navigation-flow.git",
       "state" : {
         "branch" : "main",
-        "revision" : "3622b41361569246664ac2d87235626ef213395f"
+        "revision" : "8328ea972a95af143c3698fe453df700d62d01b1"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nalexn/ViewInspector",
       "state" : {
-        "revision" : "ac7df67c4e0593470eda90a550f8493a81609745",
-        "version" : "0.9.2"
+        "revision" : "e42529aa0b6ff57393ab52540f6006f3a709ee00",
+        "version" : "0.9.6"
       }
     }
   ],
