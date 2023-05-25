@@ -1,6 +1,6 @@
 # lift-me
 
-![example workflow](https://github.com/boyceEstes/exercise-repository/actions/workflows/ci.yml/badge.svg)
+![example workflow](https://github.com/boyceEstes/lift-me/.github/workflows/ci.yml/badge.svg)
 
 
 ## Routine and Exercise Core Specs
