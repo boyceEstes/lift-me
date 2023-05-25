@@ -87,14 +87,80 @@ extension CoreDataRoutineStoreTests {
     }
     
     
+    func test_coreDataRoutineStore_deleteExerciseOnEmptyCache_failsWithCannotFindExerciseError() {
+        
+        // given
+        let sut = makeSUT()
+        
+        // when
+        let exerciseID = uniqueExercise().id
+        let deleteError = delete(exerciseID, into: sut)
+        
+        // then
+        let expectedError = CoreDataRoutineStore.Error.cannotFindExercise
+        XCTAssertEqual(deleteError as? NSError, expectedError as NSError)
+    }
+    
+    
+    func test_coreDataRoutineStore_deleteExerciseNotInNonEmptyCache_failsWithCannotFindExerciseError() {
+        
+        // given
+        let sut = makeSUT()
+        let anyExercise = uniqueExercise()
+        create(anyExercise, into: sut)
+        
+        // when
+        let differentExerciseID = uniqueExercise().id
+        let deleteError = delete(differentExerciseID, into: sut)
+        
+        // then
+        let expectedError = CoreDataRoutineStore.Error.cannotFindExercise
+        XCTAssertEqual(deleteError as? NSError, expectedError as NSError)
+    }
+    
+
+    func test_coreDataRoutineStore_deleteExerciseInNonEmptyCache_deletesExerciseFromCache() {
+
+        // given
+        let sut = makeSUT()
+        let anyExercise = uniqueExercise()
+        create(anyExercise, into: sut)
+
+        // when
+        let anyExerciseID = anyExercise.id
+        let deleteError = delete(anyExerciseID, into: sut)
+
+        // then
+        expectReadAllExercises(on: sut, toCompleteWith: .success([]))
+    }
+    
+    
     @discardableResult
-    private func create(_ exercise: Exercise, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateExerciseResult {
+    func create(_ exercise: Exercise, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.CreateExerciseResult {
         
         let exp = expectation(description: "Wait for RoutineStore create completion")
         
         var receivedResult: RoutineStore.CreateExerciseResult = nil
         
         sut.createExercise(exercise) { result in
+            receivedResult = result
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
+        return receivedResult
+    }
+    
+    
+    @discardableResult
+    func delete(_ exerciseID: UUID, into sut: CoreDataRoutineStore, file: StaticString = #file, line: UInt = #line) -> RoutineStore.DeleteExerciseResult {
+        
+        let exp = expectation(description: "Wait for RoutineStore create completion")
+        
+        var receivedResult: RoutineStore.DeleteExerciseResult = nil
+        
+        sut.deleteExercise(by: exerciseID) { result in
             receivedResult = result
             exp.fulfill()
         }

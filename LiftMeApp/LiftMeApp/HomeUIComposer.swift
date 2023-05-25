@@ -17,30 +17,29 @@ import CoreData
 public class HomeUIComposer {
     
     let routineStore: RoutineStore
+    let createRoutineUIComposer: CreateRoutineUIComposer // I am passing this through because I only want one instance at the root that will be used
+    let workoutUIComposer: WorkoutUIComposer
     
     lazy var navigationFlow: HomeNavigationFlow = { [unowned self] in
+        
         return HomeNavigationFlow(
             homeUIComposer: self,
-            workoutUIComposer: WorkoutUIComposer(routineStore: routineStore)
+            workoutUIComposer: workoutUIComposer,
+            createRoutineUIComposer: createRoutineUIComposer
         )
     }()
     
     
-    init(routineStore: RoutineStore) {
+    init(routineStore: RoutineStore,
+         workoutUIComposer: WorkoutUIComposer,
+         createRoutineUIComposer: CreateRoutineUIComposer
+    ) {
         
         self.routineStore = routineStore
+        self.workoutUIComposer = workoutUIComposer
+        self.createRoutineUIComposer = createRoutineUIComposer
     }
-    
-    
-    convenience init() {
-        
-        let localStoreURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("routine-store.sqlite")
-        let bundle = Bundle(for: CoreDataRoutineStore.self)
-        let routineStore = try! CoreDataRoutineStore(storeURL: localStoreURL, bundle: bundle)
-        let mainQueueRoutineStore = DispatchQueueMainDecorator<RoutineStore>(decoratee: routineStore)
-        self.init(routineStore: mainQueueRoutineStore)
-    }
-    
+
 
     func makeHomeViewWithSheetyNavigation() -> SheetyNavigationView<HomeView, HomeNavigationFlow> {
 
@@ -56,8 +55,9 @@ public class HomeUIComposer {
     func makeHomeView() -> HomeView {
         
         return HomeView(
-            goToWorkout: {
-                self.navigationFlow.modallyDisplayedView = .workout
+            routineListView: makeRoutineListView().view,
+            goToWorkoutViewWithNoRoutine: {
+                self.navigationFlow.modallyDisplayedView = .workout(nil)
             }
         )
     }
@@ -65,41 +65,28 @@ public class HomeUIComposer {
     
     func makeRoutineListWithSheetyNavigation() -> SheetyNavigationView<RoutineListView, HomeNavigationFlow> {
         
-        let (routineListView, routineListViewModel) = makeRoutineListView()
+        let (routineListView, _) = makeRoutineListView()
         return SheetyNavigationView(
             sheetyNavigationViewModel: navigationFlow,
             content: routineListView,
-            onDismiss: {
-                routineListViewModel.loadRoutines()
-            }
+            onDismiss: nil
         )
     }
     
     
-    func makeRoutineListView() -> (RoutineListView, RoutineListViewModel) {
+    func makeRoutineListView() -> (view: RoutineListView, viewModel: RoutineListViewModel) {
         
         let viewModel = RoutineListViewModel(
             routineStore: routineStore,
             goToCreateRoutine: {
                 self.navigationFlow.modallyDisplayedView = .createRoutine
+            },
+            goToWorkoutView: { routine in
+                self.navigationFlow.modallyDisplayedView = .workout(routine)
             }
         )
         
         return (RoutineListView(viewModel: viewModel), viewModel)
-    }
-    
-    
-    func makeCreateRoutineView() -> CreateRoutineView {
-
-        let viewModel = CreateRoutineViewModel(
-            routineStore: routineStore,
-            dismissAction: { [weak self] in
-                print("my dismiss action")
-                self?.navigationFlow.dismiss()
-            }
-        )
-        
-        return CreateRoutineView(viewModel: viewModel)
     }
 }
 

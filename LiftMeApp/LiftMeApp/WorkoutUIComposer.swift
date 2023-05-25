@@ -14,21 +14,36 @@ import NavigationFlow
 public class WorkoutUIComposer {
     
     let routineStore: RoutineStore
+    let createRoutineUIComposer: CreateRoutineUIComposer
+    let addExerciseUIComposer: AddExerciseUIComposer
+    let exerciseUIComposer: ExerciseUIComposer
     
     lazy var navigationFlow: WorkoutNavigationFlow = { [unowned self] in
-        return WorkoutNavigationFlow(workoutUIComposer: self)
+        return WorkoutNavigationFlow(
+            workoutUIComposer: self,
+            createRoutineUIComposer: createRoutineUIComposer,
+            addExerciseUIComposer: addExerciseUIComposer,
+            exerciseUIComposer: exerciseUIComposer
+        )
     }()
     
     
-    init(routineStore: RoutineStore) {
+    init(routineStore: RoutineStore,
+         createRoutineUIComposer: CreateRoutineUIComposer,
+         addExerciseUIComposer: AddExerciseUIComposer,
+         exerciseUIComposer: ExerciseUIComposer
+    ) {
         
         self.routineStore = routineStore
+        self.createRoutineUIComposer = createRoutineUIComposer
+        self.addExerciseUIComposer = addExerciseUIComposer
+        self.exerciseUIComposer = exerciseUIComposer
     }
 
     // WorkoutNavigationFlow for the workout since I want it to stay up whne it presents its own sheet
-    func makeWorkoutViewWithSheetyNavigation() -> SheetyNavigationView<WorkoutView, WorkoutNavigationFlow> {
+    func makeWorkoutViewWithSheetyNavigation(routine: Routine?, dismiss: @escaping () -> Void) -> SheetyNavigationView<WorkoutView, WorkoutNavigationFlow> {
         
-        let workoutView = makeWorkoutView()
+        let workoutView = makeWorkoutView(routine: routine, dismiss: dismiss)
         
         return SheetyNavigationView(
             sheetyNavigationViewModel: navigationFlow,
@@ -37,19 +52,37 @@ public class WorkoutUIComposer {
     }
     
     
-    func makeWorkoutView() -> WorkoutView {
+    func makeWorkoutView(routine: Routine?, dismiss: @escaping () -> Void) -> WorkoutView {
+        
+        let viewModel = WorkoutViewModel(
+            routineStore: routineStore,
+            routine: routine,
+            goToCreateRoutineView: { [weak self] routineRecord in
+                
+                self?.navigationFlow.modallyDisplayedView = .createRoutineView(
+                    routineRecord: routineRecord,
+                    superDismiss: {
+                        print("super dismiss called")
+                        // dismiss view from the workout navigation flow
+                        self?.navigationFlow.modallyDisplayedView = nil
+                        // dismiss view from the home navigation flow
+                        dismiss()
+                    }
+                )
+            },
+            dismiss: dismiss
+        )
         
         return WorkoutView(
+            viewModel: viewModel,
             goToAddExercise: {
-                self.navigationFlow.modallyDisplayedView = .addExercise
+                self.navigationFlow.modallyDisplayedView = .addExercise(
+                    addExercisesCompletion: viewModel.addExercisesCompletion,
+                    dismiss: { [weak self] in
+                        self?.navigationFlow.dismiss()
+                    }
+                )
             }
         )
-    }
-    
-    
-    func makeAddExerciseView() -> AddExerciseView {
-        
-        let viewModel = AddExerciseViewModel(routineStore: routineStore)
-        return AddExerciseView(viewModel: viewModel)
     }
 }

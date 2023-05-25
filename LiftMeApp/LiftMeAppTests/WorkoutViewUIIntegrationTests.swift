@@ -13,7 +13,8 @@ import LiftMeRoutinesiOS
 
 
 extension WorkoutView: Inspectable { }
-
+extension ExerciseRecordView: Inspectable { }
+extension SetRecordView: Inspectable { }
 
 final class WorkoutViewUIIntegrationTests: XCTestCase {
 
@@ -50,7 +51,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     func test_workoutView_tapAddButton_navigatesToAddExerciseView() throws {
 
         // given
-        let (sut, workoutNavigationFlow) = makeSUT()
+        let (sut, _, workoutNavigationFlow) = makeSUT()
         let button = try sut.inspect().find(viewWithId: "add-exercise-button").button()
 
         // when
@@ -59,21 +60,175 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
         // then
         XCTAssertEqual(
             workoutNavigationFlow.modallyDisplayedView,
-            WorkoutNavigationFlow.SheetyIdentifier.addExercise
+            WorkoutNavigationFlow.SheetyIdentifier.addExercise(
+                addExercisesCompletion: sut.viewModel.addExercisesCompletion,
+                dismiss: workoutNavigationFlow.dismiss)
         )
     }
 
+    
+    func test_workoutView_addingExercisesToRoutineRecordWithEmptyExerciseList_displaysExercises() {
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, navigationFlow: WorkoutNavigationFlow) {
+        // given
+        // A routine record with no exercises
+        let (sut, _, _) = makeSUT()
+        let addedExercises = [uniqueExercise(), uniqueExercise()]
+
+        let exp = sut.inspection.inspect { sut in
+
+            let exercisesWithSetsBefore = sut.findAll(ExerciseRecordView.self)
+            XCTAssertEqual(exercisesWithSetsBefore.count, 0)
+
+            // when
+            // Exercise(s) is added from add exercise screen
+            try sut.actualView().viewModel.addExercisesCompletion(exercises: addedExercises)
+
+            // then
+            // the routine record will append the new added exercises and display them
+            let exerciseRecordViewAfter = sut.findAll(ExerciseRecordView.self)
+            XCTAssertEqual(exerciseRecordViewAfter.count, 2)
+        }
+
+        ViewHosting.host(view: sut)
+
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_workoutView_addingExercisesToRoutineRecord_displaysOneSetRecordViewByDefault() {
+        
+        // given
+        // A routine record with no exercises
+        let (sut, _, _) = makeSUT()
+        let addedExercise = [uniqueExercise()]
+
+        let exp = sut.inspection.inspect { sut in
+
+            let setRecordsBefore = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsBefore.count, 0)
+
+            // when
+            // Exercise(s) is added from add exercise screen
+            try sut.actualView().viewModel.addExercisesCompletion(exercises: addedExercise)
+
+            // then
+            // the routine record will append the new added exercises and display them
+            let setRecordsAfter = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsAfter.count, 1)
+        }
+
+        ViewHosting.host(view: sut)
+
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_exerciseRecordView_didTapAddSetRecordButton_displayAnAdditionalSetRecordView() {
+        
+        // GIVEN
+        // A routine record with no exercises
+        let (sut, _, _) = makeSUT()
+        let addedExercise = [uniqueExercise()]
+
+        let exp = sut.inspection.inspect { sut in
+
+            let setRecordsBefore = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsBefore.count, 0)
+
+            // Exercise(s) is added from add exercise screen
+            try sut.actualView().viewModel.addExercisesCompletion(exercises: addedExercise)
+
+            // the routine record will append the new added exercises and display them
+            let setRecordsAfter = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsAfter.count, 1)
+            
+            
+            // WHEN
+            let addSetButton = try sut.find(button: "Add Set")
+            try addSetButton.tap()
+            
+            // THEN
+            let setRecordsAfter2 = sut.findAll(SetRecordView.self)
+            XCTAssertEqual(setRecordsAfter2.count, 2)
+        }
+
+        ViewHosting.host(view: sut)
+
+        wait(for: [exp], timeout: 1)
+    }
+    
+    // TODO: Figure out how to test alerts correctly
+//    func test_workoutView_didTapSaveButtonWithEmptySetRecords_willNotAllowSaveToProceed() throws {
+//
+//        // given
+//        // A routine record with no exercises
+//        let (sut, _, _) = makeSUT()
+//        let addedExercise = [uniqueExercise()]
+//
+//        let exp = sut.inspection.inspect { sut in
+//
+//            // Exercise(s) is added from add exercise screen
+//            try sut.actualView().viewModel.addExercisesCompletion(exercises: addedExercise)
+//
+//            // The routine record will append the new added exercises and display them
+//            let saveButton = try sut.find(button: "Save")
+//
+//            // WHEN
+//            try saveButton.tap()
+//
+//            let alert = try sut.alert()
+//            XCTAssertEqual(try alert.title().string(), "Not Yet")
+//            XCTAssertEqual(try alert.message().text().string(), "Make sure you fill out all of your sets")
+//        }
+//
+//        ViewHosting.host(view: sut)
+//
+//        wait(for: [exp], timeout: 1)
+//    }
+    
+    
+    // TODO: Make a shortcut helper method to call to get save button
+    
+    func test_workoutView_noExerciseRecords_willKeepTheButtonDisabled() throws {
+        
+        // given
+        let (sut, _, _) = makeSUT()
+        
+        // when
+        let saveButton = try sut.inspect().find(button: "Save")
+        
+        // then
+        XCTAssertTrue(saveButton.isDisabled())
+    }
+    
+    
+    func test_workoutView_withExerciseRecords_saveButtonisEnabled() throws {
+        
+        // given
+        let (sut, _, _) = makeSUT()
+        
+        let exercise = uniqueExercise()
+        sut.viewModel.addExercisesCompletion(exercises: [exercise])
+        
+        // when
+        let saveButton = try sut.inspect().find(button: "Save")
+        
+        // then
+        XCTAssertFalse(saveButton.isDisabled())
+    }
+
+
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
 
         let workoutUIComposer = WorkoutUIComposerWithSpys()
         let workoutNavigationFlow = workoutUIComposer.navigationFlow
-        let sut = workoutUIComposer.makeWorkoutView()
+        let sut = workoutUIComposer.makeWorkoutView(routine: nil, dismiss: { })
+        let routineStore: RoutineStoreSpy = workoutUIComposer.routineStore as! RoutineStoreSpy
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, workoutNavigationFlow)
+        return (sut, routineStore, workoutNavigationFlow)
     }
     
 }

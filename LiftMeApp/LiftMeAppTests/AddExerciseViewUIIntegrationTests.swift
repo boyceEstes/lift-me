@@ -30,13 +30,13 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     }
     
     
-    func test_addExerciseView_init_doesNotRequestAllExerciseLoad() {
+    func test_addExerciseView_init_rendersAddExerciseButton() {
         
         // given/when
-        let (_, routineStore, _) = makeSUT()
+        let (sut, _, _) = makeSUT()
         
         // then
-        XCTAssertTrue(routineStore.requests.isEmpty)
+        XCTAssertNoThrow(try sut.inspect().find(viewWithAccessibilityIdentifier: "add-selected-exercises"))
     }
     
     
@@ -47,7 +47,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         
         let exp = sut.inspection.inspect { view in
             // then
-            XCTAssertEqual(routineStore.requests, [.loadAllExercises])
+            XCTAssertEqual(routineStore.requests, [.getExerciseDataSource])
         }
         
         // when
@@ -64,7 +64,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         let exercises = [uniqueExercise(), uniqueExercise(), uniqueExercise()]
 
         // when/then
-        assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
+        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
     }
     
     
@@ -78,7 +78,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
             uniqueExercise(name: "Squat")]
         let expectedNumberOfFilteredExercises = 1
 
-        assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
+        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
         
         // then
         // Check the items rendered
@@ -107,7 +107,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
             uniqueExercise(name: "Deadlift"),
             uniqueExercise(name: "Squat")]
 
-        assertReadAllExercisesRenders(in: sut, routineStore: routineStore, with: exercises)
+        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
         
         let exp = sut.inspection.inspect { sut in
             
@@ -169,24 +169,71 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         wait(for: [exp], timeout: 1)
     }
     
-    // Test that there is a single row in selected rows that will say to add some exercises
-
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
+    func test_addExerciseView_swipeToDeleteOnFilteredExercise_deletesAnExercise() {
+        
+        // given
+        let (sut, routineStore, _) = makeSUT()
+        
+        let exercises = [
+            uniqueExercise(name: "Bench"),
+            uniqueExercise(name: "Deadlift"),
+            uniqueExercise(name: "Squat")]
+        
+        let exerciseToDeleteIndex = 0
+        let exerciseToDelete = exercises[exerciseToDeleteIndex]
 
-        let workoutUIComposer = WorkoutUIComposerWithSpys()
-        let workoutNavigationFlow = workoutUIComposer.navigationFlow
-        let sut = workoutUIComposer.makeAddExerciseView()
-        let routineStore: RoutineStoreSpy = workoutUIComposer.routineStore as! RoutineStoreSpy
+        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
+        
+        let exp = sut.inspection.inspect { sut in
+            
+            let filteredSelectableList = try sut.find(FilteredAllExercisesList.self)
+            let allFilteredSelectableExerciseRowsBeforeDeletion = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self)
+            
+            XCTAssertEqual(allFilteredSelectableExerciseRowsBeforeDeletion.count, 3)
+            
+            // when
+            try filteredSelectableList.list().forEach(0).callOnDelete(IndexSet(integer: exerciseToDeleteIndex))
+            
+            // then
+            let allFilteredSelectableExerciseRowsAfterDeletion = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self)
+            
+            // This test does not work when we are relying on the datasource completely and not doing a
+            // `selectableFilteredExercises.remove(atOffsets: offsets)`
+            //
+            // This doesn't work because we use a fake data source in this unit testing.
+            // The best we can do is just make sure that the correct method to delete is called.
+            
+            XCTAssertEqual(routineStore.requests, [.getExerciseDataSource, .deleteExercise(exerciseToDelete.id)])
+        }
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    func test_addExerciseView_openCreateExerciseAndSaveExercise_willSelectTheExerciseInTheList() {
+        // This also seems hard to test with the data source spy instead of the actual data source because we are needing the list to be repopulated with the new row.
+    }
+    
+    
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: AddExerciseNavigationFlow) {
+
+        let addExerciseUIComposer = AddExerciseUIComposerWithSpys()
+        let addExerciseNavigationFlow = addExerciseUIComposer.navigationFlow
+        let sut = addExerciseUIComposer.makeAddExerciseView(
+            addExerciseCompletion: { _ in },
+            dismiss: addExerciseNavigationFlow.dismiss
+        )
+        let routineStore: RoutineStoreSpy = addExerciseUIComposer.routineStore as! RoutineStoreSpy
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, routineStore, workoutNavigationFlow)
+        return (sut, routineStore, addExerciseNavigationFlow)
     }
     
     
-    private func assertReadAllExercisesRenders(
+    private func assertThatRoutineStoreRendersGivenExercises(
         in sut: AddExerciseView,
         routineStore: RoutineStoreSpy,
         with expectedExercises: [Exercise],

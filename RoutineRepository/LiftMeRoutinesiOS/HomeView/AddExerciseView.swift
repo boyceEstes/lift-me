@@ -42,18 +42,15 @@ public class AddExerciseViewModel: ObservableObject {
     
     
     let routineStore: RoutineStore
+    let exerciseDataSource: ExerciseDataSource
+    
+    let addExerciseCompletion: ([Exercise]) -> Void
+    let goToCreateExercise: (@escaping (Exercise?) -> Void) -> Void
+    let dismiss: () -> Void
     
     // Does not get set
     var allSelectableExercises = [SelectableExercise]()
     
-//    var selectedExercisesSet = Set<OrderedExercise>() {
-//        didSet {
-//            let orderedSelectedExercises = selectedExercisesSet.sorted { orderedExercise1, orderedExercise2 in
-//                orderedExercise1.orderIndex < orderedExercise2.orderIndex
-//            }
-//            selectedExercises = orderedSelectedExercises.map { $0.exercise }
-//        }
-//    }
 
     @Published var selectedExercises = [Exercise]()
     @Published var selectableFilteredExercises = [SelectableExercise]()
@@ -62,31 +59,37 @@ public class AddExerciseViewModel: ObservableObject {
     
     var cancellables = Set<AnyCancellable>()
     
-    public init(routineStore: RoutineStore) {
+    public init(
+        routineStore: RoutineStore,
+        addExerciseCompletion: @escaping ([Exercise]) -> Void,
+        goToCreateExercise: @escaping (@escaping (Exercise?) -> Void) -> Void,
+        dismiss: @escaping () -> Void
+    ) {
         
         self.routineStore = routineStore
+        self.exerciseDataSource = routineStore.exerciseDataSource()
+        self.addExerciseCompletion = addExerciseCompletion
+        self.goToCreateExercise = goToCreateExercise
+        self.dismiss = dismiss
         
         bindSearchTextFieldChange()
-//        bindChangesToSelectableFilteredExercises()
-//        bindChangesToSelectableSelectedExercises()
+        bindDataSource()
     }
     
     
-    func loadAllExercises() {
-        routineStore.readAllExercises() { [weak self] result in
+    func bindDataSource() {
+        
+        exerciseDataSource.exercises.sink { error in
+            // TODO: Handle this error
+            fatalError("uh oh")
+            
+        } receiveValue: { [weak self] exercises in
             
             guard let self = self else { return }
+            self.allSelectableExercises = exercises.map { SelectableExercise(isSelected: false, exercise: $0) }
+            self.selectableFilteredExercises = self.allSelectableExercises
             
-            switch result {
-            case let .success(exercises):
-                // We are doing this first - If we delete an exercise `loadAllExercises`
-                self.allSelectableExercises = exercises.map { SelectableExercise(isSelected: false, exercise: $0) }
-                self.selectableFilteredExercises = self.allSelectableExercises
-                
-            case let .failure(_):
-                break
-            }
-        }
+        }.store(in: &cancellables)
     }
     
     
@@ -96,7 +99,6 @@ public class AddExerciseViewModel: ObservableObject {
             id: UUID(),
             name: "Bench Press",
             creationDate: Date(),
-            exerciseRecords: [],
             tags: [])
         
         routineStore.createExercise(exercise) { error in
@@ -152,6 +154,40 @@ public class AddExerciseViewModel: ObservableObject {
             }
         }
     }
+    
+    
+    func deleteExercise(at offsets: IndexSet) {
+
+        let exercisesToBeRemoved = offsets.map { selectableFilteredExercises[$0] }
+        
+        for exerciseToBeRemoved in exercisesToBeRemoved {
+            
+            routineStore.deleteExercise(by: exerciseToBeRemoved.exercise.id) { error in
+                if error != nil {
+                    fatalError("Handle deletion error")
+                }
+            }
+        }
+        
+//        selectableFilteredExercises.remove(atOffsets: offsets)
+    }
+    
+    
+    func handleGoToCreateExercise() {
+        
+        goToCreateExercise(handleCreateExerciseCompletion)
+    }
+    
+    
+    func handleCreateExerciseCompletion(exercise: Exercise?) {
+        
+        guard let exercise = exercise else { return }
+        guard let selectableExercise = selectableFilteredExercises.filter({ selectableExercise in
+            selectableExercise.exercise.id == exercise.id
+        }).first else { return}
+        
+        addSelectableExerciseToSelectedList(selectableExercise: selectableExercise)
+    }
 }
 
 
@@ -169,22 +205,32 @@ public struct AddExerciseView: View {
     
     public var body: some View {
         VStack {
+            
+            Button("Add \(viewModel.selectableSelectedExercises.count)") {
+
+                viewModel.addExerciseCompletion(
+                    viewModel.selectableSelectedExercises.map {
+                        print("Tapped add in AddExerciseView for \($0.exercise.name)")
+                        return $0.exercise
+                    }
+                )
+                
+                viewModel.dismiss()
+            }
+            .accessibilityIdentifier("add-selected-exercises")
 
             SelectedExercisesList(viewModel: viewModel)
             
             Button("Create") {
-                viewModel.createExercise()
-                viewModel.loadAllExercises()
+                viewModel.handleGoToCreateExercise()
+//                viewModel.createExercise()
+//                viewModel.loadAllExercises()
             }
             
             TextField("Hello world", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
             
             FilteredAllExercisesList(viewModel: viewModel)
         }
-            .onAppear {
-                // Do whatever
-                viewModel.loadAllExercises()
-            }
         // Added for testing
             .onReceive(inspection.notice) {
                 self.inspection.visit(self, $0)
@@ -233,6 +279,7 @@ public struct FilteredAllExercisesList: View {
                     }
                 }
             }
+            .onDelete(perform: viewModel.deleteExercise)
         }
         .accessibilityIdentifier("filtered_exercise_list")
     }
@@ -280,7 +327,10 @@ struct AddExerciseView_Previews: PreviewProvider {
     static var previews: some View {
         AddExerciseView(
             viewModel: AddExerciseViewModel(
-                routineStore: RoutineStorePreview()
+                routineStore: RoutineStorePreview(),
+                addExerciseCompletion: { _ in },
+                goToCreateExercise: { _ in },
+                dismiss: { }
             )
         )
     }

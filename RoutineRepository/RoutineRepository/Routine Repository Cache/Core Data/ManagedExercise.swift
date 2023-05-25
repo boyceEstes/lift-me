@@ -65,13 +65,40 @@ extension ManagedExercise {
 }
 
 
+// MARK: - Core Data Helpers
+
 extension ManagedExercise {
+    
+    static func findExercise(with id: UUID, in context: NSManagedObjectContext) throws -> ManagedExercise {
+        
+        let request = ManagedExercise.fetchRequest
+        request.predicate = NSPredicate(format: "%K == %@", "id", id as CVarArg)
+        request.returnsObjectsAsFaults = false
+
+        guard let exercise = try context.fetch(request).first else {
+            throw CoreDataRoutineStore.Error.cannotFindExercise
+        }
+        
+        return exercise
+    }
+    
+    
+    public static func findExercisesRequest() -> NSFetchRequest<ManagedExercise> {
+        
+        let request = ManagedExercise.fetchRequest
+        request.returnsObjectsAsFaults = false
+        
+        
+        let sortDescriptor = NSSortDescriptor(keyPath: \ManagedExercise.name, ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        return request
+    }
     
     
     public static func findExercises(in context: NSManagedObjectContext) throws -> [ManagedExercise] {
         
-        let request = ManagedExercise.fetchRequest
-        request.returnsObjectsAsFaults = false
+        let request = findExercisesRequest()
         
         return try context.fetch(request)
     }
@@ -83,5 +110,63 @@ extension ManagedExercise {
         managedExercise.id = exercise.id
         managedExercise.name = exercise.name
         managedExercise.creationDate = exercise.creationDate
+        
+        
+    }
+    
+    
+    public static func findExerciseRecords(for exercise: Exercise, in context: NSManagedObjectContext) throws -> [ManagedExerciseRecord] {
+        
+        let request = ManagedExercise.fetchRequest
+        request.predicate = NSPredicate(format: "%K == %@", "id", exercise.id as CVarArg)
+        request.returnsObjectsAsFaults = false
+        
+        guard let exercise = try context.fetch(request).first else {
+            throw CoreDataRoutineStore.Error.cannotFindExerciseRoutinesForExerciseThatDoesNotExist
+        }
+        
+        let exerciseRecords = exercise.exerciseRecords.compactMap { $0 as? ManagedExerciseRecord }
+        // TODO: Add sorting to sort by date
+//        let sortedExerciseRecords = exerciseRecords.sorted(by: { $0.exercise.creationDate.compare($1.exercise.creationDate) == .orderedDescending })
+
+        return exerciseRecords
     }
 }
+
+
+// MARK: - Mapping
+
+extension ManagedExercise {
+    
+    func toModel() -> Exercise {
+
+        Exercise(
+            id: self.id,
+            name: self.name,
+            creationDate: self.creationDate,
+            tags: [])
+    }
+    
+}
+
+
+extension Array where Element == ManagedExercise {
+    
+    func toModel() -> [Exercise] {
+        map {
+            $0.toModel()
+        }
+    }
+}
+
+
+extension Set where Element == ManagedExercise {
+    
+    func toModel() -> [Exercise] {
+        map {
+            $0.toModel()
+        }
+    }
+}
+
+

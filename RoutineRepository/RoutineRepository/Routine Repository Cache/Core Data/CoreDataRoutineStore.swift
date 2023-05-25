@@ -10,24 +10,15 @@ import CoreData
 
 public class CoreDataRoutineStore: RoutineStore {
     
-    public func updateRoutineRecord(newRoutineRecord: RoutineRecord, completion: @escaping UpdateRoutineRecordCompletion) {
-        print("Update routine record with some new routine record")
-    }
-    
-    public func deleteRoutineRecord(routineRecord: RoutineRecord, completion: @escaping DeleteRoutineRecordCompletion) {
-        print("delete routine record (maybe for the ")
-    }
-    
-    public func createRoutineRecord(completion: @escaping CreateRoutineRecordCompletion) {
-        print("Create routine record")
-    }
-    
     private let container: NSPersistentContainer
     let context: NSManagedObjectContext
     
     public init(storeURL: URL, bundle: Bundle = .main) throws {
+        
         container = try NSPersistentContainer.load(name: "RoutineStore", url: storeURL, in: bundle)
         context = container.newBackgroundContext()
+        
+        printCoreDataStoreURLLocation()
         
         exercisesExistInCache { [weak self] exist in
             
@@ -35,6 +26,14 @@ public class CoreDataRoutineStore: RoutineStore {
                 self?.seedBasicExercises()
             }
         }
+    }
+    
+    
+    private func printCoreDataStoreURLLocation() {
+        
+        guard let sqliteURL = container.persistentStoreCoordinator.persistentStores.first?.url else { return }
+        
+        print("--> Core Data database location: \(sqliteURL.absoluteString)")
     }
     
     
@@ -66,6 +65,12 @@ public class CoreDataRoutineStore: RoutineStore {
     
     public enum Error: Swift.Error {
         case routineWithNameAlreadyExists
+        case cannotUpdateRoutineRecordThatDoesNotExist
+        case cannotFindExercise
+        case cannotCreateRoutineRecordWithNoExerciseRecords
+        case cannotCreateRoutineRecordWithNoSetRecords
+        case cannotFindExerciseRoutinesForExerciseThatDoesNotExist
+        case cannotFindRoutineWithID
     }
     
     
@@ -103,11 +108,11 @@ public class CoreDataRoutineStore: RoutineStore {
         let context = context
         context.perform {
             do {
-                ManagedRoutine.create(routine, in: context)
+                try ManagedRoutine.create(routine, in: context)
                 try context.save()
                 completion(nil)
             } catch {
-                
+                context.rollback()
                 completion(error)
             }
         }
@@ -184,39 +189,6 @@ private extension NSManagedObjectModel {
         }
         
         return _model
-    }
-}
-
-
-private extension Array where Element == ManagedRoutine {
-    func toModel() -> [Routine] {
-        map { $0.toModel() }
-    }
-}
-
-
-private extension ManagedRoutine {
-    
-    func toModel() -> Routine {
-        Routine(
-            id: self.id,
-            name: self.name,
-            creationDate: self.creationDate,
-            exercises: [],
-            routineRecords: self.routineRecords.toModel())
-    }
-}
-
-
-private extension Set where Element == ManagedRoutineRecord {
-    func toModel() -> [RoutineRecord] {
-        map {
-            RoutineRecord(
-                id: $0.id,
-                creationDate: $0.creationDate,
-                completionDate: $0.completionDate,
-                exerciseRecords: [])
-        }
     }
 }
 
