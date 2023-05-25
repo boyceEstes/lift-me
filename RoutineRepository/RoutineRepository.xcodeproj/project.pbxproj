@@ -45,6 +45,7 @@
 		B3A74CD929720D6A00A376AC /* ManagedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD329720D6A00A376AC /* ManagedExercise.swift */; };
 		B3A74CDB2972141500A376AC /* CoreDataRoutineStore+Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CDA2972141500A376AC /* CoreDataRoutineStore+Exercise.swift */; };
 		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
+		B3B48EC32A1FF9B5007D1DE2 /* NamingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B48EC22A1FF9B5007D1DE2 /* NamingPolicy.swift */; };
 		B3C35F962A1D124A00C0C953 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -145,6 +146,7 @@
 		B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedExerciseRecord.swift; sourceTree = "<group>"; };
 		B3A74CDA2972141500A376AC /* CoreDataRoutineStore+Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStore+Exercise.swift"; sourceTree = "<group>"; };
 		B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRoutineStore.swift; sourceTree = "<group>"; };
+		B3B48EC22A1FF9B5007D1DE2 /* NamingPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicy.swift; sourceTree = "<group>"; };
 		B3D29BDD28F12746006CC77D /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29BE028F12746006CC77D /* RoutineRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineRepository.h; sourceTree = "<group>"; };
 		B3D29BE128F12746006CC77D /* RoutineRepository.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RoutineRepository.docc; sourceTree = "<group>"; };
@@ -300,6 +302,14 @@
 			path = ExercisesView;
 			sourceTree = "<group>";
 		};
+		B3B48EC42A1FF9B9007D1DE2 /* Policies */ = {
+			isa = PBXGroup;
+			children = (
+				B3B48EC22A1FF9B5007D1DE2 /* NamingPolicy.swift */,
+			);
+			path = Policies;
+			sourceTree = "<group>";
+		};
 		B3D29BD328F12746006CC77D = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +339,7 @@
 		B3D29BDF28F12746006CC77D /* RoutineRepository */ = {
 			isa = PBXGroup;
 			children = (
+				B3B48EC42A1FF9B9007D1DE2 /* Policies */,
 				B3D29C1528F4FA0C006CC77D /* Routine Repository Cache */,
 				B3D29C0228F1EDB7006CC77D /* Routine Repository Feature */,
 				B3D29BE028F12746006CC77D /* RoutineRepository.h */,
@@ -653,6 +664,7 @@
 				B3A74CDB2972141500A376AC /* CoreDataRoutineStore+Exercise.swift in Sources */,
 				B320DC5529B1AB68006CCE03 /* RoutineDataSource.swift in Sources */,
 				B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */,
+				B3B48EC32A1FF9B5007D1DE2 /* NamingPolicy.swift in Sources */,
 				B3692CE32999D6BE00D9BD05 /* CoreDataRoutineStore+ExerciseRecord.swift in Sources */,
 				B352A08729F16F2900923B6C /* ExerciseDataSource.swift in Sources */,
 				B35D53912999F9C00043DC52 /* CoreDataRoutineStore+Routine.swift in Sources */,
