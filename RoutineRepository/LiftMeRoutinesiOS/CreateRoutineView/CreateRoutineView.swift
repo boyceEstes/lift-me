@@ -121,6 +121,7 @@ public class CreateRoutineViewModel: ObservableObject {
         if case CoreDataRoutineStore.Error.routineWithNameAlreadyExists = error {
             // calculate new name and try saving again
             let uniquelyNamedRoutine = uniquelyNamedRoutine(from: routine)
+            saveRoutine(routine: uniquelyNamedRoutine)
             
         } else {
             displayAlert(with: error)
@@ -129,7 +130,7 @@ public class CreateRoutineViewModel: ObservableObject {
     
     
     private func displayAlert(with error: Error) {
-        
+        // TODO: Display an alert saving the routine
     }
     
     
@@ -138,7 +139,7 @@ public class CreateRoutineViewModel: ObservableObject {
         // Create unique name based on the given routine
         let uniquelyNamedRoutine = Routine(
             id: routine.id,
-            name: "unique",
+            name: NamingPolicy.uniqueName(from: routine.name),
             creationDate: routine.creationDate,
             exercises: routine.exercises,
             routineRecords: routine.routineRecords
