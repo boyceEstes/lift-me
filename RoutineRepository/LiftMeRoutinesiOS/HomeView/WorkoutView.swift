@@ -132,6 +132,7 @@ public class WorkoutViewModel: ObservableObject {
         guard let routineRecord = getRoutineRecordFromCurrentState() else { return }
         
         if routine == nil {
+            
             // There is no associated routine, do you want to create one?
             displaySaveCreateRoutine = true
             
@@ -154,6 +155,14 @@ public class WorkoutViewModel: ObservableObject {
         
         print("Going through next logic steps for save...")
         return routineRecord
+    }
+    
+    
+    // TODO: 1.0.0 - do not know if this is worth doing - place in `didTapSaveButton` if desired
+    func checkIfRoutineExercisesAreUnique() {
+        
+        // get routine record's exercises
+        // fetch all routines from core data - compare each of their exercises
     }
     
     

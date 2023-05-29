@@ -13,12 +13,9 @@
 		B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3290870298196DC008350B1 /* RoutineStorePreview.swift */; };
 		B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CADEF28FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift */; };
 		B32CADF128FEF53D00B154BD /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */; };
-		B32CADF728FEFC6100B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
-		B32CADF928FEFF2800B154BD /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */; };
 		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; };
 		B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B32CAE1928FF915D00B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
 		B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA7296F80EB00C2FB1E /* HomeView.swift */; };
 		B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */; };
 		B33D0FB2297060A000C2FB1E /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */; };
@@ -45,7 +42,10 @@
 		B3A74CD929720D6A00A376AC /* ManagedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CD329720D6A00A376AC /* ManagedExercise.swift */; };
 		B3A74CDB2972141500A376AC /* CoreDataRoutineStore+Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A74CDA2972141500A376AC /* CoreDataRoutineStore+Exercise.swift */; };
 		B3AF3F4A28FA389000549473 /* CoreDataRoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */; };
-		B3C35F962A1D124A00C0C953 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
+		B3B48EC32A1FF9B5007D1DE2 /* NamingPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B48EC22A1FF9B5007D1DE2 /* NamingPolicy.swift */; };
+		B3B48EC82A1FFB7E007D1DE2 /* NamingPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B48EC72A1FFB7E007D1DE2 /* NamingPolicyTests.swift */; };
+		B3B48EC92A1FFD64007D1DE2 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
+		B3B48ECA2A1FFD77007D1DE2 /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0028F1EDB4006CC77D /* Routine.swift */; };
@@ -62,6 +62,7 @@
 		B3D29C6A28F71A3F006CC77D /* RoutineStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */; };
 		B3D29C6D28F7B787006CC77D /* RoutineStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */; };
 		B3D29C7028F86C16006CC77D /* ManagedRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */; };
+		B3EE9C3F2A23AE0C0002D3DB /* UtilityMe in Frameworks */ = {isa = PBXBuildFile; productRef = B3EE9C3E2A23AE0C0002D3DB /* UtilityMe */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,8 @@
 		B3A74CD529720D6A00A376AC /* ManagedExerciseRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedExerciseRecord.swift; sourceTree = "<group>"; };
 		B3A74CDA2972141500A376AC /* CoreDataRoutineStore+Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStore+Exercise.swift"; sourceTree = "<group>"; };
 		B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRoutineStore.swift; sourceTree = "<group>"; };
+		B3B48EC22A1FF9B5007D1DE2 /* NamingPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicy.swift; sourceTree = "<group>"; };
+		B3B48EC72A1FFB7E007D1DE2 /* NamingPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicyTests.swift; sourceTree = "<group>"; };
 		B3D29BDD28F12746006CC77D /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29BE028F12746006CC77D /* RoutineRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineRepository.h; sourceTree = "<group>"; };
 		B3D29BE128F12746006CC77D /* RoutineRepository.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RoutineRepository.docc; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3EE9C3F2A23AE0C0002D3DB /* UtilityMe in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +304,42 @@
 			path = ExercisesView;
 			sourceTree = "<group>";
 		};
+		B3B48EC42A1FF9B9007D1DE2 /* Policies */ = {
+			isa = PBXGroup;
+			children = (
+				B3B48EC22A1FF9B5007D1DE2 /* NamingPolicy.swift */,
+			);
+			path = Policies;
+			sourceTree = "<group>";
+		};
+		B3B48EC52A1FFB29007D1DE2 /* Routine Repository Cache */ = {
+			isa = PBXGroup;
+			children = (
+				B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */,
+				B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */,
+				B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests+Routines.swift */,
+				B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */,
+				B357C4D1299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift */,
+				B3692CE42999D95400D9BD05 /* CoreDataRoutineStoreTests+ExerciseRecord.swift */,
+			);
+			path = "Routine Repository Cache";
+			sourceTree = "<group>";
+		};
+		B3B48EC62A1FFB5D007D1DE2 /* Policies */ = {
+			isa = PBXGroup;
+			children = (
+				B3B48EC72A1FFB7E007D1DE2 /* NamingPolicyTests.swift */,
+			);
+			path = Policies;
+			sourceTree = "<group>";
+		};
+		B3B48ECB2A2054CC007D1DE2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		B3D29BD328F12746006CC77D = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +369,8 @@
 		B3D29BDF28F12746006CC77D /* RoutineRepository */ = {
 			isa = PBXGroup;
 			children = (
+				B3B48ECB2A2054CC007D1DE2 /* Utilities */,
+				B3B48EC42A1FF9B9007D1DE2 /* Policies */,
 				B3D29C1528F4FA0C006CC77D /* Routine Repository Cache */,
 				B3D29C0228F1EDB7006CC77D /* Routine Repository Feature */,
 				B3D29BE028F12746006CC77D /* RoutineRepository.h */,
@@ -362,12 +404,8 @@
 		B3D29C2D28F50236006CC77D /* RoutineRepositoryTests */ = {
 			isa = PBXGroup;
 			children = (
-				B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */,
-				B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */,
-				B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests+Routines.swift */,
-				B3A74CD02970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift */,
-				B357C4D1299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift */,
-				B3692CE42999D95400D9BD05 /* CoreDataRoutineStoreTests+ExerciseRecord.swift */,
+				B3B48EC62A1FFB5D007D1DE2 /* Policies */,
+				B3B48EC52A1FFB29007D1DE2 /* Routine Repository Cache */,
 			);
 			path = RoutineRepositoryTests;
 			sourceTree = "<group>";
@@ -487,6 +525,9 @@
 			dependencies = (
 			);
 			name = RoutineRepository;
+			packageProductDependencies = (
+				B3EE9C3E2A23AE0C0002D3DB /* UtilityMe */,
+			);
 			productName = RoutineRepository;
 			productReference = B3D29BDD28F12746006CC77D /* RoutineRepository.framework */;
 			productType = "com.apple.product-type.framework";
@@ -516,7 +557,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					B32CADEC28FEF53D00B154BD = {
@@ -546,6 +587,7 @@
 			);
 			mainGroup = B3D29BD328F12746006CC77D;
 			packageReferences = (
+				B3EE9C3D2A23AE0C0002D3DB /* XCRemoteSwiftPackageReference "utility-me" */,
 			);
 			productRefGroup = B3D29BDE28F12746006CC77D /* Products */;
 			projectDirPath = "";
@@ -603,9 +645,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B32CADF728FEFC6100B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
+				B3B48EC92A1FFD64007D1DE2 /* SharedTestHelpers.swift in Sources */,
 				B32CADF028FEF53D00B154BD /* RoutineRepositoryCacheIntegrationTests.swift in Sources */,
-				B32CADF928FEFF2800B154BD /* SharedTestHelpers.swift in Sources */,
+				B3B48ECA2A1FFD77007D1DE2 /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,8 +677,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3C35F962A1D124A00C0C953 /* SharedTestHelpers.swift in Sources */,
-				B32CAE1928FF915D00B154BD /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,6 +693,7 @@
 				B3A74CDB2972141500A376AC /* CoreDataRoutineStore+Exercise.swift in Sources */,
 				B320DC5529B1AB68006CCE03 /* RoutineDataSource.swift in Sources */,
 				B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */,
+				B3B48EC32A1FF9B5007D1DE2 /* NamingPolicy.swift in Sources */,
 				B3692CE32999D6BE00D9BD05 /* CoreDataRoutineStore+ExerciseRecord.swift in Sources */,
 				B352A08729F16F2900923B6C /* ExerciseDataSource.swift in Sources */,
 				B35D53912999F9C00043DC52 /* CoreDataRoutineStore+Routine.swift in Sources */,
@@ -679,6 +720,7 @@
 				B3D29C6D28F7B787006CC77D /* RoutineStore.xcdatamodeld in Sources */,
 				B3A74CD12970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift in Sources */,
 				B357C4D2299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift in Sources */,
+				B3B48EC82A1FFB7E007D1DE2 /* NamingPolicyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1125,6 +1167,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B3EE9C3D2A23AE0C0002D3DB /* XCRemoteSwiftPackageReference "utility-me" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/boyceEstes/utility-me";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B3EE9C3E2A23AE0C0002D3DB /* UtilityMe */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3EE9C3D2A23AE0C0002D3DB /* XCRemoteSwiftPackageReference "utility-me" */;
+			productName = UtilityMe;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */ = {
