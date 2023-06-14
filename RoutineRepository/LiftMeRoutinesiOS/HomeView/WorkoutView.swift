@@ -286,9 +286,7 @@ public struct WorkoutView: View {
                 }
             }
         }
-        .navigationTitle("Custom Workout")
         .onAppear {
-
             viewModel.createNewRoutineRecord()
         }
         .onReceive(inspection.notice) {
@@ -309,6 +307,7 @@ public struct WorkoutView: View {
         }, message: {
             Text("Would you like to create a routine based on this workout?")
         })
+        .basicNavigationBar(title: "Workout")
     }
 }
 
@@ -384,10 +383,12 @@ struct WorkoutView_Previews: PreviewProvider {
     
     static var previews: some View {
         let viewModel = WorkoutViewModel(routineStore: RoutineStorePreview(), goToCreateRoutineView: { _ in }, dismiss: { })
-        WorkoutView(
-            viewModel: viewModel,
-            goToAddExercise: { }
-        )
+        NavigationStack {
+            WorkoutView(
+                viewModel: viewModel,
+                goToAddExercise: { }
+            )
+        }
         
         SetRecordView(setRecordViewModel: $setRecord, rowNumber: 1)
     }
