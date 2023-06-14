@@ -276,6 +276,9 @@ public struct WorkoutView: View {
                 }
             }
         }
+        .background {
+            Color(uiColor: .systemGroupedBackground)
+        }
         .onAppear {
             viewModel.createNewRoutineRecord()
         }
