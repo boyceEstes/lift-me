@@ -39,15 +39,20 @@ public class HomeUIComposer {
         self.workoutUIComposer = workoutUIComposer
         self.createRoutineUIComposer = createRoutineUIComposer
     }
-
-
-    func makeHomeViewWithSheetyNavigation() -> SheetyNavigationView<HomeView, HomeNavigationFlow> {
-
-        let homeView = makeHomeView()
+    
+    // MARK: - Home View
+    typealias HomeViewWithNavigation = StackNavigationView<SheetyNavigationView<HomeView, HomeNavigationFlow>, HomeNavigationFlow>
+    
+    func makeHomeViewWithNavigation() -> HomeViewWithNavigation {
         
-        return SheetyNavigationView(
+        let homeView = makeHomeView()
+        let sheetyNavigationView = SheetyNavigationView(
             sheetyNavigationViewModel: navigationFlow,
             content: homeView
+        )
+        return StackNavigationView(
+            stackNavigationViewModel: navigationFlow,
+            content: sheetyNavigationView
         )
     }
     

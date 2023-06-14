@@ -11,15 +11,7 @@ import LiftMeRoutinesiOS
 import RoutineRepository
 
 
-class HomeNavigationFlow: SheetyNavigationFlow {
-    
-    enum SheetyIdentifier: Identifiable, Equatable {
-        
-        var id: Int { UUID().hashValue }
-
-        case createRoutine
-        case workout(Routine?)
-    }
+class HomeNavigationFlow: SheetyStackNavigationFlow {
     
     
     let homeUIComposer: HomeUIComposer
@@ -35,6 +27,32 @@ class HomeNavigationFlow: SheetyNavigationFlow {
         self.homeUIComposer = homeUIComposer
         self.workoutUIComposer = workoutUIComposer
         self.createRoutineUIComposer = createRoutineUIComposer
+    }
+    
+    
+    
+    // MARK: - Stack
+    @Published var path = [StackIdentifier]()
+    
+    
+    enum StackIdentifier: Hashable {
+        
+        case routineDetail
+    }
+    
+    
+    func pushToStack(_ identifier: StackIdentifier) -> some View {
+        Text("")
+    }
+    
+    
+    // MARK: - Sheet
+    enum SheetyIdentifier: Identifiable, Equatable {
+        
+        var id: Int { UUID().hashValue }
+
+        case createRoutine
+        case workout(Routine?)
     }
     
     

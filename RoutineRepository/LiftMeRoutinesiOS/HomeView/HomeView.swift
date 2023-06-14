@@ -43,7 +43,12 @@ public struct HomeView: View {
             
             Spacer()
         }
+        .padding(.top)
         .navigationTitle("Home")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarBackground(Color.pink, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
     }
 }
 

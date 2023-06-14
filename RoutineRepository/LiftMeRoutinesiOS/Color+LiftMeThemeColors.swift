@@ -10,6 +10,8 @@ import SwiftUI
 
 public extension Color {
     
+    static var navigationBarColor: Color = .universeRed
+    
     static var universeRed = Color(uiColor: .universeRedLight)
     
     static var secondarySystemBackground = Color(uiColor: .secondarySystemBackground)
