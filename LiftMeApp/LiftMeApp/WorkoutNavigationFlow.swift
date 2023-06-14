@@ -11,9 +11,34 @@ import SwiftUI
 import RoutineRepository
 
 
-class WorkoutNavigationFlow: SheetyNavigationFlow {
+class WorkoutNavigationFlow: SheetyStackNavigationFlow {
+    
+    let workoutUIComposer: WorkoutUIComposer
+    let createRoutineUIComposer: CreateRoutineUIComposer // go to create routine from workout
+    let addExerciseUIComposer: AddExerciseUIComposer
+    let exerciseUIComposer: ExerciseUIComposer // Go to create exercise, go to exercise details from workout
+    
+    init(workoutUIComposer: WorkoutUIComposer,
+         createRoutineUIComposer: CreateRoutineUIComposer,
+         addExerciseUIComposer: AddExerciseUIComposer,
+         exerciseUIComposer: ExerciseUIComposer
+    ) {
+        
+        self.workoutUIComposer = workoutUIComposer
+        self.createRoutineUIComposer = createRoutineUIComposer
+        self.addExerciseUIComposer = addExerciseUIComposer
+        self.exerciseUIComposer = exerciseUIComposer
+    }
+    
+    // MARK: - Stack
+    @Published var path = [StackIdentifier]()
+    
+    enum StackIdentifier: Hashable {}
+    
+    func pushToStack(_ identifier: StackIdentifier) -> some View { EmptyView() }
     
     
+    // MARK: - Sheet
     enum SheetyIdentifier: Identifiable, Hashable {
         
         var id: Int { self.hashValue }
@@ -47,24 +72,6 @@ class WorkoutNavigationFlow: SheetyNavigationFlow {
             default: return false
             }
         }
-    }
-    
-    
-    let workoutUIComposer: WorkoutUIComposer
-    let createRoutineUIComposer: CreateRoutineUIComposer // go to create routine from workout
-    let addExerciseUIComposer: AddExerciseUIComposer
-    let exerciseUIComposer: ExerciseUIComposer // Go to create exercise, go to exercise details from workout
-    
-    init(workoutUIComposer: WorkoutUIComposer,
-         createRoutineUIComposer: CreateRoutineUIComposer,
-         addExerciseUIComposer: AddExerciseUIComposer,
-         exerciseUIComposer: ExerciseUIComposer
-    ) {
-        
-        self.workoutUIComposer = workoutUIComposer
-        self.createRoutineUIComposer = createRoutineUIComposer
-        self.addExerciseUIComposer = addExerciseUIComposer
-        self.exerciseUIComposer = exerciseUIComposer
     }
     
     // TODO: Make the SheetyIdentifier a CurrentValueSubject to be more resilient to coding errors

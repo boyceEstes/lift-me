@@ -41,13 +41,23 @@ public class WorkoutUIComposer {
     }
 
     // WorkoutNavigationFlow for the workout since I want it to stay up whne it presents its own sheet
-    func makeWorkoutViewWithSheetyNavigation(routine: Routine?, dismiss: @escaping () -> Void) -> SheetyNavigationView<WorkoutView, WorkoutNavigationFlow> {
+    typealias WorkoutViewWithNavigation = StackNavigationView<SheetyNavigationView<WorkoutView, WorkoutNavigationFlow>, WorkoutNavigationFlow>
+    
+    func makeWorkoutViewWithNavigation(
+        routine: Routine?,
+        dismiss: @escaping () -> Void
+    ) -> WorkoutViewWithNavigation {
         
         let workoutView = makeWorkoutView(routine: routine, dismiss: dismiss)
         
-        return SheetyNavigationView(
+        let sheetyNavigationView = SheetyNavigationView(
             sheetyNavigationViewModel: navigationFlow,
             content: workoutView
+        )
+        
+        return StackNavigationView(
+            stackNavigationViewModel: navigationFlow,
+            content: sheetyNavigationView
         )
     }
     
