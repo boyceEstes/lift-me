@@ -230,6 +230,7 @@ public struct WorkoutView: View {
     
     @ObservedObject public var viewModel: WorkoutViewModel
     let goToAddExercise: () -> Void
+    
 
 
     public init(viewModel: WorkoutViewModel, goToAddExercise: @escaping () -> Void) {
@@ -298,10 +299,18 @@ public struct WorkoutView: View {
         })
         .basicNavigationBar(title: "Workout")
         .toolbar {
-            Button("Save") {
-                viewModel.didTapSaveButton()
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel") {
+                    viewModel.dismiss()
+                }
             }
-            .disabled(viewModel.isSaveDisabled)
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Save") {
+                    viewModel.didTapSaveButton()
+                }
+                .disabled(viewModel.isSaveDisabled)
+            }
         }
     }
 }
