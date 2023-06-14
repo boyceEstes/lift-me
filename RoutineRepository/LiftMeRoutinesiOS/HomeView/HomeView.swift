@@ -47,7 +47,7 @@ public struct HomeView: View {
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
-        .toolbarBackground(Color.pink, for: .navigationBar)
+        .toolbarBackground(Color.navigationBar, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }
