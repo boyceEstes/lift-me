@@ -72,22 +72,6 @@ struct LowKeyButtonStyle: ButtonStyle {
 }
 
 
-struct HighKeyButtonStyle: ButtonStyle {
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.headline)
-            .foregroundColor(Color(uiColor: .label))
-            .padding(4)
-            .padding(.horizontal, 6)
-            .background(
-                Capsule()
-                    .fill(Color.universeRed)
-            )
-    }
-}
-
-
 struct RoutineCell: ViewModifier {
     
     let cellHeight: CGFloat = 130

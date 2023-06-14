@@ -63,6 +63,7 @@
 		B3D29C6D28F7B787006CC77D /* RoutineStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6828F71A3F006CC77D /* RoutineStore.xcdatamodeld */; };
 		B3D29C7028F86C16006CC77D /* ManagedRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */; };
 		B3EE9C3F2A23AE0C0002D3DB /* UtilityMe in Frameworks */ = {isa = PBXBuildFile; productRef = B3EE9C3E2A23AE0C0002D3DB /* UtilityMe */; };
+		B3EE9CAE2A3A64020002D3DB /* HighKeyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EE9CAD2A3A64020002D3DB /* HighKeyButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,7 @@
 		B3D29C6628F66B73006CC77D /* CoreDataRoutineStoreTests+Routines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreDataRoutineStoreTests+Routines.swift"; sourceTree = "<group>"; };
 		B3D29C6928F71A3F006CC77D /* RoutineStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoutineStore.xcdatamodel; sourceTree = "<group>"; };
 		B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedRoutine.swift; sourceTree = "<group>"; };
+		B3EE9CAD2A3A64020002D3DB /* HighKeyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighKeyButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +248,7 @@
 		B32CAE0028FF4A2F00B154BD /* LiftMeRoutinesiOS */ = {
 			isa = PBXGroup;
 			children = (
+				B3EE9CAB2A3A63DC0002D3DB /* Components */,
 				B320DC4E29B0F463006CCE03 /* CreateExerciseView */,
 				B320DC4929B04EA0006CCE03 /* CreateRoutineView */,
 				B3692CD52999C07A00D9BD05 /* ExercisesView */,
@@ -427,6 +430,22 @@
 				B35D53902999F9C00043DC52 /* CoreDataRoutineStore+Routine.swift */,
 			);
 			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		B3EE9CAB2A3A63DC0002D3DB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B3EE9CAC2A3A63EB0002D3DB /* ButtonStyles */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B3EE9CAC2A3A63EB0002D3DB /* ButtonStyles */ = {
+			isa = PBXGroup;
+			children = (
+				B3EE9CAD2A3A64020002D3DB /* HighKeyButtonStyle.swift */,
+			);
+			path = ButtonStyles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -664,6 +683,7 @@
 				B3692CC12999898100D9BD05 /* HistoryView.swift in Sources */,
 				B3692CDE2999CFC900D9BD05 /* ExerciseDetailView.swift in Sources */,
 				B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */,
+				B3EE9CAE2A3A64020002D3DB /* HighKeyButtonStyle.swift in Sources */,
 				B320DC4B29B0506E006CCE03 /* CreateExerciseView.swift in Sources */,
 				B3692CCF2999A20A00D9BD05 /* RoutineRecordDetailView.swift in Sources */,
 				B34588B2290617ED006ED45C /* Inspection.swift in Sources */,
