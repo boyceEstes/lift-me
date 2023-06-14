@@ -44,25 +44,23 @@ public struct HomeView: View {
             Spacer()
         }
         .padding(.top)
-        .navigationTitle("Home")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarColorScheme(.dark, for: .navigationBar)
-        .toolbarBackground(Color.navigationBar, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
+        .basicNavigationBar(title: "Home")
     }
 }
 
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(
-            routineListView: RoutineListView(
-                viewModel: RoutineListViewModel(
-                    routineStore: RoutineStorePreview(),
-                    goToCreateRoutine: { },
-                    goToWorkoutView: { _ in }
-                )
-            ), goToWorkoutViewWithNoRoutine: { }
-        )
+        NavigationStack {
+            HomeView(
+                routineListView: RoutineListView(
+                    viewModel: RoutineListViewModel(
+                        routineStore: RoutineStorePreview(),
+                        goToCreateRoutine: { },
+                        goToWorkoutView: { _ in }
+                    )
+                ), goToWorkoutViewWithNoRoutine: { }
+            )
+        }
     }
 }

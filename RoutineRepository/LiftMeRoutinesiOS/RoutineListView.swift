@@ -63,15 +63,6 @@ public class RoutineListViewModel: ObservableObject {
 }
 
 
-struct LowKeyButtonStyle: ButtonStyle {
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .foregroundColor(Color.universeRed)
-    }
-}
-
-
 struct RoutineCell: ViewModifier {
     
     let cellHeight: CGFloat = 130

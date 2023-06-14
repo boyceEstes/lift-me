@@ -64,6 +64,8 @@
 		B3D29C7028F86C16006CC77D /* ManagedRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */; };
 		B3EE9C3F2A23AE0C0002D3DB /* UtilityMe in Frameworks */ = {isa = PBXBuildFile; productRef = B3EE9C3E2A23AE0C0002D3DB /* UtilityMe */; };
 		B3EE9CAE2A3A64020002D3DB /* HighKeyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EE9CAD2A3A64020002D3DB /* HighKeyButtonStyle.swift */; };
+		B3EE9CB02A3A64400002D3DB /* LowKeyButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EE9CAF2A3A64400002D3DB /* LowKeyButtonStyle.swift */; };
+		B3EE9CB22A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3EE9CB12A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +168,8 @@
 		B3D29C6928F71A3F006CC77D /* RoutineStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoutineStore.xcdatamodel; sourceTree = "<group>"; };
 		B3D29C6E28F86C16006CC77D /* ManagedRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedRoutine.swift; sourceTree = "<group>"; };
 		B3EE9CAD2A3A64020002D3DB /* HighKeyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighKeyButtonStyle.swift; sourceTree = "<group>"; };
+		B3EE9CAF2A3A64400002D3DB /* LowKeyButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowKeyButtonStyle.swift; sourceTree = "<group>"; };
+		B3EE9CB12A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicNavigationBarViewModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -436,6 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				B3EE9CAC2A3A63EB0002D3DB /* ButtonStyles */,
+				B3EE9CB12A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -444,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				B3EE9CAD2A3A64020002D3DB /* HighKeyButtonStyle.swift */,
+				B3EE9CAF2A3A64400002D3DB /* LowKeyButtonStyle.swift */,
 			);
 			path = ButtonStyles;
 			sourceTree = "<group>";
@@ -681,12 +687,14 @@
 				B3692CD72999C0B700D9BD05 /* ExercisesView.swift in Sources */,
 				B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */,
 				B3692CC12999898100D9BD05 /* HistoryView.swift in Sources */,
+				B3EE9CB02A3A64400002D3DB /* LowKeyButtonStyle.swift in Sources */,
 				B3692CDE2999CFC900D9BD05 /* ExerciseDetailView.swift in Sources */,
 				B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */,
 				B3EE9CAE2A3A64020002D3DB /* HighKeyButtonStyle.swift in Sources */,
 				B320DC4B29B0506E006CCE03 /* CreateExerciseView.swift in Sources */,
 				B3692CCF2999A20A00D9BD05 /* RoutineRecordDetailView.swift in Sources */,
 				B34588B2290617ED006ED45C /* Inspection.swift in Sources */,
+				B3EE9CB22A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift in Sources */,
 				B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */,
 				B34588B629061C2B006ED45C /* Color+LiftMeThemeColors.swift in Sources */,
 				B30E83C5291EB36B00A19724 /* CreateRoutineView.swift in Sources */,
