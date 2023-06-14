@@ -52,7 +52,7 @@ struct RootView: View {
     
     var body: some View {
         TabView {
-            homeUIComposer.makeHomeViewWithSheetyNavigation()
+            homeUIComposer.makeHomeViewWithNavigation()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
