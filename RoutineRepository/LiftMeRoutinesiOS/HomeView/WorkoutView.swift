@@ -241,44 +241,30 @@ public struct WorkoutView: View {
     
     
     public var body: some View {
-        VStack {
-            HStack {
-                Text("Exercises")
-                    .textCase(.uppercase)
-                    .padding(.trailing, 6)
+            
+        ScrollView {
+            if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
+                Text("Try adding an exercise!")
+            } else {
                 
-                Button {
-                    goToAddExercise()
-                } label: {
-                    HStack {
-                        Text("Add")
-                        Image(systemName: "plus")
-                    }
-                }
-                .buttonStyle(HighKeyButtonStyle())
-                .id("add-exercise-button")
-
-                Spacer()
-                EditButton()
-                    .foregroundColor(.universeRed)
-            }
-            .font(.headline)
-            
-            
-            List {
-                if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
-                    Text("Try adding an exercise!")
-                } else {
-                    
-                    ForEach(0..<viewModel.routineRecordViewModel.exerciseRecordViewModels.count, id: \.self) { index in
-                        ExerciseRecordView(exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index])
-                    }
+                ForEach(0..<viewModel.routineRecordViewModel.exerciseRecordViewModels.count, id: \.self) { index in
+                    ExerciseRecordView(exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index])
                 }
             }
+            
+            Button {
+                goToAddExercise()
+            } label: {
+                HStack {
+                    Text("Add")
+                    Image(systemName: "plus")
+                }
+            }
+            .buttonStyle(HighKeyButtonStyle())
+            .id("add-exercise-button")
         }
-        .background {
-            Color(uiColor: .systemGroupedBackground)
-        }
+        .frame(maxWidth: .infinity)
+        .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .all)
         .onAppear {
             viewModel.createNewRoutineRecord()
         }
