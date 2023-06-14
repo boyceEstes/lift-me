@@ -241,17 +241,6 @@ public struct WorkoutView: View {
     
     public var body: some View {
         VStack {
-            
-            HStack {
-                Button("Save") {
-                    
-                    viewModel.didTapSaveButton()
-                    
-                }
-                .buttonStyle(LowKeyButtonStyle())
-                .disabled(viewModel.isSaveDisabled)
-            }
-            
             HStack {
                 Text("Exercises")
                     .textCase(.uppercase)
@@ -308,6 +297,12 @@ public struct WorkoutView: View {
             Text("Would you like to create a routine based on this workout?")
         })
         .basicNavigationBar(title: "Workout")
+        .toolbar {
+            Button("Save") {
+                viewModel.didTapSaveButton()
+            }
+            .disabled(viewModel.isSaveDisabled)
+        }
     }
 }
 
