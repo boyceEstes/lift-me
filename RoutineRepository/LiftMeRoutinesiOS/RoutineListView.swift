@@ -270,6 +270,6 @@ struct RoutineListView_Previews: PreviewProvider {
                 goToWorkoutView: { _ in }
             )
         )
-        .preferredColorScheme(.dark)
+//        .preferredColorScheme(.dark)
     }
 }
