@@ -243,30 +243,31 @@ public struct WorkoutView: View {
     public var body: some View {
             
         ScrollView {
-            if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
-                Text("Try adding an exercise!")
-            } else {
-
-                VStack(spacing: 20) {
+            
+            VStack(spacing: 20) {
+                if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
+                    Text("Try adding an exercise!")
+                    .padding(.top, 20)
+                } else {
                     ForEach(0..<viewModel.routineRecordViewModel.exerciseRecordViewModels.count, id: \.self) { index in
 
                         ExerciseRecordView(exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index])
                     }
+                    .padding(.horizontal)
+                    .padding(.top, 20)
                 }
-                .padding(.top, 20)
-                .padding(.horizontal)
-            }
-            
-            Button {
-                goToAddExercise()
-            } label: {
-                HStack {
-                    Text("Add")
-                    Image(systemName: "plus")
+                
+                Button {
+                    goToAddExercise()
+                } label: {
+                    HStack {
+                        Text("Add")
+                        Image(systemName: "plus")
+                    }
                 }
+                .buttonStyle(HighKeyButtonStyle())
+                .id("add-exercise-button")
             }
-            .buttonStyle(HighKeyButtonStyle())
-            .id("add-exercise-button")
         }
         .frame(maxWidth: .infinity)
         .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .all)
@@ -341,7 +342,7 @@ public struct ExerciseRecordView: View {
         }
         .background(Color(uiColor: .tertiarySystemGroupedBackground))
         .cornerRadius(10)
-        .shadow(radius: 4)
+        .shadow(radius: 6)
     }
 }
 
@@ -368,16 +369,18 @@ public struct SetRecordView: View {
             HStack {
 
                 TextField("100", text: $setRecordViewModel.weight)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .multilineTextAlignment(.trailing)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.numberPad)
-                    .frame(width: 50)
+                    .frame(maxWidth: 50)
                     .focused($focusedField, equals: .weightValue)
                 
                 Text("x")
                 TextField("10", text: $setRecordViewModel.repCount)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .multilineTextAlignment(.trailing)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.numberPad)
-                    .frame(width: 50)
+                    .frame(maxWidth: 50)
                     .focused($focusedField, equals: .repCountValue)
             }
         }

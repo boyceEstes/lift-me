@@ -22,7 +22,7 @@ public struct HomeView: View {
     
     public var body: some View {
         
-        VStack {
+        VStack(spacing: 20) {
             Button {
                 goToWorkoutViewWithNoRoutine()
             } label: {

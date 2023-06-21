@@ -19,6 +19,7 @@
 		B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA7296F80EB00C2FB1E /* HomeView.swift */; };
 		B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */; };
 		B33D0FB2297060A000C2FB1E /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */; };
+		B33F27822A433D08007191AE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33F27812A433D08007191AE /* Constants.swift */; };
 		B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588AF290617BA006ED45C /* RoutineListView.swift */; };
 		B34588B2290617ED006ED45C /* Inspection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B1290617ED006ED45C /* Inspection.swift */; };
 		B34588B429061BF0006ED45C /* UIColor+LiftMeThemeColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */; };
@@ -127,6 +128,7 @@
 		B33D0FA7296F80EB00C2FB1E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
+		B33F27812A433D08007191AE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B34588AF290617BA006ED45C /* RoutineListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListView.swift; sourceTree = "<group>"; };
 		B34588B1290617ED006ED45C /* Inspection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspection.swift; sourceTree = "<group>"; };
 		B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+LiftMeThemeColors.swift"; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 			children = (
 				B3EE9CAC2A3A63EB0002D3DB /* ButtonStyles */,
 				B3EE9CB12A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift */,
+				B33F27812A433D08007191AE /* Constants.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B34588B429061BF0006ED45C /* UIColor+LiftMeThemeColors.swift in Sources */,
+				B33F27822A433D08007191AE /* Constants.swift in Sources */,
 				B33D0FB2297060A000C2FB1E /* AddExerciseView.swift in Sources */,
 				B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */,
 				B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */,

@@ -13,9 +13,9 @@ struct HighKeyButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.headline)
-            .foregroundColor(Color(uiColor: .label))
-            .padding(4)
-            .padding(.horizontal, 6)
+            .foregroundColor(Color(uiColor: .white))
+            .frame(height: thiccButtonHeight)
+            .padding(.horizontal, 16)
             .background(
                 Capsule()
                     .fill(Color.universeRed)

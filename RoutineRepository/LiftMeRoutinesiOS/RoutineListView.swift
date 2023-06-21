@@ -74,7 +74,7 @@ struct RoutineCell: ViewModifier {
             .frame(width: cellHeight , height: cellHeight)
             .background(Color(uiColor: .tertiarySystemBackground))
             .cornerRadius(16)
-            .shadow(radius: 4)
+            .shadow(radius: 6)
             .padding(.vertical)
     }
 }
