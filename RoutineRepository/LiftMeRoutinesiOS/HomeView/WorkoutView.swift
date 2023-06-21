@@ -253,7 +253,7 @@ public struct WorkoutView: View {
                         ExerciseRecordView(exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index])
                     }
                 }
-                .padding(.top)
+                .padding(.top, 20)
                 .padding(.horizontal)
             }
             

@@ -28,7 +28,7 @@ public struct HomeView: View {
             } label: {
                 Text("Custom Routine")
             }
-            .frame(maxWidth: .infinity, maxHeight: 35)
+            .frame(maxWidth: .infinity, maxHeight: 40)
             .padding(.horizontal, 6)
             .padding(.vertical, 4)
             .fontWeight(.medium)
