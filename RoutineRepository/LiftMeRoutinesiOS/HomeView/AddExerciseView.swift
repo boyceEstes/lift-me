@@ -223,11 +223,9 @@ public struct AddExerciseView: View {
             
             Button("Create") {
                 viewModel.handleGoToCreateExercise()
-//                viewModel.createExercise()
-//                viewModel.loadAllExercises()
             }
             
-            TextField("Hello world", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
+            TextField("Search", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
             
             FilteredAllExercisesList(viewModel: viewModel)
         }
