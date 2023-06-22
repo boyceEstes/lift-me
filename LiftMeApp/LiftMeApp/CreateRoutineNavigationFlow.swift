@@ -51,12 +51,11 @@ class CreateRoutineNavigationFlow: SheetyNavigationFlow {
             switch identifier {
             case let .addExercise(addExerciseCompletion, dismiss):
                 
-                addExerciseUIComposer.makeAddExerciseViewWithSheetyNavigation(
+                addExerciseUIComposer.makeAddExerciseViewWithNavigation(
                     addExerciseCompletion: addExerciseCompletion,
                     dismiss: dismiss
                 )
             }
         }
-
     }
 }

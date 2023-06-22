@@ -29,17 +29,20 @@ public class AddExerciseUIComposer {
     }
     
     
-    func makeAddExerciseViewWithSheetyNavigation(
+    typealias AddExerciseViewWithNavigation = StackNavigationView<SheetyNavigationView<AddExerciseView, AddExerciseNavigationFlow>, AddExerciseNavigationFlow>
+    
+    func makeAddExerciseViewWithNavigation(
         addExerciseCompletion: @escaping ([Exercise]) -> Void,
         dismiss: @escaping () -> Void
-    ) -> SheetyNavigationView<AddExerciseView, AddExerciseNavigationFlow> {
+    ) -> AddExerciseViewWithNavigation {
         
         let addExerciseView = makeAddExerciseView(
             addExerciseCompletion: addExerciseCompletion,
             dismiss: dismiss
         )
         
-        return SheetyNavigationView(sheetyNavigationViewModel: navigationFlow, content: addExerciseView)
+        let sheetyNavigationView = SheetyNavigationView(sheetyNavigationViewModel: navigationFlow, content: addExerciseView)
+        return StackNavigationView(stackNavigationViewModel: navigationFlow, content: sheetyNavigationView)
     }
     
     

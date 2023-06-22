@@ -233,6 +233,7 @@ public struct AddExerciseView: View {
             .onReceive(inspection.notice) {
                 self.inspection.visit(self, $0)
             }
+            .navigationTitle("Add Exercise")
     }
 }
 

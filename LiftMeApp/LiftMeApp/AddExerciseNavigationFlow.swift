@@ -12,7 +12,26 @@ import SwiftUI
 
 
 // This is for any view that can be navigated to from AddExercise
-class AddExerciseNavigationFlow: SheetyNavigationFlow {
+class AddExerciseNavigationFlow: SheetyStackNavigationFlow {
+    
+    let exerciseUIComposer: ExerciseUIComposer
+    @Published var modallyDisplayedView: SheetyIdentifier?
+    
+    
+    init(exerciseUIComposer: ExerciseUIComposer) {
+        
+        self.exerciseUIComposer = exerciseUIComposer
+    }
+
+     // MARK: - Stack
+     @Published var path = [StackIdentifier]()
+
+     enum StackIdentifier: Hashable {}
+
+     func pushToStack(_ identifier: StackIdentifier) -> some View { EmptyView() }
+    
+    
+    // MARK: - Sheet
     
     enum SheetyIdentifier: Identifiable, Hashable {
 
@@ -36,16 +55,6 @@ class AddExerciseNavigationFlow: SheetyNavigationFlow {
             }
         }
     }
-    
-    let exerciseUIComposer: ExerciseUIComposer
-    @Published var modallyDisplayedView: SheetyIdentifier?
-    
-    
-    init(exerciseUIComposer: ExerciseUIComposer) {
-        
-        self.exerciseUIComposer = exerciseUIComposer
-    }
-    
     
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
 
