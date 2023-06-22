@@ -230,6 +230,7 @@ public struct WorkoutView: View {
     
     @ObservedObject public var viewModel: WorkoutViewModel
     let goToAddExercise: () -> Void
+    
 
 
     public init(viewModel: WorkoutViewModel, goToAddExercise: @escaping () -> Void) {
@@ -240,22 +241,18 @@ public struct WorkoutView: View {
     
     
     public var body: some View {
-        VStack {
             
-            HStack {
-                Button("Save") {
-                    
-                    viewModel.didTapSaveButton()
-                    
+        ScrollView {
+            
+            VStack(spacing: 20) {
+                if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
+                    Text("Try adding an exercise!")
+                } else {
+                    ForEach(0..<viewModel.routineRecordViewModel.exerciseRecordViewModels.count, id: \.self) { index in
+                        ExerciseRecordView(exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index])
+                    }
+                    .padding(.horizontal)
                 }
-                .buttonStyle(LowKeyButtonStyle())
-                .disabled(viewModel.isSaveDisabled)
-            }
-            
-            HStack {
-                Text("Exercises")
-                    .textCase(.uppercase)
-                    .padding(.trailing, 6)
                 
                 Button {
                     goToAddExercise()
@@ -267,28 +264,12 @@ public struct WorkoutView: View {
                 }
                 .buttonStyle(HighKeyButtonStyle())
                 .id("add-exercise-button")
-
-                Spacer()
-                EditButton()
-                    .foregroundColor(.universeRed)
             }
-            .font(.headline)
-            
-            
-            List {
-                if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
-                    Text("Try adding an exercise!")
-                } else {
-                    
-                    ForEach(0..<viewModel.routineRecordViewModel.exerciseRecordViewModels.count, id: \.self) { index in
-                        ExerciseRecordView(exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index])
-                    }
-                }
-            }
+            .padding(.top, 20)
         }
-        .navigationTitle("Custom Workout")
+        .frame(maxWidth: .infinity)
+        .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .all)
         .onAppear {
-
             viewModel.createNewRoutineRecord()
         }
         .onReceive(inspection.notice) {
@@ -309,6 +290,21 @@ public struct WorkoutView: View {
         }, message: {
             Text("Would you like to create a routine based on this workout?")
         })
+        .basicNavigationBar(title: "Workout")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel") {
+                    viewModel.dismiss()
+                }
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Save") {
+                    viewModel.didTapSaveButton()
+                }
+                .disabled(viewModel.isSaveDisabled)
+            }
+        }
     }
 }
 
@@ -320,21 +316,31 @@ public struct ExerciseRecordView: View {
 
     public var body: some View {
         
-        Section {
-            ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
-                
-                SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
-            }
-        } header: {
+        VStack(spacing: 0) {
             HStack {
                 Text(exerciseRecordViewModel.exercise.name)
+                    .font(.headline)
                 Spacer()
                 Button("Add Set") {
-                    
                     $exerciseRecordViewModel.wrappedValue.addNewSetRecordViewModel()
-                }.buttonStyle(HighKeyButtonStyle())
+                }.buttonStyle(LowKeyButtonStyle())
             }
+            .padding(.vertical, 10)
+            .padding(.horizontal)
+            .background(Color(uiColor: .secondarySystemGroupedBackground))
+            
+            VStack(spacing: 0) {
+                ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
+                    
+                    SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
+                        .padding(.vertical, 10)
+                }
+            }
+            .padding(.horizontal)
         }
+        .background(Color(uiColor: .tertiarySystemGroupedBackground))
+        .cornerRadius(10)
+        .shadow(radius: 6)
     }
 }
 
@@ -361,16 +367,18 @@ public struct SetRecordView: View {
             HStack {
 
                 TextField("100", text: $setRecordViewModel.weight)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .multilineTextAlignment(.trailing)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.numberPad)
-                    .frame(width: 50)
+                    .frame(maxWidth: 50)
                     .focused($focusedField, equals: .weightValue)
                 
                 Text("x")
                 TextField("10", text: $setRecordViewModel.repCount)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .multilineTextAlignment(.trailing)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .keyboardType(.numberPad)
-                    .frame(width: 50)
+                    .frame(maxWidth: 50)
                     .focused($focusedField, equals: .repCountValue)
             }
         }
@@ -384,10 +392,12 @@ struct WorkoutView_Previews: PreviewProvider {
     
     static var previews: some View {
         let viewModel = WorkoutViewModel(routineStore: RoutineStorePreview(), goToCreateRoutineView: { _ in }, dismiss: { })
-        WorkoutView(
-            viewModel: viewModel,
-            goToAddExercise: { }
-        )
+        NavigationStack {
+            WorkoutView(
+                viewModel: viewModel,
+                goToAddExercise: { }
+            )
+        }
         
         SetRecordView(setRecordViewModel: $setRecord, rowNumber: 1)
     }
