@@ -247,14 +247,11 @@ public struct WorkoutView: View {
             VStack(spacing: 20) {
                 if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
                     Text("Try adding an exercise!")
-                    .padding(.top, 20)
                 } else {
                     ForEach(0..<viewModel.routineRecordViewModel.exerciseRecordViewModels.count, id: \.self) { index in
-
                         ExerciseRecordView(exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index])
                     }
                     .padding(.horizontal)
-                    .padding(.top, 20)
                 }
                 
                 Button {
@@ -268,6 +265,7 @@ public struct WorkoutView: View {
                 .buttonStyle(HighKeyButtonStyle())
                 .id("add-exercise-button")
             }
+            .padding(.top, 20)
         }
         .frame(maxWidth: .infinity)
         .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .all)
