@@ -63,31 +63,6 @@ public class RoutineListViewModel: ObservableObject {
 }
 
 
-struct LowKeyButtonStyle: ButtonStyle {
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .foregroundColor(Color.universeRed)
-    }
-}
-
-
-struct HighKeyButtonStyle: ButtonStyle {
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .font(.headline)
-            .foregroundColor(Color(uiColor: .label))
-            .padding(4)
-            .padding(.horizontal, 6)
-            .background(
-                Capsule()
-                    .fill(Color.universeRed)
-            )
-    }
-}
-
-
 struct RoutineCell: ViewModifier {
     
     let cellHeight: CGFloat = 130
@@ -99,7 +74,7 @@ struct RoutineCell: ViewModifier {
             .frame(width: cellHeight , height: cellHeight)
             .background(Color(uiColor: .tertiarySystemBackground))
             .cornerRadius(16)
-            .shadow(radius: 4)
+            .shadow(radius: 6)
             .padding(.vertical)
     }
 }
@@ -295,6 +270,6 @@ struct RoutineListView_Previews: PreviewProvider {
                 goToWorkoutView: { _ in }
             )
         )
-        .preferredColorScheme(.dark)
+//        .preferredColorScheme(.dark)
     }
 }

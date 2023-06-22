@@ -22,13 +22,13 @@ public struct HomeView: View {
     
     public var body: some View {
         
-        VStack {
+        VStack(spacing: 20) {
             Button {
                 goToWorkoutViewWithNoRoutine()
             } label: {
                 Text("Custom Routine")
             }
-            .frame(maxWidth: .infinity, maxHeight: 35)
+            .frame(maxWidth: .infinity, maxHeight: 40)
             .padding(.horizontal, 6)
             .padding(.vertical, 4)
             .fontWeight(.medium)
@@ -44,25 +44,23 @@ public struct HomeView: View {
             Spacer()
         }
         .padding(.top)
-        .navigationTitle("Home")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarColorScheme(.dark, for: .navigationBar)
-        .toolbarBackground(Color.navigationBar, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
+        .basicNavigationBar(title: "Home")
     }
 }
 
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(
-            routineListView: RoutineListView(
-                viewModel: RoutineListViewModel(
-                    routineStore: RoutineStorePreview(),
-                    goToCreateRoutine: { },
-                    goToWorkoutView: { _ in }
-                )
-            ), goToWorkoutViewWithNoRoutine: { }
-        )
+        NavigationStack {
+            HomeView(
+                routineListView: RoutineListView(
+                    viewModel: RoutineListViewModel(
+                        routineStore: RoutineStorePreview(),
+                        goToCreateRoutine: { },
+                        goToWorkoutView: { _ in }
+                    )
+                ), goToWorkoutViewWithNoRoutine: { }
+            )
+        }
     }
 }

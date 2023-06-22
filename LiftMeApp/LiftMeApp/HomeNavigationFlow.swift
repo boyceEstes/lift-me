@@ -75,7 +75,7 @@ class HomeNavigationFlow: SheetyStackNavigationFlow {
                 )
                 
             case let .workout(routine):
-                workoutUIComposer.makeWorkoutViewWithSheetyNavigation(
+                workoutUIComposer.makeWorkoutViewWithNavigation(
                     routine: routine,
                     dismiss: self.dismiss
                 )
