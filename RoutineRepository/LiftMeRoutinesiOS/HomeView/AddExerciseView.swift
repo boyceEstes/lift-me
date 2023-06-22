@@ -205,19 +205,6 @@ public struct AddExerciseView: View {
     
     public var body: some View {
         VStack {
-            
-            Button("Add \(viewModel.selectableSelectedExercises.count)") {
-
-                viewModel.addExerciseCompletion(
-                    viewModel.selectableSelectedExercises.map {
-                        print("Tapped add in AddExerciseView for \($0.exercise.name)")
-                        return $0.exercise
-                    }
-                )
-                
-                viewModel.dismiss()
-            }
-            .accessibilityIdentifier("add-selected-exercises")
 
             SelectedExercisesList(viewModel: viewModel)
             
@@ -239,6 +226,21 @@ public struct AddExerciseView: View {
                     Button("Cancel") {
                         viewModel.dismiss()
                     }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Add \(viewModel.selectableSelectedExercises.count)") {
+
+                        viewModel.addExerciseCompletion(
+                            viewModel.selectableSelectedExercises.map {
+                                print("Tapped add in AddExerciseView for \($0.exercise.name)")
+                                return $0.exercise
+                            }
+                        )
+                        
+                        viewModel.dismiss()
+                    }
+                    .accessibilityIdentifier("add-selected-exercises")
                 }
             }
     }
