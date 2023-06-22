@@ -233,8 +233,14 @@ public struct AddExerciseView: View {
             .onReceive(inspection.notice) {
                 self.inspection.visit(self, $0)
             }
-            .navigationTitle("Add Exercise")
-            .navigationBarTitleDisplayMode(.inline)
+            .basicNavigationBar(title: "Add Exercise")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        viewModel.dismiss()
+                    }
+                }
+            }
     }
 }
 
