@@ -234,6 +234,7 @@ public struct AddExerciseView: View {
                 self.inspection.visit(self, $0)
             }
             .navigationTitle("Add Exercise")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -324,13 +325,15 @@ public struct BasicExerciseRowView: View {
 
 struct AddExerciseView_Previews: PreviewProvider {
     static var previews: some View {
-        AddExerciseView(
-            viewModel: AddExerciseViewModel(
-                routineStore: RoutineStorePreview(),
-                addExerciseCompletion: { _ in },
-                goToCreateExercise: { _ in },
-                dismiss: { }
+        NavigationStack {
+            AddExerciseView(
+                viewModel: AddExerciseViewModel(
+                    routineStore: RoutineStorePreview(),
+                    addExerciseCompletion: { _ in },
+                    goToCreateExercise: { _ in },
+                    dismiss: { }
+                )
             )
-        )
+        }
     }
 }
