@@ -73,38 +73,6 @@ public class RoutineRecordDetailViewModel: ObservableObject {
 }
 
 
-struct ExerciseWithSetInfoView: View {
-    
-    let exerciseRecords: [ExerciseRecord]
-    
-    var body: some View {
-        ForEach(exerciseRecords, id: \.self) { exerciseRecord in
-            Section {
-                ExerciseWithSetsStructureView {
-                    HStack {
-                        Text(exerciseRecord.exercise.name)
-                        Spacer()
-                        Text("\(exerciseRecord.setRecords.count) sets")
-                    }
-                } setContent: {
-                    ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
-                        HStack {
-                            Text("Set \(index)")
-                            Spacer()
-                            Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
-                        }
-                        // We know that this is embedded in a VStack
-                        if index != (exerciseRecord.setRecords.count - 1) {
-                            Divider()
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-
 public struct RoutineRecordDetailView: View {
     
     @ObservedObject var viewModel: RoutineRecordDetailViewModel

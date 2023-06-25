@@ -21,6 +21,7 @@
 		B33909992A48C0C200C2562E /* CalendarStyleRoundedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33909982A48C0C200C2562E /* CalendarStyleRoundedCellView.swift */; };
 		B339099D2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B339099C2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift */; };
 		B339099F2A48DD1700C2562E /* LightShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B339099E2A48DD1700C2562E /* LightShadow.swift */; };
+		B33909A22A48E70400C2562E /* ExerciseWithSetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33909A12A48E70400C2562E /* ExerciseWithSetInfoView.swift */; };
 		B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA7296F80EB00C2FB1E /* HomeView.swift */; };
 		B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */; };
 		B33D0FB2297060A000C2FB1E /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */; };
@@ -135,6 +136,7 @@
 		B33909982A48C0C200C2562E /* CalendarStyleRoundedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStyleRoundedCellView.swift; sourceTree = "<group>"; };
 		B339099C2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseWithSetsStructureView.swift; sourceTree = "<group>"; };
 		B339099E2A48DD1700C2562E /* LightShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightShadow.swift; sourceTree = "<group>"; };
+		B33909A12A48E70400C2562E /* ExerciseWithSetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseWithSetInfoView.swift; sourceTree = "<group>"; };
 		B33D0FA7296F80EB00C2FB1E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
@@ -306,6 +308,15 @@
 			path = RoundedCells;
 			sourceTree = "<group>";
 		};
+		B33909A02A48E6DC00C2562E /* CustomExerciseSetLists */ = {
+			isa = PBXGroup;
+			children = (
+				B339099C2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift */,
+				B33909A12A48E70400C2562E /* ExerciseWithSetInfoView.swift */,
+			);
+			path = CustomExerciseSetLists;
+			sourceTree = "<group>";
+		};
 		B33D0FA6296F80C400C2FB1E /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,12 +480,12 @@
 		B3EE9CAB2A3A63DC0002D3DB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B33909A02A48E6DC00C2562E /* CustomExerciseSetLists */,
 				B33909952A48BF2600C2562E /* RoundedCells */,
 				B33909922A48BEF600C2562E /* ViewModifiers */,
 				B3EE9CAC2A3A63EB0002D3DB /* ButtonStyles */,
 				B3EE9CB12A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift */,
 				B33F27812A433D08007191AE /* Constants.swift */,
-				B339099C2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -722,6 +733,7 @@
 				B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */,
 				B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */,
 				B3692CD72999C0B700D9BD05 /* ExercisesView.swift in Sources */,
+				B33909A22A48E70400C2562E /* ExerciseWithSetInfoView.swift in Sources */,
 				B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */,
 				B3692CC12999898100D9BD05 /* HistoryView.swift in Sources */,
 				B3EE9CB02A3A64400002D3DB /* LowKeyButtonStyle.swift in Sources */,

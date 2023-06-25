@@ -11,6 +11,9 @@ public struct ExerciseRecord: Equatable, Hashable {
     
     public let id: UUID
     
+    // TODO: 0.1.0 - Create a date completed to show in Exercise Details when the exercise record was done
+    // This can be the same date as the routine record completion date
+    
     // relationships
     public var setRecords: [SetRecord]
     public let exercise: Exercise

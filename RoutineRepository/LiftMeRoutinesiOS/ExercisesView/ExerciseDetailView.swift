@@ -89,7 +89,7 @@ public struct ExerciseDetailView: View {
                     CalendarStyleRoundedCellView(title: "ORM", contentTitle: "TBD")
                 }
                 
-                ExerciseWithSetInfoView(exerciseRecords: viewModel.exerciseRecords)
+                ExerciseWithSetInfoDateFocusedView(exerciseRecords: viewModel.exerciseRecords)
             }
             .padding(.horizontal)
             .padding(.top, 20)
