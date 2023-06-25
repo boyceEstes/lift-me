@@ -8,11 +8,10 @@
 import SwiftUI
 import RoutineRepository
 
-public class RoutineRecordDetailViewModel: ObservableObject {
+
+extension DateFormatter {
     
-    let routineRecord: RoutineRecord
-    
-    var dateFormatter = {
+    static var shortDateFormatter = {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
@@ -20,20 +19,26 @@ public class RoutineRecordDetailViewModel: ObservableObject {
     }()
     
     
-    var timeFormatter = {
+    static var shortTimeFormatter = {
         
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
         return dateFormatter
     }()
+}
 
+
+public class RoutineRecordDetailViewModel: ObservableObject {
+    
+    let routineRecord: RoutineRecord
     
     var creationDateString: String {
-        return dateFormatter.string(from: routineRecord.creationDate)
+        return DateFormatter.shortDateFormatter.string(from: routineRecord.creationDate)
     }
     
+    
     var creationTimeString: String {
-        return timeFormatter.string(from: routineRecord.creationDate)
+        return DateFormatter.shortTimeFormatter.string(from: routineRecord.creationDate)
     }
     
 
@@ -42,7 +47,7 @@ public class RoutineRecordDetailViewModel: ObservableObject {
             return "No completion date"
         }
         
-        return dateFormatter.string(from: completionDate)
+        return DateFormatter.shortDateFormatter.string(from: completionDate)
     }
     
     
@@ -51,7 +56,7 @@ public class RoutineRecordDetailViewModel: ObservableObject {
             return "No completion date"
         }
         
-        return timeFormatter.string(from: completionDate)
+        return DateFormatter.shortTimeFormatter.string(from: completionDate)
     }
     
     
@@ -65,6 +70,38 @@ public class RoutineRecordDetailViewModel: ObservableObject {
         print("deinit routine record detail")
     }
     
+}
+
+
+struct ExerciseWithSetInfoView: View {
+    
+    let exerciseRecords: [ExerciseRecord]
+    
+    var body: some View {
+        ForEach(exerciseRecords, id: \.self) { exerciseRecord in
+            Section {
+                ExerciseWithSetsStructureView {
+                    HStack {
+                        Text(exerciseRecord.exercise.name)
+                        Spacer()
+                        Text("\(exerciseRecord.setRecords.count) sets")
+                    }
+                } setContent: {
+                    ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
+                        HStack {
+                            Text("Set \(index)")
+                            Spacer()
+                            Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
+                        }
+                        // We know that this is embedded in a VStack
+                        if index != (exerciseRecord.setRecords.count - 1) {
+                            Divider()
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 
@@ -83,78 +120,13 @@ public struct RoutineRecordDetailView: View {
         ScrollView {
             LazyVStack(spacing: 20) {
                 HStack(spacing: 20) {
-                    CalendarStyleDateTimeView(title: "Start", dateString: viewModel.creationDateString, timeString: viewModel.creationTimeString)
-                    CalendarStyleDateTimeView(title: "Finish", dateString: viewModel.completionDateString, timeString: viewModel.completionTimeString)
+                    CalendarStyleRoundedCellView(title: "Start", contentTitle: viewModel.creationDateString, contentSubtitle: viewModel.creationTimeString)
+                    CalendarStyleRoundedCellView(title: "Finish", contentTitle: viewModel.completionDateString, contentSubtitle: viewModel.completionTimeString)
                 }.padding(.top, 20)
                 
-                ForEach(viewModel.routineRecord.exerciseRecords, id: \.self) { exerciseRecord in
-                    Section {
-                        ExerciseWithSetsStructure {
-                            HStack {
-                                Text(exerciseRecord.exercise.name)
-                                Spacer()
-                                Text("\(exerciseRecord.setRecords.count) sets")
-                            }
-                        } setContent: {
-                            ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
-                                HStack {
-                                    Text("Set \(index)")
-                                    Spacer()
-                                    Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
-                                }
-                                // We know that this is embedded in a VStack
-                                if index != (exerciseRecord.setRecords.count - 1) {
-                                    Divider()
-                                }
-                            }
-                        }
-                    }
-                }
+                ExerciseWithSetInfoView(exerciseRecords: viewModel.routineRecord.exerciseRecords)
             }
             .padding(.horizontal)
-//        }
-//
-//        VStack {
-//            VStack {
-//                HStack {
-//                    Text("Creation Date")
-//                    Spacer()
-//                    Text(viewModel.creationDateString)
-//                }
-//
-//                HStack {
-//                    Text("Completion Date")
-//                    Spacer()
-//                    Text(viewModel.completionDateString)
-//                }
-//            }
-//            .padding(.horizontal)
-
-            
-//
-//            List {
-//                ForEach(viewModel.routineRecord.exerciseRecords, id: \.self) { exerciseRecord in
-//                    Section {
-//                        HStack {
-//                            Text(exerciseRecord.exercise.name)
-//                            Spacer()
-//                            Text("\(exerciseRecord.setRecords.count) sets")
-//                        }
-//                        .font(Font.headline)
-//
-//                        ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
-//                            HStack {
-//
-//                                Text("Set \(index)")
-//                                Spacer()
-//                                Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//            Spacer()
         }
         .basicNavigationBar(title: "Workout Detail")
     }

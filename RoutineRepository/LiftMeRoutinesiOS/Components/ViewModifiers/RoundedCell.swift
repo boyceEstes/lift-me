@@ -27,8 +27,7 @@ struct RoundedCell: ViewModifier {
             .frame(width: cellHeight , height: cellHeight)
             .background(Color(uiColor: .tertiarySystemBackground))
             .cornerRadius(16)
-            .shadow(radius: 6)
-//            .padding(.vertical)
+            .lightShadow()
     }
 }
 
@@ -39,3 +38,5 @@ extension View {
         modifier(RoundedCell(cellHeight: cellHeight))
     }
 }
+
+

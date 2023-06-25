@@ -7,13 +7,22 @@
 
 import SwiftUI
 
-struct CalendarStyleDateTimeView: View {
+struct CalendarStyleRoundedCellView: View {
     
     let cellHeight: CGFloat = 100
     
     let title: String
-    let dateString: String
-    let timeString: String
+    let contentTitle: String
+    let contentSubtitle: String
+    
+    
+    init(title: String, contentTitle: String, contentSubtitle: String = "") {
+        
+        self.title = title
+        self.contentTitle = contentTitle
+        self.contentSubtitle = contentSubtitle
+    }
+    
     
     var body: some View {
 
@@ -31,10 +40,10 @@ struct CalendarStyleDateTimeView: View {
             .background(Color.universeRed)
             
             VStack(spacing: 0) {
-                Text("\(dateString)")
+                Text("\(contentTitle)")
                     
                     .font(.headline)
-                Text("\(timeString)")
+                Text("\(contentSubtitle)")
             }
             .frame(maxWidth: .infinity, maxHeight: cellHeight / 3 * 2)
         }
@@ -45,6 +54,7 @@ struct CalendarStyleDateTimeView: View {
 struct CalendarStyleDateTimeView_Previews: PreviewProvider {
     
     static var previews: some View {
-        CalendarStyleDateTimeView(title: "Start", dateString: "12/25/96", timeString: "6:08 AM")
+        CalendarStyleRoundedCellView(title: "Start", contentTitle: "12/25/96", contentSubtitle: "6:08 AM")
+        
     }
 }

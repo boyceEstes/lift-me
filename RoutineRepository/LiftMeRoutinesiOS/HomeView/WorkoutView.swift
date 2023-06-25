@@ -309,35 +309,6 @@ public struct WorkoutView: View {
 }
 
 
-struct ExerciseWithSetsStructure<TitleContent: View, SetContent: View>: View {
-    
-    let titleContent: () -> TitleContent
-    let setContent: () -> SetContent
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            // Title view
-            titleContent()
-                .padding(.vertical, 10)
-                .padding(.horizontal)
-                .background(Color(uiColor: .secondarySystemGroupedBackground))
-            
-            VStack(spacing: 0) {
-                // foreach set record content, rows formatted however you like
-                setContent()
-                    .padding(.vertical, 10)
-            }
-            .padding(.top, 6)
-            .padding(.horizontal)
-            .padding(.bottom, 6)
-        }
-        .background(Color(uiColor: .tertiarySystemGroupedBackground))
-        .cornerRadius(10)
-        .shadow(radius: 6)
-    }
-}
-
-
 public struct ExerciseRecordView: View {
 
     @Binding var exerciseRecordViewModel: ExerciseRecordViewModel
@@ -345,7 +316,7 @@ public struct ExerciseRecordView: View {
 
     public var body: some View {
         
-        ExerciseWithSetsStructure {
+        ExerciseWithSetsStructureView {
             HStack {
                 Text(exerciseRecordViewModel.exercise.name)
                     .font(.headline)
