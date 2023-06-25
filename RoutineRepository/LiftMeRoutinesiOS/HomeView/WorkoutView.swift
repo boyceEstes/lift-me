@@ -318,15 +318,18 @@ struct ExerciseWithSetsStructure<TitleContent: View, SetContent: View>: View {
         VStack(spacing: 0) {
             // Title view
             titleContent()
-            .padding(.vertical, 10)
-            .padding(.horizontal)
-            .background(Color(uiColor: .secondarySystemGroupedBackground))
+                .padding(.vertical, 10)
+                .padding(.horizontal)
+                .background(Color(uiColor: .secondarySystemGroupedBackground))
             
             VStack(spacing: 0) {
                 // foreach set record content, rows formatted however you like
                 setContent()
+                    .padding(.vertical, 10)
             }
+            .padding(.top, 6)
             .padding(.horizontal)
+            .padding(.bottom, 6)
         }
         .background(Color(uiColor: .tertiarySystemGroupedBackground))
         .cornerRadius(10)
@@ -355,7 +358,6 @@ public struct ExerciseRecordView: View {
             ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
                 
                 SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
-                    .padding(.vertical, 10)
             }
         }
     }

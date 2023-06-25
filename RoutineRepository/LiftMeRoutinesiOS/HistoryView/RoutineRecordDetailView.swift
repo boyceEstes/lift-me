@@ -15,7 +15,14 @@ public class RoutineRecordDetailViewModel: ObservableObject {
     var dateFormatter = {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
+        dateFormatter.dateStyle = .short
+        return dateFormatter
+    }()
+    
+    
+    var timeFormatter = {
+        
+        let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .short
         return dateFormatter
     }()
@@ -23,6 +30,10 @@ public class RoutineRecordDetailViewModel: ObservableObject {
     
     var creationDateString: String {
         return dateFormatter.string(from: routineRecord.creationDate)
+    }
+    
+    var creationTimeString: String {
+        return timeFormatter.string(from: routineRecord.creationDate)
     }
     
 
@@ -35,15 +46,61 @@ public class RoutineRecordDetailViewModel: ObservableObject {
     }
     
     
+    var completionTimeString: String {
+        guard let completionDate = routineRecord.completionDate else {
+            return "No completion date"
+        }
+        
+        return timeFormatter.string(from: completionDate)
+    }
+    
+    
     public init(routineRecord: RoutineRecord) {
         print("init routine record detail")
         self.routineRecord = routineRecord
     }
     
+    
     deinit {
         print("deinit routine record detail")
     }
     
+}
+
+
+struct CalendarStyleDateTimeView: View {
+    
+    let cellHeight: CGFloat = 100
+    
+    let title: String
+    let dateString: String
+    let timeString: String
+    
+    var body: some View {
+
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Spacer()
+                Text(title)
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .font(.callout)
+            .foregroundColor(Color(uiColor: .label))
+            .padding(.horizontal, 10)
+            .frame(maxWidth: .infinity, maxHeight: cellHeight / 3, alignment: .leading)
+            .background(Color.universeRed)
+            
+            VStack(spacing: 0) {
+                Text("\(dateString)")
+                    
+                    .font(.headline)
+                Text("\(timeString)")
+            }
+            .frame(maxWidth: .infinity, maxHeight: cellHeight / 3 * 2)
+        }
+            .roundedCell(cellHeight: cellHeight)
+    }
 }
 
 
@@ -61,20 +118,10 @@ public struct RoutineRecordDetailView: View {
         
         ScrollView {
             LazyVStack(spacing: 20) {
-                VStack {
-                    HStack {
-                        Text("Creation Date")
-                        Spacer()
-                        Text(viewModel.creationDateString)
-                    }
-                    
-                    HStack {
-                        Text("Completion Date")
-                        Spacer()
-                        Text(viewModel.completionDateString)
-                    }
-                }.padding(.horizontal)
-                
+                HStack(spacing: 20) {
+                    CalendarStyleDateTimeView(title: "Start", dateString: viewModel.creationDateString, timeString: viewModel.creationTimeString)
+                    CalendarStyleDateTimeView(title: "Finish", dateString: viewModel.completionDateString, timeString: viewModel.completionTimeString)
+                }.padding(.top, 20)
                 
                 ForEach(viewModel.routineRecord.exerciseRecords, id: \.self) { exerciseRecord in
                     Section {
@@ -87,10 +134,13 @@ public struct RoutineRecordDetailView: View {
                         } setContent: {
                             ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
                                 HStack {
-                                    
                                     Text("Set \(index)")
                                     Spacer()
                                     Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
+                                }
+                                // We know that this is embedded in a VStack
+                                if index != (exerciseRecord.setRecords.count - 1) {
+                                    Divider()
                                 }
                             }
                         }
