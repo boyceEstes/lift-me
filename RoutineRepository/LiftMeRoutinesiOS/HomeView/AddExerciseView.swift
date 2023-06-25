@@ -226,10 +226,11 @@ public struct AddExerciseView: View {
                     FilteredAllExercisesList(viewModel: viewModel)
                 } header: {
                     VStack {
+                        
                         Button("Create") {
                             viewModel.handleGoToCreateExercise()
                         }
-                        .buttonStyle(HighKeyButtonStyle())
+                        .buttonStyle(LongHighKeyButtonStyle())
                         
                         HStack {
                             Image(systemName: "magnifyingglass")

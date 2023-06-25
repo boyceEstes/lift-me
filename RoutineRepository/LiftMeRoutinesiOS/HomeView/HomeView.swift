@@ -28,15 +28,7 @@ public struct HomeView: View {
             } label: {
                 Text("Custom Routine")
             }
-            .frame(maxWidth: .infinity, maxHeight: 40)
-            .padding(.horizontal, 6)
-            .padding(.vertical, 4)
-            .fontWeight(.medium)
-            .foregroundColor(Color(uiColor: .white))
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                .fill(Color.universeRed)
-            )
+            .buttonStyle(LongHighKeyButtonStyle())
             .padding(.horizontal)
             
             routineListView
