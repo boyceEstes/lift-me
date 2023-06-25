@@ -309,6 +309,32 @@ public struct WorkoutView: View {
 }
 
 
+struct ExerciseWithSetsStructure<TitleContent: View, SetContent: View>: View {
+    
+    let titleContent: () -> TitleContent
+    let setContent: () -> SetContent
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            // Title view
+            titleContent()
+            .padding(.vertical, 10)
+            .padding(.horizontal)
+            .background(Color(uiColor: .secondarySystemGroupedBackground))
+            
+            VStack(spacing: 0) {
+                // foreach set record content, rows formatted however you like
+                setContent()
+            }
+            .padding(.horizontal)
+        }
+        .background(Color(uiColor: .tertiarySystemGroupedBackground))
+        .cornerRadius(10)
+        .shadow(radius: 6)
+    }
+}
+
+
 public struct ExerciseRecordView: View {
 
     @Binding var exerciseRecordViewModel: ExerciseRecordViewModel
@@ -316,7 +342,7 @@ public struct ExerciseRecordView: View {
 
     public var body: some View {
         
-        VStack(spacing: 0) {
+        ExerciseWithSetsStructure {
             HStack {
                 Text(exerciseRecordViewModel.exercise.name)
                     .font(.headline)
@@ -325,22 +351,13 @@ public struct ExerciseRecordView: View {
                     $exerciseRecordViewModel.wrappedValue.addNewSetRecordViewModel()
                 }.buttonStyle(LowKeyButtonStyle())
             }
-            .padding(.vertical, 10)
-            .padding(.horizontal)
-            .background(Color(uiColor: .secondarySystemGroupedBackground))
-            
-            VStack(spacing: 0) {
-                ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
-                    
-                    SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
-                        .padding(.vertical, 10)
-                }
+        } setContent: {
+            ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
+                
+                SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
+                    .padding(.vertical, 10)
             }
-            .padding(.horizontal)
         }
-        .background(Color(uiColor: .tertiarySystemGroupedBackground))
-        .cornerRadius(10)
-        .shadow(radius: 6)
     }
 }
 

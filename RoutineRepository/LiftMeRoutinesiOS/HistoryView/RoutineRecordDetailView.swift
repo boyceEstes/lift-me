@@ -75,6 +75,7 @@ public struct RoutineRecordDetailView: View {
             .padding(.horizontal)
 
             
+            
             List {
                 ForEach(viewModel.routineRecord.exerciseRecords, id: \.self) { exerciseRecord in
                     Section {
@@ -99,8 +100,7 @@ public struct RoutineRecordDetailView: View {
             
             Spacer()
         }
-            .navigationTitle("Routine Record Detail")
-            .navigationBarTitleDisplayMode(.inline)
+        .basicNavigationBar(title: "Workout Detail")
     }
 }
 
