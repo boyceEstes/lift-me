@@ -338,7 +338,11 @@ public struct SelectableBasicExerciseRowView: View {
             tapAction()
         } label: {
             HStack {
-                selectableExercise.isSelected ? Image(systemName: "circle.fill") : Image(systemName: "circle")
+                Group {
+                    selectableExercise.isSelected ? Image(systemName: "circle.fill") : Image(systemName: "circle")
+                }
+                .foregroundColor(.universeRed)
+                .fontWeight(.heavy)
                 
                 BasicExerciseRowView(exercise: selectableExercise.exercise)
             }
