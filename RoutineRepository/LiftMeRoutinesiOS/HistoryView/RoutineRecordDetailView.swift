@@ -58,47 +58,89 @@ public struct RoutineRecordDetailView: View {
     
     
     public var body: some View {
-        VStack {
-            VStack {
-                HStack {
-                    Text("Creation Date")
-                    Spacer()
-                    Text(viewModel.creationDateString)
-                }
+        
+        ScrollView {
+            LazyVStack(spacing: 20) {
+                VStack {
+                    HStack {
+                        Text("Creation Date")
+                        Spacer()
+                        Text(viewModel.creationDateString)
+                    }
+                    
+                    HStack {
+                        Text("Completion Date")
+                        Spacer()
+                        Text(viewModel.completionDateString)
+                    }
+                }.padding(.horizontal)
                 
-                HStack {
-                    Text("Completion Date")
-                    Spacer()
-                    Text(viewModel.completionDateString)
-                }
-            }
-            .padding(.horizontal)
-
-            
-            
-            List {
+                
                 ForEach(viewModel.routineRecord.exerciseRecords, id: \.self) { exerciseRecord in
                     Section {
-                        HStack {
-                            Text(exerciseRecord.exercise.name)
-                            Spacer()
-                            Text("\(exerciseRecord.setRecords.count) sets")
-                        }
-                        .font(Font.headline)
-                        
-                        ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
+                        ExerciseWithSetsStructure {
                             HStack {
-                                
-                                Text("Set \(index)")
+                                Text(exerciseRecord.exercise.name)
                                 Spacer()
-                                Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
+                                Text("\(exerciseRecord.setRecords.count) sets")
+                            }
+                        } setContent: {
+                            ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
+                                HStack {
+                                    
+                                    Text("Set \(index)")
+                                    Spacer()
+                                    Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
+                                }
                             }
                         }
                     }
                 }
             }
+            .padding(.horizontal)
+//        }
+//
+//        VStack {
+//            VStack {
+//                HStack {
+//                    Text("Creation Date")
+//                    Spacer()
+//                    Text(viewModel.creationDateString)
+//                }
+//
+//                HStack {
+//                    Text("Completion Date")
+//                    Spacer()
+//                    Text(viewModel.completionDateString)
+//                }
+//            }
+//            .padding(.horizontal)
+
             
-            Spacer()
+//
+//            List {
+//                ForEach(viewModel.routineRecord.exerciseRecords, id: \.self) { exerciseRecord in
+//                    Section {
+//                        HStack {
+//                            Text(exerciseRecord.exercise.name)
+//                            Spacer()
+//                            Text("\(exerciseRecord.setRecords.count) sets")
+//                        }
+//                        .font(Font.headline)
+//
+//                        ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
+//                            HStack {
+//
+//                                Text("Set \(index)")
+//                                Spacer()
+//                                Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            Spacer()
         }
         .basicNavigationBar(title: "Workout Detail")
     }
