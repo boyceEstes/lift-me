@@ -26,7 +26,7 @@ public struct HomeView: View {
             Button {
                 goToWorkoutViewWithNoRoutine()
             } label: {
-                Text("Custom Routine")
+                Text("Start Custom Routine")
             }
             .buttonStyle(LongHighKeyButtonStyle())
             .padding(.horizontal)
@@ -36,7 +36,8 @@ public struct HomeView: View {
             Spacer()
         }
         .padding(.top)
-        .basicNavigationBar(title: "Home")
+        .navigationTitle("Home")
+//        .basicNavigationBar(title: "Home")
     }
 }
 

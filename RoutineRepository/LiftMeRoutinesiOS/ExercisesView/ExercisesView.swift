@@ -94,9 +94,6 @@ public struct ExercisesView: View {
     
     public var body: some View {
         VStack {
-            Button("Create Exercise") {
-                viewModel.goToCreateExerciseView()
-            }
             
             List {
                 ForEach(viewModel.exercises, id: \.self) { exercise in
@@ -112,18 +109,27 @@ public struct ExercisesView: View {
             Spacer()
         }
             .navigationTitle("Exercises")
-//            .onAppear {
-//                viewModel.loadAllExercises()
-//            }
+//            .basicNavigationBar(title: "Exercises")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Create") {
+                        viewModel.goToCreateExerciseView()
+                    }
+                    .buttonStyle(LowKeyButtonStyle())
+                }
+            }
             .onReceive(inspection.notice) {
                 self.inspection.visit(self, $0)
             }
+        
     }
 }
 
 
 struct ExercisesView_Previews: PreviewProvider {
     static var previews: some View {
-        ExercisesView(viewModel: ExercisesViewModel(routineStore: RoutineStorePreview(), goToExerciseDetailView: { _ in }, goToCreateExerciseView: { }))
+        NavigationStack {
+            ExercisesView(viewModel: ExercisesViewModel(routineStore: RoutineStorePreview(), goToExerciseDetailView: { _ in }, goToCreateExerciseView: { }))
+        }
     }
 }
