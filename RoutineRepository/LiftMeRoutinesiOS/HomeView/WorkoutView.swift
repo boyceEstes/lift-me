@@ -244,7 +244,7 @@ public struct WorkoutView: View {
             
         ScrollView {
             
-            VStack(spacing: 20) {
+            LazyVStack(spacing: 20) {
                 if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
                     Text("Try adding an exercise!")
                 } else {

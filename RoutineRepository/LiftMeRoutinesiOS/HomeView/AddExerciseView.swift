@@ -192,7 +192,12 @@ public class AddExerciseViewModel: ObservableObject {
 
 
 public struct AddExerciseView: View {
-    
+//
+//    enum Field: Hashable {
+//        case search
+//    }
+//
+//    @FocusState private var focus: Field?
     @ObservedObject public var viewModel: AddExerciseViewModel
     public let inspection = Inspection<Self>()
     
@@ -204,17 +209,48 @@ public struct AddExerciseView: View {
     
     
     public var body: some View {
-        VStack {
-
-            SelectedExercisesList(viewModel: viewModel)
             
-            Button("Create") {
-                viewModel.handleGoToCreateExercise()
+//        VStack {
+        ScrollViewReader { scrollValue in
+            
+            List {
+                if !viewModel.selectableSelectedExercises.isEmpty {
+                    Section {
+                        SelectedExercisesList(viewModel: viewModel)
+                    } header: {
+                        Text("Selected Exercises")
+                    }
+                }
+                
+                Section {
+                    FilteredAllExercisesList(viewModel: viewModel)
+                } header: {
+                    VStack {
+                        Button("Create") {
+                            viewModel.handleGoToCreateExercise()
+                        }
+                        .buttonStyle(HighKeyButtonStyle())
+                        
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                            
+                            // TODO: - 0.1.0 Make a smooth animation whenever the search bar is focused
+                            TextField("Search", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
+//                                .focused($focus, equals: .search)
+//                                .onChange(of: focus) { newValue in
+//                                    withAnimation {
+//                                        scrollValue.scrollTo("search_section", anchor: .top)
+//                                    }
+//                                }
+                        }
+                        .padding()
+                        .background(Color(uiColor: .systemBackground))
+                        .cornerRadius(10)
+                    }
+                }
+                .id("search_section")
+                .textCase(nil)
             }
-            
-            TextField("Search", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
-            
-            FilteredAllExercisesList(viewModel: viewModel)
         }
         // Added for testing
             .onReceive(inspection.notice) {
@@ -246,15 +282,13 @@ public struct AddExerciseView: View {
     }
 }
 
-
 public struct SelectedExercisesList: View {
     
 //    @Binding var selectedSelectableExercises: [AddExerciseViewModel.SelectableExercise]
     @ObservedObject var viewModel: AddExerciseViewModel
     
     public var body: some View {
-        
-        List {
+            
             ForEach($viewModel.selectableSelectedExercises, id: \.self) { selectableExercise in
                 
                 SelectableBasicExerciseRowView(selectableExercise: selectableExercise) {
@@ -262,8 +296,7 @@ public struct SelectedExercisesList: View {
                     viewModel.removeSelectableExerciseFromSelectedList(selectableExercise: selectableExercise.wrappedValue)
                 }
             }
-        }
-        .accessibilityIdentifier("selected_exercise_list")
+            .accessibilityIdentifier("selected_exercise_list")
     }
 }
 
@@ -275,7 +308,7 @@ public struct FilteredAllExercisesList: View {
     
     public var body: some View {
         
-        List {
+//        List {
             ForEach($viewModel.selectableFilteredExercises, id: \.self) { selectableExercise in
                 
                 SelectableBasicExerciseRowView(selectableExercise: selectableExercise) {
@@ -288,7 +321,7 @@ public struct FilteredAllExercisesList: View {
                 }
             }
             .onDelete(perform: viewModel.deleteExercise)
-        }
+//        }
         .accessibilityIdentifier("filtered_exercise_list")
     }
 }
