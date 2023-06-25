@@ -68,42 +68,6 @@ public class RoutineRecordDetailViewModel: ObservableObject {
 }
 
 
-struct CalendarStyleDateTimeView: View {
-    
-    let cellHeight: CGFloat = 100
-    
-    let title: String
-    let dateString: String
-    let timeString: String
-    
-    var body: some View {
-
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Spacer()
-                Text(title)
-                    .fontWeight(.bold)
-                Spacer()
-            }
-            .font(.callout)
-            .foregroundColor(Color(uiColor: .label))
-            .padding(.horizontal, 10)
-            .frame(maxWidth: .infinity, maxHeight: cellHeight / 3, alignment: .leading)
-            .background(Color.universeRed)
-            
-            VStack(spacing: 0) {
-                Text("\(dateString)")
-                    
-                    .font(.headline)
-                Text("\(timeString)")
-            }
-            .frame(maxWidth: .infinity, maxHeight: cellHeight / 3 * 2)
-        }
-            .roundedCell(cellHeight: cellHeight)
-    }
-}
-
-
 public struct RoutineRecordDetailView: View {
     
     @ObservedObject var viewModel: RoutineRecordDetailViewModel
