@@ -227,10 +227,18 @@ public struct AddExerciseView: View {
                 } header: {
                     VStack {
                         
-                        Button("Create") {
-                            viewModel.handleGoToCreateExercise()
+                        Button("Add \(viewModel.selectableSelectedExercises.count)") {
+                            viewModel.addExerciseCompletion(
+                                viewModel.selectableSelectedExercises.map {
+                                    print("Tapped add in AddExerciseView for \($0.exercise.name)")
+                                    return $0.exercise
+                                }
+                            )
+                            
+                            viewModel.dismiss()
                         }
                         .buttonStyle(LongHighKeyButtonStyle())
+                        .accessibilityIdentifier("add-selected-exercises")
                         
                         HStack {
                             Image(systemName: "magnifyingglass")
@@ -266,18 +274,10 @@ public struct AddExerciseView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Add \(viewModel.selectableSelectedExercises.count)") {
-
-                        viewModel.addExerciseCompletion(
-                            viewModel.selectableSelectedExercises.map {
-                                print("Tapped add in AddExerciseView for \($0.exercise.name)")
-                                return $0.exercise
-                            }
-                        )
-                        
-                        viewModel.dismiss()
+                    Button("Create") {
+                        viewModel.handleGoToCreateExercise()
                     }
-                    .accessibilityIdentifier("add-selected-exercises")
+                    
                 }
             }
     }
