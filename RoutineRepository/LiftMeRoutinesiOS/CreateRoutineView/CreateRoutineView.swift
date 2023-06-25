@@ -166,59 +166,63 @@ public struct CreateRoutineView: View {
     
     
     public var body: some View {
-        NavigationView {
-            Form {
-                TextField(text: $viewModel.name) {
-                    Text("Name")
-                }
-                .accessibilityIdentifier("routine_name")
-                
-                TextField(text: $viewModel.desc) {
-                    Text("Description")
-                }
-                .accessibilityIdentifier("routine_description")
-                
-                Section {
-                    ForEach(viewModel.exercises, id: \.self) { exercise in
-                        HStack {
-                            Text(exercise.name)
-                                .accessibilityIdentifier("exercise_row")
-                        }
-                    }
-                } header: {
+        Form {
+            TextField(text: $viewModel.name) {
+                Text("Name")
+            }
+            .accessibilityIdentifier("routine_name")
+            
+            TextField(text: $viewModel.desc) {
+                Text("Description")
+            }
+            .accessibilityIdentifier("routine_description")
+            
+            Section {
+                ForEach(viewModel.exercises, id: \.self) { exercise in
                     HStack {
-                        Text("Exercises")
-                        Spacer()
-                        Button {
-                            print("Button tapped in Create Routine")
-                            goToAddExerciseView()
-                        } label: {
-                            HStack {
-                                Text("Add")
-                                Image(systemName: "plus")
-                            }
-                        }
-                        .buttonStyle(HighKeyButtonStyle())
-                        .id("add-exercise-button")
-                        
+                        Text(exercise.name)
+                            .accessibilityIdentifier("exercise_row")
                     }
+                }
+            } header: {
+                HStack {
+                    Text("Exercises")
+                    Spacer()
+                    Button {
+                        print("Button tapped in Create Routine")
+                        goToAddExerciseView()
+                    } label: {
+                        HStack {
+                            Text("Add")
+                            Image(systemName: "plus")
+                        }
+                    }
+                    .buttonStyle(HighKeyButtonStyle())
+                    .id("add-exercise-button")
+                    
+                }
+            } footer: {
+                if viewModel.exercises.isEmpty {
+                    VStack(alignment: .center) {
+                        Text("Much empty. Try adding some exercises")
+                    }
+                    .frame(maxWidth: .infinity)
                 }
             }
-            .navigationTitle("Create Routine")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        viewModel.cancelCreateRoutine()
-                    }
+        }
+        .basicNavigationBar(title: "Create Routine")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel") {
+                    viewModel.cancelCreateRoutine()
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Save") {
-                        
-                        viewModel.saveButtonTapped()
-                    }
-                    .disabled(viewModel.isSaveButtonDisabled)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Save") {
+                    
+                    viewModel.saveButtonTapped()
                 }
+                .disabled(viewModel.isSaveButtonDisabled)
             }
         }
         .onReceive(inspection.notice) {
@@ -235,6 +239,8 @@ struct CreateRoutineView_Previews: PreviewProvider {
             routineStore: RoutineStorePreview(),
             dismiss: { })
         
-        CreateRoutineView(viewModel: viewModel, goToAddExerciseView: { })
+        NavigationStack {
+            CreateRoutineView(viewModel: viewModel, goToAddExerciseView: { })
+        }
     }
 }
