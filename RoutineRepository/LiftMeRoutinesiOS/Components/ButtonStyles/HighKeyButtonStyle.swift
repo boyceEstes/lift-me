@@ -17,6 +17,7 @@ struct LongHighKeyButtonStyle: ButtonStyle {
             .frame(height: thiccButtonHeight)
             .padding(.horizontal, 6)
             .padding(.vertical, 4)
+            .font(.headline)
             .fontWeight(.medium)
             .foregroundColor(Color(uiColor: .white))
             .background(
