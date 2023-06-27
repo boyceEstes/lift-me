@@ -187,6 +187,7 @@ public struct CreateRoutineView: View {
             } header: {
                 HStack {
                     Text("Exercises")
+                        .font(.headline)
                     Spacer()
                     Button {
                         print("Button tapped in Create Routine")
@@ -207,8 +208,11 @@ public struct CreateRoutineView: View {
                         Text("Much empty. Try adding some exercises")
                     }
                     .frame(maxWidth: .infinity)
+                    .padding(.top)
                 }
             }
+            .textCase(nil)
+            
         }
         .basicNavigationBar(title: "Create Routine")
         .toolbar {

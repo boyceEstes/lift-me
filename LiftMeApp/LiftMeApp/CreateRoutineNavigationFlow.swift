@@ -11,9 +11,25 @@ import SwiftUI
 import RoutineRepository
 
 
-class CreateRoutineNavigationFlow: SheetyNavigationFlow {
+class CreateRoutineNavigationFlow: SheetyStackNavigationFlow {
+    
+    let addExerciseUIComposer: AddExerciseUIComposer
+        
+    init(addExerciseUIComposer: AddExerciseUIComposer) {
+        
+        self.addExerciseUIComposer = addExerciseUIComposer
+    }
     
     
+    // MARK: - Stack
+    @Published var path = [StackIdentifier]()
+    
+    enum StackIdentifier: Hashable {}
+    
+    func pushToStack(_ identifier: StackIdentifier) -> some View { EmptyView() }
+    
+    
+    // MARK: - Sheet
     enum SheetyIdentifier: Identifiable, Hashable {
 
         var id: Int { self.hashValue }
@@ -34,15 +50,7 @@ class CreateRoutineNavigationFlow: SheetyNavigationFlow {
         }
     }
     
-    
-    let addExerciseUIComposer: AddExerciseUIComposer
-        @Published var modallyDisplayedView: SheetyIdentifier? = nil
-    
-        
-    init(addExerciseUIComposer: AddExerciseUIComposer) {
-        
-        self.addExerciseUIComposer = addExerciseUIComposer
-    }
+    @Published var modallyDisplayedView: SheetyIdentifier? = nil
     
     
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
