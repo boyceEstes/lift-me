@@ -192,7 +192,12 @@ public class AddExerciseViewModel: ObservableObject {
 
 
 public struct AddExerciseView: View {
-    
+//
+//    enum Field: Hashable {
+//        case search
+//    }
+//
+//    @FocusState private var focus: Field?
     @ObservedObject public var viewModel: AddExerciseViewModel
     public let inspection = Inspection<Self>()
     
@@ -204,40 +209,79 @@ public struct AddExerciseView: View {
     
     
     public var body: some View {
-        VStack {
             
-            Button("Add \(viewModel.selectableSelectedExercises.count)") {
-
-                viewModel.addExerciseCompletion(
-                    viewModel.selectableSelectedExercises.map {
-                        print("Tapped add in AddExerciseView for \($0.exercise.name)")
-                        return $0.exercise
+//        VStack {
+        ScrollViewReader { scrollValue in
+            
+            List {
+                if !viewModel.selectableSelectedExercises.isEmpty {
+                    Section {
+                        SelectedExercisesList(viewModel: viewModel)
+                    } header: {
+                        Text("Selected Exercises")
                     }
-                )
+                }
                 
-                viewModel.dismiss()
+                Section {
+                    FilteredAllExercisesList(viewModel: viewModel)
+                } header: {
+                    VStack {
+                        
+                        Button("Add \(viewModel.selectableSelectedExercises.count)") {
+                            viewModel.addExerciseCompletion(
+                                viewModel.selectableSelectedExercises.map {
+                                    print("Tapped add in AddExerciseView for \($0.exercise.name)")
+                                    return $0.exercise
+                                }
+                            )
+                            
+                            viewModel.dismiss()
+                        }
+                        .buttonStyle(LongHighKeyButtonStyle())
+                        .accessibilityIdentifier("add-selected-exercises")
+                        
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                            
+                            // TODO: - 0.1.0 Make a smooth animation whenever the search bar is focused
+                            TextField("Search", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
+//                                .focused($focus, equals: .search)
+//                                .onChange(of: focus) { newValue in
+//                                    withAnimation {
+//                                        scrollValue.scrollTo("search_section", anchor: .top)
+//                                    }
+//                                }
+                        }
+                        .padding()
+                        .background(Color(uiColor: .systemBackground))
+                        .cornerRadius(10)
+                    }
+                }
+                .id("search_section")
+                .textCase(nil)
             }
-            .accessibilityIdentifier("add-selected-exercises")
-
-            SelectedExercisesList(viewModel: viewModel)
-            
-            Button("Create") {
-                viewModel.handleGoToCreateExercise()
-//                viewModel.createExercise()
-//                viewModel.loadAllExercises()
-            }
-            
-            TextField("Hello world", text: $viewModel.searchTextField, prompt: Text("Ex: Bench Press"))
-            
-            FilteredAllExercisesList(viewModel: viewModel)
         }
         // Added for testing
             .onReceive(inspection.notice) {
                 self.inspection.visit(self, $0)
             }
+            .basicNavigationBar(title: "Add Exercise")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        viewModel.dismiss()
+                    }
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Create") {
+                        viewModel.handleGoToCreateExercise()
+                    }
+                    
+                }
+            }
     }
 }
-
 
 public struct SelectedExercisesList: View {
     
@@ -245,8 +289,7 @@ public struct SelectedExercisesList: View {
     @ObservedObject var viewModel: AddExerciseViewModel
     
     public var body: some View {
-        
-        List {
+            
             ForEach($viewModel.selectableSelectedExercises, id: \.self) { selectableExercise in
                 
                 SelectableBasicExerciseRowView(selectableExercise: selectableExercise) {
@@ -254,8 +297,7 @@ public struct SelectedExercisesList: View {
                     viewModel.removeSelectableExerciseFromSelectedList(selectableExercise: selectableExercise.wrappedValue)
                 }
             }
-        }
-        .accessibilityIdentifier("selected_exercise_list")
+            .accessibilityIdentifier("selected_exercise_list")
     }
 }
 
@@ -267,7 +309,7 @@ public struct FilteredAllExercisesList: View {
     
     public var body: some View {
         
-        List {
+//        List {
             ForEach($viewModel.selectableFilteredExercises, id: \.self) { selectableExercise in
                 
                 SelectableBasicExerciseRowView(selectableExercise: selectableExercise) {
@@ -280,7 +322,7 @@ public struct FilteredAllExercisesList: View {
                 }
             }
             .onDelete(perform: viewModel.deleteExercise)
-        }
+//        }
         .accessibilityIdentifier("filtered_exercise_list")
     }
 }
@@ -297,7 +339,11 @@ public struct SelectableBasicExerciseRowView: View {
             tapAction()
         } label: {
             HStack {
-                selectableExercise.isSelected ? Image(systemName: "circle.fill") : Image(systemName: "circle")
+                Group {
+                    selectableExercise.isSelected ? Image(systemName: "circle.fill") : Image(systemName: "circle")
+                }
+                .foregroundColor(.universeRed)
+                .fontWeight(.heavy)
                 
                 BasicExerciseRowView(exercise: selectableExercise.exercise)
             }
@@ -325,13 +371,15 @@ public struct BasicExerciseRowView: View {
 
 struct AddExerciseView_Previews: PreviewProvider {
     static var previews: some View {
-        AddExerciseView(
-            viewModel: AddExerciseViewModel(
-                routineStore: RoutineStorePreview(),
-                addExerciseCompletion: { _ in },
-                goToCreateExercise: { _ in },
-                dismiss: { }
+        NavigationStack {
+            AddExerciseView(
+                viewModel: AddExerciseViewModel(
+                    routineStore: RoutineStorePreview(),
+                    addExerciseCompletion: { _ in },
+                    goToCreateExercise: { _ in },
+                    dismiss: { }
+                )
             )
-        )
+        }
     }
 }

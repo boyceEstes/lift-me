@@ -8,21 +8,37 @@
 import SwiftUI
 import RoutineRepository
 
+
+extension DateFormatter {
+    
+    static var shortDateFormatter = {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        return dateFormatter
+    }()
+    
+    
+    static var shortTimeFormatter = {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .short
+        return dateFormatter
+    }()
+}
+
+
 public class RoutineRecordDetailViewModel: ObservableObject {
     
     let routineRecord: RoutineRecord
     
-    var dateFormatter = {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }()
-
-    
     var creationDateString: String {
-        return dateFormatter.string(from: routineRecord.creationDate)
+        return DateFormatter.shortDateFormatter.string(from: routineRecord.creationDate)
+    }
+    
+    
+    var creationTimeString: String {
+        return DateFormatter.shortTimeFormatter.string(from: routineRecord.creationDate)
     }
     
 
@@ -31,7 +47,16 @@ public class RoutineRecordDetailViewModel: ObservableObject {
             return "No completion date"
         }
         
-        return dateFormatter.string(from: completionDate)
+        return DateFormatter.shortDateFormatter.string(from: completionDate)
+    }
+    
+    
+    var completionTimeString: String {
+        guard let completionDate = routineRecord.completionDate else {
+            return "No completion date"
+        }
+        
+        return DateFormatter.shortTimeFormatter.string(from: completionDate)
     }
     
     
@@ -39,6 +64,7 @@ public class RoutineRecordDetailViewModel: ObservableObject {
         print("init routine record detail")
         self.routineRecord = routineRecord
     }
+    
     
     deinit {
         print("deinit routine record detail")
@@ -58,49 +84,19 @@ public struct RoutineRecordDetailView: View {
     
     
     public var body: some View {
-        VStack {
-            VStack {
-                HStack {
-                    Text("Creation Date")
-                    Spacer()
-                    Text(viewModel.creationDateString)
-                }
+        
+        ScrollView {
+            LazyVStack(spacing: 20) {
+                HStack(spacing: 20) {
+                    CalendarStyleRoundedCellView(title: "Start", contentTitle: viewModel.creationDateString, contentSubtitle: viewModel.creationTimeString)
+                    CalendarStyleRoundedCellView(title: "Finish", contentTitle: viewModel.completionDateString, contentSubtitle: viewModel.completionTimeString)
+                }.padding(.top, 20)
                 
-                HStack {
-                    Text("Completion Date")
-                    Spacer()
-                    Text(viewModel.completionDateString)
-                }
+                ExerciseWithSetInfoView(exerciseRecords: viewModel.routineRecord.exerciseRecords)
             }
             .padding(.horizontal)
-
-            
-            List {
-                ForEach(viewModel.routineRecord.exerciseRecords, id: \.self) { exerciseRecord in
-                    Section {
-                        HStack {
-                            Text(exerciseRecord.exercise.name)
-                            Spacer()
-                            Text("\(exerciseRecord.setRecords.count) sets")
-                        }
-                        .font(Font.headline)
-                        
-                        ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
-                            HStack {
-                                
-                                Text("Set \(index)")
-                                Spacer()
-                                Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
-                            }
-                        }
-                    }
-                }
-            }
-            
-            Spacer()
         }
-            .navigationTitle("Routine Record Detail")
-            .navigationBarTitleDisplayMode(.inline)
+        .basicNavigationBar(title: "Workout Detail")
     }
 }
 

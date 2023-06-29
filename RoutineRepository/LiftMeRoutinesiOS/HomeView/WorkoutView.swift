@@ -244,7 +244,7 @@ public struct WorkoutView: View {
             
         ScrollView {
             
-            VStack(spacing: 20) {
+            LazyVStack(spacing: 20) {
                 if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
                     Text("Try adding an exercise!")
                 } else {
@@ -316,7 +316,7 @@ public struct ExerciseRecordView: View {
 
     public var body: some View {
         
-        VStack(spacing: 0) {
+        ExerciseWithSetsStructureView {
             HStack {
                 Text(exerciseRecordViewModel.exercise.name)
                     .font(.headline)
@@ -325,22 +325,12 @@ public struct ExerciseRecordView: View {
                     $exerciseRecordViewModel.wrappedValue.addNewSetRecordViewModel()
                 }.buttonStyle(LowKeyButtonStyle())
             }
-            .padding(.vertical, 10)
-            .padding(.horizontal)
-            .background(Color(uiColor: .secondarySystemGroupedBackground))
-            
-            VStack(spacing: 0) {
-                ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
-                    
-                    SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
-                        .padding(.vertical, 10)
-                }
+        } setContent: {
+            ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
+                
+                SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
             }
-            .padding(.horizontal)
         }
-        .background(Color(uiColor: .tertiarySystemGroupedBackground))
-        .cornerRadius(10)
-        .shadow(radius: 6)
     }
 }
 

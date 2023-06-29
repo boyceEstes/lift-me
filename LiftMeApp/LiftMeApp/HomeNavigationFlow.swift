@@ -69,7 +69,7 @@ class HomeNavigationFlow: SheetyStackNavigationFlow {
             switch identifier {
                 
             case .createRoutine:
-                createRoutineUIComposer.makeCreateRoutineViewWithSheetyNavigation(
+                createRoutineUIComposer.makeCreateRoutineViewWithNavigation(
                     routineRecord: nil,
                     superDismiss: self.dismiss
                 )

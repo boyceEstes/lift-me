@@ -67,6 +67,8 @@ struct RootView: View {
                     Label("History", systemImage: "book.closed")
                 }
         }
+//        .toolbarColorScheme(.light, for: .tabBar)
+//        .toolbarColorScheme(Color.universeRed, for: .tabBar)
     }
 }
 
