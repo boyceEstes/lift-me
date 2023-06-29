@@ -177,42 +177,7 @@ public struct CreateRoutineView: View {
             }
             .accessibilityIdentifier("routine_description")
             
-            Section {
-                ForEach(viewModel.exercises, id: \.self) { exercise in
-                    HStack {
-                        Text(exercise.name)
-                            .accessibilityIdentifier("exercise_row")
-                    }
-                }
-            } header: {
-                HStack {
-                    Text("Exercises")
-                        .font(.headline)
-                    Spacer()
-                    Button {
-                        print("Button tapped in Create Routine")
-                        goToAddExerciseView()
-                    } label: {
-                        HStack {
-                            Text("Add")
-                            Image(systemName: "plus")
-                        }
-                    }
-                    .buttonStyle(HighKeyButtonStyle())
-                    .id("add-exercise-button")
-                    
-                }
-            } footer: {
-                if viewModel.exercises.isEmpty {
-                    VStack(alignment: .center) {
-                        Text("Much empty. Try adding some exercises")
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.top)
-                }
-            }
-            .textCase(nil)
-            
+            EditableExerciseSectionView(exercises: viewModel.exercises, goToAddExerciseView: goToAddExerciseView)
         }
         .basicNavigationBar(title: "Create Routine")
         .toolbar {
@@ -232,6 +197,52 @@ public struct CreateRoutineView: View {
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
         }
+    }
+}
+
+
+struct EditableExerciseSectionView: View {
+    
+    let exercises: [Exercise]
+    let goToAddExerciseView: () -> Void
+    
+    var body: some View {
+        
+        Section {
+            ForEach(exercises, id: \.self) { exercise in
+                HStack {
+                    Text(exercise.name)
+                        .accessibilityIdentifier("exercise_row")
+                }
+            }
+        } header: {
+            HStack {
+                Text("Exercises")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    print("Button tapped in Create Routine")
+                    goToAddExerciseView()
+                } label: {
+                    HStack {
+                        Text("Add")
+                        Image(systemName: "plus")
+                    }
+                }
+                .buttonStyle(HighKeyButtonStyle())
+                .id("add-exercise-button")
+                
+            }
+        } footer: {
+            if exercises.isEmpty {
+                VStack(alignment: .center) {
+                    Text("Much empty. Try adding some exercises")
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top)
+            }
+        }
+        .textCase(nil)
     }
 }
 

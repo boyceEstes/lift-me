@@ -16,7 +16,7 @@ public class RoutineListViewModel: ObservableObject {
     let routineStore: RoutineStore
     let routineDataSource: RoutineDataSource
     let goToCreateRoutine: () -> Void
-    let goToWorkoutView: (Routine) -> Void
+    let goToRoutineDetail: (Routine) -> Void
     
 //    let routineUIDataSource: RoutineDataSource
     
@@ -31,11 +31,11 @@ public class RoutineListViewModel: ObservableObject {
     public init(
         routineStore: RoutineStore,
         goToCreateRoutine: @escaping () -> Void,
-        goToWorkoutView: @escaping (Routine) -> Void
+        goToRoutineDetail: @escaping (Routine) -> Void
     ) {
         self.routineStore = routineStore
         self.goToCreateRoutine = goToCreateRoutine
-        self.goToWorkoutView = goToWorkoutView
+        self.goToRoutineDetail = goToRoutineDetail
         
         self.routineDataSource = routineStore.routineDataSource()
         bindDataSource()
@@ -186,7 +186,8 @@ public struct ScrollableRoutineListView: View {
                             ForEach(viewModel.routines, id: \.self) { routine in
                                 RoutineCellView(
                                     routine: routine,
-                                    goToWorkoutView: viewModel.goToWorkoutView)
+                                    goToRoutineDetail: viewModel.goToRoutineDetail
+                                )
                             }
                         }
                     }
@@ -208,7 +209,7 @@ struct RoutineListView_Previews: PreviewProvider {
             viewModel: RoutineListViewModel(
                 routineStore: RoutineStorePreview(),
                 goToCreateRoutine: { },
-                goToWorkoutView: { _ in }
+                goToRoutineDetail: { _ in }
             )
         )
 //        .preferredColorScheme(.dark)

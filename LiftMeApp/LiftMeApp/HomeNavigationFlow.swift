@@ -37,12 +37,17 @@ class HomeNavigationFlow: SheetyStackNavigationFlow {
     
     enum StackIdentifier: Hashable {
         
-        case routineDetail
+        case routineDetail(routine: Routine)
     }
     
     
+    @ViewBuilder
     func pushToStack(_ identifier: StackIdentifier) -> some View {
-        Text("")
+
+        switch identifier {
+        case let .routineDetail(routine: routine):
+            homeUIComposer.makeRoutineDetailView(routine: routine)
+        }
     }
     
     
@@ -63,23 +68,19 @@ class HomeNavigationFlow: SheetyStackNavigationFlow {
     }
     
     
+    @ViewBuilder
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
         
-        Group {
-            switch identifier {
-                
-            case .createRoutine:
-                createRoutineUIComposer.makeCreateRoutineViewWithNavigation(
-                    routineRecord: nil,
-                    superDismiss: self.dismiss
-                )
-                
-            case let .workout(routine):
-                workoutUIComposer.makeWorkoutViewWithNavigation(
-                    routine: routine,
-                    dismiss: self.dismiss
-                )
-            }
+        switch identifier {
+            
+        case .createRoutine:
+            createRoutineUIComposer.makeCreateRoutineViewWithNavigation(
+                routineRecord: nil,
+                superDismiss: self.dismiss
+            )
+            
+        case let .workout(routine):
+            workoutUIComposer.makeWorkoutViewWithNavigation(routine: routine, dismiss: self.dismiss)
         }
     }
 }

@@ -86,12 +86,19 @@ public class HomeUIComposer {
             goToCreateRoutine: {
                 self.navigationFlow.modallyDisplayedView = .createRoutine
             },
-            goToWorkoutView: { routine in
-                self.navigationFlow.modallyDisplayedView = .workout(routine)
+            goToRoutineDetail: { routine in
+                self.navigationFlow.path.append(.routineDetail(routine: routine))
             }
         )
         
         return (RoutineListView(viewModel: viewModel), viewModel)
+    }
+    
+    
+    func makeRoutineDetailView(routine: Routine) -> RoutineDetailView {
+        
+        RoutineDetailView(routine: routine)
+        
     }
 }
 

@@ -226,16 +226,8 @@ public struct AddExerciseView: View {
                     FilteredAllExercisesList(viewModel: viewModel)
                 } header: {
                     VStack {
-                        
-                        Button("Add \(viewModel.selectableSelectedExercises.count)") {
-                            viewModel.addExerciseCompletion(
-                                viewModel.selectableSelectedExercises.map {
-                                    print("Tapped add in AddExerciseView for \($0.exercise.name)")
-                                    return $0.exercise
-                                }
-                            )
-                            
-                            viewModel.dismiss()
+                        Button("Create") {
+                            viewModel.handleGoToCreateExercise()
                         }
                         .buttonStyle(LongHighKeyButtonStyle())
                         .accessibilityIdentifier("add-selected-exercises")
@@ -274,8 +266,16 @@ public struct AddExerciseView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Create") {
-                        viewModel.handleGoToCreateExercise()
+                    
+                    Button("Add \(viewModel.selectableSelectedExercises.count)") {
+                        viewModel.addExerciseCompletion(
+                            viewModel.selectableSelectedExercises.map {
+                                print("Tapped add in AddExerciseView for \($0.exercise.name)")
+                                return $0.exercise
+                            }
+                        )
+                        
+                        viewModel.dismiss()
                     }
                     
                 }

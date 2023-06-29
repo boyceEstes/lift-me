@@ -50,7 +50,7 @@ struct HomeView_Previews: PreviewProvider {
                     viewModel: RoutineListViewModel(
                         routineStore: RoutineStorePreview(),
                         goToCreateRoutine: { },
-                        goToWorkoutView: { _ in }
+                        goToRoutineDetail: { _ in }
                     )
                 ), goToWorkoutViewWithNoRoutine: { }
             )

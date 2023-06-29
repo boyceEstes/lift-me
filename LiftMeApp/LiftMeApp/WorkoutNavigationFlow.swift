@@ -83,21 +83,20 @@ class WorkoutNavigationFlow: SheetyStackNavigationFlow {
     
     
     
+    @ViewBuilder
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
         
-        return Group {
-            switch identifier {
-                
-            case let .addExercise(addExerciseCompletion, dismiss):
-                addExerciseUIComposer.makeAddExerciseViewWithNavigation(addExerciseCompletion: addExerciseCompletion, dismiss: dismiss)
+        switch identifier {
+            
+        case let .addExercise(addExerciseCompletion, dismiss):
+            addExerciseUIComposer.makeAddExerciseViewWithNavigation(addExerciseCompletion: addExerciseCompletion, dismiss: dismiss)
 
-            case let .createRoutineView(routineRecord, superDismiss):
-                
-                createRoutineUIComposer.makeCreateRoutineViewWithNavigation(
-                    routineRecord: routineRecord,
-                    superDismiss: superDismiss
-                )
-            }
+        case let .createRoutineView(routineRecord, superDismiss):
+            
+            createRoutineUIComposer.makeCreateRoutineViewWithNavigation(
+                routineRecord: routineRecord,
+                superDismiss: superDismiss
+            )
         }
     }
 }
