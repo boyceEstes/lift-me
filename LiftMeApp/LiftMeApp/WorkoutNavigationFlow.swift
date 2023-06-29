@@ -82,6 +82,7 @@ class WorkoutNavigationFlow: SheetyStackNavigationFlow {
     }
     
     
+    
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
         
         return Group {
@@ -92,7 +93,7 @@ class WorkoutNavigationFlow: SheetyStackNavigationFlow {
 
             case let .createRoutineView(routineRecord, superDismiss):
                 
-                createRoutineUIComposer.makeCreateRoutineViewWithSheetyNavigation(
+                createRoutineUIComposer.makeCreateRoutineViewWithNavigation(
                     routineRecord: routineRecord,
                     superDismiss: superDismiss
                 )
