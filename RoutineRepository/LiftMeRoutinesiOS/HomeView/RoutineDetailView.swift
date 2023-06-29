@@ -11,13 +11,23 @@ import RoutineRepository
 public struct RoutineDetailView: View {
     
     let routine: Routine
+//    let goToAddExercise: () -> Void
     
     public init(routine: Routine) {
         self.routine = routine
     }
     
     public var body: some View {
-        Text("\(routine.name)")
+        
+        Form {
+            Text("\(routine.name)")
+            
+            EditableExerciseSectionView(
+                exercises: routine.exercises,
+                goToAddExerciseView: { }
+            )
+        }
+        .basicNavigationBar(title: "Routine Details")
     }
 }
 
