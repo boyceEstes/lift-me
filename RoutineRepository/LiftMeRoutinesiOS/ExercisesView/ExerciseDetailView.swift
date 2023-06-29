@@ -16,6 +16,17 @@ public class ExerciseDetailViewModel: ObservableObject {
     let exercise: Exercise
     
     
+    var exerciseCreationDateString: String {
+        
+        DateFormatter.shortDateFormatter.string(from: exercise.creationDate)
+    }
+    
+    
+    var exerciseCreationTimeString: String {
+        DateFormatter.shortTimeFormatter.string(from: exercise.creationDate)
+    }
+    
+    
     public init(routineStore: RoutineStore, exercise: Exercise) {
         
         self.routineStore = routineStore
@@ -66,37 +77,25 @@ public struct ExerciseDetailView: View {
     
     
     public var body: some View {
-        VStack {
-            // TODO: For some reason there is n
-            Text("Exercise Details - like name")
-            Text("Date Created \(viewModel.exercise.creationDate)")
-            Text("Exercise Records \(viewModel.exerciseRecords.count)")
-            
-            List {
-                ForEach(viewModel.exerciseRecords, id: \.self) { exerciseRecord in
-                    Section {
-                        HStack {
-                            Text(exerciseRecord.exercise.name)
-                            Spacer()
-                            Text("\(exerciseRecord.setRecords.count) sets")
-                        }
-                        .font(Font.headline)
+        
+        ScrollView {
+            LazyVStack(spacing: 20) {
 
-                        ForEach(0..<exerciseRecord.setRecords.count, id: \.self) { index in
-                            HStack {
-
-                                Text("Set \(index)")
-                                Spacer()
-                                Text("\(String(exerciseRecord.setRecords[index].weight)) x \(String(exerciseRecord.setRecords[index].repCount))")
-                            }
-                        }
-                    }
+                // TODO: - 0.1.0: Create description for each exercise
+                
+                HStack(spacing: 20) {
+                    CalendarStyleRoundedCellView(title: "Created", contentTitle: viewModel.exerciseCreationDateString, contentSubtitle: viewModel.exerciseCreationTimeString)
+                    CalendarStyleRoundedCellView(title: "Records", contentTitle: "\(viewModel.exerciseRecords.count)")
+                    CalendarStyleRoundedCellView(title: "ORM", contentTitle: "TBD")
                 }
+                
+                ExerciseWithSetInfoDateFocusedView(exerciseRecords: viewModel.exerciseRecords)
             }
-            Spacer()
+            .padding(.horizontal)
+            .padding(.top, 20)
         }
-        .navigationTitle(viewModel.exercise.name)
-        .navigationBarTitleDisplayMode(.inline)
+        .background(Color(uiColor: .systemGroupedBackground))
+        .basicNavigationBar(title: viewModel.exercise.name)
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
         }

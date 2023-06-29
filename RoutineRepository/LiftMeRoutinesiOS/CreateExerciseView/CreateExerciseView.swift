@@ -63,8 +63,7 @@ public struct CreateExerciseView: View {
             TextField("Description", text: $viewModel.exerciseDescription)
                 .accessibilityIdentifier("exercise_description")
         }
-        .navigationTitle("Create Exercise")
-        .navigationBarTitleDisplayMode(.inline)
+        .basicNavigationBar(title: "Create Exercise")
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel") {

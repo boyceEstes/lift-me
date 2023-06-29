@@ -8,3 +8,4 @@
 import Foundation
 
 let thiccButtonHeight: CGFloat = 40
+let foregroundShadow: CGFloat = 6

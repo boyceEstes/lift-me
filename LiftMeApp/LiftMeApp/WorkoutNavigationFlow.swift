@@ -89,7 +89,7 @@ class WorkoutNavigationFlow: SheetyStackNavigationFlow {
             switch identifier {
                 
             case let .addExercise(addExerciseCompletion, dismiss):
-                addExerciseUIComposer.makeAddExerciseViewWithSheetyNavigation(addExerciseCompletion: addExerciseCompletion, dismiss: dismiss)
+                addExerciseUIComposer.makeAddExerciseViewWithNavigation(addExerciseCompletion: addExerciseCompletion, dismiss: dismiss)
 
             case let .createRoutineView(routineRecord, superDismiss):
                 

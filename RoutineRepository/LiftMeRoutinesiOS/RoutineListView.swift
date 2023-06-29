@@ -63,31 +63,6 @@ public class RoutineListViewModel: ObservableObject {
 }
 
 
-struct RoutineCell: ViewModifier {
-    
-    let cellHeight: CGFloat = 130
-    
-    func body(content: Content) -> some View {
-        content
-            .padding()
-            .foregroundColor(Color(uiColor: .label))
-            .frame(width: cellHeight , height: cellHeight)
-            .background(Color(uiColor: .tertiarySystemBackground))
-            .cornerRadius(16)
-            .shadow(radius: 6)
-            .padding(.vertical)
-    }
-}
-
-
-extension View {
-    
-    func routineCell() -> some View {
-        modifier(RoutineCell())
-    }
-}
-
-
 public struct RoutineListView: View {
     
     public let inspection = Inspection<Self>()
@@ -184,40 +159,6 @@ public struct MoreRoutinesButtonView: View {
             }
         }
         .buttonStyle(LowKeyButtonStyle())
-    }
-}
-
-
-public struct RoutineCellView: View {
-    
-    let routine: Routine
-    let goToWorkoutView: (Routine) -> Void
-    
-    public var body: some View {
-        Text("\(routine.name)")
-            .routineCell()
-            .onTapGesture {
-                goToWorkoutView(routine)
-            }
-    }
-}
-
-
-public struct EmptyRoutineCellView: View {
-    
-    public var body: some View {
-        Text("Aww shucks. No routines yet.")
-            .routineCell()
-    }
-}
-
-
-public struct ErrorRoutineCellView: View {
-    
-    public var body: some View {
-        
-        Text("Error loading routines... dang")
-            .routineCell()
     }
 }
 

@@ -14,8 +14,6 @@ import RoutineRepository
 class CreateRoutineNavigationFlow: SheetyStackNavigationFlow {
     
     let addExerciseUIComposer: AddExerciseUIComposer
-        @Published var modallyDisplayedView: SheetyIdentifier? = nil
-    
         
     init(addExerciseUIComposer: AddExerciseUIComposer) {
         
@@ -52,19 +50,20 @@ class CreateRoutineNavigationFlow: SheetyStackNavigationFlow {
         }
     }
 
+    @Published var modallyDisplayedView: SheetyIdentifier? = nil
     
+
     func displaySheet(for identifier: SheetyIdentifier) -> some View {
         
         return Group {
             switch identifier {
             case let .addExercise(addExerciseCompletion, dismiss):
                 
-                addExerciseUIComposer.makeAddExerciseViewWithSheetyNavigation(
+                addExerciseUIComposer.makeAddExerciseViewWithNavigation(
                     addExerciseCompletion: addExerciseCompletion,
                     dismiss: dismiss
                 )
             }
         }
-
     }
 }

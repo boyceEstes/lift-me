@@ -26,17 +26,9 @@ public struct HomeView: View {
             Button {
                 goToWorkoutViewWithNoRoutine()
             } label: {
-                Text("Custom Routine")
+                Text("Start Custom Routine")
             }
-            .frame(maxWidth: .infinity, maxHeight: 40)
-            .padding(.horizontal, 6)
-            .padding(.vertical, 4)
-            .fontWeight(.medium)
-            .foregroundColor(Color(uiColor: .white))
-            .background(
-                RoundedRectangle(cornerRadius: 8)
-                .fill(Color.universeRed)
-            )
+            .buttonStyle(LongHighKeyButtonStyle())
             .padding(.horizontal)
             
             routineListView
@@ -44,7 +36,8 @@ public struct HomeView: View {
             Spacer()
         }
         .padding(.top)
-        .basicNavigationBar(title: "Home")
+        .navigationTitle("Home")
+//        .basicNavigationBar(title: "Home")
     }
 }
 

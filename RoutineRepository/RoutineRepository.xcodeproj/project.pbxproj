@@ -16,6 +16,12 @@
 		B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */ = {isa = PBXBuildFile; fileRef = B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */; };
 		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; };
 		B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B33909942A48BF0200C2562E /* RoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33909932A48BF0200C2562E /* RoundedCell.swift */; };
+		B33909972A48BF4F00C2562E /* RoutineCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33909962A48BF4F00C2562E /* RoutineCellView.swift */; };
+		B33909992A48C0C200C2562E /* CalendarStyleRoundedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33909982A48C0C200C2562E /* CalendarStyleRoundedCellView.swift */; };
+		B339099D2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B339099C2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift */; };
+		B339099F2A48DD1700C2562E /* LightShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B339099E2A48DD1700C2562E /* LightShadow.swift */; };
+		B33909A22A48E70400C2562E /* ExerciseWithSetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33909A12A48E70400C2562E /* ExerciseWithSetInfoView.swift */; };
 		B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA7296F80EB00C2FB1E /* HomeView.swift */; };
 		B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */; };
 		B33D0FB2297060A000C2FB1E /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */; };
@@ -125,6 +131,12 @@
 		B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiftMeRoutinesiOS.h; sourceTree = "<group>"; };
 		B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LiftMeRoutinesiOS.docc; sourceTree = "<group>"; };
 		B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeRoutinesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B33909932A48BF0200C2562E /* RoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCell.swift; sourceTree = "<group>"; };
+		B33909962A48BF4F00C2562E /* RoutineCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCellView.swift; sourceTree = "<group>"; };
+		B33909982A48C0C200C2562E /* CalendarStyleRoundedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStyleRoundedCellView.swift; sourceTree = "<group>"; };
+		B339099C2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseWithSetsStructureView.swift; sourceTree = "<group>"; };
+		B339099E2A48DD1700C2562E /* LightShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightShadow.swift; sourceTree = "<group>"; };
+		B33909A12A48E70400C2562E /* ExerciseWithSetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseWithSetInfoView.swift; sourceTree = "<group>"; };
 		B33D0FA7296F80EB00C2FB1E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
@@ -276,6 +288,33 @@
 			children = (
 			);
 			path = LiftMeRoutinesiOSTests;
+			sourceTree = "<group>";
+		};
+		B33909922A48BEF600C2562E /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				B33909932A48BF0200C2562E /* RoundedCell.swift */,
+				B339099E2A48DD1700C2562E /* LightShadow.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		B33909952A48BF2600C2562E /* RoundedCells */ = {
+			isa = PBXGroup;
+			children = (
+				B33909962A48BF4F00C2562E /* RoutineCellView.swift */,
+				B33909982A48C0C200C2562E /* CalendarStyleRoundedCellView.swift */,
+			);
+			path = RoundedCells;
+			sourceTree = "<group>";
+		};
+		B33909A02A48E6DC00C2562E /* CustomExerciseSetLists */ = {
+			isa = PBXGroup;
+			children = (
+				B339099C2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift */,
+				B33909A12A48E70400C2562E /* ExerciseWithSetInfoView.swift */,
+			);
+			path = CustomExerciseSetLists;
 			sourceTree = "<group>";
 		};
 		B33D0FA6296F80C400C2FB1E /* HomeView */ = {
@@ -441,6 +480,9 @@
 		B3EE9CAB2A3A63DC0002D3DB /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B33909A02A48E6DC00C2562E /* CustomExerciseSetLists */,
+				B33909952A48BF2600C2562E /* RoundedCells */,
+				B33909922A48BEF600C2562E /* ViewModifiers */,
 				B3EE9CAC2A3A63EB0002D3DB /* ButtonStyles */,
 				B3EE9CB12A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift */,
 				B33F27812A433D08007191AE /* Constants.swift */,
@@ -684,23 +726,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				B34588B429061BF0006ED45C /* UIColor+LiftMeThemeColors.swift in Sources */,
+				B33909992A48C0C200C2562E /* CalendarStyleRoundedCellView.swift in Sources */,
+				B339099F2A48DD1700C2562E /* LightShadow.swift in Sources */,
 				B33F27822A433D08007191AE /* Constants.swift in Sources */,
 				B33D0FB2297060A000C2FB1E /* AddExerciseView.swift in Sources */,
 				B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */,
 				B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */,
 				B3692CD72999C0B700D9BD05 /* ExercisesView.swift in Sources */,
+				B33909A22A48E70400C2562E /* ExerciseWithSetInfoView.swift in Sources */,
 				B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */,
 				B3692CC12999898100D9BD05 /* HistoryView.swift in Sources */,
 				B3EE9CB02A3A64400002D3DB /* LowKeyButtonStyle.swift in Sources */,
+				B33909942A48BF0200C2562E /* RoundedCell.swift in Sources */,
 				B3692CDE2999CFC900D9BD05 /* ExerciseDetailView.swift in Sources */,
 				B3290871298196DC008350B1 /* RoutineStorePreview.swift in Sources */,
 				B3EE9CAE2A3A64020002D3DB /* HighKeyButtonStyle.swift in Sources */,
+				B339099D2A48DCA000C2562E /* ExerciseWithSetsStructureView.swift in Sources */,
 				B320DC4B29B0506E006CCE03 /* CreateExerciseView.swift in Sources */,
 				B3692CCF2999A20A00D9BD05 /* RoutineRecordDetailView.swift in Sources */,
 				B34588B2290617ED006ED45C /* Inspection.swift in Sources */,
 				B3EE9CB22A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift in Sources */,
 				B34588B0290617BA006ED45C /* RoutineListView.swift in Sources */,
 				B34588B629061C2B006ED45C /* Color+LiftMeThemeColors.swift in Sources */,
+				B33909972A48BF4F00C2562E /* RoutineCellView.swift in Sources */,
 				B30E83C5291EB36B00A19724 /* CreateRoutineView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
