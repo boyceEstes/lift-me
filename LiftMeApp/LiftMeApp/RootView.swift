@@ -43,7 +43,8 @@ struct RootView: View {
         self.homeUIComposer = HomeUIComposer(
             routineStore: routineStore,
             workoutUIComposer: workoutUIComposer,
-            createRoutineUIComposer: createRoutineUIComposer
+            createRoutineUIComposer: createRoutineUIComposer,
+            addExerciseUIComposer: addExerciseUIComposer
         )
 
         self.historyUIComposer = HistoryUIComposer(routineStore: routineStore)

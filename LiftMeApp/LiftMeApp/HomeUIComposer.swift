@@ -19,25 +19,29 @@ public class HomeUIComposer {
     let routineStore: RoutineStore
     let createRoutineUIComposer: CreateRoutineUIComposer // I am passing this through because I only want one instance at the root that will be used
     let workoutUIComposer: WorkoutUIComposer
+    let addExerciseUIComposer: AddExerciseUIComposer
     
     lazy var navigationFlow: HomeNavigationFlow = { [unowned self] in
         
         return HomeNavigationFlow(
             homeUIComposer: self,
             workoutUIComposer: workoutUIComposer,
-            createRoutineUIComposer: createRoutineUIComposer
+            createRoutineUIComposer: createRoutineUIComposer,
+            addExerciseUIComposer: addExerciseUIComposer
         )
     }()
     
     
     init(routineStore: RoutineStore,
          workoutUIComposer: WorkoutUIComposer,
-         createRoutineUIComposer: CreateRoutineUIComposer
+         createRoutineUIComposer: CreateRoutineUIComposer,
+         addExerciseUIComposer: AddExerciseUIComposer
     ) {
         
         self.routineStore = routineStore
         self.workoutUIComposer = workoutUIComposer
         self.createRoutineUIComposer = createRoutineUIComposer
+        self.addExerciseUIComposer = addExerciseUIComposer
     }
     
     // MARK: - Home View
@@ -95,10 +99,22 @@ public class HomeUIComposer {
     }
     
     
+    
     func makeRoutineDetailView(routine: Routine) -> RoutineDetailView {
         
-        RoutineDetailView(routine: routine)
+        let viewModel = RoutineDetailViewModel(routine: routine)
         
+        return RoutineDetailView(
+            viewModel: viewModel,
+            goToAddExercise: {
+                self.navigationFlow.modallyDisplayedView = .addExercise(
+                    addExerciseCompletion: viewModel.addExercisesCompletion,
+                    dismiss: { [weak self] in
+                        self?.navigationFlow.dismiss()
+                    }
+                )
+            }
+        )
     }
 }
 
