@@ -114,7 +114,7 @@ class HomeNavigationFlow: SheetyStackNavigationFlow {
             workoutUIComposer.makeWorkoutViewWithNavigation(routine: routine, dismiss: self.dismiss)
             
         case let .addExercise(addExerciseCompletion, dismiss):
-            addExerciseUIComposer.makeAddExerciseView(
+            addExerciseUIComposer.makeAddExerciseViewWithNavigation(
                 addExerciseCompletion: addExerciseCompletion,
                 dismiss: dismiss
             )
