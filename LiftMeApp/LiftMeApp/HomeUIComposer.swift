@@ -102,13 +102,13 @@ public class HomeUIComposer {
     
     func makeRoutineDetailView(routine: Routine) -> RoutineDetailView {
         
-        let viewModel = RoutineDetailViewModel(routine: routine)
+        let routineDetailViewModel = RoutineDetailViewModel(routine: routine)
         
         return RoutineDetailView(
-            viewModel: viewModel,
+            viewModel: routineDetailViewModel,
             goToAddExercise: {
                 self.navigationFlow.modallyDisplayedView = .addExercise(
-                    addExerciseCompletion: viewModel.addExercisesCompletion,
+                    addExerciseCompletion: routineDetailViewModel.addExercisesCompletion,
                     dismiss: { [weak self] in
                         self?.navigationFlow.dismiss()
                     }

@@ -177,7 +177,10 @@ public struct CreateRoutineView: View {
             }
             .accessibilityIdentifier("routine_description")
             
-            EditableExerciseSectionView(exercises: viewModel.exercises, goToAddExerciseView: goToAddExerciseView)
+            EditableExerciseSectionView(
+                exercises: viewModel.exercises,
+                goToAddExerciseView: goToAddExerciseView
+            )
         }
         .basicNavigationBar(title: "Create Routine")
         .toolbar {

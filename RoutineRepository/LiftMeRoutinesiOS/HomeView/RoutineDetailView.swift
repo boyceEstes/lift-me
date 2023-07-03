@@ -11,31 +11,45 @@ import RoutineRepository
 
 public class RoutineDetailViewModel: ObservableObject {
     
-    @Published public var routine: Routine
+    @Published var exercises: [Exercise] {
+        didSet {
+            print("exercises didSet: \(exercises)")
+        }
+    }
+    
+    let routine: Routine
+    let uuid = UUID()
     
     public init(routine: Routine) {
         
         self.routine = routine
+        self.exercises = routine.exercises
+        print("BOYCE: DID MAKE ROUTINE DETAIL VIEW MODEL - \(uuid)")
     }
     
     // Passed to AddExerciseViewModel for logic after Add button is tapped
     public func addExercisesCompletion(exercises: [Exercise]) {
-        print("add exercises completion in workout view: received: \(exercises)")
+//
+//        exercises.forEach { [weak self] in
+//
+//            print("Appending \($0.name)")
+//            self?.exercises.append($0)
+//        }
         
-        var updatedTotalExercises = routine.exercises
-        for exercise in exercises {
-            updatedTotalExercises.append(exercise)
-        }
+        self.exercises.append(contentsOf: exercises)
+        print("Added exercises to routine detail: **\(uuid)**")
+//        print("exercises: \(self.exercises)")
     }
 }
 
 
 public struct RoutineDetailView: View {
     
-    let viewModel: RoutineDetailViewModel
     let goToAddExercise: () -> Void
 //    let goToWorkout: (Routine) -> Void
 //    let goToExerciseDetail: (Exercise) -> Void
+    
+    @ObservedObject var viewModel: RoutineDetailViewModel
     
     
     public init(
@@ -52,13 +66,24 @@ public struct RoutineDetailView: View {
         
         Form {
             Text("\(viewModel.routine.name)")
+            HStack {
+                Text("UUID")
+                    .foregroundColor(.secondary)
+                    .font(.caption)
+                Spacer()
+                Text("\(viewModel.uuid)")
+            }
             
             EditableExerciseSectionView(
-                exercises: viewModel.routine.exercises,
+                exercises: viewModel.exercises,
                 goToAddExerciseView: goToAddExercise
             )
+            
         }
         .basicNavigationBar(title: "Routine Details")
+        .onReceive(viewModel.exercises.publisher, perform: { exercise in
+            print("received: \(exercise)")
+        })
     }
 }
 
