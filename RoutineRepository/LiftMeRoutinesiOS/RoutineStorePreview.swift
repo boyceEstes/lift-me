@@ -22,6 +22,10 @@ class ExerciseDataSourcePreview: ExerciseDataSource {
 
 public class RoutineStorePreview: RoutineStore {
     
+    public init() {
+        
+    }
+    
     public func readExerciseRecords(for exercise: RoutineRepository.Exercise, completion: @escaping ReadExerciseRecordsCompletion) {
         print("")
     }

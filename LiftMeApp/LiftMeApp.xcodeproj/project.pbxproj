@@ -21,6 +21,8 @@
 		B352A08129E0541900923B6C /* AddExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08029E0541900923B6C /* AddExerciseUIComposer.swift */; };
 		B352A08329E0542300923B6C /* AddExerciseNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08229E0542300923B6C /* AddExerciseNavigationFlow.swift */; };
 		B352A08529E2289800923B6C /* CreateExerciseUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08429E2289800923B6C /* CreateExerciseUIIntegrationTests.swift */; };
+		B35970F82A535B4C00C4D3A5 /* NavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35970F62A535B4C00C4D3A5 /* NavigationFlow.swift */; };
+		B35970F92A535B4C00C4D3A5 /* View+FlowNavigationDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35970F72A535B4C00C4D3A5 /* View+FlowNavigationDestination.swift */; };
 		B36890F62911F4B000E04957 /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; };
 		B36890F72911F4B000E04957 /* LiftMeRoutinesiOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B36890F82911F4B000E04957 /* RoutineRepository.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36890F52911F4B000E04957 /* RoutineRepository.framework */; };
@@ -88,6 +90,8 @@
 		B352A08029E0541900923B6C /* AddExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseUIComposer.swift; sourceTree = "<group>"; };
 		B352A08229E0542300923B6C /* AddExerciseNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseNavigationFlow.swift; sourceTree = "<group>"; };
 		B352A08429E2289800923B6C /* CreateExerciseUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseUIIntegrationTests.swift; sourceTree = "<group>"; };
+		B35970F62A535B4C00C4D3A5 /* NavigationFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationFlow.swift; sourceTree = "<group>"; };
+		B35970F72A535B4C00C4D3A5 /* View+FlowNavigationDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+FlowNavigationDestination.swift"; sourceTree = "<group>"; };
 		B36890F42911F4B000E04957 /* LiftMeRoutinesiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LiftMeRoutinesiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36890F52911F4B000E04957 /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36891262913FB6000E04957 /* DispatchQueueMainDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMainDecorator.swift; sourceTree = "<group>"; };
@@ -195,6 +199,15 @@
 			name = AddExercise;
 			sourceTree = "<group>";
 		};
+		B35970FA2A535B5C00C4D3A5 /* Navigation Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B35970F62A535B4C00C4D3A5 /* NavigationFlow.swift */,
+				B35970F72A535B4C00C4D3A5 /* View+FlowNavigationDestination.swift */,
+			);
+			path = "Navigation Support Files";
+			sourceTree = "<group>";
+		};
 		B3692CBA2999801700D9BD05 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +248,7 @@
 		B3A8548B2908D48300F04CC1 /* LiftMeApp */ = {
 			isa = PBXGroup;
 			children = (
+				B35970FA2A535B5C00C4D3A5 /* Navigation Support Files */,
 				B3E156ED299A3BA800A5BC50 /* CreateRoutine */,
 				B3692CD02999B8F400D9BD05 /* Exercises */,
 				B3692CBA2999801700D9BD05 /* History */,
@@ -419,8 +433,10 @@
 				B3692CBE2999805B00D9BD05 /* HistoryNavigationFlow.swift in Sources */,
 				B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */,
 				B352A08129E0541900923B6C /* AddExerciseUIComposer.swift in Sources */,
+				B35970F82A535B4C00C4D3A5 /* NavigationFlow.swift in Sources */,
 				B3692CC929998D8F00D9BD05 /* RootView.swift in Sources */,
 				B3692CD42999BE0100D9BD05 /* ExerciseNavigationFlow.swift in Sources */,
+				B35970F92A535B4C00C4D3A5 /* View+FlowNavigationDestination.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

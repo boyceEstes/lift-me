@@ -11,36 +11,61 @@ import RoutineRepository
 
 
 
-class HistoryNavigationFlow: StackNavigationFlow {
-    
+//class HistoryNavigationFlow: StackNavigationFlow {
+//
+//
+//    enum StackIdentifier: Hashable {
+//
+//        case historyView
+//        case routineRecordDetailView(routineRecord: RoutineRecord)
+//    }
+//
+//    let historyUIComposer: HistoryUIComposer
+//
+//    @Published var path = [StackIdentifier]()
+//
+//    init(historyUIComposer: HistoryUIComposer) {
+//
+//        self.historyUIComposer = historyUIComposer
+//    }
+//
+//
+//    func pushToStack(_ identifier: StackIdentifier) -> some View {
+//
+//        Group {
+//            switch identifier {
+//            case .historyView:
+//                historyUIComposer.makeHistoryView()
+//
+//            case let .routineRecordDetailView(routineRecord):
+//                historyUIComposer.makeRoutineRecordDetailViewWithStackNavigation(routineRecord: routineRecord)
+//            }
+//        }
+//    }
+//}
 
-    enum StackIdentifier: Hashable {
-        
-        case historyView
-        case routineRecordDetailView(routineRecord: RoutineRecord)
-    }
+
+class HistoryNavigationFlow: NewStackNavigationFlow {
     
-    let historyUIComposer: HistoryUIComposer
-    
+    // MARK: Properties
     @Published var path = [StackIdentifier]()
     
-    init(historyUIComposer: HistoryUIComposer) {
+    // MARK: Stack Destinations
+    enum StackIdentifier: Hashable {
+
+        case routineRecordDetail(RoutineRecord)
         
-        self.historyUIComposer = historyUIComposer
-    }
-    
-    
-    func pushToStack(_ identifier: StackIdentifier) -> some View {
         
-        Group {
-            switch identifier {
-            case .historyView:
-                historyUIComposer.makeHistoryView()
-                
-            case let .routineRecordDetailView(routineRecord):
-                historyUIComposer.makeRoutineRecordDetailViewWithStackNavigation(routineRecord: routineRecord)
+        static func == (lhs: HistoryNavigationFlow.StackIdentifier, rhs: HistoryNavigationFlow.StackIdentifier) -> Bool {
+            lhs.hashValue == rhs.hashValue
+        }
+        
+        
+        func hash(into hasher: inout Hasher) {
+            switch self {
+            case let .routineRecordDetail(routineRecord):
+                hasher.combine("routineRecordDetail-\(routineRecord.id)")
             }
         }
     }
 }
-
