@@ -11,37 +11,13 @@ import SwiftUI
 import RoutineRepository
 
 
-class WorkoutNavigationFlow: SheetyStackNavigationFlow {
+class WorkoutNavigationFlow: NewSheetyNavigationFlow {
     
-    let workoutUIComposer: WorkoutUIComposer
-    let createRoutineUIComposer: CreateRoutineUIComposer // go to create routine from workout
-    let addExerciseUIComposer: AddExerciseUIComposer
-    let exerciseUIComposer: ExerciseUIComposer // Go to create exercise, go to exercise details from workout
+    // MARK: Properties
+    @Published var displayedSheet: SheetyIdentifier?
     
-    init(workoutUIComposer: WorkoutUIComposer,
-         createRoutineUIComposer: CreateRoutineUIComposer,
-         addExerciseUIComposer: AddExerciseUIComposer,
-         exerciseUIComposer: ExerciseUIComposer
-    ) {
-        
-        self.workoutUIComposer = workoutUIComposer
-        self.createRoutineUIComposer = createRoutineUIComposer
-        self.addExerciseUIComposer = addExerciseUIComposer
-        self.exerciseUIComposer = exerciseUIComposer
-    }
-    
-    // MARK: - Stack
-    @Published var path = [StackIdentifier]()
-    
-    enum StackIdentifier: Hashable {}
-    
-    func pushToStack(_ identifier: StackIdentifier) -> some View { EmptyView() }
-    
-    
-    // MARK: - Sheet
+    // MARK: Sheety Destinations
     enum SheetyIdentifier: Identifiable, Hashable {
-        
-        var id: Int { self.hashValue }
         
         case addExercise(
             addExercisesCompletion: ([Exercise]) -> Void,
@@ -52,6 +28,12 @@ class WorkoutNavigationFlow: SheetyStackNavigationFlow {
             routineRecord: RoutineRecord,
             superDismiss: () -> Void
         )
+        
+        
+        // Conformance to protocols
+        
+        var id: Int { self.hashValue }
+        
         
         func hash(into hasher: inout Hasher) {
             
@@ -64,39 +46,13 @@ class WorkoutNavigationFlow: SheetyStackNavigationFlow {
         }
         
         
-        static func == (lhs: WorkoutNavigationFlow.SheetyIdentifier, rhs: WorkoutNavigationFlow.SheetyIdentifier) -> Bool {
+        static func == (lhs: SheetyIdentifier, rhs: SheetyIdentifier) -> Bool {
             
             switch (lhs, rhs) {
             case (.addExercise, .addExercise): return true
             case (.createRoutineView, .createRoutineView): return true
             default: return false
             }
-        }
-    }
-    
-    // TODO: Make the SheetyIdentifier a CurrentValueSubject to be more resilient to coding errors
-    @Published var modallyDisplayedView: SheetyIdentifier? = nil {
-        didSet {
-            print("Workout Navigation Flow - \(modallyDisplayedView.debugDescription)")
-        }
-    }
-    
-    
-    
-    @ViewBuilder
-    func displaySheet(for identifier: SheetyIdentifier) -> some View {
-        
-        switch identifier {
-            
-        case let .addExercise(addExerciseCompletion, dismiss):
-            addExerciseUIComposer.makeAddExerciseViewWithNavigation(addExerciseCompletion: addExerciseCompletion, dismiss: dismiss)
-
-        case let .createRoutineView(routineRecord, superDismiss):
-            
-            createRoutineUIComposer.makeCreateRoutineViewWithNavigation(
-                routineRecord: routineRecord,
-                superDismiss: superDismiss
-            )
         }
     }
 }

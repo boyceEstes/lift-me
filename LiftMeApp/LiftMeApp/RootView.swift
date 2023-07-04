@@ -12,7 +12,7 @@ import LiftMeRoutinesiOS
 struct RootView: View {
     
 //    let homeUIComposer: HomeUIComposer
-    let workoutUIComposer: WorkoutUIComposer
+//    let workoutUIComposer: WorkoutUIComposer
     let addExerciseUIComposer: AddExerciseUIComposer
     let exerciseUIComposer: ExerciseUIComposer
     let historyUIComposer: HistoryUIComposer
@@ -21,6 +21,7 @@ struct RootView: View {
     // new navigation
     let routineStore: RoutineStore
     @StateObject var homeNavigationFlow = HomeNavigationFlow()
+    @StateObject var workoutNavigationFlow = WorkoutNavigationFlow()
     @StateObject var exerciseListNavigationFlow = ExerciseListNavigationFlow()
     @StateObject var historyNavigationFlow = HistoryNavigationFlow()
     
@@ -40,12 +41,12 @@ struct RootView: View {
             addExerciseUIComposer: addExerciseUIComposer
         )
         
-        self.workoutUIComposer = WorkoutUIComposer(
-            routineStore: routineStore,
-            createRoutineUIComposer: createRoutineUIComposer,
-            addExerciseUIComposer: addExerciseUIComposer,
-            exerciseUIComposer: exerciseUIComposer
-        )
+//        self.workoutUIComposer = WorkoutUIComposer(
+//            routineStore: routineStore,
+//            createRoutineUIComposer: createRoutineUIComposer,
+//            addExerciseUIComposer: addExerciseUIComposer,
+//            exerciseUIComposer: exerciseUIComposer
+//        )
         
 //        self.homeUIComposer = HomeUIComposer(
 //            routineStore: routineStore,
@@ -82,13 +83,12 @@ struct RootView: View {
             .sheet(item: $homeNavigationFlow.displayedSheet) { identifier in
                 switch identifier {
                 case let .workout(routine):
-                    let viewModel = WorkoutViewModel(
+                    WorkoutUIComposer.makeWorkoutView(
                         routineStore: routineStore,
-                        goToCreateRoutineView: { _ in },
-                        dismiss: { }
+                        routine: routine,
+                        goToCreateRoutine: goToCreateRoutine,
+                        goToAddExercise: goToAddExercise
                     )
-                    
-                    WorkoutView(viewModel: viewModel, goToAddExercise: { })
                     
                 case .createRoutine:
                     let viewModel = CreateRoutineViewModel(routineStore: routineStore, dismiss: { })
@@ -160,9 +160,18 @@ struct RootView: View {
     func goToWorkoutWithNoRoutine() {
         homeNavigationFlow.displayedSheet = .workout(nil)
     }
-//    goToCreateRoutine: goToCreateRoutine,
-//    goToRoutineDetail: goToRoutineDetail,
-//    goToWorkoutWithNoRoutine: goToWorkoutWithNoRoutine)
+
+    // MARK: Workout Navigation Flow
+    func goToCreateRoutine(with routineRecord: RoutineRecord) {
+        workoutNavigationFlow.displayedSheet = .createRoutineView(routineRecord: routineRecord, superDismiss: { })
+    }
+    
+    func goToAddExercise() {
+        workoutNavigationFlow.displayedSheet = .addExercise(
+            addExercisesCompletion: { _ in },
+            dismiss: { }
+        )
+    }
     
     // MARK: Exercise List Navigation Flow
     func goToExerciseDetail(exercise: Exercise) {
