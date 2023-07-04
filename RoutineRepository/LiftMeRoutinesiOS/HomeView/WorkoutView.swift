@@ -67,8 +67,10 @@ public class WorkoutViewModel: ObservableObject {
     
     let routineStore: RoutineStore
     let routine: Routine?
-    let dismiss: () -> Void
+    let goToAddExercise: () -> Void
     let goToCreateRoutineView: (RoutineRecord) -> Void
+    // initialized from view
+    var dismiss: (() -> Void)?
 
     
     @Published var routineRecordViewModel: RoutineRecordViewModel = RoutineRecordViewModel(creationDate: Date(), exerciseRecordViewModels: [])
@@ -79,12 +81,17 @@ public class WorkoutViewModel: ObservableObject {
         routineRecordViewModel.exerciseRecordViewModels.isEmpty
     }
     
-    public init(routineStore: RoutineStore, routine: Routine? = nil, goToCreateRoutineView: @escaping (RoutineRecord) -> Void, dismiss: @escaping () -> Void) {
+    public init(
+        routineStore: RoutineStore,
+        routine: Routine? = nil,
+        goToAddExercise: @escaping () -> Void,
+        goToCreateRoutineView: @escaping (RoutineRecord) -> Void
+    ) {
         
         self.routineStore = routineStore
         self.routine = routine
+        self.goToAddExercise = goToAddExercise
         self.goToCreateRoutineView = goToCreateRoutineView
-        self.dismiss = dismiss
         
         populateRoutineRecordFromRoutineIfPossible()
     }
@@ -184,7 +191,7 @@ public class WorkoutViewModel: ObservableObject {
                 fatalError("error: \(error?.localizedDescription ?? "unknown")")
             }
             
-            self?.dismiss()
+            self?.dismiss?()
         }
     }
     
@@ -228,15 +235,12 @@ public struct WorkoutView: View {
     
     public let inspection = Inspection<Self>()
     
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject public var viewModel: WorkoutViewModel
-    let goToAddExercise: () -> Void
-    
 
-
-    public init(viewModel: WorkoutViewModel, goToAddExercise: @escaping () -> Void) {
+    public init(viewModel: WorkoutViewModel) {
         
         self.viewModel = viewModel
-        self.goToAddExercise = goToAddExercise
     }
     
     
@@ -255,7 +259,7 @@ public struct WorkoutView: View {
                 }
                 
                 Button {
-                    goToAddExercise()
+                    viewModel.goToAddExercise()
                 } label: {
                     HStack {
                         Text("Add")
@@ -270,6 +274,7 @@ public struct WorkoutView: View {
         .frame(maxWidth: .infinity)
         .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .all)
         .onAppear {
+            viewModel.dismiss = dismiss.callAsFunction
             viewModel.createNewRoutineRecord()
         }
         .onReceive(inspection.notice) {
@@ -294,7 +299,7 @@ public struct WorkoutView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel") {
-                    viewModel.dismiss()
+                    dismiss()
                 }
             }
             
@@ -381,11 +386,15 @@ struct WorkoutView_Previews: PreviewProvider {
     @State static var setRecord = SetRecordViewModel(weight: "", repCount: "")
     
     static var previews: some View {
-        let viewModel = WorkoutViewModel(routineStore: RoutineStorePreview(), goToCreateRoutineView: { _ in }, dismiss: { })
+        let viewModel = WorkoutViewModel(
+            routineStore: RoutineStorePreview(),
+            goToAddExercise: { },
+            goToCreateRoutineView: { _ in }
+        )
+        
         NavigationStack {
             WorkoutView(
-                viewModel: viewModel,
-                goToAddExercise: { }
+                viewModel: viewModel
             )
         }
         

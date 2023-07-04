@@ -11,13 +11,6 @@ import LiftMeRoutinesiOS
 
 struct RootView: View {
     
-//    let homeUIComposer: HomeUIComposer
-//    let workoutUIComposer: WorkoutUIComposer
-    let addExerciseUIComposer: AddExerciseUIComposer
-    let exerciseUIComposer: ExerciseUIComposer
-    let historyUIComposer: HistoryUIComposer
-//    let createRoutineUIComposer: CreateRoutineUIComposer
-    
     // new navigation
     let routineStore: RoutineStore
     @StateObject var homeNavigationFlow = HomeNavigationFlow()
@@ -26,18 +19,7 @@ struct RootView: View {
     @StateObject var historyNavigationFlow = HistoryNavigationFlow()
     
     
-    
     init(routineStore: RoutineStore) {
-        // Initialize ExercisesNavigationFlow with a weak reference to the composer
-        
-        self.exerciseUIComposer = ExerciseUIComposer(routineStore: routineStore)
-        self.addExerciseUIComposer = AddExerciseUIComposer(
-            routineStore: routineStore,
-            exerciseUIComposer: exerciseUIComposer
-        )
-
-        self.historyUIComposer = HistoryUIComposer(routineStore: routineStore)
-        
         // new navigation
         self.routineStore = routineStore
     }
@@ -45,12 +27,12 @@ struct RootView: View {
     
     var body: some View {
         TabView {
-//            homeUIComposer.makeHomeViewWithNavigation()
             HomeUIComposer.makeHomeView(
                 routineStore: routineStore,
                 goToCreateRoutine: goToCreateRoutine,
                 goToRoutineDetail: goToRoutineDetail,
                 goToWorkoutWithNoRoutine: goToWorkoutWithNoRoutine)
+            
             .flowNavigationDestination(flowPath: $homeNavigationFlow.path) { identifier in
                 switch identifier {
                 case let .routineDetail(routine: routine):
