@@ -10,6 +10,7 @@ import RoutineRepository
 import LiftMeRoutinesiOS
 //import NavigationFlow
 
+typealias AddExercisesCompletion = ([Exercise]) -> Void
 
 public class WorkoutUIComposer {
     
@@ -17,7 +18,7 @@ public class WorkoutUIComposer {
         routineStore: RoutineStore,
         routine: Routine?,
         goToCreateRoutine: @escaping (RoutineRecord) -> Void,
-        goToAddExercise: @escaping () -> Void
+        goToAddExercise: @escaping (@escaping AddExercisesCompletion) -> Void
     ) -> WorkoutView {
         
         let viewModel = WorkoutViewModel(
@@ -27,7 +28,9 @@ public class WorkoutUIComposer {
             dismiss: { }
         )
         
-        return WorkoutView(viewModel: viewModel, goToAddExercise: goToAddExercise)
+        return WorkoutView(viewModel: viewModel, goToAddExercise: {
+            goToAddExercise(viewModel.addExercisesCompletion)
+        })
     }
     
 //    let routineStore: RoutineStore

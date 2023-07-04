@@ -46,7 +46,6 @@ public class AddExerciseViewModel: ObservableObject {
     
     let addExerciseCompletion: ([Exercise]) -> Void
     let goToCreateExercise: (@escaping (Exercise?) -> Void) -> Void
-    let dismiss: () -> Void
     
     // Does not get set
     var allSelectableExercises = [SelectableExercise]()
@@ -62,15 +61,13 @@ public class AddExerciseViewModel: ObservableObject {
     public init(
         routineStore: RoutineStore,
         addExerciseCompletion: @escaping ([Exercise]) -> Void,
-        goToCreateExercise: @escaping (@escaping (Exercise?) -> Void) -> Void,
-        dismiss: @escaping () -> Void
+        goToCreateExercise: @escaping (@escaping (Exercise?) -> Void) -> Void
     ) {
         
         self.routineStore = routineStore
         self.exerciseDataSource = routineStore.exerciseDataSource()
         self.addExerciseCompletion = addExerciseCompletion
         self.goToCreateExercise = goToCreateExercise
-        self.dismiss = dismiss
         
         bindSearchTextFieldChange()
         bindDataSource()
@@ -198,6 +195,7 @@ public struct AddExerciseView: View {
 //    }
 //
 //    @FocusState private var focus: Field?
+    @Environment(\.dismiss) var dismiss
     @ObservedObject public var viewModel: AddExerciseViewModel
     public let inspection = Inspection<Self>()
     
@@ -261,7 +259,7 @@ public struct AddExerciseView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
-                        viewModel.dismiss()
+                        dismiss()
                     }
                 }
                 
@@ -275,7 +273,7 @@ public struct AddExerciseView: View {
                             }
                         )
                         
-                        viewModel.dismiss()
+                        dismiss()
                     }
                     
                 }
@@ -376,8 +374,7 @@ struct AddExerciseView_Previews: PreviewProvider {
                 viewModel: AddExerciseViewModel(
                     routineStore: RoutineStorePreview(),
                     addExerciseCompletion: { _ in },
-                    goToCreateExercise: { _ in },
-                    dismiss: { }
+                    goToCreateExercise: { _ in }
                 )
             )
         }

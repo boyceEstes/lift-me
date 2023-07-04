@@ -16,7 +16,7 @@ struct RootView: View {
     let addExerciseUIComposer: AddExerciseUIComposer
     let exerciseUIComposer: ExerciseUIComposer
     let historyUIComposer: HistoryUIComposer
-    let createRoutineUIComposer: CreateRoutineUIComposer
+//    let createRoutineUIComposer: CreateRoutineUIComposer
     
     // new navigation
     let routineStore: RoutineStore
@@ -36,11 +36,11 @@ struct RootView: View {
             exerciseUIComposer: exerciseUIComposer
         )
 
-        self.createRoutineUIComposer = CreateRoutineUIComposer(
-            routineStore: routineStore,
-            addExerciseUIComposer: addExerciseUIComposer
-        )
-        
+//        self.createRoutineUIComposer = CreateRoutineUIComposer(
+//            routineStore: routineStore,
+//            addExerciseUIComposer: addExerciseUIComposer
+//        )
+//
 //        self.workoutUIComposer = WorkoutUIComposer(
 //            routineStore: routineStore,
 //            createRoutineUIComposer: createRoutineUIComposer,
@@ -83,17 +83,43 @@ struct RootView: View {
             .sheet(item: $homeNavigationFlow.displayedSheet) { identifier in
                 switch identifier {
                 case let .workout(routine):
-                    WorkoutUIComposer.makeWorkoutView(
-                        routineStore: routineStore,
-                        routine: routine,
-                        goToCreateRoutine: goToCreateRoutine,
-                        goToAddExercise: goToAddExercise
-                    )
+                    NavigationStack {
+                        WorkoutUIComposer.makeWorkoutView(
+                            routineStore: routineStore,
+                            routine: routine,
+                            goToCreateRoutine: goToCreateRoutine,
+                            goToAddExercise: goToAddExercise
+                        )
+                    }
+                    .sheet(item: $workoutNavigationFlow.displayedSheet) { identifier in
+                        switch identifier {
+                        case let .addExercise(addExercisesCompletion):
+                            let viewModel = AddExerciseViewModel(
+                                routineStore: routineStore,
+                                addExerciseCompletion: addExercisesCompletion,
+                                goToCreateExercise: { _ in })
+                            AddExerciseView(viewModel: viewModel)
+                            
+                        case let .createRoutineView(routineRecord):
+                            CreateRoutineUIComposer.makeCreateRoutineView(
+                                routineStore: routineStore,
+                                routineRecord: routineRecord,
+                                superDismiss: nil,
+                                goToAddExercise: { }
+                            )
+                        }
+                    }
+
                     
                 case .createRoutine:
-                    let viewModel = CreateRoutineViewModel(routineStore: routineStore, dismiss: { })
-                    CreateRoutineView(viewModel: viewModel, goToAddExerciseView: { })
                     
+                    // Only have routine record and super dismiss when it is coming from `WorkoutNavigationFlow`
+                    CreateRoutineUIComposer.makeCreateRoutineView(
+                        routineStore: routineStore,
+                        routineRecord: nil,
+                        superDismiss: nil,
+                        goToAddExercise: { }
+                    )
                 }
             }
             .tabItem {
@@ -162,16 +188,23 @@ struct RootView: View {
     }
 
     // MARK: Workout Navigation Flow
+    
+    
     func goToCreateRoutine(with routineRecord: RoutineRecord) {
-        workoutNavigationFlow.displayedSheet = .createRoutineView(routineRecord: routineRecord, superDismiss: { })
+        workoutNavigationFlow.displayedSheet = .createRoutineView(routineRecord: routineRecord)
     }
     
-    func goToAddExercise() {
-        workoutNavigationFlow.displayedSheet = .addExercise(
-            addExercisesCompletion: { _ in },
-            dismiss: { }
-        )
+    
+    func goToAddExercise(addExercisesCompletion: @escaping AddExercisesCompletion) {
+        workoutNavigationFlow.displayedSheet = .addExercise(addExercisesCompletion: addExercisesCompletion)
     }
+    
+    
+    // MARK: Add Exercise Flow
+//    func goToCreateExerciseFromAddExercise(createExerciseCompletion: (Exercise) -> Void) {
+//        addExerciseFlow.displayedSheet =
+//    }
+    
     
     // MARK: Exercise List Navigation Flow
     func goToExerciseDetail(exercise: Exercise) {

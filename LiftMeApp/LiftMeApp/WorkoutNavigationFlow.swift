@@ -20,13 +20,11 @@ class WorkoutNavigationFlow: NewSheetyNavigationFlow {
     enum SheetyIdentifier: Identifiable, Hashable {
         
         case addExercise(
-            addExercisesCompletion: ([Exercise]) -> Void,
-            dismiss: () -> Void
+            addExercisesCompletion: ([Exercise]) -> Void
         )
         
         case createRoutineView(
-            routineRecord: RoutineRecord,
-            superDismiss: () -> Void
+            routineRecord: RoutineRecord
         )
         
         

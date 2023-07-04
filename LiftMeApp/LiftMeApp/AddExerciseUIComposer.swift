@@ -63,8 +63,7 @@ public class AddExerciseUIComposer {
                         self.navigationFlow.modallyDisplayedView = nil
                         handleCreateExerciseCompletion(exercise)
                 }, UUID())
-            },
-            dismiss: dismiss
+            }
         )
         return AddExerciseView(viewModel: viewModel)
     }
