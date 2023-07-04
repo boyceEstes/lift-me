@@ -28,7 +28,6 @@ public class ExercisesViewModel: ObservableObject {
         goToCreateExerciseView: @escaping () -> Void
     ) {
         
-        print("init exercise viewmodel")
         self.routineStore = routineStore
         self.goToExerciseDetailView = goToExerciseDetailView
         self.goToCreateExerciseView = goToCreateExerciseView
@@ -36,11 +35,6 @@ public class ExercisesViewModel: ObservableObject {
         self.exerciseDataSource = routineStore.exerciseDataSource()
         
         bindDataSource()
-    }
-    
-    
-    deinit {
-        print("deinit exercise viewmodel")
     }
     
     
@@ -52,8 +46,6 @@ public class ExercisesViewModel: ObservableObject {
             fatalError("Deal with the loading error \(error)")
             
         } receiveValue: { [weak self] exercises in
-            
-            print("BOYCE: exercises change")
             
             guard let self = self else { return }
             self.exercises = exercises

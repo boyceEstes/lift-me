@@ -311,7 +311,6 @@ public struct FilteredAllExercisesList: View {
             ForEach($viewModel.selectableFilteredExercises, id: \.self) { selectableExercise in
                 
                 SelectableBasicExerciseRowView(selectableExercise: selectableExercise) {
-                    print("Add to \(selectableExercise.wrappedValue.exercise.name) to selected list")
                     if selectableExercise.wrappedValue.isSelected {
                         viewModel.removeSelectableExerciseFromSelectedList(selectableExercise: selectableExercise.wrappedValue)
                     } else {

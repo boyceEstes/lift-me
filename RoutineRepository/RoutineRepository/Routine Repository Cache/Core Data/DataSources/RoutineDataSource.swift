@@ -46,7 +46,6 @@ public class FRCRoutineDataSourceAdapter: NSObject, RoutineDataSource {
     
     private func performFetch() {
         
-        print("BOYCE: perform fetch")
         do {
             try frc.performFetch()
             
