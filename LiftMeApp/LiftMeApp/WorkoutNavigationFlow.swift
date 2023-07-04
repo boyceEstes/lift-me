@@ -23,7 +23,7 @@ class WorkoutNavigationFlow: NewSheetyNavigationFlow {
             addExercisesCompletion: ([Exercise]) -> Void
         )
         
-        case createRoutineView(
+        case createRoutine(
             routineRecord: RoutineRecord
         )
         
@@ -38,7 +38,7 @@ class WorkoutNavigationFlow: NewSheetyNavigationFlow {
             switch self {
             case .addExercise:
                 hasher.combine(0)
-            case .createRoutineView:
+            case .createRoutine:
                 hasher.combine(1)
             }
         }
@@ -48,7 +48,7 @@ class WorkoutNavigationFlow: NewSheetyNavigationFlow {
             
             switch (lhs, rhs) {
             case (.addExercise, .addExercise): return true
-            case (.createRoutineView, .createRoutineView): return true
+            case (.createRoutine, .createRoutine): return true
             default: return false
             }
         }

@@ -9,6 +9,96 @@ import SwiftUI
 import RoutineRepository
 import LiftMeRoutinesiOS
 
+
+//struct SecondHomeView: View {
+//
+//    let goToWorkout: () -> Void
+////    let goToCreateRoutine: () -> Void
+//
+//    var body: some View {
+//        VStack(spacing: 20) {
+//            Button("Go to Workout") {
+//                goToWorkout()
+//            }
+//
+////            Button("Go to Create Routine") {
+////                goToCreateRoutine()
+////            }
+//        }
+//    }
+//}
+//
+//
+//struct SecondWorkoutView: View {
+//
+//    let goToAddExercise: () -> Void
+//    //    let goToCreateRoutine: (RoutineRecord) -> Void
+//
+//    var body: some View {
+//        VStack {
+//            Button("Go to Add Exercise") {
+//                goToAddExercise()
+//            }
+//            //
+//            //            Button("Go to Create Routine") {
+//            //                goToCreateRoutine(RoutineRecord(id: UUID(), creationDate: Date(), completionDate: nil, exerciseRecords: []))
+//            //            }
+//        }
+//    }
+//}
+//
+//
+//class SecondHomeNavigationFlow: NewSheetyNavigationFlow {
+//
+//    @Published var displayedSheet: SheetyIdentifier?
+//
+//    enum SheetyIdentifier: String, Identifiable {
+//        case workout
+//
+//        var id: String { self.rawValue }
+//    }
+//}
+//
+//class SecondWorkoutNavigationFlow: NewSheetyNavigationFlow {
+//
+//    @Published var displayedSheet: SheetyIdentifier?
+//
+//    enum SheetyIdentifier: String, Identifiable {
+//        case addExercise
+//
+//        var id: String { self.rawValue }
+//    }
+//}
+//
+//
+//struct SecondRootView: View {
+//
+//    @StateObject private var homeNavFlow = SecondHomeNavigationFlow()
+//    @StateObject private var workoutNavFlow = SecondWorkoutNavigationFlow()
+//
+//    var body: some View {
+//
+//        SecondHomeView {
+//            homeNavFlow.displayedSheet = .workout
+//        }
+//        .sheet(item: $homeNavFlow.displayedSheet) { identifier in
+//            switch identifier {
+//            case .workout:
+//                SecondWorkoutView {
+//                    workoutNavFlow.displayedSheet = .addExercise
+//                }
+//                .sheet(item: $workoutNavFlow.displayedSheet) { identifier in
+//                    switch identifier {
+//                    case .addExercise:
+//                        Text("Add Exercise")
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+
 struct RootView: View {
     
     // new navigation
@@ -32,7 +122,6 @@ struct RootView: View {
                 goToCreateRoutine: goToCreateRoutine,
                 goToRoutineDetail: goToRoutineDetail,
                 goToWorkoutWithNoRoutine: goToWorkoutWithNoRoutine)
-            
             .flowNavigationDestination(flowPath: $homeNavigationFlow.path) { identifier in
                 switch identifier {
                 case let .routineDetail(routine: routine):
@@ -54,11 +143,16 @@ struct RootView: View {
                     createRoutineViewWithNavigation(routineRecord: nil, superDismiss: nil)
                 }
             }
+            .onChange(of: homeNavigationFlow.displayedSheet) { newValue in
+                print("home flow: \(String(describing: newValue))")
+            }
+            .onChange(of: workoutNavigationFlow.displayedSheet) { newValue in
+                print("workout flow: \(String(describing: newValue))")
+            }
             .tabItem {
                 Label("Home", systemImage: "house")
             }
-            
-//            exerciseUIComposer.makeExercisesViewWithSheetyStackNavigation()
+
             ExerciseListUIComposer.makeExerciseList(
                 routineStore: routineStore,
                 goToCreateExercise: goToCreateExercise,
@@ -83,8 +177,8 @@ struct RootView: View {
                 .tabItem {
                     Label("Exercises", systemImage: "dumbbell")
                 }
-            
-//            historyUIComposer.makeHistoryViewWithStackNavigation()
+
+
             HistoryUIComposer.makeHistoryView(
                 routineStore: routineStore,
                 goToRoutineRecordDetail: goToRoutineRecordDetail
@@ -138,8 +232,8 @@ struct RootView: View {
                     addExerciseCompletion: addExercisesCompletion,
                     goToCreateExercise: { _ in })
                 AddExerciseView(viewModel: viewModel)
-                
-            case let .createRoutineView(routineRecord):
+
+            case let .createRoutine(routineRecord):
                 CreateRoutineUIComposer.makeCreateRoutineView(
                     routineStore: routineStore,
                     routineRecord: routineRecord,
@@ -152,7 +246,7 @@ struct RootView: View {
     
     
     func goToCreateRoutine(with routineRecord: RoutineRecord) {
-        workoutNavigationFlow.displayedSheet = .createRoutineView(routineRecord: routineRecord)
+        workoutNavigationFlow.displayedSheet = .createRoutine(routineRecord: routineRecord)
     }
     
     
