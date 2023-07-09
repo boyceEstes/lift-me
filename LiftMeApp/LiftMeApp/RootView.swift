@@ -103,12 +103,18 @@ struct RootView: View {
     
     // new navigation
     let routineStore: RoutineStore
-    @StateObject var homeNavigationFlow = HomeNavigationFlow()
+    // Home
+    @State private var homeNavigationFlowDisplayedSheet: HomeNavigationFlow.SheetyIdentifier?
+    @State private var homeNavigationFlowPath = [HomeNavigationFlow.StackIdentifier]()
+    // Workout
     @State private var workoutNavigationFlowDisplayedSheet: WorkoutNavigationFlow.SheetyIdentifier?
+    // CreateRoutine
     @State private var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
-//    @StateObject var workoutNavigationFlow = WorkoutNavigationFlow()
+    // Add Exercise
     @StateObject var addExerciseNavigationFlow = AddExerciseNavigationFlow()
+    // Exercise Tab
     @StateObject var exerciseListNavigationFlow = ExerciseListNavigationFlow()
+    // History Tab
     @State private var historyNavigationFlowPath = [HistoryNavigationFlow.StackIdentifier]()
     
     
@@ -125,7 +131,7 @@ struct RootView: View {
                 goToCreateRoutine: goToCreateRoutine,
                 goToRoutineDetail: goToRoutineDetail,
                 goToWorkoutWithNoRoutine: goToWorkoutWithNoRoutine)
-            .flowNavigationDestination(flowPath: $homeNavigationFlow.path) { identifier in
+            .flowNavigationDestination(flowPath: $homeNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .routineDetail(routine: routine):
                     let viewModel = RoutineDetailViewModel(routine: routine)
@@ -135,7 +141,7 @@ struct RootView: View {
                     )
                 }
             }
-            .sheet(item: $homeNavigationFlow.displayedSheet) { identifier in
+            .sheet(item: $homeNavigationFlowDisplayedSheet) { identifier in
                 switch identifier {
                     
                 case let .workout(routine):
@@ -146,12 +152,6 @@ struct RootView: View {
                     createRoutineViewWithNavigation(routineRecord: nil, superDismiss: nil)
                 }
             }
-            .onChange(of: homeNavigationFlow.displayedSheet) { newValue in
-                print("home flow: \(String(describing: newValue))")
-            }
-//            .onChange(of: workoutNavigationFlow.displayedSheet) { newValue in
-//                print("workout flow: \(String(describing: newValue))")
-//            }
             .tabItem {
                 Label("Home", systemImage: "house")
             }
@@ -203,17 +203,17 @@ struct RootView: View {
     
     // MARK: Home Navigation Flow
     func goToCreateRoutine() {
-        homeNavigationFlow.displayedSheet = .createRoutine
+        homeNavigationFlowDisplayedSheet = .createRoutine
     }
     
     
     func goToRoutineDetail(routine: Routine) {
-        homeNavigationFlow.push(.routineDetail(routine: routine))
+        homeNavigationFlowPath.append(.routineDetail(routine: routine))
     }
     
     
     func goToWorkoutWithNoRoutine() {
-        homeNavigationFlow.displayedSheet = .workout(nil)
+        homeNavigationFlowDisplayedSheet = .workout(nil)
     }
 
     // MARK: Workout Navigation Flow
@@ -249,7 +249,7 @@ struct RootView: View {
     func superDismissWorkoutSheetAndHomeSheet() {
         
         workoutNavigationFlowDisplayedSheet = nil
-        homeNavigationFlow.displayedSheet = nil
+        homeNavigationFlowDisplayedSheet = nil
     }
     
     
