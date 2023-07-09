@@ -15,6 +15,7 @@ public class CreateRoutineViewModel: ObservableObject {
     let routineRecord: RoutineRecord?
 
     var dismiss: (() -> Void)? // Set in View from Environment dismiss
+    let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
     let superDismiss: (() -> Void)?
     
     @Published var name = ""
@@ -24,11 +25,13 @@ public class CreateRoutineViewModel: ObservableObject {
     public init(
         routineStore: RoutineStore,
         routineRecord: RoutineRecord? = nil,
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
         superDismiss: (() -> Void)? = nil
     ) {
         
         self.routineStore = routineStore
         self.routineRecord = routineRecord
+        self.goToAddExercise = goToAddExercise
         self.superDismiss = superDismiss
         
         populateExercisesFromRoutineRecordIfPossible()
@@ -150,17 +153,15 @@ public class CreateRoutineViewModel: ObservableObject {
 public struct CreateRoutineView: View {
     
     public let inspection = Inspection<Self>()
-    let goToAddExerciseView: () -> Void
     
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: CreateRoutineViewModel
     
     
-    public init(viewModel: CreateRoutineViewModel,
-                goToAddExerciseView: @escaping () -> Void) {
-        
+    public init(
+        viewModel: CreateRoutineViewModel
+    ) {
         self.viewModel = viewModel
-        self.goToAddExerciseView = goToAddExerciseView
     }
     
     
@@ -177,8 +178,8 @@ public struct CreateRoutineView: View {
             .accessibilityIdentifier("routine_description")
             
             EditableExerciseSectionView(
-                exercises: viewModel.exercises,
-                goToAddExerciseView: goToAddExerciseView
+                exercises: $viewModel.exercises,
+                goToAddExercise: viewModel.goToAddExercise
             )
         }
         .basicNavigationBar(title: "Create Routine")
@@ -208,8 +209,15 @@ public struct CreateRoutineView: View {
 
 struct EditableExerciseSectionView: View {
     
-    let exercises: [Exercise]
-    let goToAddExerciseView: () -> Void
+    @Binding private var exercises: [Exercise]
+    let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
+    
+    
+    init(exercises: Binding<[Exercise]>, goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void) {
+        
+        self._exercises = exercises
+        self.goToAddExercise = goToAddExercise
+    }
     
     var body: some View {
         
@@ -226,7 +234,7 @@ struct EditableExerciseSectionView: View {
                     .font(.headline)
                 Spacer()
                 Button {
-                    goToAddExerciseView()
+                    goToAddExercise(updateExercises)
                 } label: {
                     HStack {
                         Text("Add")
@@ -246,7 +254,12 @@ struct EditableExerciseSectionView: View {
                 .padding(.top)
             }
         }
-        .textCase(nil)
+//        .textCase(nil)
+    }
+    
+    
+    func updateExercises(newExercises: [Exercise]) {
+        exercises.append(contentsOf: newExercises)
     }
 }
 
@@ -255,11 +268,12 @@ struct CreateRoutineView_Previews: PreviewProvider {
     static var previews: some View {
         
         let viewModel = CreateRoutineViewModel(
-            routineStore: RoutineStorePreview()
+            routineStore: RoutineStorePreview(),
+            goToAddExercise:  { _ in }
         )
         
         NavigationStack {
-            CreateRoutineView(viewModel: viewModel, goToAddExerciseView: { })
+            CreateRoutineView(viewModel: viewModel)
         }
     }
 }

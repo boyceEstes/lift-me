@@ -134,10 +134,12 @@ struct RootView: View {
             .flowNavigationDestination(flowPath: $homeNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .routineDetail(routine: routine):
-                    let viewModel = RoutineDetailViewModel(routine: routine)
+                    let viewModel = RoutineDetailViewModel(
+                        routine: routine,
+                        goToAddExercise: goToAddExerciseFromRoutineDetail
+                    )
                     RoutineDetailView(
-                        viewModel: viewModel,
-                        goToAddExercise: { }
+                        viewModel: viewModel
                     )
                 }
             }
@@ -215,6 +217,12 @@ struct RootView: View {
     func goToWorkoutWithNoRoutine() {
         homeNavigationFlowDisplayedSheet = .workout(nil)
     }
+    
+    
+    // MARK: Routine Detail NavigationFlow
+    func goToAddExerciseFromRoutineDetail(addExerciseCompletion: @escaping AddExercisesCompletion) {
+//        routineDetailNavigationFlowDisplayedSheet = .addExercise
+    }
 
     // MARK: Workout Navigation Flow
     func workoutViewWithNavigation(routine: Routine?) -> some View {
@@ -224,7 +232,7 @@ struct RootView: View {
                 routineStore: routineStore,
                 routine: routine,
                 goToCreateRoutine: goToCreateRoutine,
-                goToAddExercise: goToAddExercise
+                goToAddExercise: goToAddExerciseFromWorkout
             )
         }
         .sheet(item: $workoutNavigationFlowDisplayedSheet) { identifier in
@@ -254,7 +262,7 @@ struct RootView: View {
     }
     
     
-    func goToAddExercise(addExercisesCompletion: @escaping AddExercisesCompletion) {
+    func goToAddExerciseFromWorkout(addExercisesCompletion: @escaping AddExercisesCompletion) {
         workoutNavigationFlowDisplayedSheet = .addExercise(addExercisesCompletion: addExercisesCompletion)
     }
     
@@ -270,9 +278,20 @@ struct RootView: View {
                 routineStore: routineStore,
                 routineRecord: routineRecord,
                 superDismiss: superDismiss,
-                goToAddExercise: { }
+                goToAddExercise: goToAddExerciseFromCreateRoutine
             )
         }
+        .sheet(item: $createRoutineNavigationFlowDisplayedSheet) { identifier in
+            switch identifier {
+            case let .addExercise(addExercisesCompletion):
+                addExerciseViewWithNavigation(addExercisesCompletion: addExercisesCompletion)
+            }
+        }
+    }
+    
+    
+    func goToAddExerciseFromCreateRoutine(addExerciseCompletion: @escaping AddExercisesCompletion) {
+        createRoutineNavigationFlowDisplayedSheet = .addExercise(addExercisesCompletion: addExerciseCompletion)
     }
     
     

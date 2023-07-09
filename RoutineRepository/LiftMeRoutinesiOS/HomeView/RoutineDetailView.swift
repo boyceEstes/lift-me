@@ -11,41 +11,28 @@ import RoutineRepository
 
 public class RoutineDetailViewModel: ObservableObject {
     
-    @Published var exercises: [Exercise] {
-        didSet {
-            print("exercises didSet: \(exercises)")
-        }
-    }
+    @Published var exercises: [Exercise]
     
     let routine: Routine
+    let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
+    
     let uuid = UUID()
     
-    public init(routine: Routine) {
+    public init(
+        routine: Routine,
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void
+    ) {
         
         self.routine = routine
         self.exercises = routine.exercises
+        self.goToAddExercise = goToAddExercise
         print("BOYCE: DID MAKE ROUTINE DETAIL VIEW MODEL - \(uuid)")
-    }
-    
-    // Passed to AddExerciseViewModel for logic after Add button is tapped
-    public func addExercisesCompletion(exercises: [Exercise]) {
-//
-//        exercises.forEach { [weak self] in
-//
-//            print("Appending \($0.name)")
-//            self?.exercises.append($0)
-//        }
-        
-        self.exercises.append(contentsOf: exercises)
-        print("Added exercises to routine detail: **\(uuid)**")
-//        print("exercises: \(self.exercises)")
     }
 }
 
 
 public struct RoutineDetailView: View {
     
-    let goToAddExercise: () -> Void
 //    let goToWorkout: (Routine) -> Void
 //    let goToExerciseDetail: (Exercise) -> Void
     
@@ -53,18 +40,15 @@ public struct RoutineDetailView: View {
     
     
     public init(
-        viewModel: RoutineDetailViewModel,
-        // We need this here because the add exercise completion method is needed
-        goToAddExercise: @escaping () -> Void
+        viewModel: RoutineDetailViewModel
     ) {
         self.viewModel = viewModel
-        self.goToAddExercise = goToAddExercise
     }
     
     
     public var body: some View {
         
-        Form {
+        Form(content: {
             Text("\(viewModel.routine.name)")
             HStack {
                 Text("UUID")
@@ -75,11 +59,10 @@ public struct RoutineDetailView: View {
             }
             
             EditableExerciseSectionView(
-                exercises: viewModel.exercises,
-                goToAddExerciseView: goToAddExercise
+                exercises: $viewModel.exercises,
+                goToAddExercise: viewModel.goToAddExercise
             )
-            
-        }
+        })
         .basicNavigationBar(title: "Routine Details")
         .onReceive(viewModel.exercises.publisher, perform: { exercise in
             print("received: \(exercise)")
@@ -91,11 +74,13 @@ public struct RoutineDetailView: View {
 struct RoutineDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = RoutineDetailViewModel(routine: Routine(id: UUID(), name: "Routine", creationDate: Date(), exercises: [], routineRecords: []))
+        let viewModel = RoutineDetailViewModel(
+            routine: Routine(id: UUID(), name: "Routine", creationDate: Date(), exercises: [], routineRecords: []),
+            goToAddExercise: { _ in }
+        )
         
         RoutineDetailView(
-            viewModel: viewModel,
-            goToAddExercise: { }
+            viewModel: viewModel
         )
     }
 }
