@@ -14,7 +14,7 @@ public class CreateRoutineViewModel: ObservableObject {
     let routineStore: RoutineStore
     let routineRecord: RoutineRecord?
 
-    let dismiss: () -> Void
+    var dismiss: (() -> Void)? // Set in View from Environment dismiss
     let superDismiss: (() -> Void)?
     
     @Published var name = ""
@@ -24,13 +24,11 @@ public class CreateRoutineViewModel: ObservableObject {
     public init(
         routineStore: RoutineStore,
         routineRecord: RoutineRecord? = nil,
-        dismiss: @escaping () -> Void,
         superDismiss: (() -> Void)? = nil
     ) {
         
         self.routineStore = routineStore
         self.routineRecord = routineRecord
-        self.dismiss = dismiss
         self.superDismiss = superDismiss
         
         populateExercisesFromRoutineRecordIfPossible()
@@ -100,10 +98,10 @@ public class CreateRoutineViewModel: ObservableObject {
                 // Dismiss all the way to the root because we have done everything successfully
                 if let superDismiss = self.superDismiss {
                     
-                    self.dismiss()
+                    self.dismiss?()
                     superDismiss()
                 } else {
-                    self.dismiss()
+                    self.dismiss?()
                 }
             }
         }
@@ -112,7 +110,7 @@ public class CreateRoutineViewModel: ObservableObject {
     
     func cancelCreateRoutine() {
         
-        dismiss()
+        dismiss?()
     }
     
     
@@ -198,6 +196,9 @@ public struct CreateRoutineView: View {
                 .disabled(viewModel.isSaveButtonDisabled)
             }
         }
+        .onAppear {
+            viewModel.dismiss = dismiss.callAsFunction
+        }
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
         }
@@ -254,8 +255,8 @@ struct CreateRoutineView_Previews: PreviewProvider {
     static var previews: some View {
         
         let viewModel = CreateRoutineViewModel(
-            routineStore: RoutineStorePreview(),
-            dismiss: { })
+            routineStore: RoutineStorePreview()
+        )
         
         NavigationStack {
             CreateRoutineView(viewModel: viewModel, goToAddExerciseView: { })

@@ -19,8 +19,7 @@ class CreateRoutineNavigationFlow: NewSheetyNavigationFlow {
         var id: Int { self.hashValue }
         
         case addExercise(
-            addExercisesCompletion: ([Exercise]) -> Void,
-            dismiss: () -> Void
+            addExercisesCompletion: ([Exercise]) -> Void
         )
         
         
