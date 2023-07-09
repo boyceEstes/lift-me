@@ -109,7 +109,7 @@ struct RootView: View {
 //    @StateObject var workoutNavigationFlow = WorkoutNavigationFlow()
     @StateObject var addExerciseNavigationFlow = AddExerciseNavigationFlow()
     @StateObject var exerciseListNavigationFlow = ExerciseListNavigationFlow()
-    @StateObject var historyNavigationFlow = HistoryNavigationFlow()
+    @State private var historyNavigationFlowPath = [HistoryNavigationFlow.StackIdentifier]()
     
     
     init(routineStore: RoutineStore) {
@@ -186,7 +186,7 @@ struct RootView: View {
                 routineStore: routineStore,
                 goToRoutineRecordDetail: goToRoutineRecordDetail
             )
-            .flowNavigationDestination(flowPath: $historyNavigationFlow.path) { identifier in
+            .flowNavigationDestination(flowPath: $historyNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .routineRecordDetail(routineRecord):
                     let viewModel = RoutineRecordDetailViewModel(routineRecord: routineRecord)
@@ -323,7 +323,7 @@ struct RootView: View {
     
     // MARK: History Navigation Flow
     func goToRoutineRecordDetail(routineRecord: RoutineRecord) {
-        historyNavigationFlow.push(.routineRecordDetail(routineRecord))
+        historyNavigationFlowPath.append(.routineRecordDetail(routineRecord))
     }
 }
 
