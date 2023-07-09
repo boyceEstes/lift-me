@@ -233,14 +233,10 @@ struct RootView: View {
                 addExerciseViewWithNavigation(addExercisesCompletion: addExercisesCompletion)
 
             case let .createRoutine(routineRecord):
-                NavigationStack {
-                    CreateRoutineUIComposer.makeCreateRoutineView(
-                        routineStore: routineStore,
-                        routineRecord: routineRecord,
-                        superDismiss: superDismissWorkoutSheetAndHomeSheet,
-                        goToAddExercise: { }
-                    )
-                }
+                createRoutineViewWithNavigation(
+                    routineRecord: routineRecord,
+                    superDismiss: superDismissWorkoutSheetAndHomeSheet
+                )
             }
         }
     }
