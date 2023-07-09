@@ -32,18 +32,12 @@ public class ExerciseDetailViewModel: ObservableObject {
         self.routineStore = routineStore
         self.exercise = exercise
         
-        print("Initialized \(exercise.name) viewModel")
         readExerciseRecordsForExercise()
-    }
-    
-    deinit {
-        print("deinitialized \(exercise.name) viewModel")
     }
     
     
     func readExerciseRecordsForExercise() {
         
-        print("read called")
         routineStore.readExerciseRecords(for: exercise) { [weak self] result in
             
             guard let self = self else {

@@ -26,11 +26,15 @@ class HistoryUIComposer {
     }
     
     
-    static func makeHistoryView(routineStore: RoutineStore, goToRoutineRecordDetail: @escaping (RoutineRecord) -> Void) -> HistoryView {
+    static func makeHistoryView(
+        routineStore: RoutineStore,
+        goToRoutineRecordDetail: @escaping (RoutineRecord) -> Void
+    ) -> HistoryView {
         
         let viewModel = HistoryViewModel(
             routineStore: routineStore,
-            goToRoutineRecordDetailView: goToRoutineRecordDetail)
+            goToRoutineRecordDetailView: goToRoutineRecordDetail
+        )
         return HistoryView(viewModel: viewModel)
     }
 

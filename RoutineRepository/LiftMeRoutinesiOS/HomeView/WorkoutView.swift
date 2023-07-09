@@ -65,9 +65,10 @@ public struct SetRecordViewModel: Hashable {
 
 public class WorkoutViewModel: ObservableObject {
     
+    let uuid = UUID()
     let routineStore: RoutineStore
     let routine: Routine?
-    let goToAddExercise: () -> Void
+    let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
     let goToCreateRoutineView: (RoutineRecord) -> Void
     // initialized from view
     var dismiss: (() -> Void)?
@@ -84,7 +85,7 @@ public class WorkoutViewModel: ObservableObject {
     public init(
         routineStore: RoutineStore,
         routine: Routine? = nil,
-        goToAddExercise: @escaping () -> Void,
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
         goToCreateRoutineView: @escaping (RoutineRecord) -> Void
     ) {
         
@@ -122,7 +123,7 @@ public class WorkoutViewModel: ObservableObject {
     
     // Passed to AddExerciseViewModel for logic after Add button is tapped
     public func addExercisesCompletion(exercises: [Exercise]) {
-        print("add exercises completion in workout view: received: \(exercises)")
+        print("add exercises completion in workout view-model(\(uuid.uuidString) - received: \(exercises)")
         
         for exercise in exercises {
             let setRecordViewModel = SetRecordViewModel( weight: "", repCount: "")
@@ -130,6 +131,8 @@ public class WorkoutViewModel: ObservableObject {
             
             routineRecordViewModel.exerciseRecordViewModels.append(exerciseRecordViewModel)
         }
+        
+        self.objectWillChange.send()
     }
     
     
@@ -259,7 +262,8 @@ public struct WorkoutView: View {
                 }
                 
                 Button {
-                    viewModel.goToAddExercise()
+                    print("Tapped button to go to Add Exercise from view-model(\(viewModel.uuid.uuidString))")
+                    viewModel.goToAddExercise(viewModel.addExercisesCompletion)
                 } label: {
                     HStack {
                         Text("Add")
@@ -388,7 +392,7 @@ struct WorkoutView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = WorkoutViewModel(
             routineStore: RoutineStorePreview(),
-            goToAddExercise: { },
+            goToAddExercise: { _ in },
             goToCreateRoutineView: { _ in }
         )
         

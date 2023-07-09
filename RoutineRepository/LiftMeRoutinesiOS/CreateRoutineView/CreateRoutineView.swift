@@ -154,6 +154,7 @@ public struct CreateRoutineView: View {
     public let inspection = Inspection<Self>()
     let goToAddExerciseView: () -> Void
     
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject var viewModel: CreateRoutineViewModel
     
     
@@ -224,7 +225,6 @@ struct EditableExerciseSectionView: View {
                     .font(.headline)
                 Spacer()
                 Button {
-                    print("Button tapped in Create Routine")
                     goToAddExerciseView()
                 } label: {
                     HStack {

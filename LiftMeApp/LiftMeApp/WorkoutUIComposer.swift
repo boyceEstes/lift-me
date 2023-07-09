@@ -24,10 +24,7 @@ public class WorkoutUIComposer {
         let viewModel = WorkoutViewModel(
             routineStore: routineStore,
             routine: routine,
-            goToAddExercise: {
-                let tempWorkoutViewModel = WorkoutViewModel(routineStore: routineStore, goToAddExercise: {}, goToCreateRoutineView: { _ in })
-                goToAddExercise(tempWorkoutViewModel.addExercisesCompletion)
-            },
+            goToAddExercise: goToAddExercise,
             goToCreateRoutineView: goToCreateRoutine
         )
         
