@@ -28,6 +28,11 @@ public class RoutineDetailViewModel: ObservableObject {
         self.goToAddExercise = goToAddExercise
         print("BOYCE: DID MAKE ROUTINE DETAIL VIEW MODEL - \(uuid)")
     }
+    
+    
+    private func loadExercises() -> Void {
+        
+    }
 }
 
 

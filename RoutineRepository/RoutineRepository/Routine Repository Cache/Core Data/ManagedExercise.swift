@@ -170,3 +170,25 @@ extension Set where Element == ManagedExercise {
 }
 
 
+extension Exercise {
+    
+    func toManaged(in context: NSManagedObjectContext) -> ManagedExercise {
+        
+        let managedExercise = ManagedExercise(context: context)
+        managedExercise.id = id
+//            managedExercise.desc = $0
+        managedExercise.name = name
+        managedExercise.creationDate = creationDate
+        return managedExercise
+    
+    }
+}
+
+
+extension Array where Element == Exercise {
+    
+    func toManaged(in context: NSManagedObjectContext) -> [ManagedExercise] {
+        
+        map { $0.toManaged(in: context) }
+    }
+}
