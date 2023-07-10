@@ -18,9 +18,13 @@ public class AddExerciseViewModel: ObservableObject {
     }
     
     
-    public class SelectableExercise: Hashable, ObservableObject {
+    public struct SelectableExercise: Hashable {
         
-        public var isSelected: Bool
+        var isSelected: Bool {
+            didSet {
+                print("isSelected set to \(isSelected) for \(exercise.name)")
+            }
+        }
         let exercise: Exercise
         
         
@@ -48,13 +52,27 @@ public class AddExerciseViewModel: ObservableObject {
     let addExerciseCompletion: ([Exercise]) -> Void
     let goToCreateExercise: (@escaping (Exercise?) -> Void) -> Void
     
-    // Does not get set
-    var allSelectableExercises = [SelectableExercise]()
     
+    @Published var allSelectableExercises = [SelectableExercise]() {
+        didSet {
+            print("all exercises (\(allSelectableExercises.map { $0.exercise.name }),\(allSelectableExercises.map { $0.isSelected }))")
+        }
+    }
 
-    @Published var selectedExercises = [Exercise]()
-    @Published var selectableFilteredExercises = [SelectableExercise]()
-    @Published var selectableSelectedExercises = [SelectableExercise]()
+    
+    var selectableFilteredExercises: [SelectableExercise] {
+        allSelectableExercises.filter {
+            // TODO: Consider a Debounce operator on searchTextField changes
+            // If searchTextField is empty include this object - else
+            searchTextField.isEmpty ? true : $0.exercise.name.localizedCaseInsensitiveContains(searchTextField)
+        }
+    }
+    
+    var selectableSelectedExercises: [SelectableExercise] {
+        allSelectableExercises.filter { $0.isSelected }
+    }
+    
+    
     @Published var searchTextField = ""
     
     var cancellables = Set<AnyCancellable>()
@@ -70,7 +88,6 @@ public class AddExerciseViewModel: ObservableObject {
         self.addExerciseCompletion = addExerciseCompletion
         self.goToCreateExercise = goToCreateExercise
         
-        bindSearchTextFieldChange()
         bindDataSource()
     }
     
@@ -85,7 +102,6 @@ public class AddExerciseViewModel: ObservableObject {
             
             guard let self = self else { return }
             self.allSelectableExercises = exercises.map { SelectableExercise(isSelected: false, exercise: $0) }
-            self.selectableFilteredExercises = self.allSelectableExercises
             
         }.store(in: &cancellables)
     }
@@ -107,21 +123,6 @@ public class AddExerciseViewModel: ObservableObject {
     }
     
     
-    private func bindSearchTextFieldChange() {
-        
-        $searchTextField
-            .dropFirst()
-//            .debounce(for: 0.5, scheduler: DispatchQueue.main)
-            .sink { [weak self] searchTextFieldValue in
-                guard let self = self else { return }
-                
-                print("text field change \(searchTextFieldValue)")
-                self.selectableFilteredExercises = searchTextFieldValue.isEmpty ? self.allSelectableExercises : self.filterExercises(by: searchTextFieldValue)
-                
-            }.store(in: &cancellables)
-    }
-    
-    
     private func filterExercises(by searchTextFieldValue: String) -> [SelectableExercise] {
         
         let exercisesFilteredBySearchTextField = allSelectableExercises.filter { selectableExercise in
@@ -133,24 +134,16 @@ public class AddExerciseViewModel: ObservableObject {
     
     
     func addSelectableExerciseToSelectedList(selectableExercise: SelectableExercise) {
-        if !selectableSelectedExercises.contains(selectableExercise) {
-            
-            selectableExercise.isSelected = true
-            selectableSelectedExercises.append(selectableExercise)
-        }
+        
+        guard let indexOfSelectedExercise = allSelectableExercises.firstIndex(of: selectableExercise) else { return }
+        allSelectableExercises[indexOfSelectedExercise] = SelectableExercise(isSelected: true, exercise: selectableExercise.exercise)
     }
     
     
     func removeSelectableExerciseFromSelectedList(selectableExercise: SelectableExercise) {
         
-        if selectableSelectedExercises.contains(selectableExercise) {
-
-            selectableSelectedExercises.removeAll { selectedExercise in
-                selectedExercise == selectableExercise
-            }
-            
-            selectableExercise.isSelected = false
-        }
+        guard let indexOfExerciseToRemove = allSelectableExercises.firstIndex(of: selectableExercise) else { return }
+        allSelectableExercises[indexOfExerciseToRemove] = SelectableExercise(isSelected: false, exercise: selectableExercise.exercise)
     }
     
     
@@ -166,8 +159,6 @@ public class AddExerciseViewModel: ObservableObject {
                 }
             }
         }
-        
-//        selectableFilteredExercises.remove(atOffsets: offsets)
     }
     
     
@@ -190,12 +181,8 @@ public class AddExerciseViewModel: ObservableObject {
 
 
 public struct AddExerciseView: View {
-//
-//    enum Field: Hashable {
-//        case search
-//    }
-//
-//    @FocusState private var focus: Field?
+
+    //    @FocusState private var focus: Field?
     @Environment(\.dismiss) var dismiss
     @ObservedObject public var viewModel: AddExerciseViewModel
     public let inspection = Inspection<Self>()
@@ -289,11 +276,11 @@ public struct SelectedExercisesList: View {
     
     public var body: some View {
             
-            ForEach($viewModel.selectableSelectedExercises, id: \.self) { selectableExercise in
+            ForEach(viewModel.selectableSelectedExercises, id: \.self) { selectableExercise in
                 
                 SelectableBasicExerciseRowView(selectableExercise: selectableExercise) {
-                    print("Remove to \(selectableExercise.wrappedValue.exercise.name) from selected list")
-                    viewModel.removeSelectableExerciseFromSelectedList(selectableExercise: selectableExercise.wrappedValue)
+                    print("Remove to \(selectableExercise.exercise.name) from selected list")
+                    viewModel.removeSelectableExerciseFromSelectedList(selectableExercise: selectableExercise)
                 }
             }
             .accessibilityIdentifier("selected_exercise_list")
@@ -309,13 +296,13 @@ public struct FilteredAllExercisesList: View {
     public var body: some View {
         
 //        List {
-            ForEach($viewModel.selectableFilteredExercises, id: \.self) { selectableExercise in
+            ForEach(viewModel.selectableFilteredExercises, id: \.self) { selectableExercise in
                 
                 SelectableBasicExerciseRowView(selectableExercise: selectableExercise) {
-                    if selectableExercise.wrappedValue.isSelected {
-                        viewModel.removeSelectableExerciseFromSelectedList(selectableExercise: selectableExercise.wrappedValue)
+                    if selectableExercise.isSelected {
+                        viewModel.removeSelectableExerciseFromSelectedList(selectableExercise: selectableExercise)
                     } else {
-                        viewModel.addSelectableExerciseToSelectedList(selectableExercise: selectableExercise.wrappedValue)
+                        viewModel.addSelectableExerciseToSelectedList(selectableExercise: selectableExercise)
                     }
                 }
             }
@@ -328,7 +315,7 @@ public struct FilteredAllExercisesList: View {
 
 public struct SelectableBasicExerciseRowView: View {
     
-    @Binding public var selectableExercise: AddExerciseViewModel.SelectableExercise
+    var selectableExercise: AddExerciseViewModel.SelectableExercise
     let tapAction: () -> Void
     
     public var body: some View {
