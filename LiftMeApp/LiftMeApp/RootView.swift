@@ -111,7 +111,8 @@ struct RootView: View {
     // CreateRoutine
     @State private var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
     // Add Exercise
-    @StateObject var addExerciseNavigationFlow = AddExerciseNavigationFlow()
+//    @StateObject var addExerciseNavigationFlow = AddExerciseNavigationFlow()
+    @State private var addExerciseNavigationFlowDisplayedSheet: AddExerciseNavigationFlow.SheetyIdentifier?
     // Exercise Tab
     @StateObject var exerciseListNavigationFlow = ExerciseListNavigationFlow()
     // History Tab
@@ -173,10 +174,9 @@ struct RootView: View {
             .sheet(item: $exerciseListNavigationFlow.displayedSheet) { identifier in
                 switch identifier {
                 case .createExercise:
-                    let viewModel = CreateExerciseViewModel(routineStore: routineStore, dismiss: { _ in })
-                    NavigationStack {
-                        CreateExerciseView(viewModel: viewModel)
-                    }
+                    // We do not need any completion logic for the exercise list screen because it is going to
+                    // update with a exercises data source.
+                    createExerciseViewWithNavigation(createExerciseCompletion: { _ in })
                 }
             }
                 .tabItem {
@@ -307,21 +307,30 @@ struct RootView: View {
                 goToCreateExercise: goToCreateExerciseFromAddExercise
             )
         }
-        .sheet(item: $addExerciseNavigationFlow.displayedSheet) { identifier in
+        .sheet(item: $addExerciseNavigationFlowDisplayedSheet) { identifier in
             switch identifier {
-            case let .createExercise(createExerciseCompletion, _):
-                let viewModel = CreateExerciseViewModel(routineStore: routineStore, dismiss: createExerciseCompletion)
-                
-                NavigationStack {
-                    CreateExerciseView(viewModel: viewModel)
-                }
+            case let .createExercise(createExerciseCompletion):
+                createExerciseViewWithNavigation(createExerciseCompletion: createExerciseCompletion)
             }
         }
     }
     
     
-    func goToCreateExerciseFromAddExercise(createExerciseCompletion: @escaping (Exercise?) -> Void) {
-        addExerciseNavigationFlow.displayedSheet = .createExercise(createExerciseCompletion: createExerciseCompletion, UUID())
+    
+    // MARK: Create Exercise Navigation Flow
+    func createExerciseViewWithNavigation(createExerciseCompletion: @escaping (Exercise) -> Void) -> some View {
+        
+        NavigationStack {
+            CreateExerciseUIComposer.makeCreateExerciseView(
+                routineStore: routineStore,
+                createExerciseCompletion: createExerciseCompletion
+            )
+        }
+    }
+    
+    
+    func goToCreateExerciseFromAddExercise(createExerciseCompletion: @escaping (Exercise) -> Void) {
+        addExerciseNavigationFlowDisplayedSheet = .createExercise(createExerciseCompletion: createExerciseCompletion)
     }
     
     

@@ -69,10 +69,10 @@ extension ManagedExercise {
 
 extension ManagedExercise {
     
-    static func findExercise(with id: UUID, in context: NSManagedObjectContext) throws -> ManagedExercise {
+    static func findExercise(with id: UUID, or name: String? = nil, in context: NSManagedObjectContext) throws -> ManagedExercise {
         
         let request = ManagedExercise.fetchRequest
-        request.predicate = NSPredicate(format: "%K == %@", "id", id as CVarArg)
+        request.predicate = NSPredicate(format: "%K == %@ OR %K == %@", "id", id as CVarArg, "name", name ?? "")
         request.returnsObjectsAsFaults = false
 
         guard let exercise = try context.fetch(request).first else {
@@ -82,6 +82,20 @@ extension ManagedExercise {
         return exercise
     }
     
+//
+//    static func findExercise(withName name: String, in context: NSManagedObjectContext) throws -> ManagedExercise {
+//
+//        let request = ManagedExercise.fetchRequest
+//        request.predicate = NSPredicate(format: "%K == %@", "name", name as CVarArg)
+//        request.returnsObjectsAsFaults = false
+//
+//        guard let exercise = try context.fetch(request).first else {
+//            throw CoreDataRoutineStore.Error.cannotFindExercise
+//        }
+//
+//        return exercise
+//    }
+//
     
     public static func findExercisesRequest() -> NSFetchRequest<ManagedExercise> {
         
@@ -104,14 +118,19 @@ extension ManagedExercise {
     }
     
     
-    public static func create(_ exercise: Exercise, in context: NSManagedObjectContext) {
-        
-        let managedExercise = ManagedExercise(context: context)
-        managedExercise.id = exercise.id
-        managedExercise.name = exercise.name
-        managedExercise.creationDate = exercise.creationDate
+    public static func create(_ exercise: Exercise, in context: NSManagedObjectContext) throws {
         
         
+        // If we find that the exercise already exists, we want to NOT create another one.
+        if let _ = try? ManagedExercise.findExercise(with: exercise.id, or: exercise.name, in: context) {
+            
+            throw CoreDataRoutineStore.Error.exerciseWithNameAlreadyExists
+        } else {
+            let managedExercise = ManagedExercise(context: context)
+            managedExercise.id = exercise.id
+            managedExercise.name = exercise.name
+            managedExercise.creationDate = exercise.creationDate
+        }
     }
     
     
@@ -172,23 +191,21 @@ extension Set where Element == ManagedExercise {
 
 extension Exercise {
     
-    func toManaged(in context: NSManagedObjectContext) -> ManagedExercise {
+    func toManaged(in context: NSManagedObjectContext) throws -> ManagedExercise {
         
-        let managedExercise = ManagedExercise(context: context)
-        managedExercise.id = id
-//            managedExercise.desc = $0
-        managedExercise.name = name
-        managedExercise.creationDate = creationDate
-        return managedExercise
-    
+        do {
+            return try ManagedExercise.findExercise(with: id, in: context)
+        } catch {
+            throw CoreDataRoutineStore.Error.cannotFindExercise
+        }
     }
 }
 
 
 extension Array where Element == Exercise {
     
-    func toManaged(in context: NSManagedObjectContext) -> [ManagedExercise] {
+    func toManaged(in context: NSManagedObjectContext) throws -> [ManagedExercise] {
         
-        map { $0.toManaged(in: context) }
+        try map { try $0.toManaged(in: context) }
     }
 }

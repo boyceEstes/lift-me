@@ -64,13 +64,23 @@ public class CoreDataRoutineStore: RoutineStore {
     
     
     public enum Error: Swift.Error {
+        
+        // Routines
         case routineWithNameAlreadyExists
+        case cannotFindRoutineWithID
+        
+        // Routine Records
         case cannotUpdateRoutineRecordThatDoesNotExist
-        case cannotFindExercise
         case cannotCreateRoutineRecordWithNoExerciseRecords
         case cannotCreateRoutineRecordWithNoSetRecords
+        
+        // Exercises
+        case cannotFindExercise
+        case exerciseWithNameAlreadyExists
+        
+        // Exercise Records
         case cannotFindExerciseRoutinesForExerciseThatDoesNotExist
-        case cannotFindRoutineWithID
+        
     }
     
     

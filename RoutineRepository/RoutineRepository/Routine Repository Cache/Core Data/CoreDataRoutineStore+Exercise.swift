@@ -16,7 +16,7 @@ extension CoreDataRoutineStore {
         let context = context
         context.perform {
             do {
-                ManagedExercise.create(exercise, in: context)
+                try ManagedExercise.create(exercise, in: context)
                 try context.save()
                 completion(nil)
             } catch {

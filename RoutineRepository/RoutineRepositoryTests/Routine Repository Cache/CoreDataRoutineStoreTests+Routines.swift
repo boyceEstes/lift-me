@@ -60,15 +60,28 @@ class CoreDataRoutineStoreTests: XCTestCase {
     }
     
     
-    func test_coreDataRoutineStore_createRoutineInEmptyCacheWithExercises_createsRoutineWithExercisesWithoutError() {
+    func test_coreDataRoutineStore_createRoutineInEmptyCacheWithExercises_createsRoutineWithExercisesThatAreNotSavedDeliversCannotFindExerciseError() {
         
         let sut = makeSUT()
         
         let exercise = uniqueExercise()
         let routine = uniqueRoutine(exercises: [exercise])
         let createError = create(routine, into: sut)
+        XCTAssertEqual(createError as? NSError, CoreDataRoutineStore.Error.cannotFindExercise as NSError)
+    }
+    
+    
+    func test_coreDataRoutineStore_createRoutineWithExercisesInCacheWithExercises_createsRoutineWithExercisesWithoutDuplicatingExercises() {
+        
+        let sut = makeSUT()
+        
+        let exercise = uniqueExercise()
+        create(exercise, into: sut)
+        let routine = uniqueRoutine(exercises: [exercise])
+        let createError = create(routine, into: sut)
         XCTAssertNil(createError, "Creating routine in empty cache delivers error, \(createError!)")
         
+        expectReadAllExercises(on: sut, toCompleteWith: .success([exercise]))
         expectReadAllRoutines(on: sut, toCompleteWith: .success([routine]))
     }
     
@@ -260,6 +273,26 @@ class CoreDataRoutineStoreTests: XCTestCase {
 //
 //        return receivedResult
 //    }
+    
+    
+    private func expectReadAllExercises(on sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadExercisesResult, file: StaticString = #file, line: UInt = #line) {
+        
+        let exp = expectation(description: "Wait for RoutineStore read exercises completion")
+        
+        sut.readAllExercises { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(exercises), .success(expectedExercises)):
+                XCTAssertEqual(exercises, expectedExercises, "Expected \(expectedExercises) but got \(exercises) instead", file: file, line: line)
+                
+            default:
+                XCTFail("Expected \(expectedResult), got \(expectedResult) instead", file: file, line: line)
+            }
+            
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+    }
     
     
     private func expectReadAllRoutines(on sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadRoutinesResult, file: StaticString = #file, line: UInt = #line) {

@@ -14,10 +14,10 @@ func anyNSError() -> NSError {
 }
 
 
-func uniqueExercise() -> Exercise {
+func uniqueExercise(id: UUID? = nil, name: String? = nil) -> Exercise {
     return Exercise(
-        id: UUID(),
-        name: UUID().uuidString,
+        id: id ?? UUID(),
+        name: name ?? UUID().uuidString,
         creationDate: Date(),
         tags: [])
 }

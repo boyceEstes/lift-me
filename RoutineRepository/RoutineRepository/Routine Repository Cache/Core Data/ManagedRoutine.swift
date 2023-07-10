@@ -77,7 +77,7 @@ extension ManagedRoutine {
         managedRoutine.name = routine.name
         managedRoutine.creationDate = routine.creationDate
         
-        managedRoutine.exercises = Set(routine.exercises.toManaged(in: context))
+        managedRoutine.exercises = try Set(routine.exercises.toManaged(in: context))
         // sets up routine record entries
 //        managedRoutine.routineRecords = try routine.routineRecords.toManaged(for: managedRoutine, in: context)
         

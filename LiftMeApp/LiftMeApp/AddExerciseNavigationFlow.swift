@@ -5,7 +5,6 @@
 //  Created by Boyce Estes on 4/7/23.
 //
 
-import Foundation
 import NavigationFlow
 import RoutineRepository
 import SwiftUI
@@ -19,8 +18,8 @@ class AddExerciseNavigationFlow: NewSheetyNavigationFlow {
     // MARK: - Sheet
     enum SheetyIdentifier: Identifiable, Hashable {
         
-        case createExercise(createExerciseCompletion: (Exercise?) -> Void, UUID)
-        
+        case createExercise(createExerciseCompletion: (Exercise) -> Void)
+
         
         // Conformance to protocols
         var id: Int { self.hashValue }
@@ -35,11 +34,10 @@ class AddExerciseNavigationFlow: NewSheetyNavigationFlow {
         func hash(into hasher: inout Hasher) {
             
             switch self {
-            case let .createExercise(dismiss, uuid):
+            case let .createExercise(createExerciseCompletion):
                 
-                let stringValue = String(reflecting: dismiss)
+                let stringValue = String(reflecting: createExerciseCompletion)
                 hasher.combine(stringValue)
-                hasher.combine(uuid)
             }
         }
     }
