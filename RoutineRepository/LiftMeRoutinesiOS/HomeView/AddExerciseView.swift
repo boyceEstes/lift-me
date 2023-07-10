@@ -31,7 +31,8 @@ public class AddExerciseViewModel: ObservableObject {
         
         
         public func hash(into hasher: inout Hasher) {
-            return hasher.combine(ObjectIdentifier(self))
+            hasher.combine(exercise.hashValue)
+            hasher.combine(isSelected)
         }
         
         
@@ -143,12 +144,12 @@ public class AddExerciseViewModel: ObservableObject {
     func removeSelectableExerciseFromSelectedList(selectableExercise: SelectableExercise) {
         
         if selectableSelectedExercises.contains(selectableExercise) {
+
+            selectableSelectedExercises.removeAll { selectedExercise in
+                selectedExercise == selectableExercise
+            }
             
             selectableExercise.isSelected = false
-            
-            selectableSelectedExercises.removeAll { listCar in
-                listCar == selectableExercise
-            }
         }
     }
     
