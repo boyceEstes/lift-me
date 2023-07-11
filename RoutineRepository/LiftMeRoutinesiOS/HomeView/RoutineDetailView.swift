@@ -13,20 +13,30 @@ public class RoutineDetailViewModel: ObservableObject {
     
     @Published var exercises: [Exercise]
     
+    let routineStore: RoutineStore
     let routine: Routine
     let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
     
     let uuid = UUID()
     
     public init(
+        routineStore: RoutineStore,
         routine: Routine,
         goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void
     ) {
         
+        self.routineStore = routineStore
         self.routine = routine
         self.exercises = routine.exercises
         self.goToAddExercise = goToAddExercise
         print("BOYCE: DID MAKE ROUTINE DETAIL VIEW MODEL - \(uuid)")
+    }
+   
+    func goToAddExercisesWithCompletionHandled() {
+        
+        goToAddExercise { addedExercises in
+            print("Add exercise completion from routine detail")
+        }
     }
 }
 
@@ -60,7 +70,7 @@ public struct RoutineDetailView: View {
             
             EditableExerciseSectionView(
                 exercises: $viewModel.exercises,
-                goToAddExercise: viewModel.goToAddExercise
+                goToAddExercise: viewModel.goToAddExercisesWithCompletionHandled
             )
         })
         .basicNavigationBar(title: "Routine Details")
@@ -75,6 +85,7 @@ struct RoutineDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
         let viewModel = RoutineDetailViewModel(
+            routineStore: RoutineStorePreview(),
             routine: Routine(id: UUID(), name: "Routine", creationDate: Date(), exercises: [], routineRecords: []),
             goToAddExercise: { _ in }
         )

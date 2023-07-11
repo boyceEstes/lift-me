@@ -13,9 +13,13 @@ import SwiftUI
 enum RoutineDetailUIComposer {
     
     @ViewBuilder
-    static func makeRoutineDetailView(routine: Routine, goToAddExerciseFromRoutineDetail: @escaping (@escaping ([Exercise]) -> Void) -> Void) -> RoutineDetailView {
+    static func makeRoutineDetailView(
+        routineStore: RoutineStore,
+        routine: Routine,
+        goToAddExerciseFromRoutineDetail: @escaping (@escaping ([Exercise]) -> Void) -> Void
+    ) -> RoutineDetailView {
         
-        let viewModel = RoutineDetailViewModel(routine: routine, goToAddExercise: goToAddExerciseFromRoutineDetail)
+        let viewModel = RoutineDetailViewModel(routineStore: routineStore, routine: routine, goToAddExercise: goToAddExerciseFromRoutineDetail)
         RoutineDetailView(viewModel: viewModel)
     }
 }

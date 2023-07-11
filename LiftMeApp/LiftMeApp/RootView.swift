@@ -139,6 +139,7 @@ struct RootView: View {
                 case let .routineDetail(routine: routine):
                     
                     RoutineDetailUIComposer.makeRoutineDetailView(
+                        routineStore: routineStore,
                         routine: routine,
                         goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail
                     )

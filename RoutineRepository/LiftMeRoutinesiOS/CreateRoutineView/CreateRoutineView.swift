@@ -147,6 +147,18 @@ public class CreateRoutineViewModel: ObservableObject {
         )
         return uniquelyNamedRoutine
     }
+    
+    
+    func updateExercisesFromAddExercise(newExercises: [Exercise]) {
+        exercises.append(contentsOf: newExercises)
+    }
+
+    
+    func goToAddExerciseWithCompletionHandled() {
+        goToAddExercise { [weak self] addedExercises in
+            self?.updateExercisesFromAddExercise(newExercises: addedExercises)
+        }
+    }
 }
 
 
@@ -179,7 +191,7 @@ public struct CreateRoutineView: View {
             
             EditableExerciseSectionView(
                 exercises: $viewModel.exercises,
-                goToAddExercise: viewModel.goToAddExercise
+                goToAddExercise: viewModel.goToAddExerciseWithCompletionHandled
             )
         }
         .basicNavigationBar(title: "Create Routine")
@@ -210,10 +222,10 @@ public struct CreateRoutineView: View {
 struct EditableExerciseSectionView: View {
     
     @Binding private var exercises: [Exercise]
-    let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
+    let goToAddExercise: () -> Void
     
     
-    init(exercises: Binding<[Exercise]>, goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void) {
+    init(exercises: Binding<[Exercise]>, goToAddExercise: @escaping () -> Void) {
         
         self._exercises = exercises
         self.goToAddExercise = goToAddExercise
@@ -234,7 +246,7 @@ struct EditableExerciseSectionView: View {
                     .font(.headline)
                 Spacer()
                 Button {
-                    goToAddExercise(updateExercises)
+                    goToAddExercise()
                 } label: {
                     HStack {
                         Text("Add")
@@ -255,11 +267,6 @@ struct EditableExerciseSectionView: View {
             }
         }
 //        .textCase(nil)
-    }
-    
-    
-    func updateExercises(newExercises: [Exercise]) {
-        exercises.append(contentsOf: newExercises)
     }
 }
 
