@@ -121,7 +121,7 @@ extension Array where Element == ManagedRoutine {
 }
 
 
-private extension ManagedRoutine {
+extension ManagedRoutine {
     
     func toModel() -> Routine {
         Routine(

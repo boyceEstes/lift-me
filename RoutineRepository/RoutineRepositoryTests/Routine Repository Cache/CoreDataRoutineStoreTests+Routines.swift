@@ -12,6 +12,7 @@ import RoutineRepository
 
 class CoreDataRoutineStoreTests: XCTestCase {
     
+    // MARK: - Read Routine
     func test_coreDataRoutineStore_readRoutinesOnEmptyCache_deliversNoSideEffects() {
         
         let sut = makeSUT()
@@ -50,6 +51,21 @@ class CoreDataRoutineStoreTests: XCTestCase {
     }
     
     
+    // MARK: Read Routine - for ID
+    func test_coreDataRoutineStore_readRoutineWithIDOnEmptyCache_deliversNoSideEffects() {
+
+        // given
+        let sut = makeSUT()
+
+        // when/then
+        let anyIDThatIsNotInRoutineStore = UUID()
+        let expectedError = CoreDataRoutineStore.Error.cannotFindRoutineWithID
+        
+        expectReadRoutine(on: sut, with: anyIDThatIsNotInRoutineStore, toCompleteWith: .failure(expectedError))
+    }
+
+    
+    // MARK: - Create Routine
     func test_coreDataRoutineStore_createRoutineInEmptyCache_deliversNoError() {
         
         let sut = makeSUT()
@@ -140,8 +156,6 @@ class CoreDataRoutineStoreTests: XCTestCase {
     // TODO: test to make sure there is an error if there are no exercises in a routine
     
     
-    
-    // TODO: Decide if I should delete all of this or if it is safer to test its functionality with our already-made tests
     // Read on Empty
     // Read on Empty twice delivers no side effects
     // Read on nonempty with matching name
@@ -150,69 +164,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
     // Read on nonempty twice with matching exercises
     // Read on nonempty with no matching name
     // Read on nonempty twice with no matching name delivers no side effects
-//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesOnEmptyCache_deliversNoResults() {
-//
-//        let sut = makeSUT()
-//
-//        expectReadAllRoutines(with: "AnyName", or: [], on: sut, toCompleteWith: .success([]))
-//    }
-//
-//
-//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesTwiceOnEmptyCache_deliversNoResults() {
-//
-//        let sut = makeSUT()
-//
-//        expectReadAllRoutines(with: "AnyName", or: [], on: sut, toCompleteTwiceWith: .success([]))
-//    }
-//
-//
-//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesWithSameNamedRoutineInCache_deliversDuplicateNameRoutine() {
-//
-//        let sut = makeSUT()
-//
-//        let name = "AnyName"
-//        let routine = uniqueRoutine(name: name, exercises: [])
-//        create(routine, into: sut)
-//
-//        expectReadAllRoutines(with: name, or: [], on: sut, toCompleteWith: .success([routine]))
-//    }
-//
-//
-//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesTwiceWithSameNamedRoutineInCache_deliversNoSideEffects() {
-//        let sut = makeSUT()
-//
-//        let name = "AnyName"
-//        let routine = uniqueRoutine(name: name, exercises: [])
-//        create(routine, into: sut)
-//
-//        expectReadAllRoutines(with: name, or: [], on: sut, toCompleteTwiceWith: .success([routine]))
-//    }
-    
-    
-//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesWithSameExercisesRoutineInCache_deliversDuplicateExercisesRoutine() {}
-//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesTwiceWithSameExercisesRoutineInCache_deliversDuplicateExercisesRoutine() {}
-    
-//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesWithNoMatchInNonEmptyCache_deliversNoResults() {
-//
-//        let sut = makeSUT()
-//
-//        let routine = uniqueRoutine()
-//        create(routine, into: sut)
-//
-//        expectReadAllRoutines(with: "Any", or: [], on: sut, toCompleteWith: .success([]))
-//    }
-//
-//
-//    func test_coreDataRoutineStore_readRoutinesWithNameOrExercisesTwiceWithNoMatchInNonEmptyCache_deliversNoSideEffects() {
-//
-//        let sut = makeSUT()
-//
-//        let routine = uniqueRoutine()
-//        create(routine, into: sut)
-//
-//        expectReadAllRoutines(with: "Any", or: [], on: sut, toCompleteTwiceWith: .success([]))
-//    }
-    
+
     
     // MARK: - Helpers
     
@@ -247,33 +199,6 @@ class CoreDataRoutineStoreTests: XCTestCase {
         return receivedResult
     }
     
-//
-//    @discardableResult
-//    private func createRoutineAndRoutineRecord(
-//        name: String,
-//        routineRecord: RoutineRecord,
-//        into sut: CoreDataRoutineStore,
-//        file: StaticString = #file,
-//        line: UInt = #line) -> RoutineStore.CreateRoutineResult {
-//
-//        let exp = expectation(description: "Wait for RoutineStore create completion")
-//
-//        var receivedResult: RoutineStore.CreateRoutineResult = nil
-//
-//        sut.createRoutineAndRoutineRecord(
-//            name: name,
-//            routineRecord
-//        ) { result in
-//
-//            receivedResult = result
-//            exp.fulfill()
-//        }
-//
-//        wait(for: [exp], timeout: 1)
-//
-//        return receivedResult
-//    }
-    
     
     private func expectReadAllExercises(on sut: CoreDataRoutineStore, toCompleteWith expectedResult: RoutineStore.ReadExercisesResult, file: StaticString = #file, line: UInt = #line) {
         
@@ -286,6 +211,35 @@ class CoreDataRoutineStoreTests: XCTestCase {
                 
             default:
                 XCTFail("Expected \(expectedResult), got \(expectedResult) instead", file: file, line: line)
+            }
+            
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+    }
+    
+    
+    private func expectReadRoutine(
+        on sut: CoreDataRoutineStore,
+        with id: UUID,
+        toCompleteWith expectedResult: RoutineStore.ReadRoutineResult,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        
+        let exp = expectation(description: "Wait for RoutineStore read routine completion")
+        
+        sut.readRoutine(with: id) { result in
+            
+            switch (result, expectedResult) {
+            case let (.success(routine), .success(expectedRoutine)):
+                XCTAssertEqual(routine, expectedRoutine)
+                break
+            case let (.failure(error), .failure(expectedError)):
+                XCTAssertEqual(error as NSError, expectedError as NSError)
+            default:
+                XCTFail("Expected \(expectedResult), got \(result) instead", file: file, line: line)
             }
             
             exp.fulfill()
