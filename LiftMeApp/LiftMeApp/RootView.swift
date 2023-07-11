@@ -106,6 +106,8 @@ struct RootView: View {
     // Home
     @State private var homeNavigationFlowDisplayedSheet: HomeNavigationFlow.SheetyIdentifier?
     @State private var homeNavigationFlowPath = [HomeNavigationFlow.StackIdentifier]()
+    // RoutineDetail
+    @State private var routineDetailNavigationFlowDisplayedSheet: RoutineDetailNavigationFlow.SheetyIdentifier?
     // Workout
     @State private var workoutNavigationFlowDisplayedSheet: WorkoutNavigationFlow.SheetyIdentifier?
     // CreateRoutine
@@ -135,13 +137,19 @@ struct RootView: View {
             .flowNavigationDestination(flowPath: $homeNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .routineDetail(routine: routine):
-                    let viewModel = RoutineDetailViewModel(
+                    
+                    RoutineDetailUIComposer.makeRoutineDetailView(
                         routine: routine,
-                        goToAddExercise: goToAddExerciseFromRoutineDetail
+                        goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail
                     )
-                    RoutineDetailView(
-                        viewModel: viewModel
-                    )
+                    .sheet(item: $routineDetailNavigationFlowDisplayedSheet) { identifier in
+                        switch identifier {
+                        case let .addExercise(addExerciseCompletion):
+                            addExerciseViewWithNavigation(addExercisesCompletion: addExerciseCompletion)
+                        case let .exerciseDetail:
+                            Text("Some Exercise Detail")
+                        }
+                    }
                 }
             }
             .sheet(item: $homeNavigationFlowDisplayedSheet) { identifier in
@@ -221,8 +229,9 @@ struct RootView: View {
     
     // MARK: Routine Detail NavigationFlow
     func goToAddExerciseFromRoutineDetail(addExerciseCompletion: @escaping AddExercisesCompletion) {
-//        routineDetailNavigationFlowDisplayedSheet = .addExercise
+        routineDetailNavigationFlowDisplayedSheet = .addExercise(addExerciseCompletion)
     }
+    
 
     // MARK: Workout Navigation Flow
     func workoutViewWithNavigation(routine: Routine?) -> some View {
