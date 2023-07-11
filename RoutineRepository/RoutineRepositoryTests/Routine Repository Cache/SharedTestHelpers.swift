@@ -29,7 +29,7 @@ func uniqueRoutine(name: String? = nil, exercises: [Exercise]? = nil) -> Routine
         id: UUID(),
         name: name ?? UUID().uuidString,
         creationDate: Date(),
-        exercises: exercises ?? [uniqueExercise(), uniqueExercise()],
+        exercises: exercises ?? [],
         routineRecords: [])
     
     return routine

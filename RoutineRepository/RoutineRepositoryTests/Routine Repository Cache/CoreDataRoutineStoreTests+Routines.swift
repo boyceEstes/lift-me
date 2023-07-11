@@ -52,7 +52,7 @@ class CoreDataRoutineStoreTests: XCTestCase {
     
     
     // MARK: Read Routine - for ID
-    func test_coreDataRoutineStore_readRoutineWithIDOnEmptyCache_deliversNoSideEffects() {
+    func test_coreDataRoutineStore_readRoutineWithIDOnEmptyCache_deliversCannotFindRoutineWithIDError() {
 
         // given
         let sut = makeSUT()
@@ -63,7 +63,39 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         expectReadRoutine(on: sut, with: anyIDThatIsNotInRoutineStore, toCompleteWith: .failure(expectedError))
     }
+    
+    
+    func test_coreDataRoutineStore_readRoutineWithIDOnNonEmptyCacheWithNoMatch_deliversCannotFindRoutineWithIDError() {
+        
+        // given
+        let sut = makeSUT()
 
+        // when/then
+        create(uniqueRoutine(), into: sut)
+        
+        let anyIDThatIsNotInRoutineStore = UUID()
+        let expectedError = CoreDataRoutineStore.Error.cannotFindRoutineWithID
+        
+        expectReadRoutine(on: sut, with: anyIDThatIsNotInRoutineStore, toCompleteWith: .failure(expectedError))
+    }
+    
+    
+    // TODO: Figure out how to handle a routine with multiple matches in the db
+    func test_coreDataRoutineStore_readRoutineWithIDOnNonEmptyCacheWithMultipleMatches_delivers() {}
+    
+    
+    func test_coreDataRoutineStore_readRoutineWithIDOnNonEmptyCacheWithMatch_deliversRoutine() {
+        
+        // given
+        let sut = makeSUT()
+        let savedRoutine = uniqueRoutine()
+        create(savedRoutine, into: sut)
+        
+        // when/then
+        expectReadRoutine(on: sut, with: savedRoutine.id, toCompleteWith: .success(savedRoutine))
+    }
+
+    
     
     // MARK: - Create Routine
     func test_coreDataRoutineStore_createRoutineInEmptyCache_deliversNoError() {
@@ -89,14 +121,18 @@ class CoreDataRoutineStoreTests: XCTestCase {
     
     func test_coreDataRoutineStore_createRoutineWithExercisesInCacheWithExercises_createsRoutineWithExercisesWithoutDuplicatingExercises() {
         
+        // given
         let sut = makeSUT()
         
         let exercise = uniqueExercise()
         create(exercise, into: sut)
         let routine = uniqueRoutine(exercises: [exercise])
-        let createError = create(routine, into: sut)
-        XCTAssertNil(createError, "Creating routine in empty cache delivers error, \(createError!)")
         
+        // when
+        let createError = create(routine, into: sut)
+        
+        // then
+        XCTAssertNil(createError, "Creating routine in empty cache delivers error, \(createError!)")
         expectReadAllExercises(on: sut, toCompleteWith: .success([exercise]))
         expectReadAllRoutines(on: sut, toCompleteWith: .success([routine]))
     }

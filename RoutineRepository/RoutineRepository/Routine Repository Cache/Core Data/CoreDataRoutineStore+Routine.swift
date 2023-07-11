@@ -66,6 +66,7 @@ public extension CoreDataRoutineStore {
         
         let context = context
         context.perform {
+            
             do {
                 let routine = try ManagedRoutine.findRoutine(withID: id, in: context).toModel()
                 
