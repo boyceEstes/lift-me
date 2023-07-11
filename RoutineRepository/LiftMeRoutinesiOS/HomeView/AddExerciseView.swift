@@ -20,11 +20,7 @@ public class AddExerciseViewModel: ObservableObject {
     
     public struct SelectableExercise: Hashable {
         
-        var isSelected: Bool {
-            didSet {
-                print("isSelected set to \(isSelected) for \(exercise.name)")
-            }
-        }
+        var isSelected: Bool
         let exercise: Exercise
         
         
@@ -53,11 +49,7 @@ public class AddExerciseViewModel: ObservableObject {
     let goToCreateExercise: (@escaping (Exercise?) -> Void) -> Void
     
     
-    @Published var allSelectableExercises = [SelectableExercise]() {
-        didSet {
-            print("all exercises (\(allSelectableExercises.map { $0.exercise.name }),\(allSelectableExercises.map { $0.isSelected }))")
-        }
-    }
+    @Published var allSelectableExercises = [SelectableExercise]()
 
     
     var selectableFilteredExercises: [SelectableExercise] {
