@@ -19,23 +19,3 @@ enum RoutineDetailUIComposer {
         RoutineDetailView(viewModel: viewModel)
     }
 }
-
-
-
-class RoutineDetailNavigationFlow {
-    
-    enum SheetyIdentifier: Identifiable {
-        
-        case addExercise(([Exercise]) -> Void)
-        case exerciseDetail
-        
-        var id: String {
-            switch self {
-            case .addExercise:
-                return "AddExercise"
-            case .exerciseDetail:
-                return "ExerciseDetail"
-            }
-        }
-    }
-}
