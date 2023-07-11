@@ -187,6 +187,74 @@ class CoreDataRoutineStoreTests: XCTestCase {
     }
     
     
+    // MARK: Update Routine
+    func test_coreDataRoutineStore_updateRoutineForRoutineWithEmptyCache_deliversCannotFindRoutineError() {
+        
+        // given
+        let sut = makeSUT()
+        
+        // when/then
+        let anyIDThatIsNotInRoutineStore = UUID()
+        let updateError = update(routineID: anyIDThatIsNotInRoutineStore, with: uniqueRoutine(), in: sut)
+        
+        XCTAssertEqual(updateError as? NSError, CoreDataRoutineStore.Error.cannotFindRoutineWithID as NSError)
+    }
+    
+    
+    func test_coreDataRoutineStore_updateRoutineForRoutineThatExistsInNonCacheWithUpdatedRoutine_updatesRoutineWithNewValues() {
+        
+        // given
+        let sut = makeSUT()
+        
+        let originalName = "Any"
+        let updatedName = "Updated"
+        
+        let originalExercise = uniqueExercise()
+        create(originalExercise, into: sut)
+        
+        let updatedExercise = uniqueExercise()
+        create(updatedExercise, into: sut)
+        
+        let originalRoutine = uniqueRoutine(name: originalName, exercises: [originalExercise])
+        create(originalRoutine, into: sut)
+        
+        let updatedRoutine = uniqueRoutine(name: updatedName, exercises: [updatedExercise])
+        
+        // when
+        let updateError = update(routineID: originalRoutine.id, with: updatedRoutine, in: sut)
+        XCTAssertNil(updateError)
+        
+        // then
+        let expectedRoutine = Routine(id: originalRoutine.id, name: updatedRoutine.name, creationDate: originalRoutine.creationDate, exercises: updatedRoutine.exercises, routineRecords: originalRoutine.routineRecords)
+        expectReadRoutine(on: sut, with: originalRoutine.id, toCompleteWith: .success(expectedRoutine))
+    }
+    
+    
+    func test_coreDataRoutineStore_updateRoutineForRoutineThatExistsInNonCacheWithUpdatedRoutine_deliversNoError() {
+        
+        // given
+        let sut = makeSUT()
+        
+        let originalName = "Any"
+        let updatedName = "Updated"
+        
+        let originalExercise = uniqueExercise()
+        create(originalExercise, into: sut)
+        
+        let updatedExercise = uniqueExercise()
+        create(updatedExercise, into: sut)
+        
+        let originalRoutine = uniqueRoutine(name: originalName, exercises: [originalExercise])
+        create(originalRoutine, into: sut)
+        
+        let updatedRoutine = uniqueRoutine(name: updatedName, exercises: [updatedExercise])
+        
+        // when/then
+        let updateError = update(routineID: originalRoutine.id, with: updatedRoutine, in: sut)
+        XCTAssertNil(updateError)
+    }
+    
+    
     // TODO: Test with matching exercises
     
     // TODO: test to make sure there is an error if there are no exercises in a routine
@@ -227,6 +295,29 @@ class CoreDataRoutineStoreTests: XCTestCase {
         
         sut.createUniqueRoutine(routine) { result in
             receivedResult = result
+            exp.fulfill()
+        }
+        
+        wait(for: [exp], timeout: 1)
+        
+        return receivedResult
+    }
+    
+    
+    private func update(
+        routineID: UUID,
+        with newRoutine: Routine,
+        in sut: CoreDataRoutineStore,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) -> RoutineStore.UpdateRoutineResult {
+        
+        let exp = expectation(description: "Wait for RoutineStore update completion")
+        
+        var receivedResult: RoutineStore.UpdateRoutineResult = nil
+        
+        sut.updateRoutine(with: routineID, updatedRoutine: newRoutine) { error in
+            receivedResult = error
             exp.fulfill()
         }
         

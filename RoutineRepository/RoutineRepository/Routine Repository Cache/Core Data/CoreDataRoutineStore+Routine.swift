@@ -79,6 +79,27 @@ public extension CoreDataRoutineStore {
     }
     
     
+    /// updatedRoutine's `id` and `creationDate` properties will not be updated in CoreData - If a usecase appears, this can be changed
+    func updateRoutine(with id: UUID, updatedRoutine: Routine, completion: @escaping UpdateRoutineCompletion) {
+        
+        let context = context
+        context.perform {
+
+            do {
+                let routine = try ManagedRoutine.findRoutine(withID: id, in: context)
+//                routine.id = updatedRoutine.id
+                routine.name = updatedRoutine.name
+//                routine.creationDate = updatedRoutine.creationDate
+                routine.exercises = Set(try updatedRoutine.exercises.toManaged(in: context))
+                
+                completion(nil)
+            } catch {
+                completion(error)
+            }
+        }
+    }
+    
+    
     private func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
         
         let context = context

@@ -11,9 +11,11 @@ import Foundation
 public protocol RoutineStore {
     
     // Result Types
+    typealias CreateRoutineResult = Error?
     typealias ReadRoutineResult = Result<Routine, Error>
     typealias ReadRoutinesResult = Result<[Routine], Error>
-    typealias CreateRoutineResult = Error?
+    typealias UpdateRoutineResult = Error?
+    
     
     typealias CreateRoutineRecordResult = Error?
     typealias ReadRoutineRecordResult = Result<RoutineRecord, Error>
@@ -29,9 +31,10 @@ public protocol RoutineStore {
     
     
     // Completion Types
+    typealias CreateRoutineCompletion = (CreateRoutineResult) -> Void
     typealias ReadRoutineCompletion = (ReadRoutineResult) -> Void
     typealias ReadRoutinesCompletion = (ReadRoutinesResult) -> Void
-    typealias CreateRoutineCompletion = (CreateRoutineResult) -> Void
+    typealias UpdateRoutineCompletion = (UpdateRoutineResult) -> Void
     
     
     typealias CreateRoutineRecordCompletion = (CreateRoutineRecordResult) -> Void
@@ -58,6 +61,7 @@ public protocol RoutineStore {
 //    func readAllRoutines(completion: @escaping ReadRoutinesCompletion)
     func routineDataSource() -> RoutineDataSource
     func readRoutine(with id: UUID, completion: @escaping ReadRoutineCompletion)
+    func updateRoutine(with id: UUID, updatedRoutine: Routine, completion: @escaping UpdateRoutineCompletion)
     
     // Routine Records
     func createRoutineRecord(_ routineRecord: RoutineRecord, routine: Routine?, completion: @escaping CreateRoutineRecordCompletion)
