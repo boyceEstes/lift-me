@@ -141,7 +141,8 @@ struct RootView: View {
                     RoutineDetailUIComposer.makeRoutineDetailView(
                         routineStore: routineStore,
                         routine: routine,
-                        goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail
+                        goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail,
+                        goToWorkout: goToWorkoutFromRoutineDetail
                     )
                     .sheet(item: $routineDetailNavigationFlowDisplayedSheet) { identifier in
                         switch identifier {
@@ -149,6 +150,8 @@ struct RootView: View {
                             addExerciseViewWithNavigation(addExercisesCompletion: addExerciseCompletion)
                         case let .exerciseDetail:
                             Text("Some Exercise Detail")
+                        case let .workout(routine):
+                            workoutViewWithNavigation(routine: routine)
                         }
                     }
                 }
@@ -231,6 +234,11 @@ struct RootView: View {
     // MARK: Routine Detail NavigationFlow
     func goToAddExerciseFromRoutineDetail(addExerciseCompletion: @escaping AddExercisesCompletion) {
         routineDetailNavigationFlowDisplayedSheet = .addExercise(addExerciseCompletion)
+    }
+    
+    
+    func goToWorkoutFromRoutineDetail(routine: Routine) {
+        routineDetailNavigationFlowDisplayedSheet = .workout(routine)
     }
     
 

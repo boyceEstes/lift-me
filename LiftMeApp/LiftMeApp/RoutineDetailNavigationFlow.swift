@@ -14,6 +14,7 @@ class RoutineDetailNavigationFlow {
         
         case addExercise(([Exercise]) -> Void)
         case exerciseDetail
+        case workout(Routine)
         
         var id: String {
             switch self {
@@ -21,6 +22,8 @@ class RoutineDetailNavigationFlow {
                 return "AddExercise"
             case .exerciseDetail:
                 return "ExerciseDetail"
+            case let .workout(routine):
+                return "Workout - \(routine.id.uuidString)"
             }
         }
     }

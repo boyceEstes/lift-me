@@ -16,14 +16,15 @@ enum RoutineDetailUIComposer {
     static func makeRoutineDetailView(
         routineStore: RoutineStore,
         routine: Routine,
-        goToAddExerciseFromRoutineDetail: @escaping (@escaping ([Exercise]) -> Void) -> Void
+        goToAddExerciseFromRoutineDetail: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToWorkout: @escaping (Routine) -> Void
     ) -> RoutineDetailView {
         
-//        let viewModel = RoutineDetailViewModel(routineStore: routineStore, routine: routine, goToAddExercise: goToAddExerciseFromRoutineDetail)
         RoutineDetailView(
             routineStore: routineStore,
             routine: routine,
-            goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail
+            goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail,
+            goToWorkout: goToWorkout
         )
     }
 }

@@ -20,19 +20,22 @@ public class RoutineDetailViewModel: ObservableObject {
     let routineStore: RoutineStore
     let routine: Routine
     let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
+    let goToWorkout: (Routine) -> Void
     
     let uuid = UUID()
     
     public init(
         routineStore: RoutineStore,
         routine: Routine,
-        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToWorkout: @escaping (Routine) -> Void
     ) {
         
         self.routineStore = routineStore
         self.routine = routine
         self.exercises = routine.exercises
         self.goToAddExercise = goToAddExercise
+        self.goToWorkout = goToWorkout
         print("BOYCE: DID MAKE ROUTINE DETAIL VIEW MODEL - \(uuid)")
     }
     
@@ -98,13 +101,15 @@ public struct RoutineDetailView: View {
     public init(
         routineStore: RoutineStore,
         routine: Routine,
-        goToAddExerciseFromRoutineDetail: @escaping (@escaping ([Exercise]) -> Void) -> Void
+        goToAddExerciseFromRoutineDetail: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToWorkout: @escaping (Routine) -> Void
     ) {
         self._viewModel = StateObject(
             wrappedValue: RoutineDetailViewModel(
                 routineStore: routineStore,
                 routine: routine,
-                goToAddExercise: goToAddExerciseFromRoutineDetail
+                goToAddExercise: goToAddExerciseFromRoutineDetail,
+                goToWorkout: goToWorkout
             )
         )
     }
@@ -122,6 +127,12 @@ public struct RoutineDetailView: View {
                 Text("\(viewModel.uuid)")
             }
             
+            Button("Start Routine") {
+                viewModel.goToWorkout(viewModel.routine)
+            }
+            .buttonStyle(LongHighKeyButtonStyle())
+            .buttonStyle(BorderlessButtonStyle())
+            
             EditableExerciseSectionView(
                 exercises: $viewModel.exercises,
                 goToAddExercise: viewModel.goToAddExercisesWithCompletionHandled
@@ -138,7 +149,8 @@ struct RoutineDetailView_Previews: PreviewProvider {
         RoutineDetailView(
             routineStore: RoutineStorePreview(),
             routine: Routine(id: UUID(), name: "Routine", creationDate: Date(), exercises: [], routineRecords: []),
-            goToAddExerciseFromRoutineDetail: { _ in }
+            goToAddExerciseFromRoutineDetail: { _ in },
+            goToWorkout: { _ in }
         )
     }
 }
