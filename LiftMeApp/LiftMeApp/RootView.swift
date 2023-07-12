@@ -138,7 +138,7 @@ struct RootView: View {
                 switch identifier {
                 case let .routineDetail(routine: routine):
                     
-                    RoutineDetailUIComposer.makeRoutineDetailView(
+                    RoutineDetailView(
                         routineStore: routineStore,
                         routine: routine,
                         goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail,
