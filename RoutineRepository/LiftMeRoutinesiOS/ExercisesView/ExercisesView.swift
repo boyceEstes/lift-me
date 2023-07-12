@@ -74,14 +74,24 @@ public class ExercisesViewModel: ObservableObject {
 
 public struct ExercisesView: View {
     
-    @ObservedObject var viewModel: ExercisesViewModel
+    @StateObject var viewModel: ExercisesViewModel
     
     public let inspection = Inspection<Self>()
     
     
-    public init(viewModel: ExercisesViewModel) {
+    public init(
+        routineStore: RoutineStore,
+        goToExerciseDetailView: @escaping (Exercise) -> Void,
+        goToCreateExerciseView: @escaping () -> Void
+    ) {
         
-        self.viewModel = viewModel
+        self._viewModel = StateObject(
+            wrappedValue: ExercisesViewModel(
+                routineStore: routineStore,
+                goToExerciseDetailView: goToExerciseDetailView,
+                goToCreateExerciseView: goToCreateExerciseView
+            )
+        )
     }
     
     public var body: some View {
@@ -121,7 +131,11 @@ public struct ExercisesView: View {
 struct ExercisesView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ExercisesView(viewModel: ExercisesViewModel(routineStore: RoutineStorePreview(), goToExerciseDetailView: { _ in }, goToCreateExerciseView: { }))
+            ExercisesView(
+                routineStore: RoutineStorePreview(),
+                goToExerciseDetailView: { _ in },
+                goToCreateExerciseView: { }
+            )
         }
     }
 }

@@ -16,12 +16,10 @@ extension RootView {
     @ViewBuilder
     func makeExerciseListView() -> some View {
         
-        let viewModel = ExercisesViewModel(
+        ExercisesView(
             routineStore: routineStore,
             goToExerciseDetailView: goToExerciseDetail,
             goToCreateExerciseView: goToCreateExercise
         )
-        
-        ExercisesView(viewModel: viewModel)
     }
 }
