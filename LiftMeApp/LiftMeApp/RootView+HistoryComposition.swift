@@ -16,12 +16,9 @@ extension RootView {
     @ViewBuilder
     func makeHistoryView() -> some View {
         
-        
-        let viewModel = HistoryViewModel(
+        HistoryView(
             routineStore: routineStore,
             goToRoutineRecordDetailView: goToRoutineRecordDetail
         )
-        
-        HistoryView(viewModel: viewModel)
     }
 }

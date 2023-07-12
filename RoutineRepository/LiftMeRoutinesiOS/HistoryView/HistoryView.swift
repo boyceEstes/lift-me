@@ -41,12 +41,21 @@ public class HistoryViewModel: ObservableObject {
 
 public struct HistoryView: View {
     
-    @ObservedObject var viewModel: HistoryViewModel
+    @StateObject var viewModel: HistoryViewModel
     
     public let inspection = Inspection<Self>()
     
-    public init(viewModel: HistoryViewModel) {
-        self.viewModel = viewModel
+    public init(
+        routineStore: RoutineStore,
+        goToRoutineRecordDetailView: @escaping (RoutineRecord) -> Void
+    ) {
+        
+        self._viewModel = StateObject(
+            wrappedValue: HistoryViewModel(
+                routineStore: routineStore,
+                goToRoutineRecordDetailView: goToRoutineRecordDetailView
+            )
+        )
     }
     
     
@@ -137,6 +146,9 @@ public struct RoutineRecordCellView: View {
 struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
         
-        HistoryView(viewModel: HistoryViewModel(routineStore: RoutineStorePreview(), goToRoutineRecordDetailView: { _ in }))
+        HistoryView(
+            routineStore: RoutineStorePreview(),
+            goToRoutineRecordDetailView: { _ in }
+        )
     }
 }
