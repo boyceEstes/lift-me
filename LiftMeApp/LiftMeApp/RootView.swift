@@ -309,17 +309,33 @@ struct RootView: View {
     ) -> some View {
         
         NavigationStack {
-            CreateRoutineUIComposer.makeCreateRoutineView(
-                routineStore: routineStore,
+            createRoutineViewWithSheetNavigation(
                 routineRecord: routineRecord,
-                superDismiss: superDismiss,
-                goToAddExercise: goToAddExerciseFromCreateRoutine
+                superDismiss: superDismiss
             )
         }
+    }
+    
+    
+    @ViewBuilder
+    func createRoutineViewWithSheetNavigation(
+        routineRecord: RoutineRecord?,
+        superDismiss: (() -> Void)?
+    ) -> some View {
+        
+        CreateRoutineView(
+            routineStore: routineStore,
+            routineRecord: routineRecord,
+            superDismiss: superDismiss,
+            goToAddExercise: goToAddExerciseFromCreateRoutine
+//            goToExciseDetail: goToExerciseDetailFromCreateRoutine
+        )
         .sheet(item: $createRoutineNavigationFlowDisplayedSheet) { identifier in
             switch identifier {
             case let .addExercise(addExercisesCompletion):
                 addExerciseViewWithNavigation(addExercisesCompletion: addExercisesCompletion)
+            case let .exerciseDetail(exercise):
+                Text(exercise.name)
             }
         }
     }
@@ -327,6 +343,11 @@ struct RootView: View {
     
     func goToAddExerciseFromCreateRoutine(addExerciseCompletion: @escaping AddExercisesCompletion) {
         createRoutineNavigationFlowDisplayedSheet = .addExercise(addExercisesCompletion: addExerciseCompletion)
+    }
+    
+    
+    func goToExerciseDetailFromCreateRoutine(exercise: Exercise) {
+        createRoutineNavigationFlowDisplayedSheet = .exerciseDetail(exercise)
     }
     
     

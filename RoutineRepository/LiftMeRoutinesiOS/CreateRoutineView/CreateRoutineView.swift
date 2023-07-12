@@ -167,13 +167,21 @@ public struct CreateRoutineView: View {
     public let inspection = Inspection<Self>()
     
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var viewModel: CreateRoutineViewModel
+    @StateObject var viewModel: CreateRoutineViewModel
     
-    
+
     public init(
-        viewModel: CreateRoutineViewModel
+        routineStore: RoutineStore,
+        routineRecord: RoutineRecord?, // Only nonnil if creating routine from workout
+        superDismiss: (() -> Void)?, // Only nonnil if creating routine from workout
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void
     ) {
-        self.viewModel = viewModel
+        self._viewModel = StateObject(wrappedValue: CreateRoutineViewModel(
+            routineStore: routineStore,
+            routineRecord: routineRecord,
+            goToAddExercise: goToAddExercise,
+            superDismiss: superDismiss
+        ))
     }
     
     
@@ -287,13 +295,13 @@ struct EditableExerciseSectionView: View {
 struct CreateRoutineView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = CreateRoutineViewModel(
-            routineStore: RoutineStorePreview(),
-            goToAddExercise:  { _ in }
-        )
-        
         NavigationStack {
-            CreateRoutineView(viewModel: viewModel)
+            CreateRoutineView(
+                routineStore: RoutineStorePreview(),
+                routineRecord: nil,
+                superDismiss: nil,
+                goToAddExercise: { _ in }
+            )
         }
     }
 }

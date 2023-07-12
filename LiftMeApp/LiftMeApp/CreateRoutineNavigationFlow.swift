@@ -18,9 +18,8 @@ class CreateRoutineNavigationFlow: NewSheetyNavigationFlow {
 
         var id: Int { self.hashValue }
         
-        case addExercise(
-            addExercisesCompletion: ([Exercise]) -> Void
-        )
+        case addExercise(addExercisesCompletion: ([Exercise]) -> Void)
+        case exerciseDetail(Exercise)
         
         
         static func == (lhs: CreateRoutineNavigationFlow.SheetyIdentifier, rhs: CreateRoutineNavigationFlow.SheetyIdentifier) -> Bool {
@@ -29,7 +28,12 @@ class CreateRoutineNavigationFlow: NewSheetyNavigationFlow {
         
         
         func hash(into hasher: inout Hasher) {
-            hasher.combine(0)
+            switch self {
+            case .addExercise:
+                hasher.combine("add exercise")
+            case let .exerciseDetail(exercise):
+                hasher.combine("exercise detail - \(exercise.id.uuidString)")
+            }
         }
     }
 }
