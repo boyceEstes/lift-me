@@ -16,6 +16,7 @@ public class CreateRoutineViewModel: ObservableObject {
 
     var dismiss: (() -> Void)? // Set in View from Environment dismiss
     let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
+    let goToExerciseDetail: (Exercise) -> Void
     let superDismiss: (() -> Void)?
     
     @Published var name = ""
@@ -26,12 +27,14 @@ public class CreateRoutineViewModel: ObservableObject {
         routineStore: RoutineStore,
         routineRecord: RoutineRecord? = nil,
         goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToExerciseDetail: @escaping (Exercise) -> Void,
         superDismiss: (() -> Void)? = nil
     ) {
         
         self.routineStore = routineStore
         self.routineRecord = routineRecord
         self.goToAddExercise = goToAddExercise
+        self.goToExerciseDetail = goToExerciseDetail
         self.superDismiss = superDismiss
         
         populateExercisesFromRoutineRecordIfPossible()
@@ -174,12 +177,14 @@ public struct CreateRoutineView: View {
         routineStore: RoutineStore,
         routineRecord: RoutineRecord?, // Only nonnil if creating routine from workout
         superDismiss: (() -> Void)?, // Only nonnil if creating routine from workout
-        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToExerciseDetail: @escaping (Exercise) -> Void
     ) {
         self._viewModel = StateObject(wrappedValue: CreateRoutineViewModel(
             routineStore: routineStore,
             routineRecord: routineRecord,
             goToAddExercise: goToAddExercise,
+            goToExerciseDetail: goToExerciseDetail,
             superDismiss: superDismiss
         ))
     }
@@ -200,7 +205,7 @@ public struct CreateRoutineView: View {
             EditableExerciseSectionView(
                 exercises: $viewModel.exercises,
                 goToAddExercise: viewModel.goToAddExerciseWithCompletionHandled,
-                goToExerciseDetail: { _ in print("Go to exercise detail later") }
+                goToExerciseDetail: viewModel.goToExerciseDetail
             )
         }
         .basicNavigationBar(title: "Create Routine")
@@ -300,7 +305,8 @@ struct CreateRoutineView_Previews: PreviewProvider {
                 routineStore: RoutineStorePreview(),
                 routineRecord: nil,
                 superDismiss: nil,
-                goToAddExercise: { _ in }
+                goToAddExercise: { _ in },
+                goToExerciseDetail: { _ in }
             )
         }
     }

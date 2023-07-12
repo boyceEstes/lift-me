@@ -327,15 +327,15 @@ struct RootView: View {
             routineStore: routineStore,
             routineRecord: routineRecord,
             superDismiss: superDismiss,
-            goToAddExercise: goToAddExerciseFromCreateRoutine
-//            goToExciseDetail: goToExerciseDetailFromCreateRoutine
+            goToAddExercise: goToAddExerciseFromCreateRoutine,
+            goToExerciseDetail: goToExerciseDetailFromCreateRoutine
         )
         .sheet(item: $createRoutineNavigationFlowDisplayedSheet) { identifier in
             switch identifier {
             case let .addExercise(addExercisesCompletion):
                 addExerciseViewWithNavigation(addExercisesCompletion: addExercisesCompletion)
             case let .exerciseDetail(exercise):
-                Text(exercise.name)
+                exerciseDetailViewWithNavigation(exercise: exercise)
             }
         }
     }
