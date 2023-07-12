@@ -54,26 +54,26 @@ extension RootView {
         HomeView(
             routineListView: RoutineListView(
                 routineStore: routineStore,
-                goToCreateRoutine: goToCreateRoutine,
-                goToRoutineDetail: goToRoutineDetail
+                goToCreateRoutine: goToCreateRoutineFromHome,
+                goToRoutineDetail: goToRoutineDetailFromHome
             ),
-            goToWorkoutViewWithNoRoutine: goToWorkoutWithNoRoutine
+            goToWorkoutViewWithNoRoutine: goToWorkoutWithNoRoutineFromHome
         )
     }
     
     
     // MARK: - Navigation
-    func goToCreateRoutine() {
+    func goToCreateRoutineFromHome() {
         homeNavigationFlowDisplayedSheet = .createRoutine
     }
     
     
-    func goToRoutineDetail(routine: Routine) {
+    func goToRoutineDetailFromHome(routine: Routine) {
         homeNavigationFlowPath.append(.routineDetail(routine: routine))
     }
     
     
-    func goToWorkoutWithNoRoutine() {
+    func goToWorkoutWithNoRoutineFromHome() {
         homeNavigationFlowDisplayedSheet = .workout(nil)
     }
 }
