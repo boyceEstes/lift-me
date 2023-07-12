@@ -246,6 +246,7 @@ struct EditableExerciseSectionView: View {
                     .font(.headline)
                 Spacer()
                 Button {
+                    print("tapped add button in EditableExerciseSectionView")
                     goToAddExercise()
                 } label: {
                     HStack {

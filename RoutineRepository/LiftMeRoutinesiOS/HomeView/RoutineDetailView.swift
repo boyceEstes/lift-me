@@ -11,7 +11,11 @@ import RoutineRepository
 
 public class RoutineDetailViewModel: ObservableObject {
     
-    @Published var exercises: [Exercise]
+    @Published var exercises: [Exercise] {
+        didSet {
+            print("changed exercises to: \(exercises)")
+        }
+    }
     
     let routineStore: RoutineStore
     let routine: Routine
@@ -31,11 +35,56 @@ public class RoutineDetailViewModel: ObservableObject {
         self.goToAddExercise = goToAddExercise
         print("BOYCE: DID MAKE ROUTINE DETAIL VIEW MODEL - \(uuid)")
     }
+    
    
     func goToAddExercisesWithCompletionHandled() {
+        print("goToAddExercisesWithCompletionHandled")
         
-        goToAddExercise { addedExercises in
-            print("Add exercise completion from routine detail")
+        goToAddExercise { [weak self] addedExercises in
+            
+            var updatedExercises: [Exercise]? = self?.exercises
+            updatedExercises?.append(contentsOf: addedExercises)
+            self?.updateRoutine(exercises: updatedExercises)
+        }
+    }
+    
+    
+    private func updateRoutine(name: String? = nil, exercises: [Exercise]? = nil) {
+        
+        guard name != nil || exercises != nil else { return }
+        
+        let updatedRoutine = Routine(
+            id: routine.id,
+            name: name ?? routine.name,
+            creationDate: routine.creationDate,
+            exercises: exercises ?? routine.exercises,
+            routineRecords: routine.routineRecords
+        )
+        
+        routineStore.updateRoutine(
+            with: routine.id,
+            updatedRoutine: updatedRoutine
+        ) { [weak self] error in
+            
+            guard error == nil else {
+                fatalError("handle error \(error!)")
+            }
+            
+            self?.reloadRoutine()
+        }
+    }
+    
+    
+    private func reloadRoutine() {
+        
+        routineStore.readRoutine(with: routine.id) { [weak self] result in
+            switch result {
+            case let .success(latestRoutine):
+                self?.exercises = latestRoutine.exercises
+                
+            case let .failure(error):
+                fatalError("handle error - \(error)")
+            }
         }
     }
 }
@@ -43,16 +92,21 @@ public class RoutineDetailViewModel: ObservableObject {
 
 public struct RoutineDetailView: View {
     
-//    let goToWorkout: (Routine) -> Void
-//    let goToExerciseDetail: (Exercise) -> Void
-    
-    @ObservedObject var viewModel: RoutineDetailViewModel
+    @StateObject var viewModel: RoutineDetailViewModel
     
     
     public init(
-        viewModel: RoutineDetailViewModel
+        routineStore: RoutineStore,
+        routine: Routine,
+        goToAddExerciseFromRoutineDetail: @escaping (@escaping ([Exercise]) -> Void) -> Void
     ) {
-        self.viewModel = viewModel
+        self._viewModel = StateObject(
+            wrappedValue: RoutineDetailViewModel(
+                routineStore: routineStore,
+                routine: routine,
+                goToAddExercise: goToAddExerciseFromRoutineDetail
+            )
+        )
     }
     
     
@@ -74,9 +128,6 @@ public struct RoutineDetailView: View {
             )
         })
         .basicNavigationBar(title: "Routine Details")
-        .onReceive(viewModel.exercises.publisher, perform: { exercise in
-            print("received: \(exercise)")
-        })
     }
 }
 
@@ -84,14 +135,10 @@ public struct RoutineDetailView: View {
 struct RoutineDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = RoutineDetailViewModel(
+        RoutineDetailView(
             routineStore: RoutineStorePreview(),
             routine: Routine(id: UUID(), name: "Routine", creationDate: Date(), exercises: [], routineRecords: []),
-            goToAddExercise: { _ in }
-        )
-        
-        RoutineDetailView(
-            viewModel: viewModel
+            goToAddExerciseFromRoutineDetail: { _ in }
         )
     }
 }

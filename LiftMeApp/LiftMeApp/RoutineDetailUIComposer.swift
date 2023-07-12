@@ -19,7 +19,11 @@ enum RoutineDetailUIComposer {
         goToAddExerciseFromRoutineDetail: @escaping (@escaping ([Exercise]) -> Void) -> Void
     ) -> RoutineDetailView {
         
-        let viewModel = RoutineDetailViewModel(routineStore: routineStore, routine: routine, goToAddExercise: goToAddExerciseFromRoutineDetail)
-        RoutineDetailView(viewModel: viewModel)
+//        let viewModel = RoutineDetailViewModel(routineStore: routineStore, routine: routine, goToAddExercise: goToAddExerciseFromRoutineDetail)
+        RoutineDetailView(
+            routineStore: routineStore,
+            routine: routine,
+            goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail
+        )
     }
 }
