@@ -38,7 +38,6 @@
 		B3692CC929998D8F00D9BD05 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CC829998D8F00D9BD05 /* RootView.swift */; };
 		B3692CCB2999912E00D9BD05 /* HistoryUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CCA2999912E00D9BD05 /* HistoryUIIntegrationTests.swift */; };
 		B3692CCD2999952500D9BD05 /* HistoryUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CCC2999952500D9BD05 /* HistoryUIComposerWithSpys.swift */; };
-		B3692CD22999B91200D9BD05 /* ExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */; };
 		B3692CD42999BE0100D9BD05 /* ExerciseNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */; };
 		B3692CD92999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */; };
 		B3692CDB2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift */; };
@@ -46,6 +45,7 @@
 		B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A8548C2908D48300F04CC1 /* LiftMeAppApp.swift */; };
 		B3A854912908D48400F04CC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854902908D48400F04CC1 /* Assets.xcassets */; };
 		B3A854942908D48400F04CC1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3A854932908D48400F04CC1 /* Preview Assets.xcassets */; };
+		B3BA41B82A5F52DF00E6A241 /* RootView+ExerciseListComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA41B72A5F52DF00E6A241 /* RootView+ExerciseListComposition.swift */; };
 		B3E156EF299A3BF700A5BC50 /* CreateRoutineUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E156EE299A3BF700A5BC50 /* CreateRoutineUIComposer.swift */; };
 		B3E156F1299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E156F0299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift */; };
 		B3F0E28F292FCB9800A5C506 /* HomeNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0E28E292FCB9800A5C506 /* HomeNavigationFlow.swift */; };
@@ -106,7 +106,6 @@
 		B3692CC829998D8F00D9BD05 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		B3692CCA2999912E00D9BD05 /* HistoryUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B3692CCC2999952500D9BD05 /* HistoryUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryUIComposerWithSpys.swift; sourceTree = "<group>"; };
-		B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseUIComposer.swift; sourceTree = "<group>"; };
 		B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseNavigationFlow.swift; sourceTree = "<group>"; };
 		B3692CD82999C5CB00D9BD05 /* ExerciesViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciesViewUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B3692CDA2999C6FD00D9BD05 /* ExerciseUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseUIComposerWithSpys.swift; sourceTree = "<group>"; };
@@ -116,6 +115,7 @@
 		B3A854902908D48400F04CC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3A854932908D48400F04CC1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B3A854992908D48500F04CC1 /* LiftMeAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3BA41B72A5F52DF00E6A241 /* RootView+ExerciseListComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView+ExerciseListComposition.swift"; sourceTree = "<group>"; };
 		B3E156EE299A3BF700A5BC50 /* CreateRoutineUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreateRoutineUIComposer.swift; path = ../../../../../../Desktop/CreateRoutineUIComposer.swift; sourceTree = "<group>"; };
 		B3E156F0299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineNavigationFlow.swift; sourceTree = "<group>"; };
 		B3F0E28E292FCB9800A5C506 /* HomeNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationFlow.swift; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 				B3692CC829998D8F00D9BD05 /* RootView.swift */,
 				B307D3682A5B8E7A009F99E5 /* CreateExercise */,
 				B3E156ED299A3BA800A5BC50 /* CreateRoutine */,
-				B3692CD02999B8F400D9BD05 /* Exercises */,
+				B3692CD02999B8F400D9BD05 /* ExerciseList */,
 				B3692CBA2999801700D9BD05 /* History */,
 				B33D0FB52970644400C2FB1E /* Home */,
 				B3303E1A2A5DAAD300C1F816 /* RoutineDetail */,
@@ -250,13 +250,13 @@
 			name = History;
 			sourceTree = "<group>";
 		};
-		B3692CD02999B8F400D9BD05 /* Exercises */ = {
+		B3692CD02999B8F400D9BD05 /* ExerciseList */ = {
 			isa = PBXGroup;
 			children = (
-				B3692CD12999B91200D9BD05 /* ExerciseUIComposer.swift */,
 				B3692CD32999BE0100D9BD05 /* ExerciseNavigationFlow.swift */,
+				B3BA41B72A5F52DF00E6A241 /* RootView+ExerciseListComposition.swift */,
 			);
-			name = Exercises;
+			name = ExerciseList;
 			sourceTree = "<group>";
 		};
 		B3A854802908D48300F04CC1 = {
@@ -451,8 +451,8 @@
 				B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */,
 				B352A08329E0542300923B6C /* AddExerciseNavigationFlow.swift in Sources */,
 				B3692CBC2999803400D9BD05 /* HistoryUIComposer.swift in Sources */,
-				B3692CD22999B91200D9BD05 /* ExerciseUIComposer.swift in Sources */,
 				B307D36A2A5B8E89009F99E5 /* CreateExerciseUIComposer.swift in Sources */,
+				B3BA41B82A5F52DF00E6A241 /* RootView+ExerciseListComposition.swift in Sources */,
 				B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */,
 				B33D0FB42970643E00C2FB1E /* WorkoutUIComposer.swift in Sources */,
 				B3E156F1299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift in Sources */,

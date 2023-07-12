@@ -46,11 +46,7 @@ struct RootView: View {
                 Label("Home", systemImage: "house")
             }
 
-            ExerciseListUIComposer.makeExerciseList(
-                routineStore: routineStore,
-                goToCreateExercise: goToCreateExercise,
-                goToExerciseDetail: goToExerciseDetail
-            )
+            makeExerciseListView()
             .flowNavigationDestination(flowPath: $exerciseListNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .exerciseDetail(exercise):
