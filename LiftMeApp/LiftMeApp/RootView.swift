@@ -53,10 +53,7 @@ struct RootView: View {
                 }
 
 
-            HistoryUIComposer.makeHistoryView(
-                routineStore: routineStore,
-                goToRoutineRecordDetail: goToRoutineRecordDetail
-            )
+            makeHistoryView()
             .flowNavigationDestination(flowPath: $historyNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .routineRecordDetail(routineRecord):
