@@ -52,7 +52,7 @@ extension RootView {
     private func makeHomeView() -> HomeView {
         
         HomeView(
-            routineListView: makeRoutineListView(
+            routineListView: RoutineListView(
                 routineStore: routineStore,
                 goToCreateRoutine: goToCreateRoutine,
                 goToRoutineDetail: goToRoutineDetail

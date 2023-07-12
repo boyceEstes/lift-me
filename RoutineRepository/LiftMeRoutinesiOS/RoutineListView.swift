@@ -18,10 +18,10 @@ public class RoutineListViewModel: ObservableObject {
     let goToCreateRoutine: () -> Void
     let goToRoutineDetail: (Routine) -> Void
     
-//    let routineUIDataSource: RoutineDataSource
+    //    let routineUIDataSource: RoutineDataSource
     
     // TODO: Could I make this a future instead since it should only be emitted once
-//    @Published var firstLoadCompleted = false
+    //    @Published var firstLoadCompleted = false
     @Published var routineLoadingError = false
     @Published var routines = [Routine]()
     
@@ -46,16 +46,16 @@ public class RoutineListViewModel: ObservableObject {
         
         routineDataSource.routines
             .sink { [weak self] error in
-            print("BOYCE: 2 Error")
-            self?.routineLoadingError = true
+                print("BOYCE: 2 Error")
+                self?.routineLoadingError = true
                 
-        } receiveValue: { [weak self] routines in
-            
-            self?.routines = routines
-            
-        }.store(in: &cancellables)
+            } receiveValue: { [weak self] routines in
+                
+                self?.routines = routines
+                
+            }.store(in: &cancellables)
     }
-
+    
     
     func tappedNewButton() {
         goToCreateRoutine()
@@ -67,26 +67,32 @@ public struct RoutineListView: View {
     
     public let inspection = Inspection<Self>()
     
-    @ObservedObject var viewModel: RoutineListViewModel
+    @StateObject var viewModel: RoutineListViewModel
     
     
     public init(
-        viewModel: RoutineListViewModel) {
-            
-        self.viewModel = viewModel
+        routineStore: RoutineStore,
+        goToCreateRoutine: @escaping () -> Void,
+        goToRoutineDetail: @escaping (Routine) -> Void
+    ) {
+        
+        self._viewModel = StateObject(
+            wrappedValue: RoutineListViewModel(
+                routineStore: routineStore,
+                goToCreateRoutine: goToCreateRoutine,
+                goToRoutineDetail: goToRoutineDetail
+            )
+        )
     }
     
     
     public var body: some View {
         VStack(alignment: .leading) {
-
+            
             RoutineTitleBarView(viewModel: viewModel)
             
             ScrollableRoutineListView(viewModel: viewModel)
         }
-//        .onAppear {
-//            viewModel.loadRoutines()
-//        }
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
         }
@@ -96,7 +102,7 @@ public struct RoutineListView: View {
 
 public struct RoutineTitleBarView: View {
     
-
+    
     @ObservedObject var viewModel: RoutineListViewModel
     
     public var body: some View {
@@ -112,7 +118,7 @@ public struct RoutineTitleBarView: View {
             }
             
             Spacer()
-
+            
             MoreRoutinesButtonView()
         }
         .padding(.horizontal)
@@ -172,26 +178,23 @@ public struct ScrollableRoutineListView: View {
             
             LazyHStack(spacing: 12) {
                 
-//                if viewModel.firstLoadCompleted {
+                if viewModel.routineLoadingError {
+                    ErrorRoutineCellView()
+                } else {
                     
-                    if viewModel.routineLoadingError {
-                        ErrorRoutineCellView()
+                    if viewModel.routines.isEmpty {
+                        EmptyRoutineCellView()
+                        
                     } else {
                         
-                        if viewModel.routines.isEmpty {
-                            EmptyRoutineCellView()
-                            
-                        } else {
-                            
-                            ForEach(viewModel.routines, id: \.self) { routine in
-                                RoutineCellView(
-                                    routine: routine,
-                                    goToRoutineDetail: viewModel.goToRoutineDetail
-                                )
-                            }
+                        ForEach(viewModel.routines, id: \.self) { routine in
+                            RoutineCellView(
+                                routine: routine,
+                                goToRoutineDetail: viewModel.goToRoutineDetail
+                            )
                         }
                     }
-//                }
+                }
             }
             .padding(.leading)
             .frame(height: 160)
@@ -206,12 +209,10 @@ struct RoutineListView_Previews: PreviewProvider {
     static var previews: some View {
         
         RoutineListView(
-            viewModel: RoutineListViewModel(
-                routineStore: RoutineStorePreview(),
-                goToCreateRoutine: { },
-                goToRoutineDetail: { _ in }
-            )
+            routineStore: RoutineStorePreview(),
+            goToCreateRoutine: { },
+            goToRoutineDetail: { _ in }
         )
-//        .preferredColorScheme(.dark)
+        //        .preferredColorScheme(.dark)
     }
 }
