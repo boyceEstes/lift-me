@@ -46,20 +46,20 @@ extension RootView {
         
         ExercisesView(
             routineStore: routineStore,
-            goToExerciseDetailView: goToExerciseDetail,
-            goToCreateExerciseView: goToCreateExercise
+            goToExerciseDetailView: goToExerciseDetailFromExerciseList,
+            goToCreateExerciseView: goToCreateExerciseFromExerciseList
         )
     }
     
     
     // MARK: - Navigation
     
-    func goToExerciseDetail(exercise: Exercise) {
+    func goToExerciseDetailFromExerciseList(exercise: Exercise) {
         exerciseListNavigationFlowPath.append(.exerciseDetail(exercise))
     }
     
     
-    func goToCreateExercise() {
+    func goToCreateExerciseFromExerciseList() {
         exerciseListNavigationFlowDisplayedSheet = .createExercise
     }
 }
