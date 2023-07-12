@@ -15,8 +15,8 @@ struct RootView: View {
     // new navigation
     let routineStore: RoutineStore
     // Home
-    @State private var homeNavigationFlowDisplayedSheet: HomeNavigationFlow.SheetyIdentifier?
-    @State private var homeNavigationFlowPath = [HomeNavigationFlow.StackIdentifier]()
+    @State var homeNavigationFlowPath = [HomeNavigationFlow.StackIdentifier]()
+    @State var homeNavigationFlowDisplayedSheet: HomeNavigationFlow.SheetyIdentifier?
     // RoutineDetail
     @State private var routineDetailNavigationFlowDisplayedSheet: RoutineDetailNavigationFlow.SheetyIdentifier?
     // Workout
@@ -41,30 +41,7 @@ struct RootView: View {
     
     var body: some View {
         TabView {
-            HomeUIComposer.makeHomeView(
-                routineStore: routineStore,
-                goToCreateRoutine: goToCreateRoutine,
-                goToRoutineDetail: goToRoutineDetail,
-                goToWorkoutWithNoRoutine: goToWorkoutWithNoRoutine)
-            .flowNavigationDestination(flowPath: $homeNavigationFlowPath) { identifier in
-                switch identifier {
-                case let .routineDetail(routine: routine):
-                    routineDetailViewWithSheetNavigation(routine: routine)
-                case let .exerciseDetail(exercise: exercise):
-                    exerciseDetailView(exercise: exercise)
-                }
-            }
-            .sheet(item: $homeNavigationFlowDisplayedSheet) { identifier in
-                switch identifier {
-                    
-                case let .workout(routine):
-                    workoutViewWithNavigation(routine: routine)
-
-                case .createRoutine:
-                    // Only have routine record and super dismiss when it is coming from `WorkoutNavigationFlow`
-                    createRoutineViewWithNavigation(routineRecord: nil, superDismiss: nil)
-                }
-            }
+            makeHomeViewWithStackSheetNavigation()
             .tabItem {
                 Label("Home", systemImage: "house")
             }
@@ -111,22 +88,7 @@ struct RootView: View {
 //        .toolbarColorScheme(.light, for: .tabBar)
 //        .toolbarColorScheme(Color.universeRed, for: .tabBar)
     }
-    
-    // MARK: Home Navigation Flow
-    func goToCreateRoutine() {
-        homeNavigationFlowDisplayedSheet = .createRoutine
-    }
-    
-    
-    func goToRoutineDetail(routine: Routine) {
-        homeNavigationFlowPath.append(.routineDetail(routine: routine))
-    }
-    
-    
-    func goToWorkoutWithNoRoutine() {
-        homeNavigationFlowDisplayedSheet = .workout(nil)
-    }
-    
+
     
     // MARK: Routine Detail NavigationFlow
     

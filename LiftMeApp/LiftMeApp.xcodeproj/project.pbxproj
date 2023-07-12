@@ -10,6 +10,8 @@
 		B307D36A2A5B8E89009F99E5 /* CreateExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307D3692A5B8E89009F99E5 /* CreateExerciseUIComposer.swift */; };
 		B30E83C1291EB10200A19724 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B30E83C0291EB10200A19724 /* ViewInspector */; };
 		B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */; };
+		B315FB102A5F4CF400B52318 /* RootView+HomeComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B315FB0F2A5F4CF400B52318 /* RootView+HomeComposition.swift */; };
+		B315FB122A5F4DD500B52318 /* RootView+RoutineListComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B315FB112A5F4DD500B52318 /* RootView+RoutineListComposition.swift */; };
 		B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift */; };
 		B329086A297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3290869297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift */; };
 		B329086D298189EE008350B1 /* RoutineStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B329086C298189EE008350B1 /* RoutineStoreSpy.swift */; };
@@ -80,6 +82,8 @@
 /* Begin PBXFileReference section */
 		B307D3692A5B8E89009F99E5 /* CreateExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseUIComposer.swift; sourceTree = "<group>"; };
 		B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineUIIntegrationTests.swift; sourceTree = "<group>"; };
+		B315FB0F2A5F4CF400B52318 /* RootView+HomeComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView+HomeComposition.swift"; sourceTree = "<group>"; };
+		B315FB112A5F4DD500B52318 /* RootView+RoutineListComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView+RoutineListComposition.swift"; sourceTree = "<group>"; };
 		B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueueMainDecorator+RoutineStore.swift"; sourceTree = "<group>"; };
 		B3290869297B107C008350B1 /* AddExerciseViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseViewUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B329086C298189EE008350B1 /* RoutineStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStoreSpy.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 				B33D0FB62970645800C2FB1E /* Workout */,
 				B368912A2913FBA800E04957 /* HomeUIComposer.swift */,
 				B3F0E28E292FCB9800A5C506 /* HomeNavigationFlow.swift */,
+				B315FB0F2A5F4CF400B52318 /* RootView+HomeComposition.swift */,
+				B315FB112A5F4DD500B52318 /* RootView+RoutineListComposition.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -445,6 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B315FB122A5F4DD500B52318 /* RootView+RoutineListComposition.swift in Sources */,
 				B3E156EF299A3BF700A5BC50 /* CreateRoutineUIComposer.swift in Sources */,
 				B3F0E28F292FCB9800A5C506 /* HomeNavigationFlow.swift in Sources */,
 				B33D0FB82970647500C2FB1E /* WorkoutNavigationFlow.swift in Sources */,
@@ -463,6 +470,7 @@
 				B352A08129E0541900923B6C /* AddExerciseUIComposer.swift in Sources */,
 				B35970F82A535B4C00C4D3A5 /* NavigationFlow.swift in Sources */,
 				B3692CC929998D8F00D9BD05 /* RootView.swift in Sources */,
+				B315FB102A5F4CF400B52318 /* RootView+HomeComposition.swift in Sources */,
 				B3692CD42999BE0100D9BD05 /* ExerciseNavigationFlow.swift in Sources */,
 				B35970F92A535B4C00C4D3A5 /* View+FlowNavigationDestination.swift in Sources */,
 			);
