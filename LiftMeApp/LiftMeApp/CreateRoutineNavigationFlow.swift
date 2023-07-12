@@ -12,6 +12,21 @@ import RoutineRepository
 class CreateRoutineNavigationFlow: NewSheetyNavigationFlow {
     
     @Published var displayedSheet: SheetyIdentifier?
+    
+    
+    // MARK: - Stack
+    enum StackIdentifier: Hashable {
+        
+        case exerciseDetail(Exercise)
+        
+        func hash(into hasher: inout Hasher) {
+            switch self {
+            case let .exerciseDetail(exercise):
+                hasher.combine("exercise detail - \(exercise.id.uuidString)")
+            }
+        }
+    }
+    
 
     // MARK: - Sheet
     enum SheetyIdentifier: Identifiable, Hashable {
@@ -19,8 +34,7 @@ class CreateRoutineNavigationFlow: NewSheetyNavigationFlow {
         var id: Int { self.hashValue }
         
         case addExercise(addExercisesCompletion: ([Exercise]) -> Void)
-        case exerciseDetail(Exercise)
-        
+
         
         static func == (lhs: CreateRoutineNavigationFlow.SheetyIdentifier, rhs: CreateRoutineNavigationFlow.SheetyIdentifier) -> Bool {
             lhs.id == rhs.id
@@ -31,8 +45,6 @@ class CreateRoutineNavigationFlow: NewSheetyNavigationFlow {
             switch self {
             case .addExercise:
                 hasher.combine("add exercise")
-            case let .exerciseDetail(exercise):
-                hasher.combine("exercise detail - \(exercise.id.uuidString)")
             }
         }
     }

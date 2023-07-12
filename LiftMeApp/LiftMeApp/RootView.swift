@@ -22,6 +22,7 @@ struct RootView: View {
     // Workout
     @State private var workoutNavigationFlowDisplayedSheet: WorkoutNavigationFlow.SheetyIdentifier?
     // CreateRoutine
+    @State private var createRoutineNavigationFlowPath = [CreateRoutineNavigationFlow.StackIdentifier]()
     @State private var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
     // Add Exercise
     @State private var addExerciseNavigationFlowDisplayedSheet: AddExerciseNavigationFlow.SheetyIdentifier?
@@ -145,7 +146,7 @@ struct RootView: View {
                 addExerciseViewWithNavigation(addExercisesCompletion: addExerciseCompletion)
                 
             case let .exerciseDetail(exercise):
-                exerciseDetailViewWithNavigation(exercise: exercise)
+                exerciseDetailView(exercise: exercise)
                 
             case let .workout(routine):
                 workoutViewWithNavigation(routine: routine)
@@ -219,11 +220,17 @@ struct RootView: View {
         superDismiss: (() -> Void)?
     ) -> some View {
         
-        NavigationStack {
+        NavigationStack(path: $createRoutineNavigationFlowPath) {
             createRoutineViewWithSheetNavigation(
                 routineRecord: routineRecord,
                 superDismiss: superDismiss
             )
+            .navigationDestination(for: CreateRoutineNavigationFlow.StackIdentifier.self) { identifier in
+                switch identifier {
+                case let .exerciseDetail(exercise):
+                    exerciseDetailView(exercise: exercise)
+                }
+            }
         }
     }
     
@@ -245,8 +252,6 @@ struct RootView: View {
             switch identifier {
             case let .addExercise(addExercisesCompletion):
                 addExerciseViewWithNavigation(addExercisesCompletion: addExercisesCompletion)
-            case let .exerciseDetail(exercise):
-                exerciseDetailViewWithNavigation(exercise: exercise)
             }
         }
     }
@@ -258,7 +263,7 @@ struct RootView: View {
     
     
     func goToExerciseDetailFromCreateRoutine(exercise: Exercise) {
-        createRoutineNavigationFlowDisplayedSheet = .exerciseDetail(exercise)
+        createRoutineNavigationFlowPath.append(.exerciseDetail(exercise))
     }
     
     
@@ -319,14 +324,6 @@ struct RootView: View {
     
     
     // MARK: Exercise Detail View
-    @ViewBuilder
-    func exerciseDetailViewWithNavigation(exercise: Exercise) -> some View {
-        
-        NavigationStack {
-            exerciseDetailView(exercise: exercise)
-        }
-    }
-    
     
     @ViewBuilder
     func exerciseDetailView(exercise: Exercise) -> some View {
