@@ -19,7 +19,7 @@ struct RootView: View {
     @State var homeNavigationFlowPath = [HomeNavigationFlow.StackIdentifier]()
     @State var homeNavigationFlowDisplayedSheet: HomeNavigationFlow.SheetyIdentifier?
     // RoutineDetail
-    @State private var routineDetailNavigationFlowDisplayedSheet: RoutineDetailNavigationFlow.SheetyIdentifier?
+    @State var routineDetailNavigationFlowDisplayedSheet: RoutineDetailNavigationFlow.SheetyIdentifier?
     // Workout
     @State private var workoutNavigationFlowDisplayedSheet: WorkoutNavigationFlow.SheetyIdentifier?
     // CreateRoutine
@@ -60,48 +60,7 @@ struct RootView: View {
     }
 
     
-    // MARK: Routine Detail NavigationFlow
-    
-    // NOTE: This is going to be pushed from the HomeNavigationFlow path. If it ever needs it own modal, give it its
-    // own navigation stack
-    @ViewBuilder
-    func routineDetailViewWithSheetNavigation(
-        routine: Routine
-    ) -> some View {
-        
-        RoutineDetailView(
-            routineStore: routineStore,
-            routine: routine,
-            goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail,
-            goToWorkout: goToWorkoutFromRoutineDetail,
-            goToExerciseDetail: goToExerciseDetailFromRoutineDetail
-        )
-        .sheet(item: $routineDetailNavigationFlowDisplayedSheet) { identifier in
-            switch identifier {
-                
-            case let .addExercise(addExerciseCompletion):
-                addExerciseViewWithNavigation(addExercisesCompletion: addExerciseCompletion)
-            case let .workout(routine):
-                workoutViewWithNavigation(routine: routine)
-            }
-        }
-    }
-    
-    
-    func goToAddExerciseFromRoutineDetail(addExerciseCompletion: @escaping AddExercisesCompletion) {
-        routineDetailNavigationFlowDisplayedSheet = .addExercise(addExerciseCompletion)
-    }
-    
-    
-    func goToWorkoutFromRoutineDetail(routine: Routine) {
-        routineDetailNavigationFlowDisplayedSheet = .workout(routine)
-    }
-    
-    
-    func goToExerciseDetailFromRoutineDetail(exercise: Exercise) {
-        homeNavigationFlowPath.append(.exerciseDetail(exercise: exercise))
-    }
-    
+
 
     // MARK: Workout Navigation Flow
     func workoutViewWithNavigation(routine: Routine?) -> some View {

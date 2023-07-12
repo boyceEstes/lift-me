@@ -21,7 +21,7 @@ extension RootView {
                 switch identifier {
                     
                 case let .routineDetail(routine: routine):
-                    routineDetailViewWithSheetNavigation(routine: routine)
+                    makeRoutineDetailViewWithSheetNavigation(routine: routine)
                     
                 case let .exerciseDetail(exercise: exercise):
                     exerciseDetailView(exercise: exercise)
