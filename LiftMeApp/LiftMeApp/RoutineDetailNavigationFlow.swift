@@ -13,15 +13,15 @@ class RoutineDetailNavigationFlow {
     enum SheetyIdentifier: Identifiable {
         
         case addExercise(([Exercise]) -> Void)
-        case exerciseDetail
+        case exerciseDetail(Exercise)
         case workout(Routine)
         
         var id: String {
             switch self {
             case .addExercise:
                 return "AddExercise"
-            case .exerciseDetail:
-                return "ExerciseDetail"
+            case let .exerciseDetail(exercise):
+                return "ExerciseDetail - \(exercise.id.uuidString)"
             case let .workout(routine):
                 return "Workout - \(routine.id.uuidString)"
             }

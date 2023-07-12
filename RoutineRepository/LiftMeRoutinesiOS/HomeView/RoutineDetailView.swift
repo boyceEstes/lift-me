@@ -21,6 +21,7 @@ public class RoutineDetailViewModel: ObservableObject {
     let routine: Routine
     let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
     let goToWorkout: (Routine) -> Void
+    let goToExerciseDetail: (Exercise) -> Void
     
     let uuid = UUID()
     
@@ -28,7 +29,8 @@ public class RoutineDetailViewModel: ObservableObject {
         routineStore: RoutineStore,
         routine: Routine,
         goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
-        goToWorkout: @escaping (Routine) -> Void
+        goToWorkout: @escaping (Routine) -> Void,
+        goToExerciseDetail: @escaping (Exercise) -> Void
     ) {
         
         self.routineStore = routineStore
@@ -36,6 +38,7 @@ public class RoutineDetailViewModel: ObservableObject {
         self.exercises = routine.exercises
         self.goToAddExercise = goToAddExercise
         self.goToWorkout = goToWorkout
+        self.goToExerciseDetail = goToExerciseDetail
         print("BOYCE: DID MAKE ROUTINE DETAIL VIEW MODEL - \(uuid)")
     }
     
@@ -102,14 +105,16 @@ public struct RoutineDetailView: View {
         routineStore: RoutineStore,
         routine: Routine,
         goToAddExerciseFromRoutineDetail: @escaping (@escaping ([Exercise]) -> Void) -> Void,
-        goToWorkout: @escaping (Routine) -> Void
+        goToWorkout: @escaping (Routine) -> Void,
+        goToExerciseDetail: @escaping (Exercise) -> Void
     ) {
         self._viewModel = StateObject(
             wrappedValue: RoutineDetailViewModel(
                 routineStore: routineStore,
                 routine: routine,
                 goToAddExercise: goToAddExerciseFromRoutineDetail,
-                goToWorkout: goToWorkout
+                goToWorkout: goToWorkout,
+                goToExerciseDetail: goToExerciseDetail
             )
         )
     }
@@ -133,9 +138,11 @@ public struct RoutineDetailView: View {
             .buttonStyle(LongHighKeyButtonStyle())
             .buttonStyle(BorderlessButtonStyle())
             
+            
             EditableExerciseSectionView(
                 exercises: $viewModel.exercises,
-                goToAddExercise: viewModel.goToAddExercisesWithCompletionHandled
+                goToAddExercise: viewModel.goToAddExercisesWithCompletionHandled,
+                goToExerciseDetail: viewModel.goToExerciseDetail
             )
         })
         .basicNavigationBar(title: "Routine Details")
@@ -150,7 +157,8 @@ struct RoutineDetailView_Previews: PreviewProvider {
             routineStore: RoutineStorePreview(),
             routine: Routine(id: UUID(), name: "Routine", creationDate: Date(), exercises: [], routineRecords: []),
             goToAddExerciseFromRoutineDetail: { _ in },
-            goToWorkout: { _ in }
+            goToWorkout: { _ in },
+            goToExerciseDetail: { _ in }
         )
     }
 }

@@ -137,23 +137,7 @@ struct RootView: View {
             .flowNavigationDestination(flowPath: $homeNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .routineDetail(routine: routine):
-                    
-                    RoutineDetailView(
-                        routineStore: routineStore,
-                        routine: routine,
-                        goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail,
-                        goToWorkout: goToWorkoutFromRoutineDetail
-                    )
-                    .sheet(item: $routineDetailNavigationFlowDisplayedSheet) { identifier in
-                        switch identifier {
-                        case let .addExercise(addExerciseCompletion):
-                            addExerciseViewWithNavigation(addExercisesCompletion: addExerciseCompletion)
-                        case let .exerciseDetail:
-                            Text("Some Exercise Detail")
-                        case let .workout(routine):
-                            workoutViewWithNavigation(routine: routine)
-                        }
-                    }
+                    routineDetailViewWithNavigation(routine: routine)
                 }
             }
             .sheet(item: $homeNavigationFlowDisplayedSheet) { identifier in
@@ -179,8 +163,7 @@ struct RootView: View {
             .flowNavigationDestination(flowPath: $exerciseListNavigationFlow.path) { identifier in
                 switch identifier {
                 case let .exerciseDetail(exercise):
-                    let viewModel = ExerciseDetailViewModel(routineStore: routineStore, exercise: exercise)
-                    ExerciseDetailView(viewModel: viewModel)
+                    exerciseDetailView(exercise: exercise)
                 }
             }
             .sheet(item: $exerciseListNavigationFlow.displayedSheet) { identifier in
@@ -232,6 +215,34 @@ struct RootView: View {
     
     
     // MARK: Routine Detail NavigationFlow
+    @ViewBuilder
+    func routineDetailViewWithNavigation(
+        routine: Routine
+    ) -> some View {
+        
+        RoutineDetailView(
+            routineStore: routineStore,
+            routine: routine,
+            goToAddExerciseFromRoutineDetail: goToAddExerciseFromRoutineDetail,
+            goToWorkout: goToWorkoutFromRoutineDetail,
+            goToExerciseDetail: goToExerciseDetailFromRoutineDetail
+        )
+        .sheet(item: $routineDetailNavigationFlowDisplayedSheet) { identifier in
+            switch identifier {
+                
+            case let .addExercise(addExerciseCompletion):
+                addExerciseViewWithNavigation(addExercisesCompletion: addExerciseCompletion)
+                
+            case let .exerciseDetail(exercise):
+                exerciseDetailViewWithNavigation(exercise: exercise)
+                
+            case let .workout(routine):
+                workoutViewWithNavigation(routine: routine)
+            }
+        }
+    }
+    
+    
     func goToAddExerciseFromRoutineDetail(addExerciseCompletion: @escaping AddExercisesCompletion) {
         routineDetailNavigationFlowDisplayedSheet = .addExercise(addExerciseCompletion)
     }
@@ -239,6 +250,12 @@ struct RootView: View {
     
     func goToWorkoutFromRoutineDetail(routine: Routine) {
         routineDetailNavigationFlowDisplayedSheet = .workout(routine)
+    }
+    
+    
+    func goToExerciseDetailFromRoutineDetail(exercise: Exercise) {
+        print("This has been called to go to exercise detail, \(exercise), from routine detail")
+        routineDetailNavigationFlowDisplayedSheet = .exerciseDetail(exercise)
     }
     
 
@@ -360,6 +377,24 @@ struct RootView: View {
     
     func goToCreateExercise() {
         exerciseListNavigationFlow.displayedSheet = .createExercise
+    }
+    
+    
+    // MARK: Exercise Detail View
+    @ViewBuilder
+    func exerciseDetailViewWithNavigation(exercise: Exercise) -> some View {
+        
+        NavigationStack {
+            exerciseDetailView(exercise: exercise)
+        }
+    }
+    
+    
+    @ViewBuilder
+    func exerciseDetailView(exercise: Exercise) -> some View {
+        
+        let viewModel = ExerciseDetailViewModel(routineStore: routineStore, exercise: exercise)
+        ExerciseDetailView(viewModel: viewModel)
     }
     
     

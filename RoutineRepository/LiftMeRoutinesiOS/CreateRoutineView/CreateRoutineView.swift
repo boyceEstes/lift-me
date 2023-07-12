@@ -191,7 +191,8 @@ public struct CreateRoutineView: View {
             
             EditableExerciseSectionView(
                 exercises: $viewModel.exercises,
-                goToAddExercise: viewModel.goToAddExerciseWithCompletionHandled
+                goToAddExercise: viewModel.goToAddExerciseWithCompletionHandled,
+                goToExerciseDetail: { _ in print("Go to exercise detail later") }
             )
         }
         .basicNavigationBar(title: "Create Routine")
@@ -223,21 +224,32 @@ struct EditableExerciseSectionView: View {
     
     @Binding private var exercises: [Exercise]
     let goToAddExercise: () -> Void
+    let goToExerciseDetail: (Exercise) -> Void
     
     
-    init(exercises: Binding<[Exercise]>, goToAddExercise: @escaping () -> Void) {
+    init(
+        exercises: Binding<[Exercise]>,
+        goToAddExercise: @escaping () -> Void,
+        goToExerciseDetail: @escaping (Exercise) -> Void
+    ) {
         
         self._exercises = exercises
         self.goToAddExercise = goToAddExercise
+        self.goToExerciseDetail = goToExerciseDetail
     }
+    
     
     var body: some View {
         
         Section {
             ForEach(exercises, id: \.self) { exercise in
                 HStack {
-                    Text(exercise.name)
-                        .accessibilityIdentifier("exercise_row")
+                    Button(exercise.name) {
+                        goToExerciseDetail(exercise)
+                    }
+                    .accessibilityIdentifier("exercise_row")
+//                    Text(exercise.name)
+                        
                 }
             }
         } header: {
