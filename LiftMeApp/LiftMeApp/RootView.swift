@@ -31,7 +31,7 @@ struct RootView: View {
     @State var exerciseListNavigationFlowPath = [ExerciseListNavigationFlow.StackIdentifier]()
     @State var exerciseListNavigationFlowDisplayedSheet: ExerciseListNavigationFlow.SheetyIdentifier?
     // History Tab
-    @State private var historyNavigationFlowPath = [HistoryNavigationFlow.StackIdentifier]()
+    @State var historyNavigationFlowPath = [HistoryNavigationFlow.StackIdentifier]()
     
     
     init(routineStore: RoutineStore) {
@@ -52,21 +52,11 @@ struct RootView: View {
                     Label("Exercises", systemImage: "dumbbell")
                 }
 
-
-            makeHistoryView()
-            .flowNavigationDestination(flowPath: $historyNavigationFlowPath) { identifier in
-                switch identifier {
-                case let .routineRecordDetail(routineRecord):
-                    let viewModel = RoutineRecordDetailViewModel(routineRecord: routineRecord)
-                    RoutineRecordDetailView(viewModel: viewModel)
+            makeHistoryViewWithStackNavigation()
+                .tabItem {
+                    Label("History", systemImage: "book.closed")
                 }
-            }
-            .tabItem {
-                Label("History", systemImage: "book.closed")
-            }
         }
-//        .toolbarColorScheme(.light, for: .tabBar)
-//        .toolbarColorScheme(Color.universeRed, for: .tabBar)
     }
 
     
@@ -256,12 +246,7 @@ struct RootView: View {
         let viewModel = ExerciseDetailViewModel(routineStore: routineStore, exercise: exercise)
         ExerciseDetailView(viewModel: viewModel)
     }
-    
-    
-    // MARK: History Navigation Flow
-    func goToRoutineRecordDetail(routineRecord: RoutineRecord) {
-        historyNavigationFlowPath.append(.routineRecordDetail(routineRecord))
-    }
+
 }
 
 
