@@ -14,6 +14,7 @@ struct RootView: View {
     
     // new navigation
     let routineStore: RoutineStore
+    
     // Home
     @State var homeNavigationFlowPath = [HomeNavigationFlow.StackIdentifier]()
     @State var homeNavigationFlowDisplayedSheet: HomeNavigationFlow.SheetyIdentifier?
@@ -26,9 +27,9 @@ struct RootView: View {
     @State private var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
     // Add Exercise
     @State private var addExerciseNavigationFlowDisplayedSheet: AddExerciseNavigationFlow.SheetyIdentifier?
-    // Exercise Tab
-    @State private var exerciseListNavigationFlowPath = [ExerciseListNavigationFlow.StackIdentifier]()
-    @State private var exerciseListNavigationFlowDisplayedSheet: ExerciseListNavigationFlow.SheetyIdentifier?
+    // ExerciseList
+    @State var exerciseListNavigationFlowPath = [ExerciseListNavigationFlow.StackIdentifier]()
+    @State var exerciseListNavigationFlowDisplayedSheet: ExerciseListNavigationFlow.SheetyIdentifier?
     // History Tab
     @State private var historyNavigationFlowPath = [HistoryNavigationFlow.StackIdentifier]()
     
@@ -42,25 +43,11 @@ struct RootView: View {
     var body: some View {
         TabView {
             makeHomeViewWithStackSheetNavigation()
-            .tabItem {
-                Label("Home", systemImage: "house")
-            }
-
-            makeExerciseListView()
-            .flowNavigationDestination(flowPath: $exerciseListNavigationFlowPath) { identifier in
-                switch identifier {
-                case let .exerciseDetail(exercise):
-                    exerciseDetailView(exercise: exercise)
+                .tabItem {
+                    Label("Home", systemImage: "house")
                 }
-            }
-            .sheet(item: $exerciseListNavigationFlowDisplayedSheet) { identifier in
-                switch identifier {
-                case .createExercise:
-                    // We do not need any completion logic for the exercise list screen because it is going to
-                    // update with a exercises data source.
-                    createExerciseViewWithNavigation(createExerciseCompletion: { _ in })
-                }
-            }
+            
+            makeExerciseListViewWithStackSheetNavigation()
                 .tabItem {
                     Label("Exercises", systemImage: "dumbbell")
                 }
@@ -261,23 +248,6 @@ struct RootView: View {
     
     func goToCreateExerciseFromAddExercise(createExerciseCompletion: @escaping (Exercise) -> Void) {
         addExerciseNavigationFlowDisplayedSheet = .createExercise(createExerciseCompletion: createExerciseCompletion)
-    }
-    
-    
-    // MARK: Exercise List Navigation Flow
-//    @ViewBuilder
-//    func exerciseListViewWithNavigation() -> some View {
-//        
-//    }
-    
-    
-    func goToExerciseDetail(exercise: Exercise) {
-        exerciseListNavigationFlowPath.append(.exerciseDetail(exercise))
-    }
-    
-    
-    func goToCreateExercise() {
-        exerciseListNavigationFlowDisplayedSheet = .createExercise
     }
     
     
