@@ -49,7 +49,9 @@ struct RootView: View {
             .flowNavigationDestination(flowPath: $homeNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .routineDetail(routine: routine):
-                    routineDetailViewWithNavigation(routine: routine)
+                    routineDetailViewWithSheetNavigation(routine: routine)
+                case let .exerciseDetail(exercise: exercise):
+                    exerciseDetailView(exercise: exercise)
                 }
             }
             .sheet(item: $homeNavigationFlowDisplayedSheet) { identifier in
@@ -127,8 +129,11 @@ struct RootView: View {
     
     
     // MARK: Routine Detail NavigationFlow
+    
+    // NOTE: This is going to be pushed from the HomeNavigationFlow path. If it ever needs it own modal, give it its
+    // own navigation stack
     @ViewBuilder
-    func routineDetailViewWithNavigation(
+    func routineDetailViewWithSheetNavigation(
         routine: Routine
     ) -> some View {
         
@@ -144,10 +149,6 @@ struct RootView: View {
                 
             case let .addExercise(addExerciseCompletion):
                 addExerciseViewWithNavigation(addExercisesCompletion: addExerciseCompletion)
-                
-            case let .exerciseDetail(exercise):
-                exerciseDetailView(exercise: exercise)
-                
             case let .workout(routine):
                 workoutViewWithNavigation(routine: routine)
             }
@@ -166,8 +167,7 @@ struct RootView: View {
     
     
     func goToExerciseDetailFromRoutineDetail(exercise: Exercise) {
-        print("This has been called to go to exercise detail, \(exercise), from routine detail")
-        routineDetailNavigationFlowDisplayedSheet = .exerciseDetail(exercise)
+        homeNavigationFlowPath.append(.exerciseDetail(exercise: exercise))
     }
     
 

@@ -22,6 +22,7 @@ class HomeNavigationFlow: NewStackNavigationFlow, NewSheetyNavigationFlow {
     enum StackIdentifier: Hashable {
         
         case routineDetail(routine: Routine)
+        case exerciseDetail(exercise: Exercise)
     }
     
     
