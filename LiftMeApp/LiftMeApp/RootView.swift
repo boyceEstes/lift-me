@@ -113,10 +113,10 @@ struct RootView: View {
     // CreateRoutine
     @State private var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
     // Add Exercise
-//    @StateObject var addExerciseNavigationFlow = AddExerciseNavigationFlow()
     @State private var addExerciseNavigationFlowDisplayedSheet: AddExerciseNavigationFlow.SheetyIdentifier?
     // Exercise Tab
-    @StateObject var exerciseListNavigationFlow = ExerciseListNavigationFlow()
+    @State private var exerciseListNavigationFlowPath = [ExerciseListNavigationFlow.StackIdentifier]()
+    @State private var exerciseListNavigationFlowDisplayedSheet: ExerciseListNavigationFlow.SheetyIdentifier?
     // History Tab
     @State private var historyNavigationFlowPath = [HistoryNavigationFlow.StackIdentifier]()
     
@@ -160,13 +160,13 @@ struct RootView: View {
                 goToCreateExercise: goToCreateExercise,
                 goToExerciseDetail: goToExerciseDetail
             )
-            .flowNavigationDestination(flowPath: $exerciseListNavigationFlow.path) { identifier in
+            .flowNavigationDestination(flowPath: $exerciseListNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .exerciseDetail(exercise):
                     exerciseDetailView(exercise: exercise)
                 }
             }
-            .sheet(item: $exerciseListNavigationFlow.displayedSheet) { identifier in
+            .sheet(item: $exerciseListNavigationFlowDisplayedSheet) { identifier in
                 switch identifier {
                 case .createExercise:
                     // We do not need any completion logic for the exercise list screen because it is going to
@@ -391,13 +391,19 @@ struct RootView: View {
     
     
     // MARK: Exercise List Navigation Flow
+//    @ViewBuilder
+//    func exerciseListViewWithNavigation() -> some View {
+//        
+//    }
+    
+    
     func goToExerciseDetail(exercise: Exercise) {
-        exerciseListNavigationFlow.push(.exerciseDetail(exercise))
+        exerciseListNavigationFlowPath.append(.exerciseDetail(exercise))
     }
     
     
     func goToCreateExercise() {
-        exerciseListNavigationFlow.displayedSheet = .createExercise
+        exerciseListNavigationFlowDisplayedSheet = .createExercise
     }
     
     
