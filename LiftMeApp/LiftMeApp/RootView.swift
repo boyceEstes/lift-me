@@ -60,10 +60,6 @@ struct RootView: View {
     }
     
     
-    // MARK: Create Exercise Navigation Flow
-
-    
-    
     // MARK: Exercise Detail View
     
     @ViewBuilder

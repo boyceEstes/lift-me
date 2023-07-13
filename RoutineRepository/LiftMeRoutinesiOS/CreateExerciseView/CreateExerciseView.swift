@@ -23,7 +23,10 @@ public class CreateExerciseViewModel: ObservableObject {
     }
     
     
-    public init(routineStore: RoutineStore, createExerciseCompletion: @escaping (Exercise) -> Void) {
+    public init(
+        routineStore: RoutineStore,
+        createExerciseCompletion: @escaping (Exercise) -> Void
+    ) {
         
         self.routineStore = routineStore
         self.createExerciseCompletion = createExerciseCompletion
@@ -50,10 +53,18 @@ public struct CreateExerciseView: View {
     public let inspection = Inspection<Self>()
     
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject public var viewModel: CreateExerciseViewModel
+    @StateObject public var viewModel: CreateExerciseViewModel
     
-    public init(viewModel: CreateExerciseViewModel) {
-        self.viewModel = viewModel
+    public init(
+        routineStore: RoutineStore,
+        createExerciseCompletion: @escaping (Exercise) -> Void
+    ) {
+        self._viewModel = StateObject(
+            wrappedValue: CreateExerciseViewModel(
+                routineStore: routineStore,
+                createExerciseCompletion: createExerciseCompletion
+            )
+        )
     }
     
     
@@ -95,10 +106,8 @@ struct CreateExerciseView_Previews: PreviewProvider {
     
     static var previews: some View {
         CreateExerciseView(
-            viewModel: CreateExerciseViewModel(
-                routineStore: RoutineStorePreview(),
-                createExerciseCompletion: { _ in }
-            )
+            routineStore: RoutineStorePreview(),
+            createExerciseCompletion: { _ in }
         )
     }
 }
