@@ -42,7 +42,7 @@ extension RootView {
 
             case .createRoutine:
                 // Only have routine record and super dismiss when it is coming from `WorkoutNavigationFlow`
-                createRoutineViewWithNavigation(routineRecord: nil, superDismiss: nil)
+                makeCreateRoutineViewWithStackSheetNavigation(routineRecord: nil, superDismiss: nil)
             }
         }
     }

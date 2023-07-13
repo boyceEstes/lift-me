@@ -23,8 +23,8 @@ struct RootView: View {
     // Workout
     @State private var workoutNavigationFlowDisplayedSheet: WorkoutNavigationFlow.SheetyIdentifier?
     // CreateRoutine
-    @State private var createRoutineNavigationFlowPath = [CreateRoutineNavigationFlow.StackIdentifier]()
-    @State private var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
+    @State var createRoutineNavigationFlowPath = [CreateRoutineNavigationFlow.StackIdentifier]()
+    @State var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
     // Add Exercise
     @State private var addExerciseNavigationFlowDisplayedSheet: AddExerciseNavigationFlow.SheetyIdentifier?
     // ExerciseList
@@ -59,8 +59,6 @@ struct RootView: View {
         }
     }
 
-    
-
 
     // MARK: Workout Navigation Flow
     func workoutViewWithNavigation(routine: Routine?) -> some View {
@@ -79,7 +77,7 @@ struct RootView: View {
                 addExerciseViewWithNavigation(addExercisesCompletion: addExercisesCompletion)
 
             case let .createRoutine(routineRecord):
-                createRoutineViewWithNavigation(
+                makeCreateRoutineViewWithStackSheetNavigation(
                     routineRecord: routineRecord,
                     superDismiss: superDismissWorkoutSheetAndHomeSheet
                 )
@@ -102,59 +100,6 @@ struct RootView: View {
     
     func goToAddExerciseFromWorkout(addExercisesCompletion: @escaping AddExercisesCompletion) {
         workoutNavigationFlowDisplayedSheet = .addExercise(addExercisesCompletion: addExercisesCompletion)
-    }
-    
-    
-    // MARK: Create Routine Flow
-    func createRoutineViewWithNavigation(
-        routineRecord: RoutineRecord?,
-        superDismiss: (() -> Void)?
-    ) -> some View {
-        
-        NavigationStack(path: $createRoutineNavigationFlowPath) {
-            createRoutineViewWithSheetNavigation(
-                routineRecord: routineRecord,
-                superDismiss: superDismiss
-            )
-            .navigationDestination(for: CreateRoutineNavigationFlow.StackIdentifier.self) { identifier in
-                switch identifier {
-                case let .exerciseDetail(exercise):
-                    exerciseDetailView(exercise: exercise)
-                }
-            }
-        }
-    }
-    
-    
-    @ViewBuilder
-    func createRoutineViewWithSheetNavigation(
-        routineRecord: RoutineRecord?,
-        superDismiss: (() -> Void)?
-    ) -> some View {
-        
-        CreateRoutineView(
-            routineStore: routineStore,
-            routineRecord: routineRecord,
-            superDismiss: superDismiss,
-            goToAddExercise: goToAddExerciseFromCreateRoutine,
-            goToExerciseDetail: goToExerciseDetailFromCreateRoutine
-        )
-        .sheet(item: $createRoutineNavigationFlowDisplayedSheet) { identifier in
-            switch identifier {
-            case let .addExercise(addExercisesCompletion):
-                addExerciseViewWithNavigation(addExercisesCompletion: addExercisesCompletion)
-            }
-        }
-    }
-    
-    
-    func goToAddExerciseFromCreateRoutine(addExerciseCompletion: @escaping AddExercisesCompletion) {
-        createRoutineNavigationFlowDisplayedSheet = .addExercise(addExercisesCompletion: addExerciseCompletion)
-    }
-    
-    
-    func goToExerciseDetailFromCreateRoutine(exercise: Exercise) {
-        createRoutineNavigationFlowPath.append(.exerciseDetail(exercise))
     }
     
     
@@ -205,7 +150,6 @@ struct RootView: View {
         let viewModel = ExerciseDetailViewModel(routineStore: routineStore, exercise: exercise)
         ExerciseDetailView(viewModel: viewModel)
     }
-
 }
 
 
