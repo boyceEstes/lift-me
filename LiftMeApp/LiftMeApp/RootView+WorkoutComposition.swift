@@ -28,7 +28,7 @@ extension RootView {
             .sheet(item: $workoutNavigationFlowDisplayedSheet) { identifier in
                 switch identifier {
                 case let .addExercise(addExercisesCompletion):
-                    addExerciseViewWithNavigation(addExercisesCompletion: addExercisesCompletion)
+                    makeAddExerciseViewWithStackSheetNavigation(addExercisesCompletion: addExercisesCompletion)
                     
                 case let .createRoutine(routineRecord):
                     makeCreateRoutineViewWithStackSheetNavigation(

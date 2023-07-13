@@ -26,7 +26,7 @@ struct RootView: View {
     @State var createRoutineNavigationFlowPath = [CreateRoutineNavigationFlow.StackIdentifier]()
     @State var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
     // Add Exercise
-    @State private var addExerciseNavigationFlowDisplayedSheet: AddExerciseNavigationFlow.SheetyIdentifier?
+    @State var addExerciseNavigationFlowDisplayedSheet: AddExerciseNavigationFlow.SheetyIdentifier?
     // ExerciseList
     @State var exerciseListNavigationFlowPath = [ExerciseListNavigationFlow.StackIdentifier]()
     @State var exerciseListNavigationFlowDisplayedSheet: ExerciseListNavigationFlow.SheetyIdentifier?
@@ -58,28 +58,6 @@ struct RootView: View {
                 }
         }
     }
-
-
-    // MARK: Add Exercise Flow
-    func addExerciseViewWithNavigation(
-        addExercisesCompletion: @escaping ([Exercise]) -> Void
-    ) -> some View {
-        
-        NavigationStack {
-            AddExerciseUIComposer.makeAddExerciseView(
-                routineStore: routineStore,
-                addExerciseCompletion: addExercisesCompletion,
-                goToCreateExercise: goToCreateExerciseFromAddExercise
-            )
-        }
-        .sheet(item: $addExerciseNavigationFlowDisplayedSheet) { identifier in
-            switch identifier {
-            case let .createExercise(createExerciseCompletion):
-                createExerciseViewWithNavigation(createExerciseCompletion: createExerciseCompletion)
-            }
-        }
-    }
-    
     
     
     // MARK: Create Exercise Navigation Flow
@@ -91,11 +69,6 @@ struct RootView: View {
                 createExerciseCompletion: createExerciseCompletion
             )
         }
-    }
-    
-    
-    func goToCreateExerciseFromAddExercise(createExerciseCompletion: @escaping (Exercise) -> Void) {
-        addExerciseNavigationFlowDisplayedSheet = .createExercise(createExerciseCompletion: createExerciseCompletion)
     }
     
     

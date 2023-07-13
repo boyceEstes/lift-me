@@ -22,7 +22,7 @@ extension RootView {
                 switch identifier {
                     
                 case let .addExercise(addExerciseCompletion):
-                    addExerciseViewWithNavigation(addExercisesCompletion: addExerciseCompletion)
+                    makeAddExerciseViewWithStackSheetNavigation(addExercisesCompletion: addExerciseCompletion)
                 case let .workout(routine):
                     workoutViewWithStackSheetNavigation(routine: routine)
                 }
