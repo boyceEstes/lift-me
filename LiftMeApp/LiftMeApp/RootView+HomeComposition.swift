@@ -24,7 +24,7 @@ extension RootView {
                     makeRoutineDetailViewWithSheetNavigation(routine: routine)
                     
                 case let .exerciseDetail(exercise: exercise):
-                    exerciseDetailView(exercise: exercise)
+                    makeExerciseDetailView(exercise: exercise)
                 }
             }
     }

@@ -58,16 +58,6 @@ struct RootView: View {
                 }
         }
     }
-    
-    
-    // MARK: Exercise Detail View
-    
-    @ViewBuilder
-    func exerciseDetailView(exercise: Exercise) -> some View {
-        
-        let viewModel = ExerciseDetailViewModel(routineStore: routineStore, exercise: exercise)
-        ExerciseDetailView(viewModel: viewModel)
-    }
 }
 
 

@@ -20,7 +20,7 @@ extension RootView {
             .flowNavigationDestination(flowPath: $exerciseListNavigationFlowPath) { identifier in
                 switch identifier {
                 case let .exerciseDetail(exercise):
-                    exerciseDetailView(exercise: exercise)
+                    makeExerciseDetailView(exercise: exercise)
                 }
             }
     }
