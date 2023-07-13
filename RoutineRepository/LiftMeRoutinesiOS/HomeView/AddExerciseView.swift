@@ -176,13 +176,22 @@ public struct AddExerciseView: View {
 
     //    @FocusState private var focus: Field?
     @Environment(\.dismiss) var dismiss
-    @ObservedObject public var viewModel: AddExerciseViewModel
+    @StateObject public var viewModel: AddExerciseViewModel
     public let inspection = Inspection<Self>()
     
     
-    public init(viewModel: AddExerciseViewModel) {
-        
-        self.viewModel = viewModel
+    public init(
+        routineStore: RoutineStore,
+        addExerciseCompletion: @escaping ([Exercise]) -> Void,
+        goToCreateExercise: @escaping (@escaping (Exercise?) -> Void) -> Void
+    ) {
+        self._viewModel = StateObject(
+            wrappedValue: AddExerciseViewModel(
+                routineStore: routineStore,
+                addExerciseCompletion: addExerciseCompletion,
+                goToCreateExercise: goToCreateExercise
+            )
+        )
     }
     
     
@@ -350,11 +359,9 @@ struct AddExerciseView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             AddExerciseView(
-                viewModel: AddExerciseViewModel(
-                    routineStore: RoutineStorePreview(),
-                    addExerciseCompletion: { _ in },
-                    goToCreateExercise: { _ in }
-                )
+                routineStore: RoutineStorePreview(),
+                addExerciseCompletion: { _ in },
+                goToCreateExercise: { _ in }
             )
         }
     }

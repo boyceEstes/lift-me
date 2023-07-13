@@ -43,13 +43,11 @@ extension RootView {
         addExercisesCompletion: @escaping ([Exercise]) -> Void
     ) -> some View {
         
-        let viewModel = AddExerciseViewModel(
+        AddExerciseView(
             routineStore: routineStore,
             addExerciseCompletion: addExercisesCompletion,
             goToCreateExercise: goToCreateExerciseFromAddExercise
         )
-        
-        AddExerciseView(viewModel: viewModel)
     }
     
     
