@@ -27,7 +27,10 @@ public class ExerciseDetailViewModel: ObservableObject {
     }
     
     
-    public init(routineStore: RoutineStore, exercise: Exercise) {
+    public init(
+        routineStore: RoutineStore,
+        exercise: Exercise
+    ) {
         
         self.routineStore = routineStore
         self.exercise = exercise
@@ -60,13 +63,21 @@ public class ExerciseDetailViewModel: ObservableObject {
 
 public struct ExerciseDetailView: View {
     
-    @ObservedObject var viewModel: ExerciseDetailViewModel
+    @StateObject var viewModel: ExerciseDetailViewModel
     
     public let inspection = Inspection<Self>()
 
     
-    public init(viewModel: ExerciseDetailViewModel) {
-        self.viewModel = viewModel
+    public init(
+        routineStore: RoutineStore,
+        exercise: Exercise
+    ) {
+        self._viewModel = StateObject(
+            wrappedValue: ExerciseDetailViewModel(
+                routineStore: routineStore,
+                exercise: exercise
+            )
+        )
     }
     
     
@@ -104,14 +115,12 @@ struct ExerciseDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             ExerciseDetailView(
-                viewModel: ExerciseDetailViewModel(
-                    routineStore: RoutineStorePreview(),
-                    exercise: Exercise(
-                        id: UUID(),
-                        name: "Any exercise",
-                        creationDate: Date(),
-                        tags: []
-                    )
+                routineStore: RoutineStorePreview(),
+                exercise: Exercise(
+                    id: UUID(),
+                    name: "Any exercise",
+                    creationDate: Date(),
+                    tags: []
                 )
             )
         }

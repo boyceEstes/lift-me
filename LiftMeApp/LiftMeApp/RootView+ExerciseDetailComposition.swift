@@ -15,7 +15,9 @@ extension RootView {
     @ViewBuilder
     func makeExerciseDetailView(exercise: Exercise) -> some View {
         
-        let viewModel = ExerciseDetailViewModel(routineStore: routineStore, exercise: exercise)
-        ExerciseDetailView(viewModel: viewModel)
+        ExerciseDetailView(
+            routineStore: routineStore,
+            exercise: exercise
+        )
     }
 }
