@@ -38,7 +38,7 @@ extension RootView {
             switch identifier {
                 
             case let .workout(routine):
-                workoutViewWithNavigation(routine: routine)
+                workoutViewWithStackSheetNavigation(routine: routine)
 
             case .createRoutine:
                 // Only have routine record and super dismiss when it is coming from `WorkoutNavigationFlow`

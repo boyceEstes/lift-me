@@ -24,7 +24,7 @@ extension RootView {
                 case let .addExercise(addExerciseCompletion):
                     addExerciseViewWithNavigation(addExercisesCompletion: addExerciseCompletion)
                 case let .workout(routine):
-                    workoutViewWithNavigation(routine: routine)
+                    workoutViewWithStackSheetNavigation(routine: routine)
                 }
             }
     }

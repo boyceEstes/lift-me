@@ -21,7 +21,7 @@ struct RootView: View {
     // RoutineDetail
     @State var routineDetailNavigationFlowDisplayedSheet: RoutineDetailNavigationFlow.SheetyIdentifier?
     // Workout
-    @State private var workoutNavigationFlowDisplayedSheet: WorkoutNavigationFlow.SheetyIdentifier?
+    @State var workoutNavigationFlowDisplayedSheet: WorkoutNavigationFlow.SheetyIdentifier?
     // CreateRoutine
     @State var createRoutineNavigationFlowPath = [CreateRoutineNavigationFlow.StackIdentifier]()
     @State var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
@@ -60,49 +60,6 @@ struct RootView: View {
     }
 
 
-    // MARK: Workout Navigation Flow
-    func workoutViewWithNavigation(routine: Routine?) -> some View {
-        
-        NavigationStack {
-            WorkoutUIComposer.makeWorkoutView(
-                routineStore: routineStore,
-                routine: routine,
-                goToCreateRoutine: goToCreateRoutine,
-                goToAddExercise: goToAddExerciseFromWorkout
-            )
-        }
-        .sheet(item: $workoutNavigationFlowDisplayedSheet) { identifier in
-            switch identifier {
-            case let .addExercise(addExercisesCompletion):
-                addExerciseViewWithNavigation(addExercisesCompletion: addExercisesCompletion)
-
-            case let .createRoutine(routineRecord):
-                makeCreateRoutineViewWithStackSheetNavigation(
-                    routineRecord: routineRecord,
-                    superDismiss: superDismissWorkoutSheetAndHomeSheet
-                )
-            }
-        }
-    }
-    
-    
-    func superDismissWorkoutSheetAndHomeSheet() {
-        
-        workoutNavigationFlowDisplayedSheet = nil
-        homeNavigationFlowDisplayedSheet = nil
-    }
-    
-    
-    func goToCreateRoutine(with routineRecord: RoutineRecord) {
-        workoutNavigationFlowDisplayedSheet = .createRoutine(routineRecord: routineRecord)
-    }
-    
-    
-    func goToAddExerciseFromWorkout(addExercisesCompletion: @escaping AddExercisesCompletion) {
-        workoutNavigationFlowDisplayedSheet = .addExercise(addExercisesCompletion: addExercisesCompletion)
-    }
-    
-    
     // MARK: Add Exercise Flow
     func addExerciseViewWithNavigation(
         addExercisesCompletion: @escaping ([Exercise]) -> Void
