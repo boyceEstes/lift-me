@@ -150,6 +150,7 @@
 			children = (
 				B35970FA2A535B5C00C4D3A5 /* Navigation Support Files */,
 				B3692CC829998D8F00D9BD05 /* RootView.swift */,
+				B352A07F29E0540300923B6C /* AddExercise */,
 				B33D0FB62970645800C2FB1E /* Workout */,
 				B307D3682A5B8E7A009F99E5 /* CreateExercise */,
 				B3E156ED299A3BA800A5BC50 /* CreateRoutine */,
@@ -199,7 +200,6 @@
 		B33D0FB62970645800C2FB1E /* Workout */ = {
 			isa = PBXGroup;
 			children = (
-				B352A07F29E0540300923B6C /* AddExercise */,
 				B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */,
 				B33D0FB72970647500C2FB1E /* WorkoutNavigationFlow.swift */,
 			);
