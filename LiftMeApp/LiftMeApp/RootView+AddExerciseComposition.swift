@@ -32,7 +32,7 @@ extension RootView {
             .sheet(item: $addExerciseNavigationFlowDisplayedSheet) { identifier in
                 switch identifier {
                 case let .createExercise(createExerciseCompletion):
-                    createExerciseViewWithNavigation(createExerciseCompletion: createExerciseCompletion)
+                    makeCreateExerciseViewWithStackNavigation(createExerciseCompletion: createExerciseCompletion)
                 }
             }
     }

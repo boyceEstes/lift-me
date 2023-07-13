@@ -35,7 +35,7 @@ extension RootView {
                 case .createExercise:
                     // We do not need any completion logic for the exercise list screen because it is going to
                     // update with a exercises data source.
-                    createExerciseViewWithNavigation(createExerciseCompletion: { _ in })
+                    makeCreateExerciseViewWithStackNavigation(createExerciseCompletion: { _ in })
                 }
             }
     }

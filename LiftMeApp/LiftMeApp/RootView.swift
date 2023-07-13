@@ -61,15 +61,7 @@ struct RootView: View {
     
     
     // MARK: Create Exercise Navigation Flow
-    func createExerciseViewWithNavigation(createExerciseCompletion: @escaping (Exercise) -> Void) -> some View {
-        
-        NavigationStack {
-            CreateExerciseUIComposer.makeCreateExerciseView(
-                routineStore: routineStore,
-                createExerciseCompletion: createExerciseCompletion
-            )
-        }
-    }
+
     
     
     // MARK: Exercise Detail View

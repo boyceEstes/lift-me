@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B307D36A2A5B8E89009F99E5 /* CreateExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B307D3692A5B8E89009F99E5 /* CreateExerciseUIComposer.swift */; };
 		B30E83C1291EB10200A19724 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B30E83C0291EB10200A19724 /* ViewInspector */; };
 		B30E83C3291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */; };
 		B315FB102A5F4CF400B52318 /* RootView+HomeComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B315FB0F2A5F4CF400B52318 /* RootView+HomeComposition.swift */; };
@@ -48,6 +47,7 @@
 		B3BA41BE2A5F7F0100E6A241 /* RootView+CreateRoutineComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA41BD2A5F7F0100E6A241 /* RootView+CreateRoutineComposition.swift */; };
 		B3BA41C02A5F81B000E6A241 /* RootView+WorkoutComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA41BF2A5F81B000E6A241 /* RootView+WorkoutComposition.swift */; };
 		B3BA41C22A5F861E00E6A241 /* RootView+AddExerciseComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA41C12A5F861E00E6A241 /* RootView+AddExerciseComposition.swift */; };
+		B3BA41C42A5F8A2400E6A241 /* RootView+CreateExerciseComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA41C32A5F8A2400E6A241 /* RootView+CreateExerciseComposition.swift */; };
 		B3E156F1299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E156F0299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift */; };
 		B3F0E28F292FCB9800A5C506 /* HomeNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F0E28E292FCB9800A5C506 /* HomeNavigationFlow.swift */; };
 		B3F0E293292FCC9000A5C506 /* NavigationFlow in Frameworks */ = {isa = PBXBuildFile; productRef = B3F0E292292FCC9000A5C506 /* NavigationFlow */; };
@@ -79,7 +79,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B307D3692A5B8E89009F99E5 /* CreateExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateExerciseUIComposer.swift; sourceTree = "<group>"; };
 		B30E83C2291EB25100A19724 /* CreateRoutineUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B315FB0F2A5F4CF400B52318 /* RootView+HomeComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView+HomeComposition.swift"; sourceTree = "<group>"; };
 		B31B21602939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueueMainDecorator+RoutineStore.swift"; sourceTree = "<group>"; };
@@ -119,6 +118,7 @@
 		B3BA41BD2A5F7F0100E6A241 /* RootView+CreateRoutineComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView+CreateRoutineComposition.swift"; sourceTree = "<group>"; };
 		B3BA41BF2A5F81B000E6A241 /* RootView+WorkoutComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView+WorkoutComposition.swift"; sourceTree = "<group>"; };
 		B3BA41C12A5F861E00E6A241 /* RootView+AddExerciseComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView+AddExerciseComposition.swift"; sourceTree = "<group>"; };
+		B3BA41C32A5F8A2400E6A241 /* RootView+CreateExerciseComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootView+CreateExerciseComposition.swift"; sourceTree = "<group>"; };
 		B3E156F0299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoutineNavigationFlow.swift; sourceTree = "<group>"; };
 		B3F0E28E292FCB9800A5C506 /* HomeNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNavigationFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,7 +165,7 @@
 		B307D3682A5B8E7A009F99E5 /* CreateExercise */ = {
 			isa = PBXGroup;
 			children = (
-				B307D3692A5B8E89009F99E5 /* CreateExerciseUIComposer.swift */,
+				B3BA41C32A5F8A2400E6A241 /* RootView+CreateExerciseComposition.swift */,
 			);
 			name = CreateExercise;
 			sourceTree = "<group>";
@@ -453,10 +453,10 @@
 				B33D0FB82970647500C2FB1E /* WorkoutNavigationFlow.swift in Sources */,
 				B3A8548D2908D48300F04CC1 /* LiftMeAppApp.swift in Sources */,
 				B352A08329E0542300923B6C /* AddExerciseNavigationFlow.swift in Sources */,
-				B307D36A2A5B8E89009F99E5 /* CreateExerciseUIComposer.swift in Sources */,
 				B3BA41B82A5F52DF00E6A241 /* RootView+ExerciseListComposition.swift in Sources */,
 				B3BA41BE2A5F7F0100E6A241 /* RootView+CreateRoutineComposition.swift in Sources */,
 				B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */,
+				B3BA41C42A5F8A2400E6A241 /* RootView+CreateExerciseComposition.swift in Sources */,
 				B3BA41BA2A5F569100E6A241 /* RootView+HistoryComposition.swift in Sources */,
 				B3E156F1299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift in Sources */,
 				B3692CBE2999805B00D9BD05 /* HistoryNavigationFlow.swift in Sources */,
