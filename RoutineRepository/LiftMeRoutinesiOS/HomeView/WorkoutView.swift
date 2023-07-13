@@ -239,11 +239,23 @@ public struct WorkoutView: View {
     public let inspection = Inspection<Self>()
     
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject public var viewModel: WorkoutViewModel
+    @StateObject public var viewModel: WorkoutViewModel
 
-    public init(viewModel: WorkoutViewModel) {
+    public init(
+        routineStore: RoutineStore,
+        routine: Routine? = nil,
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToCreateRoutineView: @escaping (RoutineRecord) -> Void
+    ) {
         
-        self.viewModel = viewModel
+        self._viewModel = StateObject(
+            wrappedValue: WorkoutViewModel(
+                routineStore: routineStore,
+                routine: routine,
+                goToAddExercise: goToAddExercise,
+                goToCreateRoutineView: goToCreateRoutineView
+            )
+        )
     }
     
     
@@ -390,15 +402,12 @@ struct WorkoutView_Previews: PreviewProvider {
     @State static var setRecord = SetRecordViewModel(weight: "", repCount: "")
     
     static var previews: some View {
-        let viewModel = WorkoutViewModel(
-            routineStore: RoutineStorePreview(),
-            goToAddExercise: { _ in },
-            goToCreateRoutineView: { _ in }
-        )
         
         NavigationStack {
             WorkoutView(
-                viewModel: viewModel
+                routineStore: RoutineStorePreview(),
+                goToAddExercise: { _ in },
+                goToCreateRoutineView: { _ in }
             )
         }
         

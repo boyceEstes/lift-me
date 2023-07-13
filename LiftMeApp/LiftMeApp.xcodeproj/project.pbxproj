@@ -18,7 +18,6 @@
 		B3303E1E2A5DAF2500C1F816 /* RoutineDetailNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3303E1D2A5DAF2500C1F816 /* RoutineDetailNavigationFlow.swift */; };
 		B33D0FA5296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA4296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift */; };
 		B33D0FB0296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAF296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift */; };
-		B33D0FB42970643E00C2FB1E /* WorkoutUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */; };
 		B33D0FB82970647500C2FB1E /* WorkoutNavigationFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB72970647500C2FB1E /* WorkoutNavigationFlow.swift */; };
 		B33D0FBA29706CB100C2FB1E /* HomeUIComposerWithSpys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */; };
 		B352A08129E0541900923B6C /* AddExerciseUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B352A08029E0541900923B6C /* AddExerciseUIComposer.swift */; };
@@ -90,7 +89,6 @@
 		B3303E1D2A5DAF2500C1F816 /* RoutineDetailNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDetailNavigationFlow.swift; sourceTree = "<group>"; };
 		B33D0FA4296F7C3000C2FB1E /* HomeViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewUIIntegrationTests.swift; sourceTree = "<group>"; };
 		B33D0FAF296FC1E200C2FB1E /* WorkoutViewUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewUIIntegrationTests.swift; sourceTree = "<group>"; };
-		B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutUIComposer.swift; sourceTree = "<group>"; };
 		B33D0FB72970647500C2FB1E /* WorkoutNavigationFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutNavigationFlow.swift; sourceTree = "<group>"; };
 		B33D0FB929706CB100C2FB1E /* HomeUIComposerWithSpys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUIComposerWithSpys.swift; sourceTree = "<group>"; };
 		B352A08029E0541900923B6C /* AddExerciseUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseUIComposer.swift; sourceTree = "<group>"; };
@@ -202,7 +200,6 @@
 		B33D0FB62970645800C2FB1E /* Workout */ = {
 			isa = PBXGroup;
 			children = (
-				B33D0FB32970643E00C2FB1E /* WorkoutUIComposer.swift */,
 				B33D0FB72970647500C2FB1E /* WorkoutNavigationFlow.swift */,
 				B3BA41BF2A5F81B000E6A241 /* RootView+WorkoutComposition.swift */,
 			);
@@ -461,7 +458,6 @@
 				B3BA41BE2A5F7F0100E6A241 /* RootView+CreateRoutineComposition.swift in Sources */,
 				B31B21612939063F00245881 /* DispatchQueueMainDecorator+RoutineStore.swift in Sources */,
 				B3BA41BA2A5F569100E6A241 /* RootView+HistoryComposition.swift in Sources */,
-				B33D0FB42970643E00C2FB1E /* WorkoutUIComposer.swift in Sources */,
 				B3E156F1299A3C0700A5BC50 /* CreateRoutineNavigationFlow.swift in Sources */,
 				B3692CBE2999805B00D9BD05 /* HistoryNavigationFlow.swift in Sources */,
 				B36891272913FB6000E04957 /* DispatchQueueMainDecorator.swift in Sources */,

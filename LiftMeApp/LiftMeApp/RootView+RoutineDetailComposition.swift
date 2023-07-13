@@ -46,7 +46,7 @@ extension RootView {
     
     
     // MARK: - Navigation
-    func goToAddExerciseFromRoutineDetail(addExerciseCompletion: @escaping AddExercisesCompletion) {
+    func goToAddExerciseFromRoutineDetail(addExerciseCompletion: @escaping ([Exercise]) -> Void) {
         routineDetailNavigationFlowDisplayedSheet = .addExercise(addExerciseCompletion)
     }
     

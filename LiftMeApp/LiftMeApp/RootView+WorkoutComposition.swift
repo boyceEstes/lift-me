@@ -43,19 +43,17 @@ extension RootView {
     @ViewBuilder
     func makeWorkoutView(routine: Routine?) -> some View {
         
-        let viewModel = WorkoutViewModel(
+        WorkoutView(
             routineStore: routineStore,
             routine: routine,
             goToAddExercise: goToAddExerciseFromWorkout,
             goToCreateRoutineView: goToCreateRoutineFromWorkout
         )
-        
-        WorkoutView(viewModel: viewModel)
     }
     
     
     // MARK: - Navigation
-    func goToAddExerciseFromWorkout(addExercisesCompletion: @escaping AddExercisesCompletion) {
+    func goToAddExerciseFromWorkout(addExercisesCompletion: @escaping ([Exercise]) -> Void) {
         workoutNavigationFlowDisplayedSheet = .addExercise(addExercisesCompletion: addExercisesCompletion)
     }
     

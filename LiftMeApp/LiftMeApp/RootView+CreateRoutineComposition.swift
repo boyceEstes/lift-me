@@ -69,7 +69,7 @@ extension RootView {
     
     
     // MARK: - Navigation
-    func goToAddExerciseFromCreateRoutine(addExerciseCompletion: @escaping AddExercisesCompletion) {
+    func goToAddExerciseFromCreateRoutine(addExerciseCompletion: @escaping ([Exercise]) -> Void) {
         createRoutineNavigationFlowDisplayedSheet = .addExercise(addExercisesCompletion: addExerciseCompletion)
     }
     
