@@ -68,17 +68,17 @@ public class CreateRoutineViewModel: ObservableObject {
         saveRoutine(routine: routine)
     }
     
-    
-    public func addExercisesCompletion(exercises: [Exercise]) {
-        
-        exercises.forEach { [weak self] in
-            
-            print("Appending \($0.name)")
-            self?.exercises.append($0)
-        }
-    }
-    
-    
+//
+//    public func addExercisesCompletion(exercises: [Exercise]) {
+//
+//        exercises.forEach { [weak self] in
+//
+//            print("Appending \($0.name)")
+//            self?.exercises.append($0)
+//        }
+//    }
+//
+//
     func createRoutine(with routineRecords: [RoutineRecord]? = nil) -> Routine {
         
         let routine = Routine(
@@ -270,10 +270,7 @@ struct EditableExerciseSectionView: View {
                 Text("Exercises")
                     .font(.headline)
                 Spacer()
-                Button {
-                    print("tapped add button in EditableExerciseSectionView")
-                    goToAddExercise()
-                } label: {
+                Button(action: goToAddExercise) {
                     HStack {
                         Text("Add")
                         Image(systemName: "plus")

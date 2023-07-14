@@ -14,8 +14,6 @@ import NavigationFlow
 @testable import LiftMeApp
 
 
-extension CreateExerciseView: Inspectable { }
-
 
 class CreateExerciseUIIntegrationTests: XCTestCase {
     
@@ -36,16 +34,11 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
         let expectedName = ""
         let expectedDescription = ""
         
-        let exp1 = sut.inspection.inspect { view in
-            let nameTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_name").textField()
-            try nameTextField.setInput(expectedName)
-            
-            let descriptionTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_description").textField()
-            try descriptionTextField.setInput(expectedDescription)
-        }
+        let nameTextField = try sut.inspect().find(viewWithAccessibilityIdentifier: "exercise_name").textField()
+        try nameTextField.setInput(expectedName)
         
-        ViewHosting.host(view: sut)
-        wait(for: [exp1], timeout: 0.3)
+        let descriptionTextField = try sut.inspect().find(viewWithAccessibilityIdentifier: "exercise_description").textField()
+        try descriptionTextField.setInput(expectedDescription)
 
         // then
         let saveButton = try sut.inspect().find(button: "Save")
@@ -61,28 +54,33 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
         let expectedDescription = ""
         
         let exp1 = sut.inspection.inspect { view in
+            
+            // when pt. 1
             let nameTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_name").textField()
             try nameTextField.setInput(expectedName)
             
             let descriptionTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_description").textField()
             try descriptionTextField.setInput(expectedDescription)
+            
+            // then pt. 1
+            let saveButton = try view.find(button: "Save")
+            XCTAssertFalse(saveButton.isDisabled())
+            
+            // when pt. 2
+            try saveButton.tap()
+            
+            // then pt. 2
+            XCTAssertEqual(routineStore.requests.count, 1)
+            if case let .createExercise(exercise) = routineStore.requests.first {
+                XCTAssertEqual(exercise.name, expectedName)
+            } else {
+                XCTFail("Spy did not retrieve created exercise correctly")
+            }
         }
 
         ViewHosting.host(view: sut)
         wait(for: [exp1], timeout: 0.3)
-        // when
-        sut.viewModel.saveExercise()
-        
-        // then
-        let saveButton = try sut.inspect().find(button: "Save")
-        XCTAssertFalse(saveButton.isDisabled())
-        
-        XCTAssertEqual(routineStore.requests.count, 1)
-        if case let .createExercise(exercise) = routineStore.requests.first {
-            XCTAssertEqual(exercise.name, expectedName)
-        } else {
-            XCTFail("Spy did not retrieve created exercise correctly")
-        }
+
     }
     
     
@@ -100,14 +98,15 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
             
             let descriptionTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_description").textField()
             try descriptionTextField.setInput(expectedDescription)
+            
+            // This has to be run after the onAppear so that the StateObject has time to make the viewModel
+            let saveButton = try view.find(button: "Save")
+            XCTAssertTrue(saveButton.isDisabled())
         }
         
         ViewHosting.host(view: sut)
-        wait(for: [exp1], timeout: 0.3)
+        wait(for: [exp1], timeout: 0.1)
 
-        // then
-        let saveButton = try sut.inspect().find(button: "Save")
-        XCTAssertTrue(saveButton.isDisabled())
     }
 
 //    TODO: Update the Exercise model to include a prperty for description

@@ -87,7 +87,9 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
         
         // when
         // This would normally make the next `AddExerciseView` pop up, but instead we made this closure just return an exercise for the tests
-        try sut.inspect().find(button: "Add").tap()
+        let addExerciseButton = try sut.inspect().find(button: "Add")
+        try addExerciseButton.tap()
+        
         let exerciseRows = try sut.inspect().findAll { view in
             try view.accessibilityIdentifier() == "exercise_row"
         }
@@ -190,7 +192,8 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     }
     
     
-    func makeSUT() -> (CreateRoutineView, RoutineStoreSpy) {
+    // MARK: - Helpers
+    private func makeSUT() -> (CreateRoutineView, RoutineStoreSpy) {
         
         let routineStore = RoutineStoreSpy()
         let sut = CreateRoutineView(
