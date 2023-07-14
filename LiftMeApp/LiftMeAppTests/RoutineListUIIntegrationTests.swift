@@ -69,7 +69,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_init_displaysRoutineListTitle() throws {
         
         // given
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         let expectedTitle = "Routines"
         
         // when/then
@@ -80,7 +80,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_init_displaysNewRoutineButton() throws {
         
         // given
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         let expectedButtonTitle = "New"
         
         // when/then
@@ -91,7 +91,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_init_displaysMoreRoutinesButton() throws {
         
         // given
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         let expectedButtonTitle = "More"
         
         // when/then
@@ -101,7 +101,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
 
     func test_routineListView_init_doesNotRequestRoutineRepository() {
         
-        let (_, routineRepository, _) = makeSUT()
+        let (_, routineRepository) = makeSUT()
         
         XCTAssertTrue(routineRepository.requests.isEmpty)
     }
@@ -113,8 +113,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
         DispatchQueue.main.async {
             do {
                 let routineStore = RoutineStoreSpy()
-                let viewModel = RoutineListViewModel(routineStore: routineStore, goToCreateRoutine: {}, goToWorkoutView: { _ in })
-                let sut = RoutineListView(viewModel: viewModel)
+                let sut = RoutineListView(routineStore: routineStore, goToCreateRoutine: {}, goToRoutineDetail: { _ in })
 
                 // On initialization routineStoreSpy should be initialized with no routines
 
@@ -138,7 +137,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_loadRoutineCompletionWithoutRoutines_willRenderNoRoutinesMessage() throws {
         
         // given
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         print("BOYCE: loading completion with no routines")
         let expectedNoRoutinesMessage = "Aww shucks. No routines yet."
         
@@ -160,7 +159,7 @@ class RoutineListUIIntegrationTests: XCTestCase {
     func test_routineListView_loadRoutineCompletionWithError_willRenderErrorRoutineCell() throws {
         
         // given
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         print("BOYCE: loading completion with error")
         let error = anyNSError()
         let expectedRoutineErrorMessage = "Error loading routines... dang"
@@ -226,33 +225,15 @@ class RoutineListUIIntegrationTests: XCTestCase {
 //    }
     
     
-    func test_routineListView_tapNewButton_navigatesToCreateRoutineView() throws {
-        
-        // given
-        let (sut, _, routineNavigationFlow) = makeSUT()
-        let button = try sut.inspect().find(button: "New")
-        
-        // when
-        try button.tap()
-        
-        // then
-        XCTAssertEqual(
-            routineNavigationFlow.modallyDisplayedView,
-            HomeNavigationFlow.SheetyIdentifier.createRoutine)
-    }
-
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineStoreSpy, HomeNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (RoutineListView, RoutineStoreSpy) {
         
-        let homeUIComposer = HomeUIComposerWithSpys()
-        let routineNavigationFlow = homeUIComposer.navigationFlow
-        let sut = homeUIComposer.makeRoutineListView().0
-        let routineStore: RoutineStoreSpy = homeUIComposer.routineStore as! RoutineStoreSpy
-        
+        let routineStore = RoutineStoreSpy()
+        let sut = RoutineListView(routineStore: routineStore, goToCreateRoutine: { }, goToRoutineDetail: { _ in })
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, routineStore, routineNavigationFlow)
+        return (sut, routineStore)
     }
 }
 

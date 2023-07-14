@@ -28,7 +28,7 @@ final class HistoryUIIntegrationTests: XCTestCase {
     func test_historyView_viewAppears_willRequestRoutineRecordsFromRoutineStore() {
         
         // GIVEN
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exp = sut.inspection.inspect { sut in
             
@@ -47,7 +47,7 @@ final class HistoryUIIntegrationTests: XCTestCase {
     func test_historyView_readRoutineRecordsWithNonEmptyCache_rendersRowsForEachRoutineRecordSaved() {
         
         // GIVEN
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exercise = uniqueExercise()
         let routineRecords = [uniqueRoutineRecord(exercise: exercise), uniqueRoutineRecord(exercise: exercise)]
@@ -89,16 +89,14 @@ final class HistoryUIIntegrationTests: XCTestCase {
     //    }
     
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: HistoryView, routineStore: RoutineStoreSpy, navigationFlow: HistoryNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: HistoryView, routineStore: RoutineStoreSpy) {
 
-        let historyUIComposer = HistoryUIComposerWithSpys()
-        let historyNavigationFlow = historyUIComposer.navigationFlow
-        let sut = historyUIComposer.makeHistoryView()
-        let routineStore: RoutineStoreSpy = historyUIComposer.routineStore as! RoutineStoreSpy
+        let routineStore = RoutineStoreSpy()
+        let sut = HistoryView(routineStore: routineStore, goToRoutineRecordDetailView: { _ in })
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, routineStore, historyNavigationFlow)
+        return (sut, routineStore)
     }
 }

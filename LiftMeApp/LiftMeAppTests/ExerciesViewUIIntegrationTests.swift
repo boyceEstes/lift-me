@@ -28,7 +28,7 @@ final class ExerciesViewUIIntegrationTests: XCTestCase {
     func test_exercisesView_viewAppears_willRequestAllExercisesFromRoutineStore() {
         
         // GIVEN
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exp = sut.inspection.inspect { sut in
             
@@ -47,7 +47,7 @@ final class ExerciesViewUIIntegrationTests: XCTestCase {
     func test_exerciseView_readRoutineRecordsWithNonEmptyCache_rendersRowsForEachRoutineRecordSaved() {
         
         // GIVEN
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exercises = [uniqueExercise(), uniqueExercise(), uniqueExercise()]
         
@@ -72,16 +72,14 @@ final class ExerciesViewUIIntegrationTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: ExercisesView, routineStore: RoutineStoreSpy, navigationFlow: ExerciseNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: ExercisesView, routineStore: RoutineStoreSpy) {
 
-        let exerciseUIComposer = ExerciseUIComposerWithSpys()
-        let exerciseNavigationFlow = exerciseUIComposer.navigationFlow
-        let sut = exerciseUIComposer.makeExercisesView()
-        let routineStore: RoutineStoreSpy = exerciseUIComposer.routineStore as! RoutineStoreSpy
+        let routineStore = RoutineStoreSpy()
+        let sut = ExercisesView(routineStore: routineStore, goToExerciseDetailView: { _ in }, goToCreateExerciseView: { } )
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, routineStore, exerciseNavigationFlow)
+        return (sut, routineStore)
     }
 }

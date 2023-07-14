@@ -192,18 +192,15 @@ class CreateRoutineUIIntegrationTests: XCTestCase {
     
     func makeSUT() -> (CreateRoutineView, RoutineStoreSpy) {
         
-        let homeUIComposer = CreateRoutineUIComposerWithSpys()
-        let routineStore: RoutineStoreSpy = homeUIComposer.routineStore as! RoutineStoreSpy
+        let routineStore = RoutineStoreSpy()
+        let sut = CreateRoutineView(
+            routineStore: routineStore,
+            routineRecord: nil,
+            superDismiss: nil,
+            goToAddExercise: { _ in },
+            goToExerciseDetail: { _ in }
+        )
         
-//        let sut = homeUIComposer.makeCreateRoutineView(routineRecord: nil, superDismiss: nil)
-        
-        // I want a simpller way to get exercises added to the view rather than doing a full sequence on another page.
-        // ... Some I'm stubbing the behavior with this `goToAddExerciseView` closure below
-        
-        // The other thing that would make this much easier is actually just making the view model public, then I could just call the function whenever
-        
-        let viewModel = CreateRoutineViewModel(routineStore: routineStore, dismiss: { })
-        let sut = CreateRoutineView(viewModel: viewModel, goToAddExerciseView: { viewModel.addExercisesCompletion(exercises: [uniqueExercise()] ) })
         return (sut, routineStore)
     }
 }

@@ -48,30 +48,11 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     }
     
     
-    func test_workoutView_tapAddButton_navigatesToAddExerciseView() throws {
-
-        // given
-        let (sut, _, workoutNavigationFlow) = makeSUT()
-        let button = try sut.inspect().find(viewWithId: "add-exercise-button").button()
-
-        // when
-        try button.tap()
-
-        // then
-        XCTAssertEqual(
-            workoutNavigationFlow.modallyDisplayedView,
-            WorkoutNavigationFlow.SheetyIdentifier.addExercise(
-                addExercisesCompletion: sut.viewModel.addExercisesCompletion,
-                dismiss: workoutNavigationFlow.dismiss)
-        )
-    }
-
-    
     func test_workoutView_addingExercisesToRoutineRecordWithEmptyExerciseList_displaysExercises() {
 
         // given
         // A routine record with no exercises
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         let addedExercises = [uniqueExercise(), uniqueExercise()]
 
         let exp = sut.inspection.inspect { sut in
@@ -99,7 +80,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
         
         // given
         // A routine record with no exercises
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         let addedExercise = [uniqueExercise()]
 
         let exp = sut.inspection.inspect { sut in
@@ -127,7 +108,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
         
         // GIVEN
         // A routine record with no exercises
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         let addedExercise = [uniqueExercise()]
 
         let exp = sut.inspection.inspect { sut in
@@ -192,7 +173,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     func test_workoutView_noExerciseRecords_willKeepTheButtonDisabled() throws {
         
         // given
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         
         // when
         let saveButton = try sut.inspect().find(button: "Save")
@@ -205,7 +186,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     func test_workoutView_withExerciseRecords_saveButtonisEnabled() throws {
         
         // given
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         
         let exercise = uniqueExercise()
         sut.viewModel.addExercisesCompletion(exercises: [exercise])
@@ -218,17 +199,14 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     }
 
 
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, routineStore: RoutineStoreSpy, navigationFlow: WorkoutNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, routineStore: RoutineStoreSpy) {
 
-        let workoutUIComposer = WorkoutUIComposerWithSpys()
-        let workoutNavigationFlow = workoutUIComposer.navigationFlow
-        let sut = workoutUIComposer.makeWorkoutView(routine: nil, dismiss: { })
-        let routineStore: RoutineStoreSpy = workoutUIComposer.routineStore as! RoutineStoreSpy
-
+        let routineStore = RoutineStoreSpy()
+        let sut = WorkoutView(routineStore: routineStore, goToAddExercise: { _ in }, goToCreateRoutineView: { _ in })
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, routineStore, workoutNavigationFlow)
+        return (sut, routineStore)
     }
     
 }

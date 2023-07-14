@@ -33,7 +33,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     func test_addExerciseView_init_rendersAddExerciseButton() {
         
         // given/when
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         
         // then
         XCTAssertNoThrow(try sut.inspect().find(viewWithAccessibilityIdentifier: "add-selected-exercises"))
@@ -43,7 +43,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     func test_addExerciseView_viewWillAppear_requestsAllExerciseLoad() {
         
         // given
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exp = sut.inspection.inspect { view in
             // then
@@ -60,7 +60,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     func test_addExerciseView_readAllExercisesCompletionWithExercises_willRenderExercises() throws {
 
         // given
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         let exercises = [uniqueExercise(), uniqueExercise(), uniqueExercise()]
 
         // when/then
@@ -70,7 +70,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     
     func test_addExerciseView_filterExerisesByString_rendersOnlyMatchingExercises() {
         
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exercises = [
             uniqueExercise(name: "Bench"),
@@ -100,7 +100,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     
     func test_addExerciseView_selectExercisesByTappingRows_rendersSelectedExercises() {
         
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exercises = [
             uniqueExercise(name: "Bench"),
@@ -173,7 +173,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     func test_addExerciseView_swipeToDeleteOnFilteredExercise_deletesAnExercise() {
         
         // given
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exercises = [
             uniqueExercise(name: "Bench"),
@@ -216,20 +216,15 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     }
     
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: AddExerciseNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy) {
 
-        let addExerciseUIComposer = AddExerciseUIComposerWithSpys()
-        let addExerciseNavigationFlow = addExerciseUIComposer.navigationFlow
-        let sut = addExerciseUIComposer.makeAddExerciseView(
+        let routineStore = RoutineStoreSpy()
+        let sut = AddExerciseView(
+            routineStore: routineStore,
             addExerciseCompletion: { _ in },
-            dismiss: addExerciseNavigationFlow.dismiss
+            goToCreateExercise: { _ in }
         )
-        let routineStore: RoutineStoreSpy = addExerciseUIComposer.routineStore as! RoutineStoreSpy
-
-//        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
-//        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
-
-        return (sut, routineStore, addExerciseNavigationFlow)
+        return (sut, routineStore)
     }
     
     

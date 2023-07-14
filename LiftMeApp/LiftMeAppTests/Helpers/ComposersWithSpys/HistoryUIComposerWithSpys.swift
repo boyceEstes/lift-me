@@ -9,9 +9,9 @@ import Foundation
 @testable import LiftMeApp
 
 
-class HistoryUIComposerWithSpys: HistoryUIComposer {
-    
-    convenience init() {
-        self.init(routineStore: RoutineStoreSpy())
-    }
-}
+//class HistoryUIComposerWithSpys: HistoryUIComposer {
+//    
+//    convenience init() {
+//        self.init(routineStore: RoutineStoreSpy())
+//    }
+//}

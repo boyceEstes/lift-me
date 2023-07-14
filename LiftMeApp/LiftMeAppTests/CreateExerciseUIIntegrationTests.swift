@@ -31,7 +31,7 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
     func test_createExerciseView_saveEmptyNameAndEmptyDescription_isNotPossibleBecauseSaveButtonIsDisabled() throws {
         
         // given/when
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         
         let expectedName = ""
         let expectedDescription = ""
@@ -56,7 +56,7 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
     func test_createExerciseView_saveNonEmptyNameAndDescription_createsExerciseInDatabaseAndCallsDismiss() throws {
         
         // given
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         let expectedName = "Any Exercise Name"
         let expectedDescription = ""
         
@@ -89,7 +89,7 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
     func test_createExerciseView_saveEmptyNameAndNonEmptyDescription_isNotPossibleBecauseSaveButtonIsDisabled() throws {
         
         // given/when
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         
         let expectedName = ""
         let expectedDescription = "Any exercise description"
@@ -144,34 +144,28 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
 //        }
 //    }
     
-    func test_createExerciseView_cancelTapped_dismissesCreateExerciseViewWithoutSaving() throws {
-        
-        // given
-        let (sut, _, exerciseUIComposer) = makeSUT()
-        
-        // when
-        let cancelButton = try sut.inspect().find(button: "Cancel")
-        try cancelButton.tap()
-        
-        // then
-        // assert Dismiss is called via spy
-        XCTAssertEqual(exerciseUIComposer.messages, [UIComposerMessage.dismissModal])
-        
-    }
+    // MARK: What happens when the View's cancel button is tapped?
+//    func test_createExerciseView_cancelTapped_dismissesCreateExerciseViewWithoutSaving() throws {
+//
+//        // given
+//        let (sut, _, exerciseUIComposer) = makeSUT()
+//
+//        // when
+//        let cancelButton = try sut.inspect().find(button: "Cancel")
+//        try cancelButton.tap()
+//
+//        // then
+//        // assert Dismiss is called via spy
+//        XCTAssertEqual(exerciseUIComposer.messages, [UIComposerMessage.dismissModal])
+//
+//    }
 
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: CreateExerciseView, routineStore: RoutineStoreSpy, exerciseUIComposer: ExerciseUIComposerWithSpys) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: CreateExerciseView, routineStore: RoutineStoreSpy) {
         
-        // Can come from the AddExerciseView or the exerciseListView from ExerciseUIComposer
-        let exerciseUIComposer = ExerciseUIComposerWithSpys(baseState: .createExerciseViewDisplayed)
-        let exerciseNavigationFlow = exerciseUIComposer.navigationFlow
+        let routineStore = RoutineStoreSpy()
+        let sut = CreateExerciseView(routineStore: routineStore, createExerciseCompletion: { _ in })
         
-        let sutAsSomeView = exerciseNavigationFlow.displaySheet(for: exerciseNavigationFlow.modallyDisplayedView!) // Should always have this set from composer initializer
-        let sutAsStackNavigationView = sutAsSomeView as? StackNavigationView<CreateExerciseView, ExerciseNavigationFlow>
-        let sut = sutAsStackNavigationView!.content
-        
-        let routineStore: RoutineStoreSpy = exerciseUIComposer.routineStore as! RoutineStoreSpy
-        
-        return (sut, routineStore, exerciseUIComposer)
+        return (sut, routineStore)
     }
 }

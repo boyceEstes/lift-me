@@ -20,7 +20,7 @@ public class AddExerciseViewModel: ObservableObject {
     
     public struct SelectableExercise: Hashable {
         
-        var isSelected: Bool
+        public var isSelected: Bool
         let exercise: Exercise
         
         
@@ -316,7 +316,7 @@ public struct FilteredAllExercisesList: View {
 
 public struct SelectableBasicExerciseRowView: View {
     
-    var selectableExercise: AddExerciseViewModel.SelectableExercise
+    public var selectableExercise: AddExerciseViewModel.SelectableExercise
     let tapAction: () -> Void
     
     public var body: some View {

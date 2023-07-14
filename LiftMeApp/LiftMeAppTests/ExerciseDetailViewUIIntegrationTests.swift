@@ -30,7 +30,7 @@ final class ExercieDetailViewUIIntegrationTests: XCTestCase {
         
         // GIVEN
         let exercise = uniqueExercise()
-        let (sut, routineStore, _) = makeSUT(with: exercise)
+        let (sut, routineStore) = makeSUT(with: exercise)
 
         
         let exp = sut.inspection.inspect { sut in
@@ -81,15 +81,13 @@ final class ExercieDetailViewUIIntegrationTests: XCTestCase {
 
 // MARK: - Helpers
 
-private func makeSUT(with exercise: Exercise, file: StaticString = #file, line: UInt = #line) -> (view: ExerciseDetailView, routineStore: RoutineStoreSpy, navigationFlow: ExerciseNavigationFlow) {
+private func makeSUT(with exercise: Exercise, file: StaticString = #file, line: UInt = #line) -> (view: ExerciseDetailView, routineStore: RoutineStoreSpy) {
 
-    let exerciseUIComposer = ExerciseUIComposerWithSpys()
-    let exerciseNavigationFlow = exerciseUIComposer.navigationFlow
-    let sut = exerciseUIComposer.makeExerciseDetailView(exercise: exercise)
-    let routineStore: RoutineStoreSpy = exerciseUIComposer.routineStore as! RoutineStoreSpy
+    let routineStore = RoutineStoreSpy()
+    let sut = ExerciseDetailView(routineStore: routineStore, exercise: exercise)
 
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-    return (sut, routineStore, exerciseNavigationFlow)
+    return (sut, routineStore)
 }
