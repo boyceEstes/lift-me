@@ -187,15 +187,21 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
         
         // given
         let (sut, _) = makeSUT()
-        
         let exercise = uniqueExercise()
-        sut.viewModel.addExercisesCompletion(exercises: [exercise])
         
-        // when
-        let saveButton = try sut.inspect().find(button: "Save")
+        let exp = sut.inspection.inspect { sut in
+            
+            try sut.actualView().viewModel.addExercisesCompletion(exercises: [exercise])
+            
+            // when
+            let saveButton = try sut.find(button: "Save")
+            
+            // then
+            XCTAssertFalse(saveButton.isDisabled())
+        }
         
-        // then
-        XCTAssertFalse(saveButton.isDisabled())
+        ViewHosting.host(view: sut)
+        wait(for: [exp], timeout: 1)
     }
 
 
