@@ -12,8 +12,6 @@ import LiftMeRoutinesiOS
 import RoutineRepository
 @testable import LiftMeApp
 
-extension ExerciseDetailView: Inspectable { }
-
 
 final class ExercieDetailViewUIIntegrationTests: XCTestCase {
     

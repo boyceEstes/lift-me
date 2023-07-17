@@ -11,8 +11,6 @@ import SwiftUI
 import LiftMeRoutinesiOS
 @testable import LiftMeApp
 
-extension ExercisesView: Inspectable { }
-
 
 final class ExerciesViewUIIntegrationTests: XCTestCase {
     

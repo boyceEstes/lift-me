@@ -11,8 +11,6 @@ import SwiftUI
 import LiftMeRoutinesiOS
 @testable import LiftMeApp
 
-extension HistoryView: Inspectable { }
-extension RoutineRecordCellView: Inspectable { }
 
 final class HistoryUIIntegrationTests: XCTestCase {
     

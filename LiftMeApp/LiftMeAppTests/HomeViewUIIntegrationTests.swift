@@ -14,7 +14,6 @@ import LiftMeRoutinesiOS
 
 
 
-extension HomeView: Inspectable { }
 
 final class HomeViewUIIntegrationTests: XCTestCase {
 

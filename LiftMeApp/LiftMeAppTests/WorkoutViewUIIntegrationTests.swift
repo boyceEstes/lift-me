@@ -12,9 +12,6 @@ import LiftMeRoutinesiOS
 @testable import LiftMeApp
 
 
-extension WorkoutView: Inspectable { }
-extension ExerciseRecordView: Inspectable { }
-extension SetRecordView: Inspectable { }
 
 final class WorkoutViewUIIntegrationTests: XCTestCase {
 
