@@ -80,7 +80,6 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
 
         ViewHosting.host(view: sut)
         wait(for: [exp1], timeout: 0.3)
-
     }
     
     
@@ -95,19 +94,22 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
         let exp1 = sut.inspection.inspect { view in
             let nameTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_name").textField()
             try nameTextField.setInput(expectedName)
+        }
+        
+        let exp2 = sut.inspection.inspect { sut in
             
-            let descriptionTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_description").textField()
+            let descriptionTextField = try sut.find(viewWithAccessibilityIdentifier: "exercise_description").textField()
             try descriptionTextField.setInput(expectedDescription)
             
             // This has to be run after the onAppear so that the StateObject has time to make the viewModel
-            let saveButton = try view.find(button: "Save")
+            let saveButton = try sut.find(button: "Save")
             XCTAssertTrue(saveButton.isDisabled())
         }
         
         ViewHosting.host(view: sut)
-        wait(for: [exp1], timeout: 0.1)
-
+        wait(for: [exp1, exp2], timeout: 0.1)
     }
+    
 
 //    TODO: Update the Exercise model to include a prperty for description
 //    func test_createExerciseView_saveNonEmptyNameAndNonEmptyDescription_createsExerciseInDatabaseAndCallsDismiss() throws {

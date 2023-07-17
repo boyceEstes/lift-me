@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "navigation-flow",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/boyceEstes/navigation-flow.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "8328ea972a95af143c3698fe453df700d62d01b1"
-      }
-    },
-    {
       "identity" : "utility-me",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/boyceEstes/utility-me",
