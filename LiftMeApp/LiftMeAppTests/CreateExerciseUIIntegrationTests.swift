@@ -14,8 +14,6 @@ import NavigationFlow
 @testable import LiftMeApp
 
 
-extension CreateExerciseView: Inspectable { }
-
 
 class CreateExerciseUIIntegrationTests: XCTestCase {
     
@@ -31,21 +29,16 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
     func test_createExerciseView_saveEmptyNameAndEmptyDescription_isNotPossibleBecauseSaveButtonIsDisabled() throws {
         
         // given/when
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         
         let expectedName = ""
         let expectedDescription = ""
         
-        let exp1 = sut.inspection.inspect { view in
-            let nameTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_name").textField()
-            try nameTextField.setInput(expectedName)
-            
-            let descriptionTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_description").textField()
-            try descriptionTextField.setInput(expectedDescription)
-        }
+        let nameTextField = try sut.inspect().find(viewWithAccessibilityIdentifier: "exercise_name").textField()
+        try nameTextField.setInput(expectedName)
         
-        ViewHosting.host(view: sut)
-        wait(for: [exp1], timeout: 0.3)
+        let descriptionTextField = try sut.inspect().find(viewWithAccessibilityIdentifier: "exercise_description").textField()
+        try descriptionTextField.setInput(expectedDescription)
 
         // then
         let saveButton = try sut.inspect().find(button: "Save")
@@ -56,40 +49,44 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
     func test_createExerciseView_saveNonEmptyNameAndDescription_createsExerciseInDatabaseAndCallsDismiss() throws {
         
         // given
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         let expectedName = "Any Exercise Name"
         let expectedDescription = ""
         
         let exp1 = sut.inspection.inspect { view in
+            
+            // when pt. 1
             let nameTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_name").textField()
             try nameTextField.setInput(expectedName)
             
             let descriptionTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_description").textField()
             try descriptionTextField.setInput(expectedDescription)
+            
+            // then pt. 1
+            let saveButton = try view.find(button: "Save")
+            XCTAssertFalse(saveButton.isDisabled())
+            
+            // when pt. 2
+            try saveButton.tap()
+            
+            // then pt. 2
+            XCTAssertEqual(routineStore.requests.count, 1)
+            if case let .createExercise(exercise) = routineStore.requests.first {
+                XCTAssertEqual(exercise.name, expectedName)
+            } else {
+                XCTFail("Spy did not retrieve created exercise correctly")
+            }
         }
 
         ViewHosting.host(view: sut)
         wait(for: [exp1], timeout: 0.3)
-        // when
-        sut.viewModel.saveExercise()
-        
-        // then
-        let saveButton = try sut.inspect().find(button: "Save")
-        XCTAssertFalse(saveButton.isDisabled())
-        
-        XCTAssertEqual(routineStore.requests.count, 1)
-        if case let .createExercise(exercise) = routineStore.requests.first {
-            XCTAssertEqual(exercise.name, expectedName)
-        } else {
-            XCTFail("Spy did not retrieve created exercise correctly")
-        }
     }
     
     
     func test_createExerciseView_saveEmptyNameAndNonEmptyDescription_isNotPossibleBecauseSaveButtonIsDisabled() throws {
         
         // given/when
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         
         let expectedName = ""
         let expectedDescription = "Any exercise description"
@@ -97,18 +94,22 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
         let exp1 = sut.inspection.inspect { view in
             let nameTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_name").textField()
             try nameTextField.setInput(expectedName)
+        }
+        
+        let exp2 = sut.inspection.inspect { sut in
             
-            let descriptionTextField = try view.find(viewWithAccessibilityIdentifier: "exercise_description").textField()
+            let descriptionTextField = try sut.find(viewWithAccessibilityIdentifier: "exercise_description").textField()
             try descriptionTextField.setInput(expectedDescription)
+            
+            // This has to be run after the onAppear so that the StateObject has time to make the viewModel
+            let saveButton = try sut.find(button: "Save")
+            XCTAssertTrue(saveButton.isDisabled())
         }
         
         ViewHosting.host(view: sut)
-        wait(for: [exp1], timeout: 0.3)
-
-        // then
-        let saveButton = try sut.inspect().find(button: "Save")
-        XCTAssertTrue(saveButton.isDisabled())
+        wait(for: [exp1, exp2], timeout: 0.1)
     }
+    
 
 //    TODO: Update the Exercise model to include a prperty for description
 //    func test_createExerciseView_saveNonEmptyNameAndNonEmptyDescription_createsExerciseInDatabaseAndCallsDismiss() throws {
@@ -144,34 +145,28 @@ class CreateExerciseUIIntegrationTests: XCTestCase {
 //        }
 //    }
     
-    func test_createExerciseView_cancelTapped_dismissesCreateExerciseViewWithoutSaving() throws {
-        
-        // given
-        let (sut, _, exerciseUIComposer) = makeSUT()
-        
-        // when
-        let cancelButton = try sut.inspect().find(button: "Cancel")
-        try cancelButton.tap()
-        
-        // then
-        // assert Dismiss is called via spy
-        XCTAssertEqual(exerciseUIComposer.messages, [UIComposerMessage.dismissModal])
-        
-    }
+    // MARK: What happens when the View's cancel button is tapped?
+//    func test_createExerciseView_cancelTapped_dismissesCreateExerciseViewWithoutSaving() throws {
+//
+//        // given
+//        let (sut, _, exerciseUIComposer) = makeSUT()
+//
+//        // when
+//        let cancelButton = try sut.inspect().find(button: "Cancel")
+//        try cancelButton.tap()
+//
+//        // then
+//        // assert Dismiss is called via spy
+//        XCTAssertEqual(exerciseUIComposer.messages, [UIComposerMessage.dismissModal])
+//
+//    }
 
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: CreateExerciseView, routineStore: RoutineStoreSpy, exerciseUIComposer: ExerciseUIComposerWithSpys) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: CreateExerciseView, routineStore: RoutineStoreSpy) {
         
-        // Can come from the AddExerciseView or the exerciseListView from ExerciseUIComposer
-        let exerciseUIComposer = ExerciseUIComposerWithSpys(baseState: .createExerciseViewDisplayed)
-        let exerciseNavigationFlow = exerciseUIComposer.navigationFlow
+        let routineStore = RoutineStoreSpy()
+        let sut = CreateExerciseView(routineStore: routineStore, createExerciseCompletion: { _ in })
         
-        let sutAsSomeView = exerciseNavigationFlow.displaySheet(for: exerciseNavigationFlow.modallyDisplayedView!) // Should always have this set from composer initializer
-        let sutAsStackNavigationView = sutAsSomeView as? StackNavigationView<CreateExerciseView, ExerciseNavigationFlow>
-        let sut = sutAsStackNavigationView!.content
-        
-        let routineStore: RoutineStoreSpy = exerciseUIComposer.routineStore as! RoutineStoreSpy
-        
-        return (sut, routineStore, exerciseUIComposer)
+        return (sut, routineStore)
     }
 }

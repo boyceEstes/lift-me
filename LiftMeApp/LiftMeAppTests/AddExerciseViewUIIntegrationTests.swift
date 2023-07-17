@@ -12,12 +12,6 @@ import LiftMeRoutinesiOS
 import RoutineRepository
 @testable import LiftMeApp
 
-extension AddExerciseView: Inspectable { }
-extension SelectedExercisesList: Inspectable { }
-extension FilteredAllExercisesList: Inspectable { }
-extension SelectableBasicExerciseRowView: Inspectable { }
-extension BasicExerciseRowView: Inspectable { }
-
 
 final class AddExerciseViewUIIntegrationTests: XCTestCase {
 
@@ -33,7 +27,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     func test_addExerciseView_init_rendersAddExerciseButton() {
         
         // given/when
-        let (sut, _, _) = makeSUT()
+        let (sut, _) = makeSUT()
         
         // then
         XCTAssertNoThrow(try sut.inspect().find(viewWithAccessibilityIdentifier: "add-selected-exercises"))
@@ -43,7 +37,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     func test_addExerciseView_viewWillAppear_requestsAllExerciseLoad() {
         
         // given
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exp = sut.inspection.inspect { view in
             // then
@@ -60,7 +54,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     func test_addExerciseView_readAllExercisesCompletionWithExercises_willRenderExercises() throws {
 
         // given
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         let exercises = [uniqueExercise(), uniqueExercise(), uniqueExercise()]
 
         // when/then
@@ -70,7 +64,7 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     
     func test_addExerciseView_filterExerisesByString_rendersOnlyMatchingExercises() {
         
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
         let exercises = [
             uniqueExercise(name: "Bench"),
@@ -100,115 +94,146 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     
     func test_addExerciseView_selectExercisesByTappingRows_rendersSelectedExercises() {
         
-        let (sut, routineStore, _) = makeSUT()
+        let (sut, routineStore) = makeSUT()
         
-        let exercises = [
+        let expectedExercises = [
             uniqueExercise(name: "Bench"),
             uniqueExercise(name: "Deadlift"),
-            uniqueExercise(name: "Squat")]
+            uniqueExercise(name: "Squat")
+        ]
 
-        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
+//        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
         
+        // Ensure that exercises are loaded and filtered exercise will render
         let exp = sut.inspection.inspect { sut in
             
-            // GIVEN two exercises
+            // given - Ensure that exercises are loaded and filtered exercise rows render
+            let exerciseRowsBeforeRead = self.findAllWhereParentViewHas(accessibilityIdentifier: "filtered_exercise_list", for: sut)
+            XCTAssertTrue(exerciseRowsBeforeRead.isEmpty)
+            
+            // when - Stub loading some test exercises
+            routineStore.completeReadAllExercises(with: expectedExercises)
+            
+            // then - Find all rows rendered now that stub exercises were loaded
+            let exerciseRowsAfterRead = self.findAllWhereParentViewHas(accessibilityIdentifier: "filtered_exercise_list", for: sut)
+            XCTAssertEqual(exerciseRowsAfterRead.count, expectedExercises.count)
+        }
+
+        
+        // Ensure that exercises loaded will be added to the selected list when tapped
+        let exp2 = sut.inspection.inspect { sut in
+            
             let filteredSelectableList = try sut.find(FilteredAllExercisesList.self)
             let selectableFilteredExercise1 = try filteredSelectableList.find(SelectableBasicExerciseRowView.self, containing: "Bench")
             let selectableFilteredExercise2 = try filteredSelectableList.find(SelectableBasicExerciseRowView.self, containing: "Deadlift")
-            
+
             // WHEN both exercises from filtered exercises list are tapped
             try selectableFilteredExercise1.button().tap()
             try selectableFilteredExercise2.button().tap()
-            
+
             // THEN two exercises are in selected list
             let selectedExerciseListAfterExercisesTapped = try sut.find(SelectedExercisesList.self)
             let selectedExercisesInListAfterExercisesTapped = selectedExerciseListAfterExercisesTapped.findAll(SelectableBasicExerciseRowView.self)
-            
+
             XCTAssertEqual(selectedExercisesInListAfterExercisesTapped.count, 2)
-            
-            // AND 4 exercises are selected in total (2 exercises in each list)
-            XCTAssertEqual(sut.findAll(SelectableBasicExerciseRowView.self, where: { view in
-                try view.actualView().selectableExercise.isSelected == true
-            }).count, 4)
-            
-            
-            // GIVEN an exercise is selected in the exerciseList
-            // WHEN an exercise is deselected from filtered exercise list
-            try selectableFilteredExercise1.button().tap()
-            // THEN it is removed from the selected exercise list
-            let selectedExercisesListAfterDeselectionFromFilteredList = try sut.find(SelectedExercisesList.self)
-            let selectedExercisesInListAfterDeselectionFromFilteredList = selectedExercisesListAfterDeselectionFromFilteredList.findAll(SelectableBasicExerciseRowView.self)
-            
-            XCTAssertEqual(selectedExercisesInListAfterDeselectionFromFilteredList.count, 1)
-            
-            // AND it is unselected in the filtered exercise list
-            XCTAssertEqual(sut.findAll(SelectableBasicExerciseRowView.self, where: { view in
-                try view.actualView().selectableExercise.isSelected == true
-            }).count, 2)
-            
-            
-            // TODO: Can I consolidate all of these to one List shortcut?
-            // GIVEN an exercise is selected
-            let selectedExercisesList = try sut.find(SelectedExercisesList.self)
-            let selectedExercise = try selectedExercisesList.find(SelectableBasicExerciseRowView.self)
-
-            // WHEN an exercise is deselected from selected exercise list
-            try selectedExercise.button().tap()
-            
-            // THEN it is removed from the selected exercise list
-            let selectedExercisesListAfterDeselectionFromSelectedList = try sut.find(SelectedExercisesList.self)
-            let selectedExercisesInListAfterDeselectionFromSelectedList = selectedExercisesListAfterDeselectionFromSelectedList.findAll(SelectableBasicExerciseRowView.self)
-            
-            XCTAssertEqual(selectedExercisesInListAfterDeselectionFromSelectedList.count, 0)
-            // AND it is deselected in the filtered exercise list
-            XCTAssertEqual(sut.findAll(SelectableBasicExerciseRowView.self, where: { view in
-                try view.actualView().selectableExercise.isSelected == true
-            }).count, 0)
         }
         
-        wait(for: [exp], timeout: 1)
-    }
-    
-    
-    func test_addExerciseView_swipeToDeleteOnFilteredExercise_deletesAnExercise() {
         
-        // given
-        let (sut, routineStore, _) = makeSUT()
-        
-        let exercises = [
-            uniqueExercise(name: "Bench"),
-            uniqueExercise(name: "Deadlift"),
-            uniqueExercise(name: "Squat")]
-        
-        let exerciseToDeleteIndex = 0
-        let exerciseToDelete = exercises[exerciseToDeleteIndex]
-
-        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
-        
-        let exp = sut.inspection.inspect { sut in
+        // Ensure that a selected exercise can be deselected when tapped in selected list
+        let exp3 = sut.inspection.inspect { sut in
             
+            // given -
+            let selectedExerciseList = try sut.find(SelectedExercisesList.self)
+            let selectedExerciseRows = selectedExerciseList.findAll(SelectableBasicExerciseRowView.self)
+            let selectedExerciseBenchRow = try selectedExerciseList.find(SelectableBasicExerciseRowView.self, containing: "Bench")
+            
+            XCTAssertEqual(selectedExerciseRows.count, 2)
+            
+            // when - selected exercise in selected exercise list is tapped
+            try selectedExerciseBenchRow.button().tap()
+            
+            // then - tapped exercise is deselected and removed from the selected list
+            let selectedExerciseRowsAfter = selectedExerciseList.findAll(SelectableBasicExerciseRowView.self)
+
+            XCTAssertEqual(selectedExerciseRowsAfter.count, 1)
+        }
+        
+        
+        // Ensure that a selected exercise can be deselected when tappend in filtered list
+        let exp4 = sut.inspection.inspect { sut in
+            
+            // given - filtered exercise with an exercise selected
             let filteredSelectableList = try sut.find(FilteredAllExercisesList.self)
-            let allFilteredSelectableExerciseRowsBeforeDeletion = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self)
+            let selectedInFilteredExerciseCount = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self, where: { view in
+                try view.actualView().selectableExercise.isSelected == true
+            }).count
             
-            XCTAssertEqual(allFilteredSelectableExerciseRowsBeforeDeletion.count, 3)
+            let selectedExerciseDeadliftRow = try filteredSelectableList.find(SelectableBasicExerciseRowView.self, containing: "Deadlift")
             
-            // when
-            try filteredSelectableList.list().forEach(0).callOnDelete(IndexSet(integer: exerciseToDeleteIndex))
+            XCTAssertEqual(selectedInFilteredExerciseCount, 1) // Should only be Deadlift exercise at this point
             
-            // then
-            let allFilteredSelectableExerciseRowsAfterDeletion = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self)
+            // when - selected exercise is tapped in filtered exercise list is tapped
+            try selectedExerciseDeadliftRow.button().tap()
             
-            // This test does not work when we are relying on the datasource completely and not doing a
-            // `selectableFilteredExercises.remove(atOffsets: offsets)`
-            //
-            // This doesn't work because we use a fake data source in this unit testing.
-            // The best we can do is just make sure that the correct method to delete is called.
+            // then - no more selected exercises
+            let selectedInFilteredExerciseCountAfter = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self, where: { view in
+                try view.actualView().selectableExercise.isSelected == true
+            }).count
+            XCTAssertEqual(selectedInFilteredExerciseCountAfter, 0)
             
-            XCTAssertEqual(routineStore.requests, [.getExerciseDataSource, .deleteExercise(exerciseToDelete.id)])
+            // and - still all three exercises exist in filtered list, just unselected
+            let unselectedInFilteredExerciseCount = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self, where: { view in
+                try view.actualView().selectableExercise.isSelected == false
+            }).count
+            XCTAssertEqual(unselectedInFilteredExerciseCount, 3)
         }
         
-        wait(for: [exp], timeout: 1)
+
+        ViewHosting.host(view: sut)
+        wait(for: [exp, exp2, exp3, exp4], timeout: 1)
     }
+    
+    
+//    func test_addExerciseView_swipeToDeleteOnFilteredExercise_deletesAnExercise() {
+//
+//        // given
+//        let (sut, routineStore) = makeSUT()
+//
+//        let exercises = [
+//            uniqueExercise(name: "Bench"),
+//            uniqueExercise(name: "Deadlift"),
+//            uniqueExercise(name: "Squat")]
+//
+//        let exerciseToDeleteIndex = 0
+//        let exerciseToDelete = exercises[exerciseToDeleteIndex]
+//
+//        assertThatRoutineStoreRendersGivenExercises(in: sut, routineStore: routineStore, with: exercises)
+//
+//        let exp = sut.inspection.inspect { sut in
+//
+//            let filteredSelectableList = try sut.find(FilteredAllExercisesList.self)
+//            let allFilteredSelectableExerciseRowsBeforeDeletion = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self)
+//
+//            XCTAssertEqual(allFilteredSelectableExerciseRowsBeforeDeletion.count, 3)
+//
+//            // when
+//            try filteredSelectableList.list().forEach(0).callOnDelete(IndexSet(integer: exerciseToDeleteIndex))
+//
+//            // then
+//            let allFilteredSelectableExerciseRowsAfterDeletion = filteredSelectableList.findAll(SelectableBasicExerciseRowView.self)
+//
+//            // This test does not work when we are relying on the datasource completely and not doing a
+//            // `selectableFilteredExercises.remove(atOffsets: offsets)`
+//            //
+//            // This doesn't work because we use a fake data source in this unit testing.
+//            // The best we can do is just make sure that the correct method to delete is called.
+//
+//            XCTAssertEqual(routineStore.requests, [.getExerciseDataSource, .deleteExercise(exerciseToDelete.id)])
+//        }
+//
+//        ViewHosting.host(view: sut)
+//        wait(for: [exp], timeout: 1)
+//    }
     
     
     func test_addExerciseView_openCreateExerciseAndSaveExercise_willSelectTheExerciseInTheList() {
@@ -216,20 +241,15 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
     }
     
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy, navigationFlow: AddExerciseNavigationFlow) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: AddExerciseView, routineStore: RoutineStoreSpy) {
 
-        let addExerciseUIComposer = AddExerciseUIComposerWithSpys()
-        let addExerciseNavigationFlow = addExerciseUIComposer.navigationFlow
-        let sut = addExerciseUIComposer.makeAddExerciseView(
+        let routineStore = RoutineStoreSpy()
+        let sut = AddExerciseView(
+            routineStore: routineStore,
             addExerciseCompletion: { _ in },
-            dismiss: addExerciseNavigationFlow.dismiss
+            goToCreateExercise: { _ in }
         )
-        let routineStore: RoutineStoreSpy = addExerciseUIComposer.routineStore as! RoutineStoreSpy
-
-//        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
-//        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
-
-        return (sut, routineStore, addExerciseNavigationFlow)
+        return (sut, routineStore)
     }
     
     
@@ -238,7 +258,8 @@ final class AddExerciseViewUIIntegrationTests: XCTestCase {
         routineStore: RoutineStoreSpy,
         with expectedExercises: [Exercise],
         file: StaticString = #file,
-        line: UInt = #line) {
+        line: UInt = #line
+    ) {
         
         let exp = sut.inspection.inspect { [weak self] sut in
             

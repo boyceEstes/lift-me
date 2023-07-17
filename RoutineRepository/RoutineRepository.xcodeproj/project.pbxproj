@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -53,6 +53,7 @@
 		B3B48EC82A1FFB7E007D1DE2 /* NamingPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B48EC72A1FFB7E007D1DE2 /* NamingPolicyTests.swift */; };
 		B3B48EC92A1FFD64007D1DE2 /* SharedTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C6228F517EA006CC77D /* SharedTestHelpers.swift */; };
 		B3B48ECA2A1FFD77007D1DE2 /* XCTestCase+TrackForMemoryLeaks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C3A28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift */; };
+		B3CB9E772A4D19B200DB0B41 /* RoutineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB9E762A4D19B200DB0B41 /* RoutineDetailView.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3D29C0128F1EDB4006CC77D /* Routine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D29C0028F1EDB4006CC77D /* Routine.swift */; };
@@ -165,6 +166,7 @@
 		B3AF3F4928FA389000549473 /* CoreDataRoutineStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRoutineStore.swift; sourceTree = "<group>"; };
 		B3B48EC22A1FF9B5007D1DE2 /* NamingPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicy.swift; sourceTree = "<group>"; };
 		B3B48EC72A1FFB7E007D1DE2 /* NamingPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicyTests.swift; sourceTree = "<group>"; };
+		B3CB9E762A4D19B200DB0B41 /* RoutineDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDetailView.swift; sourceTree = "<group>"; };
 		B3D29BDD28F12746006CC77D /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29BE028F12746006CC77D /* RoutineRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineRepository.h; sourceTree = "<group>"; };
 		B3D29BE128F12746006CC77D /* RoutineRepository.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = RoutineRepository.docc; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				B33D0FA7296F80EB00C2FB1E /* HomeView.swift */,
 				B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */,
 				B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */,
+				B3CB9E762A4D19B200DB0B41 /* RoutineDetailView.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3CB9E772A4D19B200DB0B41 /* RoutineDetailView.swift in Sources */,
 				B34588B429061BF0006ED45C /* UIColor+LiftMeThemeColors.swift in Sources */,
 				B33909992A48C0C200C2562E /* CalendarStyleRoundedCellView.swift in Sources */,
 				B339099F2A48DD1700C2562E /* LightShadow.swift in Sources */,

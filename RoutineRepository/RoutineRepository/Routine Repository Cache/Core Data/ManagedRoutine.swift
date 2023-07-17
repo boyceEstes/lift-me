@@ -77,29 +77,13 @@ extension ManagedRoutine {
         managedRoutine.name = routine.name
         managedRoutine.creationDate = routine.creationDate
         
+        managedRoutine.exercises = try Set(routine.exercises.toManaged(in: context))
         // sets up routine record entries
 //        managedRoutine.routineRecords = try routine.routineRecords.toManaged(for: managedRoutine, in: context)
         
         // figure out exercises and save routine records
         try routine.routineRecords.toManaged2(for: managedRoutine, in: context)
     }
-    
-    
-//    public static func createRoutineAndRoutineRecord(routine: Routine, in context: NSManagedObjectContext) throws {
-//
-//        let managedRoutine = ManagedRoutine(context: context)
-//        managedRoutine.id = routine.id
-//        managedRoutine.name = routine.name
-//        managedRoutine.creationDate = routine.creationDate
-//
-//        let managedExercises = try routineRecord.exerciseRecords.map {
-//            try ManagedExercise.findExercise(with: $0.exercise.id, in: context)
-//        }
-//
-//        managedRoutine.exercises = Set(managedExercises.map { $0 })
-//
-//        try ManagedRoutineRecord.createRoutineRecord(routineRecord, managedRoutine: managedRoutine, in: context)
-//    }
 }
 
 
@@ -120,7 +104,7 @@ extension Array where Element == ManagedRoutine {
 }
 
 
-private extension ManagedRoutine {
+extension ManagedRoutine {
     
     func toModel() -> Routine {
         Routine(

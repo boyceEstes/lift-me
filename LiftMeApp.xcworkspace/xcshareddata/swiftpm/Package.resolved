@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "navigation-flow",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/boyceEstes/navigation-flow.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "8328ea972a95af143c3698fe453df700d62d01b1"
-      }
-    },
-    {
       "identity" : "utility-me",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/boyceEstes/utility-me",
@@ -23,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nalexn/ViewInspector",
       "state" : {
-        "revision" : "e42529aa0b6ff57393ab52540f6006f3a709ee00",
-        "version" : "0.9.6"
+        "revision" : "f8a994374b9eff1d92046f3d759654f527495045",
+        "version" : "0.9.7"
       }
     }
   ],

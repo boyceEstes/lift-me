@@ -11,14 +11,15 @@ import RoutineRepository
 public struct RoutineCellView: View {
     
     let routine: Routine
-    let goToWorkoutView: (Routine) -> Void
+    let goToRoutineDetail: (Routine) -> Void
     
     public var body: some View {
         Text("\(routine.name)")
             .padding(.horizontal)
             .roundedCell()
             .onTapGesture {
-                goToWorkoutView(routine)
+//                goToWorkoutView(routine)
+                goToRoutineDetail(routine)
             }
     }
 }
@@ -47,7 +48,7 @@ public struct ErrorRoutineCellView: View {
 
 struct RoutineCellView_Previews: PreviewProvider {
     static var previews: some View {
-        RoutineCellView(routine: Routine(id: UUID(), name: "Any Routine", creationDate: Date(), exercises: [], routineRecords: []), goToWorkoutView: { _ in })
+        RoutineCellView(routine: Routine(id: UUID(), name: "Any Routine", creationDate: Date(), exercises: [], routineRecords: []), goToRoutineDetail: { _ in })
         EmptyRoutineCellView()
         ErrorRoutineCellView()
     }

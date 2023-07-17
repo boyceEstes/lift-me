@@ -14,7 +14,9 @@ public class CreateRoutineViewModel: ObservableObject {
     let routineStore: RoutineStore
     let routineRecord: RoutineRecord?
 
-    let dismiss: () -> Void
+    var dismiss: (() -> Void)? // Set in View from Environment dismiss
+    let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
+    let goToExerciseDetail: (Exercise) -> Void
     let superDismiss: (() -> Void)?
     
     @Published var name = ""
@@ -24,13 +26,15 @@ public class CreateRoutineViewModel: ObservableObject {
     public init(
         routineStore: RoutineStore,
         routineRecord: RoutineRecord? = nil,
-        dismiss: @escaping () -> Void,
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToExerciseDetail: @escaping (Exercise) -> Void,
         superDismiss: (() -> Void)? = nil
     ) {
         
         self.routineStore = routineStore
         self.routineRecord = routineRecord
-        self.dismiss = dismiss
+        self.goToAddExercise = goToAddExercise
+        self.goToExerciseDetail = goToExerciseDetail
         self.superDismiss = superDismiss
         
         populateExercisesFromRoutineRecordIfPossible()
@@ -64,17 +68,17 @@ public class CreateRoutineViewModel: ObservableObject {
         saveRoutine(routine: routine)
     }
     
-    
-    public func addExercisesCompletion(exercises: [Exercise]) {
-        
-        exercises.forEach { [weak self] in
-            
-            print("Appending \($0.name)")
-            self?.exercises.append($0)
-        }
-    }
-    
-    
+//
+//    public func addExercisesCompletion(exercises: [Exercise]) {
+//
+//        exercises.forEach { [weak self] in
+//
+//            print("Appending \($0.name)")
+//            self?.exercises.append($0)
+//        }
+//    }
+//
+//
     func createRoutine(with routineRecords: [RoutineRecord]? = nil) -> Routine {
         
         let routine = Routine(
@@ -100,10 +104,10 @@ public class CreateRoutineViewModel: ObservableObject {
                 // Dismiss all the way to the root because we have done everything successfully
                 if let superDismiss = self.superDismiss {
                     
-                    self.dismiss()
+                    self.dismiss?()
                     superDismiss()
                 } else {
-                    self.dismiss()
+                    self.dismiss?()
                 }
             }
         }
@@ -112,7 +116,7 @@ public class CreateRoutineViewModel: ObservableObject {
     
     func cancelCreateRoutine() {
         
-        dismiss()
+        dismiss?()
     }
     
     
@@ -146,22 +150,43 @@ public class CreateRoutineViewModel: ObservableObject {
         )
         return uniquelyNamedRoutine
     }
+    
+    
+    func updateExercisesFromAddExercise(newExercises: [Exercise]) {
+        exercises.append(contentsOf: newExercises)
+    }
+
+    
+    func goToAddExerciseWithCompletionHandled() {
+        goToAddExercise { [weak self] addedExercises in
+            self?.updateExercisesFromAddExercise(newExercises: addedExercises)
+        }
+    }
 }
 
 
 public struct CreateRoutineView: View {
     
     public let inspection = Inspection<Self>()
-    let goToAddExerciseView: () -> Void
     
-    @ObservedObject var viewModel: CreateRoutineViewModel
+    @Environment(\.dismiss) private var dismiss
+    @StateObject var viewModel: CreateRoutineViewModel
     
-    
-    public init(viewModel: CreateRoutineViewModel,
-                goToAddExerciseView: @escaping () -> Void) {
-        
-        self.viewModel = viewModel
-        self.goToAddExerciseView = goToAddExerciseView
+
+    public init(
+        routineStore: RoutineStore,
+        routineRecord: RoutineRecord?, // Only nonnil if creating routine from workout
+        superDismiss: (() -> Void)?, // Only nonnil if creating routine from workout
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToExerciseDetail: @escaping (Exercise) -> Void
+    ) {
+        self._viewModel = StateObject(wrappedValue: CreateRoutineViewModel(
+            routineStore: routineStore,
+            routineRecord: routineRecord,
+            goToAddExercise: goToAddExercise,
+            goToExerciseDetail: goToExerciseDetail,
+            superDismiss: superDismiss
+        ))
     }
     
     
@@ -177,42 +202,11 @@ public struct CreateRoutineView: View {
             }
             .accessibilityIdentifier("routine_description")
             
-            Section {
-                ForEach(viewModel.exercises, id: \.self) { exercise in
-                    HStack {
-                        Text(exercise.name)
-                            .accessibilityIdentifier("exercise_row")
-                    }
-                }
-            } header: {
-                HStack {
-                    Text("Exercises")
-                        .font(.headline)
-                    Spacer()
-                    Button {
-                        print("Button tapped in Create Routine")
-                        goToAddExerciseView()
-                    } label: {
-                        HStack {
-                            Text("Add")
-                            Image(systemName: "plus")
-                        }
-                    }
-                    .buttonStyle(HighKeyButtonStyle())
-                    .id("add-exercise-button")
-                    
-                }
-            } footer: {
-                if viewModel.exercises.isEmpty {
-                    VStack(alignment: .center) {
-                        Text("Much empty. Try adding some exercises")
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.top)
-                }
-            }
-            .textCase(nil)
-            
+            EditableExerciseSectionView(
+                exercises: $viewModel.exercises,
+                goToAddExercise: viewModel.goToAddExerciseWithCompletionHandled,
+                goToExerciseDetail: viewModel.goToExerciseDetail
+            )
         }
         .basicNavigationBar(title: "Create Routine")
         .toolbar {
@@ -229,6 +223,9 @@ public struct CreateRoutineView: View {
                 .disabled(viewModel.isSaveButtonDisabled)
             }
         }
+        .onAppear {
+            viewModel.dismiss = dismiss.callAsFunction
+        }
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
         }
@@ -236,15 +233,78 @@ public struct CreateRoutineView: View {
 }
 
 
+struct EditableExerciseSectionView: View {
+    
+    @Binding private var exercises: [Exercise]
+    let goToAddExercise: () -> Void
+    let goToExerciseDetail: (Exercise) -> Void
+    
+    
+    init(
+        exercises: Binding<[Exercise]>,
+        goToAddExercise: @escaping () -> Void,
+        goToExerciseDetail: @escaping (Exercise) -> Void
+    ) {
+        
+        self._exercises = exercises
+        self.goToAddExercise = goToAddExercise
+        self.goToExerciseDetail = goToExerciseDetail
+    }
+    
+    
+    var body: some View {
+        
+        Section {
+            ForEach(exercises, id: \.self) { exercise in
+                HStack {
+                    Button(exercise.name) {
+                        goToExerciseDetail(exercise)
+                    }
+                    .accessibilityIdentifier("exercise_row")
+//                    Text(exercise.name)
+                        
+                }
+            }
+        } header: {
+            HStack {
+                Text("Exercises")
+                    .font(.headline)
+                Spacer()
+                Button(action: goToAddExercise) {
+                    HStack {
+                        Text("Add")
+                        Image(systemName: "plus")
+                    }
+                }
+                .buttonStyle(HighKeyButtonStyle())
+                .id("add-exercise-button")
+                
+            }
+        } footer: {
+            if exercises.isEmpty {
+                VStack(alignment: .center) {
+                    Text("Much empty. Try adding some exercises")
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top)
+            }
+        }
+//        .textCase(nil)
+    }
+}
+
+
 struct CreateRoutineView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let viewModel = CreateRoutineViewModel(
-            routineStore: RoutineStorePreview(),
-            dismiss: { })
-        
         NavigationStack {
-            CreateRoutineView(viewModel: viewModel, goToAddExerciseView: { })
+            CreateRoutineView(
+                routineStore: RoutineStorePreview(),
+                routineRecord: nil,
+                superDismiss: nil,
+                goToAddExercise: { _ in },
+                goToExerciseDetail: { _ in }
+            )
         }
     }
 }

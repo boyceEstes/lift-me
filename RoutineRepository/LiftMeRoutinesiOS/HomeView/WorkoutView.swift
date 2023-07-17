@@ -65,10 +65,13 @@ public struct SetRecordViewModel: Hashable {
 
 public class WorkoutViewModel: ObservableObject {
     
+    let uuid = UUID()
     let routineStore: RoutineStore
     let routine: Routine?
-    let dismiss: () -> Void
+    let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
     let goToCreateRoutineView: (RoutineRecord) -> Void
+    // initialized from view
+    var dismiss: (() -> Void)?
 
     
     @Published var routineRecordViewModel: RoutineRecordViewModel = RoutineRecordViewModel(creationDate: Date(), exerciseRecordViewModels: [])
@@ -79,12 +82,17 @@ public class WorkoutViewModel: ObservableObject {
         routineRecordViewModel.exerciseRecordViewModels.isEmpty
     }
     
-    public init(routineStore: RoutineStore, routine: Routine? = nil, goToCreateRoutineView: @escaping (RoutineRecord) -> Void, dismiss: @escaping () -> Void) {
+    public init(
+        routineStore: RoutineStore,
+        routine: Routine? = nil,
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToCreateRoutineView: @escaping (RoutineRecord) -> Void
+    ) {
         
         self.routineStore = routineStore
         self.routine = routine
+        self.goToAddExercise = goToAddExercise
         self.goToCreateRoutineView = goToCreateRoutineView
-        self.dismiss = dismiss
         
         populateRoutineRecordFromRoutineIfPossible()
     }
@@ -115,7 +123,7 @@ public class WorkoutViewModel: ObservableObject {
     
     // Passed to AddExerciseViewModel for logic after Add button is tapped
     public func addExercisesCompletion(exercises: [Exercise]) {
-        print("add exercises completion in workout view: received: \(exercises)")
+        print("add exercises completion in workout view-model(\(uuid.uuidString) - received: \(exercises)")
         
         for exercise in exercises {
             let setRecordViewModel = SetRecordViewModel( weight: "", repCount: "")
@@ -123,6 +131,8 @@ public class WorkoutViewModel: ObservableObject {
             
             routineRecordViewModel.exerciseRecordViewModels.append(exerciseRecordViewModel)
         }
+        
+        self.objectWillChange.send()
     }
     
     
@@ -184,7 +194,7 @@ public class WorkoutViewModel: ObservableObject {
                 fatalError("error: \(error?.localizedDescription ?? "unknown")")
             }
             
-            self?.dismiss()
+            self?.dismiss?()
         }
     }
     
@@ -228,15 +238,24 @@ public struct WorkoutView: View {
     
     public let inspection = Inspection<Self>()
     
-    @ObservedObject public var viewModel: WorkoutViewModel
-    let goToAddExercise: () -> Void
-    
+    @Environment(\.dismiss) private var dismiss
+    @StateObject public var viewModel: WorkoutViewModel
 
-
-    public init(viewModel: WorkoutViewModel, goToAddExercise: @escaping () -> Void) {
+    public init(
+        routineStore: RoutineStore,
+        routine: Routine? = nil,
+        goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
+        goToCreateRoutineView: @escaping (RoutineRecord) -> Void
+    ) {
         
-        self.viewModel = viewModel
-        self.goToAddExercise = goToAddExercise
+        self._viewModel = StateObject(
+            wrappedValue: WorkoutViewModel(
+                routineStore: routineStore,
+                routine: routine,
+                goToAddExercise: goToAddExercise,
+                goToCreateRoutineView: goToCreateRoutineView
+            )
+        )
     }
     
     
@@ -255,7 +274,8 @@ public struct WorkoutView: View {
                 }
                 
                 Button {
-                    goToAddExercise()
+                    print("Tapped button to go to Add Exercise from view-model(\(viewModel.uuid.uuidString))")
+                    viewModel.goToAddExercise(viewModel.addExercisesCompletion)
                 } label: {
                     HStack {
                         Text("Add")
@@ -270,6 +290,7 @@ public struct WorkoutView: View {
         .frame(maxWidth: .infinity)
         .background(Color(uiColor: .systemGroupedBackground), ignoresSafeAreaEdges: .all)
         .onAppear {
+            viewModel.dismiss = dismiss.callAsFunction
             viewModel.createNewRoutineRecord()
         }
         .onReceive(inspection.notice) {
@@ -294,7 +315,7 @@ public struct WorkoutView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel") {
-                    viewModel.dismiss()
+                    dismiss()
                 }
             }
             
@@ -381,11 +402,12 @@ struct WorkoutView_Previews: PreviewProvider {
     @State static var setRecord = SetRecordViewModel(weight: "", repCount: "")
     
     static var previews: some View {
-        let viewModel = WorkoutViewModel(routineStore: RoutineStorePreview(), goToCreateRoutineView: { _ in }, dismiss: { })
+        
         NavigationStack {
             WorkoutView(
-                viewModel: viewModel,
-                goToAddExercise: { }
+                routineStore: RoutineStorePreview(),
+                goToAddExercise: { _ in },
+                goToCreateRoutineView: { _ in }
             )
         }
         

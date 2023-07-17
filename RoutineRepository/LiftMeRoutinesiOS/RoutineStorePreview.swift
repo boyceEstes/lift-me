@@ -21,6 +21,18 @@ class ExerciseDataSourcePreview: ExerciseDataSource {
 
 
 public class RoutineStorePreview: RoutineStore {
+    public func readRoutine(with id: UUID, completion: @escaping ReadRoutineCompletion) {
+        print("")
+    }
+    
+    public func updateRoutine(with id: UUID, updatedRoutine: RoutineRepository.Routine, completion: @escaping UpdateRoutineCompletion) {
+        print("")
+    }
+    
+    
+    public init() {
+        
+    }
     
     public func readExerciseRecords(for exercise: RoutineRepository.Exercise, completion: @escaping ReadExerciseRecordsCompletion) {
         print("")

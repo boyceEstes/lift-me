@@ -87,6 +87,42 @@ extension CoreDataRoutineStoreTests {
     }
     
     
+    func test_coreDataRoutineStore_createExerciseOnNonEmptyCacheWithSameExerciseName_deliversExerciseAlreadyExistsError() {
+        
+        // given
+        let sut = makeSUT()
+        
+        let exercise = uniqueExercise(name: "The Sagi Six Way")
+        let exerciseWithSameNameAndDifferentID = uniqueExercise(name: exercise.name)
+        
+        // when
+        create(exercise, into: sut)
+        let createExerciseWithSameNameError = create(exerciseWithSameNameAndDifferentID, into: sut)
+        
+        // then
+        XCTAssertEqual(createExerciseWithSameNameError as? NSError, CoreDataRoutineStore.Error.exerciseWithNameAlreadyExists as NSError)
+        
+    }
+    
+    
+    func test_coreDataRoutineStore_createExerciseOnNonEmptyCacheWithSameExerciseID_deliversExerciseAlreadyExistsError() {
+        
+        // given
+        let sut = makeSUT()
+        
+        let exercise = uniqueExercise()
+        let exerciseWithSameIDAndDifferentName = uniqueExercise(id: exercise.id)
+        
+        // when
+        create(exercise, into: sut)
+        let createExerciseWithSameNameError = create(exerciseWithSameIDAndDifferentName, into: sut)
+        
+        // then
+        XCTAssertEqual(createExerciseWithSameNameError as? NSError, CoreDataRoutineStore.Error.exerciseWithNameAlreadyExists as NSError)
+        
+    }
+    
+    
     func test_coreDataRoutineStore_deleteExerciseOnEmptyCache_failsWithCannotFindExerciseError() {
         
         // given

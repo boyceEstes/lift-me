@@ -9,72 +9,62 @@ import SwiftUI
 import RoutineRepository
 import LiftMeRoutinesiOS
 
+
 struct RootView: View {
     
-    let homeUIComposer: HomeUIComposer
-    let workoutUIComposer: WorkoutUIComposer
-    let addExerciseUIComposer: AddExerciseUIComposer
-    let exerciseUIComposer: ExerciseUIComposer
-    let historyUIComposer: HistoryUIComposer
-    let createRoutineUIComposer: CreateRoutineUIComposer
+    // new navigation
+    let routineStore: RoutineStore
+    
+    // Home
+    @State var homeNavigationFlowPath = [HomeNavigationFlow.StackIdentifier]()
+    @State var homeNavigationFlowDisplayedSheet: HomeNavigationFlow.SheetyIdentifier?
+    // RoutineDetail
+    @State var routineDetailNavigationFlowDisplayedSheet: RoutineDetailNavigationFlow.SheetyIdentifier?
+    // Workout
+    @State var workoutNavigationFlowDisplayedSheet: WorkoutNavigationFlow.SheetyIdentifier?
+    // CreateRoutine
+    @State var createRoutineNavigationFlowPath = [CreateRoutineNavigationFlow.StackIdentifier]()
+    @State var createRoutineNavigationFlowDisplayedSheet: CreateRoutineNavigationFlow.SheetyIdentifier?
+    // Add Exercise
+    @State var addExerciseNavigationFlowDisplayedSheet: AddExerciseNavigationFlow.SheetyIdentifier?
+    // ExerciseList
+    @State var exerciseListNavigationFlowPath = [ExerciseListNavigationFlow.StackIdentifier]()
+    @State var exerciseListNavigationFlowDisplayedSheet: ExerciseListNavigationFlow.SheetyIdentifier?
+    // History Tab
+    @State var historyNavigationFlowPath = [HistoryNavigationFlow.StackIdentifier]()
     
     
     init(routineStore: RoutineStore) {
-        // Initialize ExercisesNavigationFlow with a weak reference to the composer
-        
-        self.exerciseUIComposer = ExerciseUIComposer(routineStore: routineStore)
-        self.addExerciseUIComposer = AddExerciseUIComposer(
-            routineStore: routineStore,
-            exerciseUIComposer: exerciseUIComposer
-        )
-        
-        self.createRoutineUIComposer = CreateRoutineUIComposer(
-            routineStore: routineStore,
-            addExerciseUIComposer: addExerciseUIComposer
-        )
-        
-        self.workoutUIComposer = WorkoutUIComposer(
-            routineStore: routineStore,
-            createRoutineUIComposer: createRoutineUIComposer,
-            addExerciseUIComposer: addExerciseUIComposer,
-            exerciseUIComposer: exerciseUIComposer
-        )
-        
-        self.homeUIComposer = HomeUIComposer(
-            routineStore: routineStore,
-            workoutUIComposer: workoutUIComposer,
-            createRoutineUIComposer: createRoutineUIComposer
-        )
-
-        self.historyUIComposer = HistoryUIComposer(routineStore: routineStore)
+        // new navigation
+        self.routineStore = routineStore
     }
     
     
     var body: some View {
         TabView {
-            homeUIComposer.makeHomeViewWithNavigation()
+            makeHomeViewWithStackSheetNavigation()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
             
-            exerciseUIComposer.makeExercisesViewWithSheetyStackNavigation()
+            makeExerciseListViewWithStackSheetNavigation()
                 .tabItem {
                     Label("Exercises", systemImage: "dumbbell")
                 }
-            
-            historyUIComposer.makeHistoryViewWithStackNavigation()
+
+            makeHistoryViewWithStackNavigation()
                 .tabItem {
                     Label("History", systemImage: "book.closed")
                 }
         }
-//        .toolbarColorScheme(.light, for: .tabBar)
-//        .toolbarColorScheme(Color.universeRed, for: .tabBar)
     }
 }
 
 
-//struct RootView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RootView(routineStore: RoutineStorePreview.self as! RoutineStore)
-//    }
-//}
+struct RootView_Previews: PreviewProvider {
+    static var previews: some View {
+        RootView(
+            routineStore: RoutineStorePreview()
+        )
+    }
+}

@@ -8,13 +8,13 @@
 import Foundation
 @testable import LiftMeApp
 
-class WorkoutUIComposerWithSpys: WorkoutUIComposer {
-    
-    convenience init() {
-        self.init(
-            routineStore: RoutineStoreSpy(),
-            createRoutineUIComposer: CreateRoutineUIComposerWithSpys(),
-            addExerciseUIComposer: AddExerciseUIComposerWithSpys(),
-            exerciseUIComposer: ExerciseUIComposerWithSpys())
-    }
-}
+//class WorkoutUIComposerWithSpys: WorkoutUIComposer {
+//    
+//    convenience init() {
+//        self.init(
+//            routineStore: RoutineStoreSpy(),
+//            createRoutineUIComposer: CreateRoutineUIComposerWithSpys(),
+//            addExerciseUIComposer: AddExerciseUIComposerWithSpys(),
+//            exerciseUIComposer: ExerciseUIComposerWithSpys())
+//    }
+//}

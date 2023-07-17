@@ -37,7 +37,7 @@ public struct HomeView: View {
         }
         .padding(.top)
         .navigationTitle("Home")
-//        .basicNavigationBar(title: "Home")
+        //        .basicNavigationBar(title: "Home")
     }
 }
 
@@ -46,13 +46,12 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             HomeView(
-                routineListView: RoutineListView(
-                    viewModel: RoutineListViewModel(
+                routineListView:
+                    RoutineListView(
                         routineStore: RoutineStorePreview(),
                         goToCreateRoutine: { },
-                        goToWorkoutView: { _ in }
-                    )
-                ), goToWorkoutViewWithNoRoutine: { }
+                        goToRoutineDetail: { _ in }
+                    ), goToWorkoutViewWithNoRoutine: { }
             )
         }
     }

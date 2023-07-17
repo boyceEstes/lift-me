@@ -14,7 +14,6 @@ import LiftMeRoutinesiOS
 
 
 
-extension HomeView: Inspectable { }
 
 final class HomeViewUIIntegrationTests: XCTestCase {
 
@@ -27,32 +26,15 @@ final class HomeViewUIIntegrationTests: XCTestCase {
     }
     
     
-    func test_homeView_tapNewButton_navigatesToCreateRoutineView() throws {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> HomeView {
         
-        // given
-        let (sut, homeNavigationFlow) = makeSUT()
-        let button = try sut.inspect().find(button: "Custom Routine")
-        
-        // when
-        try button.tap()
-        
-        // then
-        XCTAssertEqual(
-            homeNavigationFlow.modallyDisplayedView,
-            HomeNavigationFlow.SheetyIdentifier.workout(nil)
-        )
-    }
-    
-    
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: HomeView, navigationFlow: HomeNavigationFlow) {
-        
-        let homeUIComposer = HomeUIComposerWithSpys()
-        let routineNavigationFlow = homeUIComposer.navigationFlow
-        let sut = homeUIComposer.makeHomeView()
+        let routineStore = RoutineStoreSpy()
+        let routineListView = RoutineListView(routineStore: routineStore, goToCreateRoutine: { }, goToRoutineDetail: { _ in })
+        let sut = HomeView(routineListView: routineListView, goToWorkoutViewWithNoRoutine: { })
         
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 
-        return (sut, routineNavigationFlow)
+        return (sut)
     }
 }

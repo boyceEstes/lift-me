@@ -15,18 +15,21 @@ public class CreateExerciseViewModel: ObservableObject {
     @Published var exerciseName: String = ""
     @Published var exerciseDescription: String = ""
     
-    let dismiss: (Exercise?) -> Void
-    
+    var dismiss: (() -> Void)?
+    let createExerciseCompletion: (Exercise) -> Void
     
     var isSaveButtonDisabled: Bool {
         exerciseName.isEmpty
     }
     
     
-    public init(routineStore: RoutineStore, dismiss: @escaping (Exercise?) -> Void) {
+    public init(
+        routineStore: RoutineStore,
+        createExerciseCompletion: @escaping (Exercise) -> Void
+    ) {
         
         self.routineStore = routineStore
-        self.dismiss = dismiss
+        self.createExerciseCompletion = createExerciseCompletion
     }
 
     
@@ -37,7 +40,8 @@ public class CreateExerciseViewModel: ObservableObject {
 //
             if let error { fatalError("Could not save, \(error.localizedDescription)") }
             else {
-                self?.dismiss(exercise)
+                self?.createExerciseCompletion(exercise)
+                self?.dismiss?()
             }
         }
     }
@@ -48,10 +52,19 @@ public struct CreateExerciseView: View {
     
     public let inspection = Inspection<Self>()
     
-    @ObservedObject public var viewModel: CreateExerciseViewModel
+    @Environment(\.dismiss) private var dismiss
+    @StateObject public var viewModel: CreateExerciseViewModel
     
-    public init(viewModel: CreateExerciseViewModel) {
-        self.viewModel = viewModel
+    public init(
+        routineStore: RoutineStore,
+        createExerciseCompletion: @escaping (Exercise) -> Void
+    ) {
+        self._viewModel = StateObject(
+            wrappedValue: CreateExerciseViewModel(
+                routineStore: routineStore,
+                createExerciseCompletion: createExerciseCompletion
+            )
+        )
     }
     
     
@@ -68,7 +81,7 @@ public struct CreateExerciseView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel") {
                     print("Cancel")
-                    viewModel.dismiss(nil)
+                    dismiss()
                 }
             }
             
@@ -78,6 +91,9 @@ public struct CreateExerciseView: View {
                 }
                 .disabled(viewModel.isSaveButtonDisabled)
             }
+        }
+        .onAppear {
+            viewModel.dismiss = dismiss.callAsFunction
         }
         .onReceive(inspection.notice) {
             self.inspection.visit(self, $0)
@@ -90,10 +106,8 @@ struct CreateExerciseView_Previews: PreviewProvider {
     
     static var previews: some View {
         CreateExerciseView(
-            viewModel: CreateExerciseViewModel(
-                routineStore: RoutineStorePreview(),
-                dismiss: { _ in }
-            )
+            routineStore: RoutineStorePreview(),
+            createExerciseCompletion: { _ in }
         )
     }
 }

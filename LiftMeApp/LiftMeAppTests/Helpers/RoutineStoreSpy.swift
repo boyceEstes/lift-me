@@ -31,6 +31,7 @@ class ExerciseDataSourceSpy: ExerciseDataSource {
 
 class RoutineStoreSpy: RoutineStore {
 
+
     enum ReceivedMessage: Equatable {
         case saveRoutine(Routine)
         case createRoutineRecord
@@ -86,6 +87,15 @@ class RoutineStoreSpy: RoutineStore {
     
     func completeSaveRoutineSuccessfully(at index: Int = 0) {
         saveRoutineCompletions[index](nil)
+    }
+    
+    // TBD
+    func readRoutine(with id: UUID, completion: @escaping ReadRoutineCompletion) {
+        
+    }
+    
+    func updateRoutine(with id: UUID, updatedRoutine: RoutineRepository.Routine, completion: @escaping UpdateRoutineCompletion) {
+        
     }
     
     

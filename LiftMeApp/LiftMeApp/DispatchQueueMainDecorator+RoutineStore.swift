@@ -50,6 +50,26 @@ extension DispatchQueueMainDecorator: RoutineStore where T == RoutineStore {
     }
     
     
+    func readRoutine(with id: UUID, completion: @escaping ReadRoutineCompletion) {
+        
+        decoratee.readRoutine(with: id) { [weak self] result in
+            self?.dispatch {
+                completion(result)
+            }
+        }
+    }
+    
+    
+    func updateRoutine(with id: UUID, updatedRoutine: RoutineRepository.Routine, completion: @escaping UpdateRoutineCompletion) {
+        
+        decoratee.updateRoutine(with: id, updatedRoutine: updatedRoutine) { [weak self] error in
+            self?.dispatch {
+                completion(error)
+            }
+        }
+    }
+    
+    
 //    func readRoutines(with name: String, or exercises: [Exercise], completion: @escaping ReadRoutinesCompletion) {
 //    }
     

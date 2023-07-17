@@ -27,7 +27,9 @@ struct LiftMeAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView(routineStore: routineStore)
+            RootView(
+                routineStore: routineStore
+            )
         }
     }
 }
