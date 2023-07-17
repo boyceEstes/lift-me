@@ -49,19 +49,28 @@ public class AddExerciseViewModel: ObservableObject {
     let goToCreateExercise: (@escaping (Exercise?) -> Void) -> Void
     
     
-    @Published var allSelectableExercises = [SelectableExercise]()
+    @Published public var allSelectableExercises = [SelectableExercise]()
 
     
     var selectableFilteredExercises: [SelectableExercise] {
-        allSelectableExercises.filter {
-            // TODO: Consider a Debounce operator on searchTextField changes
-            // If searchTextField is empty include this object - else
-            searchTextField.isEmpty ? true : $0.exercise.name.localizedCaseInsensitiveContains(searchTextField)
+        
+        var filteredExercises = [SelectableExercise]()
+        DispatchQueue.global().sync {
+            filteredExercises = allSelectableExercises.filter {
+                // TODO: Consider a Debounce operator on searchTextField changes
+                // If searchTextField is empty include this object - else
+                searchTextField.isEmpty ? true : $0.exercise.name.localizedCaseInsensitiveContains(searchTextField)
+            }
         }
+        return filteredExercises
     }
     
     var selectableSelectedExercises: [SelectableExercise] {
-        allSelectableExercises.filter { $0.isSelected }
+        var selectedExercises = [SelectableExercise]()
+        DispatchQueue.global().sync {
+            selectedExercises = allSelectableExercises.filter { $0.isSelected }
+        }
+        return selectedExercises
     }
     
     
@@ -99,22 +108,6 @@ public class AddExerciseViewModel: ObservableObject {
     }
     
     
-    func createExercise() {
-        
-        let exercise = Exercise(
-            id: UUID(),
-            name: "Bench Press",
-            creationDate: Date(),
-            tags: [])
-        
-        routineStore.createExercise(exercise) { error in
-            if error != nil {
-                // failure
-            }
-        }
-    }
-    
-    
     private func filterExercises(by searchTextFieldValue: String) -> [SelectableExercise] {
         
         let exercisesFilteredBySearchTextField = allSelectableExercises.filter { selectableExercise in
@@ -134,7 +127,9 @@ public class AddExerciseViewModel: ObservableObject {
     
     func removeSelectableExerciseFromSelectedList(selectableExercise: SelectableExercise) {
         
-        guard let indexOfExerciseToRemove = allSelectableExercises.firstIndex(of: selectableExercise) else { return }
+        guard let indexOfExerciseToRemove = allSelectableExercises.firstIndex(of: selectableExercise) else {
+            return
+        }
         allSelectableExercises[indexOfExerciseToRemove] = SelectableExercise(isSelected: false, exercise: selectableExercise.exercise)
     }
     
@@ -177,8 +172,8 @@ public struct AddExerciseView: View {
     //    @FocusState private var focus: Field?
     @Environment(\.dismiss) var dismiss
     @StateObject public var viewModel: AddExerciseViewModel
-    public let inspection = Inspection<Self>()
     
+    public let inspection = Inspection<Self>()
     
     public init(
         routineStore: RoutineStore,
@@ -197,6 +192,7 @@ public struct AddExerciseView: View {
     
     public var body: some View {
             
+        let _ = print("update AddExeerciseView \(viewModel.allSelectableExercises)")
 //        VStack {
         ScrollViewReader { scrollValue in
             
@@ -240,33 +236,31 @@ public struct AddExerciseView: View {
                 .textCase(nil)
             }
         }
-        // Added for testing
-            .onReceive(inspection.notice) {
-                self.inspection.visit(self, $0)
+        .basicNavigationBar(title: "Add Exercise")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button("Cancel") {
+                    dismiss()
+                }
             }
-            .basicNavigationBar(title: "Add Exercise")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                
+                Button("Add \(viewModel.selectableSelectedExercises.count)") {
+                    viewModel.addExerciseCompletion(
+                        viewModel.selectableSelectedExercises.map {
+                            print("Tapped add in AddExerciseView for \($0.exercise.name)")
+                            return $0.exercise
+                        }
+                    )
+                    
+                    dismiss()
                 }
                 
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    
-                    Button("Add \(viewModel.selectableSelectedExercises.count)") {
-                        viewModel.addExerciseCompletion(
-                            viewModel.selectableSelectedExercises.map {
-                                print("Tapped add in AddExerciseView for \($0.exercise.name)")
-                                return $0.exercise
-                            }
-                        )
-                        
-                        dismiss()
-                    }
-                    
-                }
             }
+        }
+        // Added for testing
+        .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
     }
 }
 

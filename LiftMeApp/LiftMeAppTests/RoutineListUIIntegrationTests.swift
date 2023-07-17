@@ -42,16 +42,6 @@ import Combine
  * Instead, in the unit tests, it will always behave like it is being live-updated
  */
 
-extension RoutineListView: Inspectable {}
-extension RoutineTitleBarView: Inspectable {}
-extension MoreRoutinesButtonView: Inspectable {}
-extension NewRoutineButtonView: Inspectable {}
-extension RoutineTitleView: Inspectable {}
-extension RoutineCellView: Inspectable {}
-extension EmptyRoutineCellView: Inspectable {}
-extension ErrorRoutineCellView: Inspectable {}
-extension ScrollableRoutineListView: Inspectable {}
-extension StackNavigationView: Inspectable {}
 
 extension Inspection: InspectionEmissary {}
 
