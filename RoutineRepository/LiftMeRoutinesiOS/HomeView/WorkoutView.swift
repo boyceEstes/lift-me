@@ -66,6 +66,9 @@ public struct SetRecordViewModel: Hashable {
 public class WorkoutViewModel: ObservableObject {
     
     let uuid = UUID()
+    let startDate = Date()
+    
+    
     let routineStore: RoutineStore
     let routine: Routine?
     let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
@@ -311,7 +314,13 @@ public struct WorkoutView: View {
         }, message: {
             Text("Would you like to create a routine based on this workout?")
         })
-        .basicNavigationBar(title: "Workout")
+        .basicNavigationBar {
+            VStack {
+                Text("Workout")
+                    .font(.headline)
+                StopwatchHHmmssView(startDate: viewModel.startDate)
+            }
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("Cancel") {
