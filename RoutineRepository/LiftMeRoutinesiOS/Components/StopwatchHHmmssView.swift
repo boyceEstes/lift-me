@@ -6,22 +6,26 @@
 //
 
 import SwiftUI
+import Combine
+
 
 struct StopwatchHHmmssView: View {
     
+    let timer = Timer.publish(every: 1, on: .main, in: .common)
     let startDate: Date
-    @State private var timeElapsed = 0
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
+    @State private var timeElapsed = 0
     
     var body: some View {
-        Label("\(String.hourMinuteSecondDuration(from: timeElapsed))", systemImage: "stopwatch")
-            .onReceive(timer) { latestDate in
-                timeElapsed = Int(latestDate.timeIntervalSince(startDate))
-            }
-            .accessibilityIdentifier("time_duration_label")
+        HStack {
+            Image(systemName: "stopwatch")
+            Text("\(String.hourMinuteSecondDuration(from: timeElapsed))")
+                .accessibilityIdentifier("time_duration_label")
+        }
+        .onReceive(timer) { latestDate in
+            timeElapsed = Int(latestDate.timeIntervalSince(startDate))
+        }
     }
-    
 }
 
 struct StopwatchHHmmssView_Previews: PreviewProvider {

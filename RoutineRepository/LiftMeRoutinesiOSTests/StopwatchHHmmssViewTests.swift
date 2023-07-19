@@ -26,29 +26,38 @@ final class StopwatchHHmmssViewTests: XCTestCase {
     func test_stopwatchHHmmssView_initialization_containsLabelToDisplayHHmmsssDuration() {
         
         // given/when
-        let sut = StopwatchHHmmssView(startDate: Date())
+        let sut = makeSUT()
         // then
         XCTAssertNoThrow(try sut.inspect().find(viewWithAccessibilityIdentifier: "time_duration_label"))
     }
     
-//
-//    func test_stopwatchHHmmssView_initialization_containsClockImage() {
-//
-//        // given/when
-//        let sut = StopwatchHHmmssView()
-//        // then
-//        XCTAssertNoThrow(try sut.inspect().find(viewWithAccessibilityIdentifier: "HHmmssDuration"))
-//    }
-//
-//
-//    func test_stopwatchHHmmssView_updateViewWhenTimerFires_delivers00Hours00Minutes01Seconds() {
-//
-//        // given
-//        let sut = StopwatchHHmmssView()
-//        // when
-//
-//    }
+    
+    func test_stopwatchHHmmssView_initialization_displays00Hours00Minutes00Seconds() throws {
+        
+        // given/when
+        let sut = makeSUT()
+        // then
+        let timeDurationLabel = try sut.inspect().find(viewWithAccessibilityIdentifier: "time_duration_label").text().string()
+        XCTAssertEqual(timeDurationLabel, "00:00:00")
+    }
+
+
+
+    // nonfunctional - too much time to set up mock timer, leaving as documentation
+    func test_stopwatchHHmmssView_updateViewWhenTimerFires_delivers00Hours00Minutes01Seconds() {
+
+        // given - any date as the startDate
+        let date = Date(timeIntervalSince1970: 1689716130)
+        let sut = makeSUT(startDate: date)
+        
+        // when - the timer published event is received by the sut
+        // then - the display will show one second later "00:00:01"
+    }
     
     
-//    func test_stopwatchHHmmssView_
+    // MARK: - Helpers
+    func makeSUT(startDate: Date = Date()) -> StopwatchHHmmssView {
+        
+        StopwatchHHmmssView(startDate: startDate)
+    }
 }
