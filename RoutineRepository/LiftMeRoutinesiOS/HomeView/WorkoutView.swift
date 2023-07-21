@@ -12,10 +12,9 @@ import RoutineRepository
 public struct RoutineRecordViewModel: Hashable {
 
     public let creationDate: Date
-    public let note: String?
     public var exerciseRecordViewModels: [ExerciseRecordViewModel]
     
-    public func mapToRoutineRecord(completionDate: Date) -> RoutineRecord {
+    public func mapToRoutineRecord(note: String?, completionDate: Date) -> RoutineRecord {
         RoutineRecord(
             id: UUID(),
             note: note,
@@ -79,7 +78,7 @@ public class WorkoutViewModel: ObservableObject {
     var dismiss: (() -> Void)?
 
     
-    @Published var routineRecordViewModel: RoutineRecordViewModel = RoutineRecordViewModel(creationDate: Date(), note: nil, exerciseRecordViewModels: [])
+    @Published var routineRecordViewModel: RoutineRecordViewModel = RoutineRecordViewModel(creationDate: Date(), exerciseRecordViewModels: [])
     @Published var displaySaveError = false
     @Published var displaySaveCreateRoutine = false
     @Published var workoutNoteState = NoteButtonState.add
@@ -163,7 +162,7 @@ public class WorkoutViewModel: ObservableObject {
     func getRoutineRecordFromCurrentState() -> RoutineRecord? {
         
         print("validate all fields are entered")
-        let routineRecord = routineRecordViewModel.mapToRoutineRecord(completionDate: Date())
+        let routineRecord = routineRecordViewModel.mapToRoutineRecord(note: workoutNoteValue, completionDate: Date())
         
         guard allSetRecordsHaveValues(routineRecord: routineRecord) else {
             displaySaveError = true
@@ -209,7 +208,7 @@ public class WorkoutViewModel: ObservableObject {
     func createRoutineAndSaveRoutineRecord() {
         
         print("validate all fields are entered")
-        let routineRecord = routineRecordViewModel.mapToRoutineRecord(completionDate: Date())
+        let routineRecord = routineRecordViewModel.mapToRoutineRecord(note: workoutNoteValue, completionDate: Date())
         
         guard allSetRecordsHaveValues(routineRecord: routineRecord) else {
             displaySaveError = true

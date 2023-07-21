@@ -87,10 +87,13 @@ public struct RoutineRecordDetailView: View {
         
         ScrollView {
             LazyVStack(spacing: 20) {
+                
                 HStack(spacing: 20) {
                     CalendarStyleRoundedCellView(title: "Start", contentTitle: viewModel.creationDateString, contentSubtitle: viewModel.creationTimeString)
                     CalendarStyleRoundedCellView(title: "Finish", contentTitle: viewModel.completionDateString, contentSubtitle: viewModel.completionTimeString)
                 }.padding(.top, 20)
+                
+                NonEditableNoteSectionView(note: viewModel.routineRecord.note)
                 
                 ExerciseWithSetInfoView(exerciseRecords: viewModel.routineRecord.exerciseRecords)
             }

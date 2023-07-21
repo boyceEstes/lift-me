@@ -41,6 +41,7 @@ extension ManagedRoutineRecord {
         
         let managedRoutineRecord = ManagedRoutineRecord(context: context)
         managedRoutineRecord.id = routineRecord.id
+        managedRoutineRecord.note = routineRecord.note
         managedRoutineRecord.creationDate = routineRecord.creationDate
         managedRoutineRecord.completionDate = routineRecord.completionDate
         managedRoutineRecord.routine = managedRoutine

@@ -10,45 +10,6 @@ import CoreData
 
 extension CoreDataRoutineStore {
     
-    // We pass in a creation date for when newly creating routine
-    // (assuming there are no incomplete found)
-//    public func getIncompleteRoutineRecord(
-//        creationDate: @escaping () -> Date = Date.init,
-//        completion: @escaping GetIncompleteRoutineRecordCompletion) {
-//
-//        print("get incomplete routine record or create a new one")
-//
-//        let context = context
-//        context.perform {
-//            do {
-////                let newIncompleteRoutineRecord = RoutineRecord(
-////                    id: UUID(),
-////                    creationDate: creationDate(),
-////                    completionDate: nil,
-////                    exerciseRecords: [])
-////
-////                ManagedRoutineRecord.create(newIncompleteRoutineRecord, in: context)
-//
-//                try context.save()
-//
-//                let managedRoutineRecord = ManagedRoutineRecord(context: context)
-//                managedRoutineRecord.id = UUID()
-//                managedRoutineRecord.creationDate = creationDate()
-//                managedRoutineRecord.completionDate = nil
-//                managedRoutineRecord.routine = nil
-//
-//                try context.save()
-//                // This isn't technically what is saved but it should be the same properties and saves an extra fetch
-//                completion(.success(managedRoutineRecord.toModel()))
-//
-//            } catch {
-//                completion(.failure(error))
-//            }
-//        }
-//    }
-    
-
-    
     public func createRoutineRecord(_ routineRecord: RoutineRecord, routine: Routine? = nil, completion: @escaping CreateRoutineRecordCompletion) {
         print("Create routine record")
         
