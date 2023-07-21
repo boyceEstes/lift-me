@@ -20,6 +20,7 @@ public class ManagedRoutineRecord: NSManagedObject {
     @NSManaged public var completionDate: Date?
     @NSManaged public var creationDate: Date
     @NSManaged public var id: UUID
+    @NSManaged public var note: String?
     @NSManaged public var routine: ManagedRoutine?
     @NSManaged public var exerciseRecords: Set<ManagedExerciseRecord>?
 }
@@ -113,6 +114,7 @@ extension Array where Element == ManagedRoutineRecord {
             
             return RoutineRecord(
                 id: managedRoutineRecord.id,
+                note: managedRoutineRecord.note,
                 creationDate: managedRoutineRecord.creationDate,
                 completionDate: managedRoutineRecord.completionDate,
                 exerciseRecords: managedRoutineRecord.exerciseRecords?.toModel() ?? [])
@@ -127,6 +129,7 @@ extension Set where Element == ManagedRoutineRecord {
         map {
             RoutineRecord(
                 id: $0.id,
+                note: $0.note,
                 creationDate: $0.creationDate,
                 completionDate: $0.completionDate,
                 exerciseRecords: $0.exerciseRecords?.toModel() ?? []

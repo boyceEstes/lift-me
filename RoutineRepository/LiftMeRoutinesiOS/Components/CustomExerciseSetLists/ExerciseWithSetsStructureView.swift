@@ -18,6 +18,7 @@ struct ExerciseWithSetsStructureView<TitleContent: View, SetContent: View>: View
             titleContent()
                 .padding(.vertical, 10)
                 .padding(.horizontal)
+                .frame(maxWidth: .infinity)
                 .background(Color(uiColor: .secondarySystemGroupedBackground))
             
             VStack(spacing: 0) {
@@ -25,11 +26,10 @@ struct ExerciseWithSetsStructureView<TitleContent: View, SetContent: View>: View
                 setContent()
                     .padding(.vertical, 10)
             }
-            .padding(.top, 6)
             .padding(.horizontal)
-            .padding(.bottom, 6)
         }
         .background(Color(uiColor: .tertiarySystemGroupedBackground))
+        .coordinateSpace(name: "Custom")
         .cornerRadius(10)
         .lightShadow()
     }
@@ -43,6 +43,5 @@ struct ExerciseWithSetsStructureView_Previews: PreviewProvider {
         } setContent: {
             Text("Some Set")
         }
-
     }
 }

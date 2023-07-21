@@ -12,11 +12,13 @@ import RoutineRepository
 public struct RoutineRecordViewModel: Hashable {
 
     public let creationDate: Date
+    public let note: String?
     public var exerciseRecordViewModels: [ExerciseRecordViewModel]
     
     public func mapToRoutineRecord(completionDate: Date) -> RoutineRecord {
         RoutineRecord(
             id: UUID(),
+            note: note,
             creationDate: creationDate,
             completionDate: completionDate,
             exerciseRecords: exerciseRecordViewModels.map {
@@ -77,9 +79,11 @@ public class WorkoutViewModel: ObservableObject {
     var dismiss: (() -> Void)?
 
     
-    @Published var routineRecordViewModel: RoutineRecordViewModel = RoutineRecordViewModel(creationDate: Date(), exerciseRecordViewModels: [])
+    @Published var routineRecordViewModel: RoutineRecordViewModel = RoutineRecordViewModel(creationDate: Date(), note: nil, exerciseRecordViewModels: [])
     @Published var displaySaveError = false
     @Published var displaySaveCreateRoutine = false
+    @Published var workoutNoteState = NoteButtonState.add
+    @Published var workoutNoteValue = ""
     
     var isSaveDisabled: Bool {
         routineRecordViewModel.exerciseRecordViewModels.isEmpty
@@ -267,6 +271,11 @@ public struct WorkoutView: View {
         ScrollView {
             
             LazyVStack(spacing: 20) {
+                
+                EditableNoteSectionView(buttonState: $viewModel.workoutNoteState, note: $viewModel.workoutNoteValue)
+                    .padding(.horizontal)
+                
+                
                 if viewModel.routineRecordViewModel.exerciseRecordViewModels.isEmpty {
                     Text("Try adding an exercise!")
                 } else {
@@ -275,6 +284,7 @@ public struct WorkoutView: View {
                     }
                     .padding(.horizontal)
                 }
+                
                 
                 Button {
                     print("Tapped button to go to Add Exercise from view-model(\(viewModel.uuid.uuidString))")

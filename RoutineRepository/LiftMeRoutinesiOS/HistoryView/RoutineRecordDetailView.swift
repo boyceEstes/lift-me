@@ -108,6 +108,7 @@ struct RoutineRecordDetailView_Previews: PreviewProvider {
                 RoutineRecordDetailViewModel(
                     routineRecord: RoutineRecord(
                         id: UUID(),
+                        note: "Super high energy. Ready to destroy the lift!",
                         creationDate: Date(),
                         completionDate: Date(),
                         exerciseRecords: [

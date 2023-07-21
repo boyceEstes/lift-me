@@ -56,6 +56,7 @@
 		B3BA41E42A672A7C00E6A241 /* StopwatchHHmmssView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA41E32A672A7C00E6A241 /* StopwatchHHmmssView.swift */; };
 		B3BA41E72A672BA800E6A241 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = B3BA41E62A672BA800E6A241 /* ViewInspector */; };
 		B3BA41E92A672BF900E6A241 /* StopwatchHHmmssViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA41E82A672BF900E6A241 /* StopwatchHHmmssViewTests.swift */; };
+		B3BA41EB2A68387000E6A241 /* EditableNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3BA41EA2A68387000E6A241 /* EditableNoteView.swift */; };
 		B3CB9E772A4D19B200DB0B41 /* RoutineDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3CB9E762A4D19B200DB0B41 /* RoutineDetailView.swift */; };
 		B3D29BE228F12746006CC77D /* RoutineRepository.docc in Sources */ = {isa = PBXBuildFile; fileRef = B3D29BE128F12746006CC77D /* RoutineRepository.docc */; };
 		B3D29BEE28F12746006CC77D /* RoutineRepository.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D29BE028F12746006CC77D /* RoutineRepository.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -171,6 +172,7 @@
 		B3B48EC72A1FFB7E007D1DE2 /* NamingPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamingPolicyTests.swift; sourceTree = "<group>"; };
 		B3BA41E32A672A7C00E6A241 /* StopwatchHHmmssView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchHHmmssView.swift; sourceTree = "<group>"; };
 		B3BA41E82A672BF900E6A241 /* StopwatchHHmmssViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwatchHHmmssViewTests.swift; sourceTree = "<group>"; };
+		B3BA41EA2A68387000E6A241 /* EditableNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableNoteView.swift; sourceTree = "<group>"; };
 		B3CB9E762A4D19B200DB0B41 /* RoutineDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDetailView.swift; sourceTree = "<group>"; };
 		B3D29BDD28F12746006CC77D /* RoutineRepository.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RoutineRepository.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D29BE028F12746006CC77D /* RoutineRepository.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoutineRepository.h; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				B3EE9CB12A3A64B30002D3DB /* BasicNavigationBarViewModifier.swift */,
 				B33F27812A433D08007191AE /* Constants.swift */,
 				B3BA41E32A672A7C00E6A241 /* StopwatchHHmmssView.swift */,
+				B3BA41EA2A68387000E6A241 /* EditableNoteView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */,
 				B3BA41E42A672A7C00E6A241 /* StopwatchHHmmssView.swift in Sources */,
 				B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */,
+				B3BA41EB2A68387000E6A241 /* EditableNoteView.swift in Sources */,
 				B3692CD72999C0B700D9BD05 /* ExercisesView.swift in Sources */,
 				B33909A22A48E70400C2562E /* ExerciseWithSetInfoView.swift in Sources */,
 				B32CAE0328FF4A2F00B154BD /* LiftMeRoutinesiOS.docc in Sources */,
