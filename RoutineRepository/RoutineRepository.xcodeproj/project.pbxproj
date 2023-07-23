@@ -17,6 +17,7 @@
 		B32CAE0928FF4A2F00B154BD /* LiftMeRoutinesiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B32CADFF28FF4A2F00B154BD /* LiftMeRoutinesiOS.framework */; };
 		B32CAE0F28FF4A2F00B154BD /* LiftMeRoutinesiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B32CAE0128FF4A2F00B154BD /* LiftMeRoutinesiOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3323D522A6A1FB4009A2885 /* NonEditableNoteSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3323D512A6A1FB4009A2885 /* NonEditableNoteSectionView.swift */; };
+		B3323D712A6D9D23009A2885 /* SwipeToDeleteViewModifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3323D702A6D9D23009A2885 /* SwipeToDeleteViewModifierTests.swift */; };
 		B33909942A48BF0200C2562E /* RoundedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33909932A48BF0200C2562E /* RoundedCell.swift */; };
 		B33909972A48BF4F00C2562E /* RoutineCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33909962A48BF4F00C2562E /* RoutineCellView.swift */; };
 		B33909992A48C0C200C2562E /* CalendarStyleRoundedCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33909982A48C0C200C2562E /* CalendarStyleRoundedCellView.swift */; };
@@ -138,6 +139,7 @@
 		B32CAE0228FF4A2F00B154BD /* LiftMeRoutinesiOS.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = LiftMeRoutinesiOS.docc; sourceTree = "<group>"; };
 		B32CAE0828FF4A2F00B154BD /* LiftMeRoutinesiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiftMeRoutinesiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3323D512A6A1FB4009A2885 /* NonEditableNoteSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonEditableNoteSectionView.swift; sourceTree = "<group>"; };
+		B3323D702A6D9D23009A2885 /* SwipeToDeleteViewModifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeToDeleteViewModifierTests.swift; sourceTree = "<group>"; };
 		B33909932A48BF0200C2562E /* RoundedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCell.swift; sourceTree = "<group>"; };
 		B33909962A48BF4F00C2562E /* RoutineCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineCellView.swift; sourceTree = "<group>"; };
 		B33909982A48C0C200C2562E /* CalendarStyleRoundedCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarStyleRoundedCellView.swift; sourceTree = "<group>"; };
@@ -298,9 +300,26 @@
 		B32CAE0C28FF4A2F00B154BD /* LiftMeRoutinesiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				B3BA41E82A672BF900E6A241 /* StopwatchHHmmssViewTests.swift */,
+				B3323D6D2A6D9C35009A2885 /* Components */,
 			);
 			path = LiftMeRoutinesiOSTests;
+			sourceTree = "<group>";
+		};
+		B3323D6D2A6D9C35009A2885 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B3323D6F2A6D9CD8009A2885 /* ViewModifiers */,
+				B3BA41E82A672BF900E6A241 /* StopwatchHHmmssViewTests.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		B3323D6F2A6D9CD8009A2885 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				B3323D702A6D9D23009A2885 /* SwipeToDeleteViewModifierTests.swift */,
+			);
+			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
 		B33909922A48BEF600C2562E /* ViewModifiers */ = {
@@ -781,6 +800,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3323D712A6D9D23009A2885 /* SwipeToDeleteViewModifierTests.swift in Sources */,
 				B3BA41E92A672BF900E6A241 /* StopwatchHHmmssViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
