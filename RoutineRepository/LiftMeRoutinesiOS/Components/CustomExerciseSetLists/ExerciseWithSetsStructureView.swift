@@ -24,9 +24,7 @@ struct ExerciseWithSetsStructureView<TitleContent: View, SetContent: View>: View
             VStack(spacing: 0) {
                 // foreach set record content, rows formatted however you like
                 setContent()
-                    .padding(.vertical, 10)
             }
-            .padding(.horizontal)
         }
         .background(Color(uiColor: .tertiarySystemGroupedBackground))
         .coordinateSpace(name: "Custom")

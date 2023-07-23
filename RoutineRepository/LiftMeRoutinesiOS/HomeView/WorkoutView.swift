@@ -42,6 +42,11 @@ public struct RoutineRecordViewModel: Hashable {
             }
         )
     }
+    
+    
+    mutating func deleteExerciseRecord(index: Int) {
+        exerciseRecordViewModels.remove(at: index)
+    }
 }
 
 
@@ -52,7 +57,14 @@ public struct ExerciseRecordViewModel: Hashable {
     
     
     mutating func addNewSetRecordViewModel() {
+        
         setRecordViewModels.append(SetRecordViewModel(weight: "", repCount: ""))
+    }
+    
+    
+    mutating func deleteRow(index: Int) {
+        
+        setRecordViewModels.remove(at: index)
     }
 }
 
@@ -279,7 +291,12 @@ public struct WorkoutView: View {
                     Text("Try adding an exercise!")
                 } else {
                     ForEach(0..<viewModel.routineRecordViewModel.exerciseRecordViewModels.count, id: \.self) { index in
-                        ExerciseRecordView(exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index])
+                        ExerciseRecordView(
+                            exerciseRecordViewModel: $viewModel.routineRecordViewModel.exerciseRecordViewModels[index],
+                            deleteExerciseAction: {
+                                viewModel.routineRecordViewModel.deleteExerciseRecord(index: index)
+                            }
+                        )
                     }
                     .padding(.horizontal)
                 }
@@ -351,7 +368,7 @@ public struct WorkoutView: View {
 public struct ExerciseRecordView: View {
 
     @Binding var exerciseRecordViewModel: ExerciseRecordViewModel
-    
+    let deleteExerciseAction: () -> Void
 
     public var body: some View {
         
@@ -364,10 +381,18 @@ public struct ExerciseRecordView: View {
                     $exerciseRecordViewModel.wrappedValue.addNewSetRecordViewModel()
                 }.buttonStyle(LowKeyButtonStyle())
             }
+            .swipeToDelete {
+                deleteExerciseAction()
+            }
         } setContent: {
             ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
                 
                 SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
+                    .padding(.horizontal)
+                    .padding(.vertical, 4)
+                    .swipeToDelete {
+                        exerciseRecordViewModel.deleteRow(index: index)
+                    }
             }
         }
     }
