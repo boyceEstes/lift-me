@@ -8,8 +8,14 @@
 import XCTest
 import ViewInspector
 import SwiftUI
-// This component should be internal only
+// This component should be internal only (Composed in this module's views)
 @testable import LiftMeRoutinesiOS
+
+/*
+ * Behavior:
+ * - Start the view with a formatted time '00:00:00' [check]
+ * - View will update when timer publisher emits to '00:00:01' [unchecked] (Create some testable timer class to test this)
+ */
 
 
 final class StopwatchHHmmssViewTests: XCTestCase {
