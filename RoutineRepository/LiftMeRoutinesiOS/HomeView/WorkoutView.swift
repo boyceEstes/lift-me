@@ -372,7 +372,7 @@ public struct ExerciseRecordView: View {
 
     public var body: some View {
         
-        ExerciseWithSetsStructureView {
+        ExerciseWithSetsStructureView(setSwipeToDelete: true) {
             HStack {
                 Text(exerciseRecordViewModel.exercise.name)
                     .font(.headline)
@@ -381,12 +381,10 @@ public struct ExerciseRecordView: View {
                     $exerciseRecordViewModel.wrappedValue.addNewSetRecordViewModel()
                 }.buttonStyle(LowKeyButtonStyle())
             }
-            .swipeToDelete {
-                deleteExerciseAction()
-            }
+        } deleteTitleAction: {
+            deleteExerciseAction()
         } setContent: {
             ForEach(0..<exerciseRecordViewModel.setRecordViewModels.count, id: \.self) { index in
-                
                 SetRecordView(setRecordViewModel: $exerciseRecordViewModel.setRecordViewModels[index], rowNumber: index + 1)
                     .padding(.horizontal)
                     .padding(.vertical, 4)
@@ -426,7 +424,6 @@ public struct SetRecordView: View {
                     .keyboardType(.numberPad)
                     .frame(maxWidth: 50)
                     .focused($focusedField, equals: .weightValue)
-                
                 Text("x")
                 TextField("10", text: $setRecordViewModel.repCount)
                     .multilineTextAlignment(.trailing)
