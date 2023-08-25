@@ -60,7 +60,7 @@ struct ExerciseWithSetsStructureView<TitleContent: View, SetContent: View>: View
         .background(Color(uiColor: .tertiarySystemGroupedBackground))
         .coordinateSpace(name: "Custom")
         .cornerRadius(10)
-        .lightShadow()
+        .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 10))
     }
 }
 
