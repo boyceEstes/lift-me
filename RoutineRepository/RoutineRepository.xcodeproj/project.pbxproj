@@ -32,6 +32,8 @@
 		B33A1EF42A9971BF0033BFB8 /* ExerciseDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1EF32A9971BF0033BFB8 /* ExerciseDropDelegate.swift */; };
 		B33A1EF62A9972020033BFB8 /* SetRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1EF52A9972020033BFB8 /* SetRecordView.swift */; };
 		B33A1EF82A99723D0033BFB8 /* ExerciseRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1EF72A99723D0033BFB8 /* ExerciseRecordView.swift */; };
+		B33A1EFF2AA24F840033BFB8 /* ORMCalculationPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1EFE2AA24F840033BFB8 /* ORMCalculationPolicyTests.swift */; };
+		B33A1F012AA255270033BFB8 /* ORMCalculationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F002AA255270033BFB8 /* ORMCalculationPolicy.swift */; };
 		B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA7296F80EB00C2FB1E /* HomeView.swift */; };
 		B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */; };
 		B33D0FB2297060A000C2FB1E /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */; };
@@ -162,6 +164,8 @@
 		B33A1EF32A9971BF0033BFB8 /* ExerciseDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDropDelegate.swift; sourceTree = "<group>"; };
 		B33A1EF52A9972020033BFB8 /* SetRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRecordView.swift; sourceTree = "<group>"; };
 		B33A1EF72A99723D0033BFB8 /* ExerciseRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordView.swift; sourceTree = "<group>"; };
+		B33A1EFE2AA24F840033BFB8 /* ORMCalculationPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORMCalculationPolicyTests.swift; sourceTree = "<group>"; };
+		B33A1F002AA255270033BFB8 /* ORMCalculationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORMCalculationPolicy.swift; sourceTree = "<group>"; };
 		B33D0FA7296F80EB00C2FB1E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
@@ -445,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B48EC22A1FF9B5007D1DE2 /* NamingPolicy.swift */,
+				B33A1F002AA255270033BFB8 /* ORMCalculationPolicy.swift */,
 			);
 			path = Policies;
 			sourceTree = "<group>";
@@ -466,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B48EC72A1FFB7E007D1DE2 /* NamingPolicyTests.swift */,
+				B33A1EFE2AA24F840033BFB8 /* ORMCalculationPolicyTests.swift */,
 			);
 			path = Policies;
 			sourceTree = "<group>";
@@ -893,6 +899,7 @@
 				B3D29C0A28F1EEED006CC77D /* SetRecord.swift in Sources */,
 				B3692CB5299950CA00D9BD05 /* ManagedSetRecord.swift in Sources */,
 				B3D29C0828F1EE92006CC77D /* ExerciseRecord.swift in Sources */,
+				B33A1F012AA255270033BFB8 /* ORMCalculationPolicy.swift in Sources */,
 				B3D29C6A28F71A3F006CC77D /* RoutineStore.xcdatamodeld in Sources */,
 				B3D29C0428F1EDFA006CC77D /* RoutineRecord.swift in Sources */,
 			);
@@ -908,6 +915,7 @@
 				B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,
 				B3D29C6D28F7B787006CC77D /* RoutineStore.xcdatamodeld in Sources */,
 				B3A74CD12970A7B200A376AC /* CoreDataRoutineStoreTests+Exercise.swift in Sources */,
+				B33A1EFF2AA24F840033BFB8 /* ORMCalculationPolicyTests.swift in Sources */,
 				B357C4D2299161ED00026E25 /* CoreDataRoutineStoreTests+RoutineRecords.swift in Sources */,
 				B3B48EC82A1FFB7E007D1DE2 /* NamingPolicyTests.swift in Sources */,
 			);
