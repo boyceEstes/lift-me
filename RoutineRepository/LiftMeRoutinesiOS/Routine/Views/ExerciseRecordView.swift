@@ -29,7 +29,10 @@ public struct ExerciseRecordView: View {
             deleteExerciseAction()
         } setContent: {
             ForEach($exerciseRecordViewModel.setRecordViewModels) { $setRecordViewModel in
-                SetRecordView(setRecordViewModel: $setRecordViewModel, rowNumber: exerciseRecordViewModel.setRecordViewModels.firstIndex(of: $setRecordViewModel.wrappedValue) ?? 0 + 1)
+                SetRecordView(
+                    setRecordViewModel: $setRecordViewModel,
+                    rowNumber: exerciseRecordViewModel.setRecordViewModels.firstIndex(of: $setRecordViewModel.wrappedValue) ?? 0 + 1
+                )
                     .padding(.horizontal)
                     .padding(.vertical, 4)
                     .swipeToDelete {

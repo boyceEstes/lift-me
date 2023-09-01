@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ExerciseWithSetsStructureView<TitleContent: View, SetContent: View>: View {
     
+    let cornerRadius = 10.0
+    
     let setSwipeToDelete: Bool
     let titleContent: () -> TitleContent
     let deleteTitleAction: (() -> Void)?
@@ -59,8 +61,9 @@ struct ExerciseWithSetsStructureView<TitleContent: View, SetContent: View>: View
         }
         .background(Color(uiColor: .tertiarySystemGroupedBackground))
         .coordinateSpace(name: "Custom")
-        .cornerRadius(10)
-        .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 10))
+        .cornerRadius(cornerRadius)
+        .contentShape(.dragPreview, RoundedRectangle(cornerRadius: cornerRadius))
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: cornerRadius))
     }
 }
 

@@ -152,7 +152,11 @@ public struct WorkoutView: View {
         
         Button {
             print("Tapped button to go to Add Exercise from view-model(\(viewModel.uuid.uuidString))")
-            viewModel.goToAddExercise(viewModel.addExercisesCompletion)
+            viewModel.goToAddExercise( { exercises in
+                withAnimation {
+                    viewModel.addExercisesCompletion(exercises: exercises)
+                }
+            })
         } label: {
             HStack {
                 Text("Add")
