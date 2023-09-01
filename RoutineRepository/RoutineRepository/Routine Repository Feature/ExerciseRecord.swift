@@ -25,4 +25,19 @@ public struct ExerciseRecord: Equatable, Hashable {
         self.setRecords = setRecords
         self.exercise = exercise
     }
+    
+    
+    public var bestORM: Double? {
+        
+        return setRecords.compactMap { $0.oneRepMax }.max()
+    }
+}
+
+
+public extension Array where Element == ExerciseRecord {
+    
+    var bestORM: Double? {
+        
+        return compactMap { $0.bestORM }.max()
+    }
 }

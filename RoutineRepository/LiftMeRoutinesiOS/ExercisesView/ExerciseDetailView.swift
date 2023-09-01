@@ -27,6 +27,14 @@ public class ExerciseDetailViewModel: ObservableObject {
     }
     
     
+    var bestORMString: String {
+        
+        guard let orm = exerciseRecords.bestORM else { return "TBD" }
+        
+        return String(format: "%.1f", orm)
+    }
+    
+    
     public init(
         routineStore: RoutineStore,
         exercise: Exercise
@@ -87,11 +95,10 @@ public struct ExerciseDetailView: View {
             LazyVStack(spacing: 20) {
 
                 // TODO: - 0.1.0: Create description for each exercise
-                
                 HStack(spacing: 20) {
                     CalendarStyleRoundedCellView(title: "Created", contentTitle: viewModel.exerciseCreationDateString, contentSubtitle: viewModel.exerciseCreationTimeString)
                     CalendarStyleRoundedCellView(title: "Records", contentTitle: "\(viewModel.exerciseRecords.count)")
-                    CalendarStyleRoundedCellView(title: "ORM", contentTitle: "TBD")
+                    CalendarStyleRoundedCellView(title: "ORM", contentTitle: viewModel.bestORMString)
                 }
                 
                 ExerciseWithSetInfoDateFocusedView(exerciseRecords: viewModel.exerciseRecords)

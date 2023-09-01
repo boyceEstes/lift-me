@@ -25,4 +25,9 @@ public struct SetRecord: Equatable, Hashable {
         self.weight = weight
         self.difficulty = difficulty
     }
+    
+    
+    var oneRepMax: Double? {
+        ORMCalculationPolicy.calculateORM(reps: repCount, weight: weight)
+    }
 }
