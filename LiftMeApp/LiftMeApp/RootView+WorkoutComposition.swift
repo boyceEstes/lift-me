@@ -15,9 +15,13 @@ extension RootView {
     @ViewBuilder
     func workoutViewWithStackSheetNavigation(routine: Routine?) -> some View {
         
-        NavigationStack {
-            workoutViewWithSheetNavigation(routine: routine)
-        }
+        workoutViewWithSheetNavigation(routine: routine)
+            .flowNavigationDestination(flowPath: $workoutNavigationFlowPath) { identifier in
+                switch identifier {
+                case let .exerciseDetails(exercise):
+                    makeExerciseDetailView(exercise: exercise)
+                }
+            }
     }
     
     
@@ -47,7 +51,8 @@ extension RootView {
             routineStore: routineStore,
             routine: routine,
             goToAddExercise: goToAddExerciseFromWorkout,
-            goToCreateRoutineView: goToCreateRoutineFromWorkout
+            goToCreateRoutineView: goToCreateRoutineFromWorkout,
+            goToExerciseDetails: goToExerciseDetailsFromWorkout
         )
     }
     
@@ -60,6 +65,11 @@ extension RootView {
     
     func goToCreateRoutineFromWorkout(with routineRecord: RoutineRecord) {
         workoutNavigationFlowDisplayedSheet = .createRoutine(routineRecord: routineRecord)
+    }
+    
+    
+    func goToExerciseDetailsFromWorkout(for exercise: Exercise) {
+        workoutNavigationFlowPath.append(.exerciseDetails(exercise))
     }
     
     

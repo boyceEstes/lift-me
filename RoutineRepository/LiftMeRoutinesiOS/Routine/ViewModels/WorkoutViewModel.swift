@@ -19,6 +19,7 @@ public class WorkoutViewModel: ObservableObject {
     let routine: Routine?
     let goToAddExercise: (@escaping ([Exercise]) -> Void) -> Void
     let goToCreateRoutineView: (RoutineRecord) -> Void
+    let goToExerciseDetails: (Exercise) -> Void
     // initialized from view
     var dismiss: (() -> Void)?
 
@@ -39,13 +40,15 @@ public class WorkoutViewModel: ObservableObject {
         routineStore: RoutineStore,
         routine: Routine? = nil,
         goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
-        goToCreateRoutineView: @escaping (RoutineRecord) -> Void
+        goToCreateRoutineView: @escaping (RoutineRecord) -> Void,
+        goToExerciseDetails: @escaping (Exercise) -> Void
     ) {
         
         self.routineStore = routineStore
         self.routine = routine
         self.goToAddExercise = goToAddExercise
         self.goToCreateRoutineView = goToCreateRoutineView
+        self.goToExerciseDetails = goToExerciseDetails
         
         populateRoutineRecordFromRoutineIfPossible()
     }

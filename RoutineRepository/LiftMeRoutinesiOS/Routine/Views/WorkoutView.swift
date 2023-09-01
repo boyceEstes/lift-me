@@ -25,7 +25,8 @@ public struct WorkoutView: View {
         routineStore: RoutineStore,
         routine: Routine? = nil,
         goToAddExercise: @escaping (@escaping ([Exercise]) -> Void) -> Void,
-        goToCreateRoutineView: @escaping (RoutineRecord) -> Void
+        goToCreateRoutineView: @escaping (RoutineRecord) -> Void,
+        goToExerciseDetails: @escaping (Exercise) -> Void
     ) {
         
         self._viewModel = StateObject(
@@ -33,7 +34,8 @@ public struct WorkoutView: View {
                 routineStore: routineStore,
                 routine: routine,
                 goToAddExercise: goToAddExercise,
-                goToCreateRoutineView: goToCreateRoutineView
+                goToCreateRoutineView: goToCreateRoutineView,
+                goToExerciseDetails: goToExerciseDetails
             )
         )
     }
@@ -128,7 +130,7 @@ public struct WorkoutView: View {
                     exerciseRecordViewModel: $exerciseRecordViewModel,
                     deleteExerciseAction: {
                         viewModel.deleteExerciseRecordPreliminary(for: $exerciseRecordViewModel.wrappedValue)
-                    }
+                    }, goToExerciseDetails: viewModel.goToExerciseDetails
                 )
                 .onDrag {
                     self.draggedExerciseRecordViewModel = exerciseRecordViewModel
@@ -179,7 +181,8 @@ struct WorkoutView_Previews: PreviewProvider {
             WorkoutView(
                 routineStore: RoutineStorePreview(),
                 goToAddExercise: { _ in },
-                goToCreateRoutineView: { _ in }
+                goToCreateRoutineView: { _ in },
+                goToExerciseDetails: { _ in }
             )
         }
         

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RoutineRepository
 
 
 public struct ExerciseRecordView: View {
@@ -13,6 +14,7 @@ public struct ExerciseRecordView: View {
     @Binding var exerciseRecordViewModel: ExerciseRecordViewModel
     // Do not update the original until this has finished - keyboard has been dismissed
     let deleteExerciseAction: () -> Void
+    let goToExerciseDetails: (Exercise) -> Void
 
     public var body: some View {
         
@@ -24,6 +26,10 @@ public struct ExerciseRecordView: View {
                 Button("Add Set") {
                     $exerciseRecordViewModel.wrappedValue.addNewSetRecordViewModel()
                 }.buttonStyle(LowKeyButtonStyle())
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                goToExerciseDetails(exerciseRecordViewModel.exercise)
             }
         } deleteTitleAction: {
             deleteExerciseAction()
@@ -49,6 +55,6 @@ struct ExerciseRecordView_Previews: PreviewProvider {
     @State static var exerciseRecordViewModel = ExerciseRecordViewModel.preview
     
     static var previews: some View {
-        ExerciseRecordView(exerciseRecordViewModel: $exerciseRecordViewModel, deleteExerciseAction: {})
+        ExerciseRecordView(exerciseRecordViewModel: $exerciseRecordViewModel, deleteExerciseAction: {}, goToExerciseDetails: { _ in })
     }
 }
