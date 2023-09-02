@@ -34,7 +34,8 @@ public struct RoutineRecordViewModel: Hashable {
                             duration: nil,
                             repCount: ($0.repCount.isEmpty ? -1 : Double($0.repCount)) ?? -1,
                             weight: ($0.weight.isEmpty ? 0 : Double($0.weight)) ?? 0,
-                            difficulty: nil
+                            difficulty: nil,
+                            completionDate: $0.completionDate ?? creationDate
                         )
                     },
                     exercise: $0.exercise

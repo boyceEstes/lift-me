@@ -205,7 +205,7 @@ final class WorkoutViewUIIntegrationTests: XCTestCase {
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (view: WorkoutView, routineStore: RoutineStoreSpy) {
 
         let routineStore = RoutineStoreSpy()
-        let sut = WorkoutView(routineStore: routineStore, goToAddExercise: { _ in }, goToCreateRoutineView: { _ in })
+        let sut = WorkoutView(routineStore: routineStore, goToAddExercise: { _ in }, goToCreateRoutineView: { _ in }, goToExerciseDetails: { _ in })
 //        trackForMemoryLeaks(routineUIComposer, file: file, line: line)
 //        trackForMemoryLeaks(routineNavigationFlow, file: file, line: line)
 

@@ -123,21 +123,24 @@ struct RoutineRecordDetailView_Previews: PreviewProvider {
                                         duration: nil,
                                         repCount: 12,
                                         weight: 100,
-                                        difficulty: nil
+                                        difficulty: nil,
+                                        completionDate: Date()
                                     ),
                                     SetRecord(
                                         id: UUID(),
                                         duration: nil,
                                         repCount: 8,
                                         weight: 185,
-                                        difficulty: nil
+                                        difficulty: nil,
+                                        completionDate: Date()
                                     ),
                                     SetRecord(
                                         id: UUID(),
                                         duration: nil,
                                         repCount: 6,
                                         weight: 225,
-                                        difficulty: nil
+                                        difficulty: nil,
+                                        completionDate: Date()
                                     )
                                 ],
                                 exercise: Exercise(
