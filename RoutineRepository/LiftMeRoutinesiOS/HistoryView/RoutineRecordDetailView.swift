@@ -9,28 +9,10 @@ import SwiftUI
 import RoutineRepository
 
 
-extension DateFormatter {
-    
-    static var shortDateFormatter = {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        return dateFormatter
-    }()
-    
-    
-    static var shortTimeFormatter = {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }()
-}
-
-
 public class RoutineRecordDetailViewModel: ObservableObject {
     
     let routineRecord: RoutineRecord
+    
     
     var creationDateString: String {
         return DateFormatter.shortDateFormatter.string(from: routineRecord.creationDate)
@@ -69,7 +51,6 @@ public class RoutineRecordDetailViewModel: ObservableObject {
     deinit {
         print("deinit routine record detail")
     }
-    
 }
 
 

@@ -36,6 +36,7 @@
 		B33A1F012AA255270033BFB8 /* ORMCalculationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F002AA255270033BFB8 /* ORMCalculationPolicy.swift */; };
 		B33A1F032AA3AB150033BFB8 /* ExerciseRecordCompletionDatePolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F022AA3AB150033BFB8 /* ExerciseRecordCompletionDatePolicyTests.swift */; };
 		B33A1F052AA3B0E60033BFB8 /* ExerciseRecordCompletionDatePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F042AA3B0E60033BFB8 /* ExerciseRecordCompletionDatePolicy.swift */; };
+		B33A1F072AA3E9750033BFB8 /* DateFormatter+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F062AA3E9750033BFB8 /* DateFormatter+Constants.swift */; };
 		B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA7296F80EB00C2FB1E /* HomeView.swift */; };
 		B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */; };
 		B33D0FB2297060A000C2FB1E /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */; };
@@ -170,6 +171,7 @@
 		B33A1F002AA255270033BFB8 /* ORMCalculationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORMCalculationPolicy.swift; sourceTree = "<group>"; };
 		B33A1F022AA3AB150033BFB8 /* ExerciseRecordCompletionDatePolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordCompletionDatePolicyTests.swift; sourceTree = "<group>"; };
 		B33A1F042AA3B0E60033BFB8 /* ExerciseRecordCompletionDatePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordCompletionDatePolicy.swift; sourceTree = "<group>"; };
+		B33A1F062AA3E9750033BFB8 /* DateFormatter+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Constants.swift"; sourceTree = "<group>"; };
 		B33D0FA7296F80EB00C2FB1E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				B34588B329061BF0006ED45C /* UIColor+LiftMeThemeColors.swift */,
 				B34588B529061C2B006ED45C /* Color+LiftMeThemeColors.swift */,
 				B3290870298196DC008350B1 /* RoutineStorePreview.swift */,
+				B33A1F062AA3E9750033BFB8 /* DateFormatter+Constants.swift */,
 			);
 			path = LiftMeRoutinesiOS;
 			sourceTree = "<group>";
@@ -866,6 +869,7 @@
 				B34588B629061C2B006ED45C /* Color+LiftMeThemeColors.swift in Sources */,
 				B33A1EF22A9971940033BFB8 /* SetRecordViewModel.swift in Sources */,
 				B33A1EF02A99716C0033BFB8 /* ExerciseRecordViewModel.swift in Sources */,
+				B33A1F072AA3E9750033BFB8 /* DateFormatter+Constants.swift in Sources */,
 				B33A1EF82A99723D0033BFB8 /* ExerciseRecordView.swift in Sources */,
 				B33909972A48BF4F00C2562E /* RoutineCellView.swift in Sources */,
 				B30E83C5291EB36B00A19724 /* CreateRoutineView.swift in Sources */,
