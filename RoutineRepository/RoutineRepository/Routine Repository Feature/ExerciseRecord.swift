@@ -25,11 +25,20 @@ public struct ExerciseRecord: Equatable, Hashable {
         self.setRecords = setRecords
         self.exercise = exercise
     }
+}
+
+
+public extension ExerciseRecord {
     
-    
-    public var bestORM: Double? {
+    var bestORM: Double? {
         
         return setRecords.compactMap { $0.oneRepMax }.max()
+    }
+    
+    
+    var completionDate: Date? {
+        
+        return ExerciseRecordCompletionDatePolicy.calculateCompletionDate(using: setRecords)
     }
 }
 

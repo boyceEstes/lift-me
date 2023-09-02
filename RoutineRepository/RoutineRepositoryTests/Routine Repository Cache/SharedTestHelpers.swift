@@ -69,7 +69,7 @@ func uniqueExerciseRecord(id: UUID? = nil, setRecords: [SetRecord]? = nil, exerc
 }
 
 
-func uniqueSetRecord() -> SetRecord {
+func uniqueSetRecord(completionDate: Date? = nil) -> SetRecord {
     
     return SetRecord(
         id: UUID(),
@@ -77,7 +77,7 @@ func uniqueSetRecord() -> SetRecord {
         repCount: 0,
         weight: 0,
         difficulty: nil,
-        completionDate: Date()
+        completionDate: completionDate ?? Date()
     )
 }
 
