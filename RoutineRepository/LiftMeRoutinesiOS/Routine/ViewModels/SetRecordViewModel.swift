@@ -15,6 +15,8 @@ public struct SetRecordViewModel: Hashable, Identifiable {
     
     public var weight: String
     public var repCount: String
+    
+//    public var completedDate: Date? // Can be optional here because it can change from "completed" to "incomplete" and viceversa
 }
 
 

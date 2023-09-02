@@ -76,7 +76,8 @@ func uniqueSetRecord() -> SetRecord {
         duration: nil,
         repCount: 0,
         weight: 0,
-        difficulty: nil
+        difficulty: nil,
+        completionDate: Date()
     )
 }
 

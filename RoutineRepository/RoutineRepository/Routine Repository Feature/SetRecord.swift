@@ -15,15 +15,24 @@ public struct SetRecord: Equatable, Hashable {
     public var repCount: Double
     public var weight: Double
     public var difficulty: Int?
+    public let completionDate: Date
     
     
-    public init(id: UUID, duration: Int?, repCount: Double, weight: Double, difficulty: Int?) {
+    public init(
+        id: UUID,
+        duration: Int?,
+        repCount: Double,
+        weight: Double,
+        difficulty: Int?,
+        completionDate: Date
+    ) {
         
         self.id = id
         self.duration = duration
         self.repCount = repCount
         self.weight = weight
         self.difficulty = difficulty
+        self.completionDate = completionDate
     }
     
     

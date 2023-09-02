@@ -22,6 +22,7 @@ public class ManagedSetRecord: NSManagedObject {
     
     @NSManaged public var weight: Double // optional in cd
     @NSManaged public var repCount: Double // optional in cd
+    @NSManaged public var completionDate: Date // non-optional in cd
     
     @NSManaged public var exerciseRecord: ManagedExerciseRecord // non-optional
 }
@@ -39,6 +40,7 @@ extension ManagedSetRecord {
         managedSetRecord.weight = setRecord.weight
         managedSetRecord.repCount = setRecord.repCount
         managedSetRecord.exerciseRecord = managedExerciseRecord
+        managedSetRecord.completionDate = setRecord.completionDate
     }
 }
 
@@ -52,8 +54,9 @@ extension Set where Element == ManagedSetRecord {
                 duration: nil,
                 repCount: $0.repCount,
                 weight: $0.weight,
-                difficulty: nil)
-            
+                difficulty: nil,
+                completionDate: $0.completionDate
+            )
         }
     }
 }
