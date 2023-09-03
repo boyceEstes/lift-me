@@ -27,7 +27,6 @@ public struct SetRecordView: View {
             Spacer()
             
             HStack {
-
                 TextField("100", text: $setRecordViewModel.weight)
                     .multilineTextAlignment(.trailing)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -41,6 +40,7 @@ public struct SetRecordView: View {
                     .keyboardType(.numberPad)
                     .frame(maxWidth: 50)
                     .focused($focusedField, equals: .repCountValue)
+                WowToggleView(isTurnedOn: $setRecordViewModel.isCompleted)
             }
         }
     }
