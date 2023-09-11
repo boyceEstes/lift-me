@@ -102,7 +102,8 @@ extension CoreDataRoutineStoreTests {
         // given
         let sut = makeSUT()
         let exercise = uniqueExercise()
-        let routineRecord = uniqueRoutineRecord(exercise: exercise)
+        let note = "any"
+        let routineRecord = uniqueRoutineRecord(note: note, exercise: exercise)
         
         // exercise record has a non-optional relationship for exercise to exist first
         create(exercise, into: sut)
@@ -119,7 +120,7 @@ extension CoreDataRoutineStoreTests {
         
         // given
         let sut = makeSUT()
-        let routineRecord = RoutineRecord(id: UUID(), creationDate: Date().adding(days: -1), completionDate: nil, exerciseRecords: [])
+        let routineRecord = uniqueRoutineRecord(creationDate: Date().adding(days: -1), exerciseRecords: [])
         
         let error = CoreDataRoutineStore.Error.cannotCreateRoutineRecordWithNoExerciseRecords
         
@@ -237,7 +238,7 @@ extension CoreDataRoutineStoreTests {
          let creationDate = Date()
          let completionDate = Date()
          
-         let routineRecordBefore = RoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil, exerciseRecords: [])
+         let routineRecordBefore = uniqueRoutineRecord(id: uuid, creationDate: creationDate, completionDate: nil)
 
          // when
          let error = updateRoutineRecord(routineRecordBefore.id, completionDate: completionDate, on: sut)

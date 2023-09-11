@@ -90,23 +90,14 @@ struct RoutineRecordCellViewModel {
     
     let routineRecord: RoutineRecord
     let goToRoutineRecordDetailView: (RoutineRecord) -> Void
-    
-    var dateFormatter = {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }()
-    
-    
+
     var completionDateString: String {
         
         guard let completionDate = routineRecord.completionDate else {
             return "No completion date"
         }
         
-        return dateFormatter.string(from: completionDate)
+        return DateFormatter.mediumDateShortTimeFormatter.string(from: completionDate)
     }
     
     

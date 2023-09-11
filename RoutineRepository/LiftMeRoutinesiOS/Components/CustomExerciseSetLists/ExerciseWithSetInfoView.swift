@@ -38,7 +38,7 @@ struct ExerciseWithSetInfoDateFocusedView: View {
         ForEach(exerciseRecords, id: \.self) { exerciseRecord in
             ExerciseWithSetsStructureView {
                 HStack {
-                    Text("Some Date exercise was done (TBD)")
+                    Text(exerciseRecordCompletionDateString(for: exerciseRecord))
                     Spacer()
                     Text("\(exerciseRecord.setRecords.count) sets")
                 }
@@ -47,6 +47,16 @@ struct ExerciseWithSetInfoDateFocusedView: View {
                 SetInfoViews(setRecords: exerciseRecord.setRecords)
             }
         }
+    }
+    
+    
+    func exerciseRecordCompletionDateString(for exerciseRecord: ExerciseRecord) -> String {
+        
+        guard let exerciseRecordCompletionDate = exerciseRecord.completionDate else {
+            return "Something went wrong 😔"
+        }
+        
+        return DateFormatter.mediumDateFormatter.string(from: exerciseRecordCompletionDate)
     }
 }
 
@@ -58,7 +68,7 @@ struct SetInfoViews: View {
     var body: some View {
         ForEach(0..<setRecords.count, id: \.self) { index in
             HStack {
-                Text("Set \(index+1)")
+                Text(setRecordCompletionDateString(for: setRecords[index]))
                 Spacer()
                 Text("\(String(setRecords[index].weight)) x \(String(setRecords[index].repCount))")
             }
@@ -67,6 +77,12 @@ struct SetInfoViews: View {
                 Divider()
             }
         }
+    }
+    
+    
+    func setRecordCompletionDateString(for setRecord: SetRecord) -> String {
+        
+        return DateFormatter.shortTimeFormatter.string(from: setRecord.completionDate)
     }
 }
 

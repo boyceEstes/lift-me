@@ -134,6 +134,7 @@ extension ManagedExercise {
     }
     
     
+    /// Find exercise records for an exercise - Used primarily for seeing Exercise details and History
     public static func findExerciseRecords(for exercise: Exercise, in context: NSManagedObjectContext) throws -> [ManagedExerciseRecord] {
         
         let request = ManagedExercise.fetchRequest

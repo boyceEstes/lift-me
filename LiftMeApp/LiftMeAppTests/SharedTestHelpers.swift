@@ -34,12 +34,19 @@ func uniqueRoutine(id: UUID? = nil, name: String? = nil, exercises: [Exercise]? 
 }
 
 
-func uniqueRoutineRecord(id: UUID? = nil, creationDate: Date? = nil, completionDate: Date? = nil, exerciseRecords: [ExerciseRecord]? = nil, exercise: Exercise? = nil) -> RoutineRecord {
+func uniqueRoutineRecord(
+    id: UUID? = nil,
+    note: String? = nil,
+    creationDate: Date? = nil,
+    completionDate: Date? = nil,
+    exerciseRecords: [ExerciseRecord]? = nil,
+    exercise: Exercise? = nil) -> RoutineRecord {
     
     let exerciseRecord = uniqueExerciseRecord(exercise: exercise ?? uniqueExercise())
     
     let routineRecord = RoutineRecord(
         id: id ?? UUID(),
+        note: note,
         creationDate: creationDate ?? Date(),
         completionDate: completionDate ?? nil,
         exerciseRecords: exerciseRecords ?? [exerciseRecord])
@@ -66,6 +73,7 @@ func uniqueSetRecord() -> SetRecord {
         duration: nil,
         repCount: 0,
         weight: 0,
-        difficulty: nil
+        difficulty: nil,
+        completionDate: Date()
     )
 }

@@ -26,3 +26,33 @@ public struct ExerciseRecord: Equatable, Hashable {
         self.exercise = exercise
     }
 }
+
+
+public extension ExerciseRecord {
+    
+    var bestORM: Double? {
+        
+        return setRecords.compactMap { $0.oneRepMax }.max()
+    }
+    
+    
+    var completionDate: Date? {
+        
+        return ExerciseRecordCompletionDatePolicy.calculateCompletionDate(using: setRecords)
+    }
+}
+
+
+public extension Array where Element == ExerciseRecord {
+    
+    var bestORM: Double? {
+        
+        return compactMap { $0.bestORM }.max()
+    }
+    
+    
+    /// Deliver the exerciseRecords sorted by the most recent exerciseRecord first, and ensure that setRecords are ordered correctly
+//    func sortedByDate() -> [ExerciseRecord] {
+//        
+//    }
+}

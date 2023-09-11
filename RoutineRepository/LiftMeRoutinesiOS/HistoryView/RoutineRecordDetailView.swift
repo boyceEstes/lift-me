@@ -9,28 +9,10 @@ import SwiftUI
 import RoutineRepository
 
 
-extension DateFormatter {
-    
-    static var shortDateFormatter = {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        return dateFormatter
-    }()
-    
-    
-    static var shortTimeFormatter = {
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }()
-}
-
-
 public class RoutineRecordDetailViewModel: ObservableObject {
     
     let routineRecord: RoutineRecord
+    
     
     var creationDateString: String {
         return DateFormatter.shortDateFormatter.string(from: routineRecord.creationDate)
@@ -69,7 +51,6 @@ public class RoutineRecordDetailViewModel: ObservableObject {
     deinit {
         print("deinit routine record detail")
     }
-    
 }
 
 
@@ -87,10 +68,13 @@ public struct RoutineRecordDetailView: View {
         
         ScrollView {
             LazyVStack(spacing: 20) {
+                
                 HStack(spacing: 20) {
                     CalendarStyleRoundedCellView(title: "Start", contentTitle: viewModel.creationDateString, contentSubtitle: viewModel.creationTimeString)
                     CalendarStyleRoundedCellView(title: "Finish", contentTitle: viewModel.completionDateString, contentSubtitle: viewModel.completionTimeString)
                 }.padding(.top, 20)
+                
+                NonEditableNoteSectionView(note: viewModel.routineRecord.note)
                 
                 ExerciseWithSetInfoView(exerciseRecords: viewModel.routineRecord.exerciseRecords)
             }
@@ -108,6 +92,7 @@ struct RoutineRecordDetailView_Previews: PreviewProvider {
                 RoutineRecordDetailViewModel(
                     routineRecord: RoutineRecord(
                         id: UUID(),
+                        note: "Super high energy. Ready to destroy the lift!",
                         creationDate: Date(),
                         completionDate: Date(),
                         exerciseRecords: [
@@ -119,21 +104,24 @@ struct RoutineRecordDetailView_Previews: PreviewProvider {
                                         duration: nil,
                                         repCount: 12,
                                         weight: 100,
-                                        difficulty: nil
+                                        difficulty: nil,
+                                        completionDate: Date()
                                     ),
                                     SetRecord(
                                         id: UUID(),
                                         duration: nil,
                                         repCount: 8,
                                         weight: 185,
-                                        difficulty: nil
+                                        difficulty: nil,
+                                        completionDate: Date()
                                     ),
                                     SetRecord(
                                         id: UUID(),
                                         duration: nil,
                                         repCount: 6,
                                         weight: 225,
-                                        difficulty: nil
+                                        difficulty: nil,
+                                        completionDate: Date()
                                     )
                                 ],
                                 exercise: Exercise(

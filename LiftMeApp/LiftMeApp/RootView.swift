@@ -21,6 +21,7 @@ struct RootView: View {
     // RoutineDetail
     @State var routineDetailNavigationFlowDisplayedSheet: RoutineDetailNavigationFlow.SheetyIdentifier?
     // Workout
+    @State var workoutNavigationFlowPath = [WorkoutNavigationFlow.StackIdentifier]()
     @State var workoutNavigationFlowDisplayedSheet: WorkoutNavigationFlow.SheetyIdentifier?
     // CreateRoutine
     @State var createRoutineNavigationFlowPath = [CreateRoutineNavigationFlow.StackIdentifier]()

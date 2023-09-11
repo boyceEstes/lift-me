@@ -6,15 +6,21 @@
 //
 
 import Foundation
-import NavigationFlow
 import SwiftUI
 import RoutineRepository
 
 
-class WorkoutNavigationFlow: NewSheetyNavigationFlow {
+class WorkoutNavigationFlow: NewSheetyNavigationFlow, NewStackNavigationFlow {
     
     // MARK: Properties
+    @Published var path = [StackIdentifier]()
     @Published var displayedSheet: SheetyIdentifier?
+    
+    enum StackIdentifier: Hashable {
+        
+        case exerciseDetails(Exercise)
+    }
+    
     
     // MARK: Sheety Destinations
     enum SheetyIdentifier: Identifiable, Hashable {
@@ -22,6 +28,7 @@ class WorkoutNavigationFlow: NewSheetyNavigationFlow {
         case addExercise(
             addExercisesCompletion: ([Exercise]) -> Void
         )
+        
         
         case createRoutine(
             routineRecord: RoutineRecord

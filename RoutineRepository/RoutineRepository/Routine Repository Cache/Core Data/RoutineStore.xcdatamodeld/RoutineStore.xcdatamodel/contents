@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ManagedExercise" representedClassName="ManagedExercise" syncable="YES">
         <attribute name="creationDate" attributeType="Date" defaultDateTimeInterval="695341620" usesScalarValueType="NO"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
@@ -25,10 +25,12 @@
         <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
         <relationship name="exerciseRecords" toMany="YES" deletionRule="Nullify" destinationEntity="ManagedExerciseRecord" inverseName="routineRecord" inverseEntity="ManagedExerciseRecord"/>
         <relationship name="routine" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedRoutine" inverseName="routineRecords" inverseEntity="ManagedRoutine"/>
     </entity>
     <entity name="ManagedSetRecord" representedClassName="ManagedSetRecord" syncable="YES">
+        <attribute name="completionDate" attributeType="Date" defaultDateTimeInterval="715367340" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="repCount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

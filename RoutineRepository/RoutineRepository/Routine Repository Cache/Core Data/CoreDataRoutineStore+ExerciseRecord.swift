@@ -15,7 +15,8 @@ extension CoreDataRoutineStore {
         context.perform {
             do {
                 let exerciseRecords = try ManagedExercise.findExerciseRecords(for: exercise, in: context)
-                completion(.success(exerciseRecords.toModel()))
+                let orderedExerciseRecords = ExerciseRecordDisplayOrderPolicy.sortByDate(exerciseRecords.toModel())
+                completion(.success(orderedExerciseRecords))
             } catch {
                 completion(.failure(error))
             }
