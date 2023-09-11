@@ -49,4 +49,10 @@ public extension Array where Element == ExerciseRecord {
         
         return compactMap { $0.bestORM }.max()
     }
+    
+    
+    /// Deliver the exerciseRecords sorted by the most recent exerciseRecord first, and ensure that setRecords are ordered correctly
+//    func sortedByDate() -> [ExerciseRecord] {
+//        
+//    }
 }

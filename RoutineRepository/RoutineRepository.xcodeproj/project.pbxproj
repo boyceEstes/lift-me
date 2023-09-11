@@ -38,6 +38,8 @@
 		B33A1F052AA3B0E60033BFB8 /* ExerciseRecordCompletionDatePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F042AA3B0E60033BFB8 /* ExerciseRecordCompletionDatePolicy.swift */; };
 		B33A1F072AA3E9750033BFB8 /* DateFormatter+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F062AA3E9750033BFB8 /* DateFormatter+Constants.swift */; };
 		B33A1F092AA3F2390033BFB8 /* WowToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F082AA3F2390033BFB8 /* WowToggleView.swift */; };
+		B33A1F0B2AA6741D0033BFB8 /* ExerciseRecordDisplayOrderPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F0A2AA6741D0033BFB8 /* ExerciseRecordDisplayOrderPolicyTests.swift */; };
+		B33A1F0D2AA683C40033BFB8 /* ExerciseRecordDisplayOrderPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33A1F0C2AA683C40033BFB8 /* ExerciseRecordDisplayOrderPolicy.swift */; };
 		B33D0FA8296F80EB00C2FB1E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FA7296F80EB00C2FB1E /* HomeView.swift */; };
 		B33D0FAC296FB72300C2FB1E /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */; };
 		B33D0FB2297060A000C2FB1E /* AddExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */; };
@@ -174,6 +176,8 @@
 		B33A1F042AA3B0E60033BFB8 /* ExerciseRecordCompletionDatePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordCompletionDatePolicy.swift; sourceTree = "<group>"; };
 		B33A1F062AA3E9750033BFB8 /* DateFormatter+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Constants.swift"; sourceTree = "<group>"; };
 		B33A1F082AA3F2390033BFB8 /* WowToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WowToggleView.swift; sourceTree = "<group>"; };
+		B33A1F0A2AA6741D0033BFB8 /* ExerciseRecordDisplayOrderPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordDisplayOrderPolicyTests.swift; sourceTree = "<group>"; };
+		B33A1F0C2AA683C40033BFB8 /* ExerciseRecordDisplayOrderPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseRecordDisplayOrderPolicy.swift; sourceTree = "<group>"; };
 		B33D0FA7296F80EB00C2FB1E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B33D0FAB296FB72300C2FB1E /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		B33D0FB1297060A000C2FB1E /* AddExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExerciseView.swift; sourceTree = "<group>"; };
@@ -460,6 +464,7 @@
 				B3B48EC22A1FF9B5007D1DE2 /* NamingPolicy.swift */,
 				B33A1F002AA255270033BFB8 /* ORMCalculationPolicy.swift */,
 				B33A1F042AA3B0E60033BFB8 /* ExerciseRecordCompletionDatePolicy.swift */,
+				B33A1F0C2AA683C40033BFB8 /* ExerciseRecordDisplayOrderPolicy.swift */,
 			);
 			path = Policies;
 			sourceTree = "<group>";
@@ -483,6 +488,7 @@
 				B3B48EC72A1FFB7E007D1DE2 /* NamingPolicyTests.swift */,
 				B33A1EFE2AA24F840033BFB8 /* ORMCalculationPolicyTests.swift */,
 				B33A1F022AA3AB150033BFB8 /* ExerciseRecordCompletionDatePolicyTests.swift */,
+				B33A1F0A2AA6741D0033BFB8 /* ExerciseRecordDisplayOrderPolicyTests.swift */,
 			);
 			path = Policies;
 			sourceTree = "<group>";
@@ -908,6 +914,7 @@
 				B352A08729F16F2900923B6C /* ExerciseDataSource.swift in Sources */,
 				B35D53912999F9C00043DC52 /* CoreDataRoutineStore+Routine.swift in Sources */,
 				B3D29C0C28F1EF4F006CC77D /* Tag.swift in Sources */,
+				B33A1F0D2AA683C40033BFB8 /* ExerciseRecordDisplayOrderPolicy.swift in Sources */,
 				B357C4D42991EF6000026E25 /* CoreDataRoutineStore+RoutineRecord.swift in Sources */,
 				B3A74CD829720D6A00A376AC /* ManagedExerciseRecord.swift in Sources */,
 				B3679FCB29949FAA00F7E9F7 /* Dummy+CoreDataProperties.swift in Sources */,
@@ -925,6 +932,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3D29C6328F517EA006CC77D /* SharedTestHelpers.swift in Sources */,
+				B33A1F0B2AA6741D0033BFB8 /* ExerciseRecordDisplayOrderPolicyTests.swift in Sources */,
 				B3D29C6728F66B73006CC77D /* CoreDataRoutineStoreTests+Routines.swift in Sources */,
 				B3692CE52999D95400D9BD05 /* CoreDataRoutineStoreTests+ExerciseRecord.swift in Sources */,
 				B3D29C3B28F5041B006CC77D /* XCTestCase+TrackForMemoryLeaks.swift in Sources */,

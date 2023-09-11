@@ -9,8 +9,9 @@ import XCTest
 import RoutineRepository
 
 
-
+// Calculate the date that an exercise record was "completed" based on set records
 final class ExerciseRecordCompletionDatePolicyTests: XCTestCase {
+    
     
     func test_exerciseRecordCompletionDatePolicy_calculateCompletionDateUsingEmptySetRecords_deliversNil() {
         

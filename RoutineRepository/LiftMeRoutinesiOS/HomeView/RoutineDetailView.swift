@@ -124,13 +124,6 @@ public struct RoutineDetailView: View {
         
         Form(content: {
             Text("\(viewModel.routine.name)")
-            HStack {
-                Text("UUID")
-                    .foregroundColor(.secondary)
-                    .font(.caption)
-                Spacer()
-                Text("\(viewModel.uuid)")
-            }
             
             Button("Start Routine") {
                 viewModel.goToWorkout(viewModel.routine)

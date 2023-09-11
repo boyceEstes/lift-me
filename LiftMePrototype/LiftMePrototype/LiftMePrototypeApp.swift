@@ -12,7 +12,8 @@ struct LiftMePrototypeApp: App {
     var body: some Scene {
         WindowGroup {
 //            SwiftUIView()
-            HomeView()
+//            HomeView()
+            MainView()
         }
     }
 }
